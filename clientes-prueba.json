@@ -1,0 +1,5602 @@
+[
+  {
+    "clientName": "Cliente1",
+    "clientLastName": "Apellido1",
+    "clientSex": "F",
+    "clientBirthdate": "1991-02-15T00:00:00.000Z",
+    "clientEmail": "cliente1@email.com",
+    "clientPhone": "+5401110000001",
+    "clientImage": "https://example.com/photos/cliente1.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (1)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 44,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente2",
+    "clientLastName": "Apellido2",
+    "clientSex": "M",
+    "clientBirthdate": "1992-03-15T00:00:00.000Z",
+    "clientEmail": "cliente2@email.com",
+    "clientPhone": "+5401110000002",
+    "clientImage": "https://example.com/photos/cliente2.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (2)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 20,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente3",
+    "clientLastName": "Apellido3",
+    "clientSex": "F",
+    "clientBirthdate": "1993-04-15T00:00:00.000Z",
+    "clientEmail": "cliente3@email.com",
+    "clientPhone": "+5401110000003",
+    "clientImage": "https://example.com/photos/cliente3.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (3)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 1,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente4",
+    "clientLastName": "Apellido4",
+    "clientSex": "M",
+    "clientBirthdate": "1994-05-15T00:00:00.000Z",
+    "clientEmail": "cliente4@email.com",
+    "clientPhone": "+5401110000004",
+    "clientImage": "https://example.com/photos/cliente4.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (4)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 8,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente5",
+    "clientLastName": "Apellido5",
+    "clientSex": "F",
+    "clientBirthdate": "1995-06-15T00:00:00.000Z",
+    "clientEmail": "cliente5@email.com",
+    "clientPhone": "+5401110000005",
+    "clientImage": "https://example.com/photos/cliente5.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (5)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 0,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente6",
+    "clientLastName": "Apellido6",
+    "clientSex": "M",
+    "clientBirthdate": "1996-07-15T00:00:00.000Z",
+    "clientEmail": "cliente6@email.com",
+    "clientPhone": "+5401110000006",
+    "clientImage": "https://example.com/photos/cliente6.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (6)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 32,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente7",
+    "clientLastName": "Apellido7",
+    "clientSex": "F",
+    "clientBirthdate": "1997-08-15T00:00:00.000Z",
+    "clientEmail": "cliente7@email.com",
+    "clientPhone": "+5401110000007",
+    "clientImage": "https://example.com/photos/cliente7.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (7)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 8,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente8",
+    "clientLastName": "Apellido8",
+    "clientSex": "M",
+    "clientBirthdate": "1998-09-15T00:00:00.000Z",
+    "clientEmail": "cliente8@email.com",
+    "clientPhone": "+5401110000008",
+    "clientImage": "https://example.com/photos/cliente8.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (8)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 28,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente9",
+    "clientLastName": "Apellido9",
+    "clientSex": "F",
+    "clientBirthdate": "1999-01-15T00:00:00.000Z",
+    "clientEmail": "cliente9@email.com",
+    "clientPhone": "+5401110000009",
+    "clientImage": "https://example.com/photos/cliente9.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (9)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 22,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente10",
+    "clientLastName": "Apellido10",
+    "clientSex": "M",
+    "clientBirthdate": "1990-02-15T00:00:00.000Z",
+    "clientEmail": "cliente10@email.com",
+    "clientPhone": "+5401110000010",
+    "clientImage": "https://example.com/photos/cliente10.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (10)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 31,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente11",
+    "clientLastName": "Apellido11",
+    "clientSex": "F",
+    "clientBirthdate": "1991-03-15T00:00:00.000Z",
+    "clientEmail": "cliente11@email.com",
+    "clientPhone": "+5401110000011",
+    "clientImage": "https://example.com/photos/cliente11.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (11)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 22,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente12",
+    "clientLastName": "Apellido12",
+    "clientSex": "M",
+    "clientBirthdate": "1992-04-15T00:00:00.000Z",
+    "clientEmail": "cliente12@email.com",
+    "clientPhone": "+5401110000012",
+    "clientImage": "https://example.com/photos/cliente12.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (12)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 11,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente13",
+    "clientLastName": "Apellido13",
+    "clientSex": "F",
+    "clientBirthdate": "1993-05-15T00:00:00.000Z",
+    "clientEmail": "cliente13@email.com",
+    "clientPhone": "+5401110000013",
+    "clientImage": "https://example.com/photos/cliente13.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (13)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 21,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente14",
+    "clientLastName": "Apellido14",
+    "clientSex": "M",
+    "clientBirthdate": "1994-06-15T00:00:00.000Z",
+    "clientEmail": "cliente14@email.com",
+    "clientPhone": "+5401110000014",
+    "clientImage": "https://example.com/photos/cliente14.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (14)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 35,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente15",
+    "clientLastName": "Apellido15",
+    "clientSex": "F",
+    "clientBirthdate": "1995-07-15T00:00:00.000Z",
+    "clientEmail": "cliente15@email.com",
+    "clientPhone": "+5401110000015",
+    "clientImage": "https://example.com/photos/cliente15.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (15)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 37,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente16",
+    "clientLastName": "Apellido16",
+    "clientSex": "M",
+    "clientBirthdate": "1996-08-15T00:00:00.000Z",
+    "clientEmail": "cliente16@email.com",
+    "clientPhone": "+5401110000016",
+    "clientImage": "https://example.com/photos/cliente16.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (16)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 10,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente17",
+    "clientLastName": "Apellido17",
+    "clientSex": "F",
+    "clientBirthdate": "1997-09-15T00:00:00.000Z",
+    "clientEmail": "cliente17@email.com",
+    "clientPhone": "+5401110000017",
+    "clientImage": "https://example.com/photos/cliente17.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (17)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 35,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente18",
+    "clientLastName": "Apellido18",
+    "clientSex": "M",
+    "clientBirthdate": "1998-01-15T00:00:00.000Z",
+    "clientEmail": "cliente18@email.com",
+    "clientPhone": "+5401110000018",
+    "clientImage": "https://example.com/photos/cliente18.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (18)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 48,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente19",
+    "clientLastName": "Apellido19",
+    "clientSex": "F",
+    "clientBirthdate": "1999-02-15T00:00:00.000Z",
+    "clientEmail": "cliente19@email.com",
+    "clientPhone": "+5401110000019",
+    "clientImage": "https://example.com/photos/cliente19.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (19)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 21,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente20",
+    "clientLastName": "Apellido20",
+    "clientSex": "M",
+    "clientBirthdate": "1990-03-15T00:00:00.000Z",
+    "clientEmail": "cliente20@email.com",
+    "clientPhone": "+5401110000020",
+    "clientImage": "https://example.com/photos/cliente20.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (20)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 13,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente21",
+    "clientLastName": "Apellido21",
+    "clientSex": "F",
+    "clientBirthdate": "1991-04-15T00:00:00.000Z",
+    "clientEmail": "cliente21@email.com",
+    "clientPhone": "+5401110000021",
+    "clientImage": "https://example.com/photos/cliente21.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (21)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 36,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente22",
+    "clientLastName": "Apellido22",
+    "clientSex": "M",
+    "clientBirthdate": "1992-05-15T00:00:00.000Z",
+    "clientEmail": "cliente22@email.com",
+    "clientPhone": "+5401110000022",
+    "clientImage": "https://example.com/photos/cliente22.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (22)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 41,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente23",
+    "clientLastName": "Apellido23",
+    "clientSex": "F",
+    "clientBirthdate": "1993-06-15T00:00:00.000Z",
+    "clientEmail": "cliente23@email.com",
+    "clientPhone": "+5401110000023",
+    "clientImage": "https://example.com/photos/cliente23.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (23)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 43,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente24",
+    "clientLastName": "Apellido24",
+    "clientSex": "M",
+    "clientBirthdate": "1994-07-15T00:00:00.000Z",
+    "clientEmail": "cliente24@email.com",
+    "clientPhone": "+5401110000024",
+    "clientImage": "https://example.com/photos/cliente24.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (24)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 21,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente25",
+    "clientLastName": "Apellido25",
+    "clientSex": "F",
+    "clientBirthdate": "1995-08-15T00:00:00.000Z",
+    "clientEmail": "cliente25@email.com",
+    "clientPhone": "+5401110000025",
+    "clientImage": "https://example.com/photos/cliente25.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (25)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 23,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente26",
+    "clientLastName": "Apellido26",
+    "clientSex": "M",
+    "clientBirthdate": "1996-09-15T00:00:00.000Z",
+    "clientEmail": "cliente26@email.com",
+    "clientPhone": "+5401110000026",
+    "clientImage": "https://example.com/photos/cliente26.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (26)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 20,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente27",
+    "clientLastName": "Apellido27",
+    "clientSex": "F",
+    "clientBirthdate": "1997-01-15T00:00:00.000Z",
+    "clientEmail": "cliente27@email.com",
+    "clientPhone": "+5401110000027",
+    "clientImage": "https://example.com/photos/cliente27.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (27)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 24,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente28",
+    "clientLastName": "Apellido28",
+    "clientSex": "M",
+    "clientBirthdate": "1998-02-15T00:00:00.000Z",
+    "clientEmail": "cliente28@email.com",
+    "clientPhone": "+5401110000028",
+    "clientImage": "https://example.com/photos/cliente28.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (28)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 10,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente29",
+    "clientLastName": "Apellido29",
+    "clientSex": "F",
+    "clientBirthdate": "1999-03-15T00:00:00.000Z",
+    "clientEmail": "cliente29@email.com",
+    "clientPhone": "+5401110000029",
+    "clientImage": "https://example.com/photos/cliente29.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (29)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 40,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente30",
+    "clientLastName": "Apellido30",
+    "clientSex": "M",
+    "clientBirthdate": "1990-04-15T00:00:00.000Z",
+    "clientEmail": "cliente30@email.com",
+    "clientPhone": "+5401110000030",
+    "clientImage": "https://example.com/photos/cliente30.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (30)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 16,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente31",
+    "clientLastName": "Apellido31",
+    "clientSex": "F",
+    "clientBirthdate": "1991-05-15T00:00:00.000Z",
+    "clientEmail": "cliente31@email.com",
+    "clientPhone": "+5401110000031",
+    "clientImage": "https://example.com/photos/cliente31.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (31)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 13,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente32",
+    "clientLastName": "Apellido32",
+    "clientSex": "M",
+    "clientBirthdate": "1992-06-15T00:00:00.000Z",
+    "clientEmail": "cliente32@email.com",
+    "clientPhone": "+5401110000032",
+    "clientImage": "https://example.com/photos/cliente32.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (32)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 11,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente33",
+    "clientLastName": "Apellido33",
+    "clientSex": "F",
+    "clientBirthdate": "1993-07-15T00:00:00.000Z",
+    "clientEmail": "cliente33@email.com",
+    "clientPhone": "+5401110000033",
+    "clientImage": "https://example.com/photos/cliente33.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (33)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 3,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente34",
+    "clientLastName": "Apellido34",
+    "clientSex": "M",
+    "clientBirthdate": "1994-08-15T00:00:00.000Z",
+    "clientEmail": "cliente34@email.com",
+    "clientPhone": "+5401110000034",
+    "clientImage": "https://example.com/photos/cliente34.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (34)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 36,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente35",
+    "clientLastName": "Apellido35",
+    "clientSex": "F",
+    "clientBirthdate": "1995-09-15T00:00:00.000Z",
+    "clientEmail": "cliente35@email.com",
+    "clientPhone": "+5401110000035",
+    "clientImage": "https://example.com/photos/cliente35.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (35)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 2,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente36",
+    "clientLastName": "Apellido36",
+    "clientSex": "M",
+    "clientBirthdate": "1996-01-15T00:00:00.000Z",
+    "clientEmail": "cliente36@email.com",
+    "clientPhone": "+5401110000036",
+    "clientImage": "https://example.com/photos/cliente36.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (36)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 39,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente37",
+    "clientLastName": "Apellido37",
+    "clientSex": "F",
+    "clientBirthdate": "1997-02-15T00:00:00.000Z",
+    "clientEmail": "cliente37@email.com",
+    "clientPhone": "+5401110000037",
+    "clientImage": "https://example.com/photos/cliente37.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (37)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 40,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente38",
+    "clientLastName": "Apellido38",
+    "clientSex": "M",
+    "clientBirthdate": "1998-03-15T00:00:00.000Z",
+    "clientEmail": "cliente38@email.com",
+    "clientPhone": "+5401110000038",
+    "clientImage": "https://example.com/photos/cliente38.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (38)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 31,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente39",
+    "clientLastName": "Apellido39",
+    "clientSex": "F",
+    "clientBirthdate": "1999-04-15T00:00:00.000Z",
+    "clientEmail": "cliente39@email.com",
+    "clientPhone": "+5401110000039",
+    "clientImage": "https://example.com/photos/cliente39.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (39)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 36,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente40",
+    "clientLastName": "Apellido40",
+    "clientSex": "M",
+    "clientBirthdate": "1990-05-15T00:00:00.000Z",
+    "clientEmail": "cliente40@email.com",
+    "clientPhone": "+5401110000040",
+    "clientImage": "https://example.com/photos/cliente40.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (40)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 2,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente41",
+    "clientLastName": "Apellido41",
+    "clientSex": "F",
+    "clientBirthdate": "1991-06-15T00:00:00.000Z",
+    "clientEmail": "cliente41@email.com",
+    "clientPhone": "+5401110000041",
+    "clientImage": "https://example.com/photos/cliente41.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (41)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 45,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente42",
+    "clientLastName": "Apellido42",
+    "clientSex": "M",
+    "clientBirthdate": "1992-07-15T00:00:00.000Z",
+    "clientEmail": "cliente42@email.com",
+    "clientPhone": "+5401110000042",
+    "clientImage": "https://example.com/photos/cliente42.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (42)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 13,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente43",
+    "clientLastName": "Apellido43",
+    "clientSex": "F",
+    "clientBirthdate": "1993-08-15T00:00:00.000Z",
+    "clientEmail": "cliente43@email.com",
+    "clientPhone": "+5401110000043",
+    "clientImage": "https://example.com/photos/cliente43.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (43)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 8,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente44",
+    "clientLastName": "Apellido44",
+    "clientSex": "M",
+    "clientBirthdate": "1994-09-15T00:00:00.000Z",
+    "clientEmail": "cliente44@email.com",
+    "clientPhone": "+5401110000044",
+    "clientImage": "https://example.com/photos/cliente44.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (44)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 22,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente45",
+    "clientLastName": "Apellido45",
+    "clientSex": "F",
+    "clientBirthdate": "1995-01-15T00:00:00.000Z",
+    "clientEmail": "cliente45@email.com",
+    "clientPhone": "+5401110000045",
+    "clientImage": "https://example.com/photos/cliente45.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (45)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 16,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente46",
+    "clientLastName": "Apellido46",
+    "clientSex": "M",
+    "clientBirthdate": "1996-02-15T00:00:00.000Z",
+    "clientEmail": "cliente46@email.com",
+    "clientPhone": "+5401110000046",
+    "clientImage": "https://example.com/photos/cliente46.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (46)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 43,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente47",
+    "clientLastName": "Apellido47",
+    "clientSex": "F",
+    "clientBirthdate": "1997-03-15T00:00:00.000Z",
+    "clientEmail": "cliente47@email.com",
+    "clientPhone": "+5401110000047",
+    "clientImage": "https://example.com/photos/cliente47.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (47)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 28,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente48",
+    "clientLastName": "Apellido48",
+    "clientSex": "M",
+    "clientBirthdate": "1998-04-15T00:00:00.000Z",
+    "clientEmail": "cliente48@email.com",
+    "clientPhone": "+5401110000048",
+    "clientImage": "https://example.com/photos/cliente48.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (48)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 38,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente49",
+    "clientLastName": "Apellido49",
+    "clientSex": "F",
+    "clientBirthdate": "1999-05-15T00:00:00.000Z",
+    "clientEmail": "cliente49@email.com",
+    "clientPhone": "+5401110000049",
+    "clientImage": "https://example.com/photos/cliente49.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (49)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 38,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente50",
+    "clientLastName": "Apellido50",
+    "clientSex": "M",
+    "clientBirthdate": "1990-06-15T00:00:00.000Z",
+    "clientEmail": "cliente50@email.com",
+    "clientPhone": "+5401110000050",
+    "clientImage": "https://example.com/photos/cliente50.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (50)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 7,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente51",
+    "clientLastName": "Apellido51",
+    "clientSex": "F",
+    "clientBirthdate": "1991-07-15T00:00:00.000Z",
+    "clientEmail": "cliente51@email.com",
+    "clientPhone": "+5401110000051",
+    "clientImage": "https://example.com/photos/cliente51.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (51)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 45,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente52",
+    "clientLastName": "Apellido52",
+    "clientSex": "M",
+    "clientBirthdate": "1992-08-15T00:00:00.000Z",
+    "clientEmail": "cliente52@email.com",
+    "clientPhone": "+5401110000052",
+    "clientImage": "https://example.com/photos/cliente52.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (52)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 22,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente53",
+    "clientLastName": "Apellido53",
+    "clientSex": "F",
+    "clientBirthdate": "1993-09-15T00:00:00.000Z",
+    "clientEmail": "cliente53@email.com",
+    "clientPhone": "+5401110000053",
+    "clientImage": "https://example.com/photos/cliente53.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (53)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 17,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente54",
+    "clientLastName": "Apellido54",
+    "clientSex": "M",
+    "clientBirthdate": "1994-01-15T00:00:00.000Z",
+    "clientEmail": "cliente54@email.com",
+    "clientPhone": "+5401110000054",
+    "clientImage": "https://example.com/photos/cliente54.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (54)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 45,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente55",
+    "clientLastName": "Apellido55",
+    "clientSex": "F",
+    "clientBirthdate": "1995-02-15T00:00:00.000Z",
+    "clientEmail": "cliente55@email.com",
+    "clientPhone": "+5401110000055",
+    "clientImage": "https://example.com/photos/cliente55.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (55)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 8,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente56",
+    "clientLastName": "Apellido56",
+    "clientSex": "M",
+    "clientBirthdate": "1996-03-15T00:00:00.000Z",
+    "clientEmail": "cliente56@email.com",
+    "clientPhone": "+5401110000056",
+    "clientImage": "https://example.com/photos/cliente56.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (56)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 30,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente57",
+    "clientLastName": "Apellido57",
+    "clientSex": "F",
+    "clientBirthdate": "1997-04-15T00:00:00.000Z",
+    "clientEmail": "cliente57@email.com",
+    "clientPhone": "+5401110000057",
+    "clientImage": "https://example.com/photos/cliente57.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (57)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 9,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente58",
+    "clientLastName": "Apellido58",
+    "clientSex": "M",
+    "clientBirthdate": "1998-05-15T00:00:00.000Z",
+    "clientEmail": "cliente58@email.com",
+    "clientPhone": "+5401110000058",
+    "clientImage": "https://example.com/photos/cliente58.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (58)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 16,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente59",
+    "clientLastName": "Apellido59",
+    "clientSex": "F",
+    "clientBirthdate": "1999-06-15T00:00:00.000Z",
+    "clientEmail": "cliente59@email.com",
+    "clientPhone": "+5401110000059",
+    "clientImage": "https://example.com/photos/cliente59.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (59)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 48,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente60",
+    "clientLastName": "Apellido60",
+    "clientSex": "M",
+    "clientBirthdate": "1990-07-15T00:00:00.000Z",
+    "clientEmail": "cliente60@email.com",
+    "clientPhone": "+5401110000060",
+    "clientImage": "https://example.com/photos/cliente60.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (60)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 27,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente61",
+    "clientLastName": "Apellido61",
+    "clientSex": "F",
+    "clientBirthdate": "1991-08-15T00:00:00.000Z",
+    "clientEmail": "cliente61@email.com",
+    "clientPhone": "+5401110000061",
+    "clientImage": "https://example.com/photos/cliente61.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (61)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 49,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente62",
+    "clientLastName": "Apellido62",
+    "clientSex": "M",
+    "clientBirthdate": "1992-09-15T00:00:00.000Z",
+    "clientEmail": "cliente62@email.com",
+    "clientPhone": "+5401110000062",
+    "clientImage": "https://example.com/photos/cliente62.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (62)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 34,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente63",
+    "clientLastName": "Apellido63",
+    "clientSex": "F",
+    "clientBirthdate": "1993-01-15T00:00:00.000Z",
+    "clientEmail": "cliente63@email.com",
+    "clientPhone": "+5401110000063",
+    "clientImage": "https://example.com/photos/cliente63.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (63)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 35,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente64",
+    "clientLastName": "Apellido64",
+    "clientSex": "M",
+    "clientBirthdate": "1994-02-15T00:00:00.000Z",
+    "clientEmail": "cliente64@email.com",
+    "clientPhone": "+5401110000064",
+    "clientImage": "https://example.com/photos/cliente64.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (64)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 0,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente65",
+    "clientLastName": "Apellido65",
+    "clientSex": "F",
+    "clientBirthdate": "1995-03-15T00:00:00.000Z",
+    "clientEmail": "cliente65@email.com",
+    "clientPhone": "+5401110000065",
+    "clientImage": "https://example.com/photos/cliente65.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (65)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 38,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente66",
+    "clientLastName": "Apellido66",
+    "clientSex": "M",
+    "clientBirthdate": "1996-04-15T00:00:00.000Z",
+    "clientEmail": "cliente66@email.com",
+    "clientPhone": "+5401110000066",
+    "clientImage": "https://example.com/photos/cliente66.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (66)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 4,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente67",
+    "clientLastName": "Apellido67",
+    "clientSex": "F",
+    "clientBirthdate": "1997-05-15T00:00:00.000Z",
+    "clientEmail": "cliente67@email.com",
+    "clientPhone": "+5401110000067",
+    "clientImage": "https://example.com/photos/cliente67.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (67)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 25,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente68",
+    "clientLastName": "Apellido68",
+    "clientSex": "M",
+    "clientBirthdate": "1998-06-15T00:00:00.000Z",
+    "clientEmail": "cliente68@email.com",
+    "clientPhone": "+5401110000068",
+    "clientImage": "https://example.com/photos/cliente68.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (68)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 41,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente69",
+    "clientLastName": "Apellido69",
+    "clientSex": "F",
+    "clientBirthdate": "1999-07-15T00:00:00.000Z",
+    "clientEmail": "cliente69@email.com",
+    "clientPhone": "+5401110000069",
+    "clientImage": "https://example.com/photos/cliente69.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (69)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 27,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente70",
+    "clientLastName": "Apellido70",
+    "clientSex": "M",
+    "clientBirthdate": "1990-08-15T00:00:00.000Z",
+    "clientEmail": "cliente70@email.com",
+    "clientPhone": "+5401110000070",
+    "clientImage": "https://example.com/photos/cliente70.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (70)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 37,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente71",
+    "clientLastName": "Apellido71",
+    "clientSex": "F",
+    "clientBirthdate": "1991-09-15T00:00:00.000Z",
+    "clientEmail": "cliente71@email.com",
+    "clientPhone": "+5401110000071",
+    "clientImage": "https://example.com/photos/cliente71.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (71)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 1,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente72",
+    "clientLastName": "Apellido72",
+    "clientSex": "M",
+    "clientBirthdate": "1992-01-15T00:00:00.000Z",
+    "clientEmail": "cliente72@email.com",
+    "clientPhone": "+5401110000072",
+    "clientImage": "https://example.com/photos/cliente72.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (72)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 22,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente73",
+    "clientLastName": "Apellido73",
+    "clientSex": "F",
+    "clientBirthdate": "1993-02-15T00:00:00.000Z",
+    "clientEmail": "cliente73@email.com",
+    "clientPhone": "+5401110000073",
+    "clientImage": "https://example.com/photos/cliente73.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (73)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 39,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente74",
+    "clientLastName": "Apellido74",
+    "clientSex": "M",
+    "clientBirthdate": "1994-03-15T00:00:00.000Z",
+    "clientEmail": "cliente74@email.com",
+    "clientPhone": "+5401110000074",
+    "clientImage": "https://example.com/photos/cliente74.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (74)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 2,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente75",
+    "clientLastName": "Apellido75",
+    "clientSex": "F",
+    "clientBirthdate": "1995-04-15T00:00:00.000Z",
+    "clientEmail": "cliente75@email.com",
+    "clientPhone": "+5401110000075",
+    "clientImage": "https://example.com/photos/cliente75.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (75)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 39,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente76",
+    "clientLastName": "Apellido76",
+    "clientSex": "M",
+    "clientBirthdate": "1996-05-15T00:00:00.000Z",
+    "clientEmail": "cliente76@email.com",
+    "clientPhone": "+5401110000076",
+    "clientImage": "https://example.com/photos/cliente76.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (76)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 17,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente77",
+    "clientLastName": "Apellido77",
+    "clientSex": "F",
+    "clientBirthdate": "1997-06-15T00:00:00.000Z",
+    "clientEmail": "cliente77@email.com",
+    "clientPhone": "+5401110000077",
+    "clientImage": "https://example.com/photos/cliente77.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (77)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 47,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente78",
+    "clientLastName": "Apellido78",
+    "clientSex": "M",
+    "clientBirthdate": "1998-07-15T00:00:00.000Z",
+    "clientEmail": "cliente78@email.com",
+    "clientPhone": "+5401110000078",
+    "clientImage": "https://example.com/photos/cliente78.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (78)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 15,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente79",
+    "clientLastName": "Apellido79",
+    "clientSex": "F",
+    "clientBirthdate": "1999-08-15T00:00:00.000Z",
+    "clientEmail": "cliente79@email.com",
+    "clientPhone": "+5401110000079",
+    "clientImage": "https://example.com/photos/cliente79.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (79)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 38,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente80",
+    "clientLastName": "Apellido80",
+    "clientSex": "M",
+    "clientBirthdate": "1990-09-15T00:00:00.000Z",
+    "clientEmail": "cliente80@email.com",
+    "clientPhone": "+5401110000080",
+    "clientImage": "https://example.com/photos/cliente80.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (80)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 26,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente81",
+    "clientLastName": "Apellido81",
+    "clientSex": "F",
+    "clientBirthdate": "1991-01-15T00:00:00.000Z",
+    "clientEmail": "cliente81@email.com",
+    "clientPhone": "+5401110000081",
+    "clientImage": "https://example.com/photos/cliente81.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (81)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 42,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente82",
+    "clientLastName": "Apellido82",
+    "clientSex": "M",
+    "clientBirthdate": "1992-02-15T00:00:00.000Z",
+    "clientEmail": "cliente82@email.com",
+    "clientPhone": "+5401110000082",
+    "clientImage": "https://example.com/photos/cliente82.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (82)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 46,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente83",
+    "clientLastName": "Apellido83",
+    "clientSex": "F",
+    "clientBirthdate": "1993-03-15T00:00:00.000Z",
+    "clientEmail": "cliente83@email.com",
+    "clientPhone": "+5401110000083",
+    "clientImage": "https://example.com/photos/cliente83.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (83)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 27,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente84",
+    "clientLastName": "Apellido84",
+    "clientSex": "M",
+    "clientBirthdate": "1994-04-15T00:00:00.000Z",
+    "clientEmail": "cliente84@email.com",
+    "clientPhone": "+5401110000084",
+    "clientImage": "https://example.com/photos/cliente84.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (84)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 19,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente85",
+    "clientLastName": "Apellido85",
+    "clientSex": "F",
+    "clientBirthdate": "1995-05-15T00:00:00.000Z",
+    "clientEmail": "cliente85@email.com",
+    "clientPhone": "+5401110000085",
+    "clientImage": "https://example.com/photos/cliente85.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (85)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 10,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente86",
+    "clientLastName": "Apellido86",
+    "clientSex": "M",
+    "clientBirthdate": "1996-06-15T00:00:00.000Z",
+    "clientEmail": "cliente86@email.com",
+    "clientPhone": "+5401110000086",
+    "clientImage": "https://example.com/photos/cliente86.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (86)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 37,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente87",
+    "clientLastName": "Apellido87",
+    "clientSex": "F",
+    "clientBirthdate": "1997-07-15T00:00:00.000Z",
+    "clientEmail": "cliente87@email.com",
+    "clientPhone": "+5401110000087",
+    "clientImage": "https://example.com/photos/cliente87.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (87)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 0,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente88",
+    "clientLastName": "Apellido88",
+    "clientSex": "M",
+    "clientBirthdate": "1998-08-15T00:00:00.000Z",
+    "clientEmail": "cliente88@email.com",
+    "clientPhone": "+5401110000088",
+    "clientImage": "https://example.com/photos/cliente88.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (88)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 32,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente89",
+    "clientLastName": "Apellido89",
+    "clientSex": "F",
+    "clientBirthdate": "1999-09-15T00:00:00.000Z",
+    "clientEmail": "cliente89@email.com",
+    "clientPhone": "+5401110000089",
+    "clientImage": "https://example.com/photos/cliente89.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (89)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 33,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente90",
+    "clientLastName": "Apellido90",
+    "clientSex": "M",
+    "clientBirthdate": "1990-01-15T00:00:00.000Z",
+    "clientEmail": "cliente90@email.com",
+    "clientPhone": "+5401110000090",
+    "clientImage": "https://example.com/photos/cliente90.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (90)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 1,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente91",
+    "clientLastName": "Apellido91",
+    "clientSex": "F",
+    "clientBirthdate": "1991-02-15T00:00:00.000Z",
+    "clientEmail": "cliente91@email.com",
+    "clientPhone": "+5401110000091",
+    "clientImage": "https://example.com/photos/cliente91.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (91)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 33,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente92",
+    "clientLastName": "Apellido92",
+    "clientSex": "M",
+    "clientBirthdate": "1992-03-15T00:00:00.000Z",
+    "clientEmail": "cliente92@email.com",
+    "clientPhone": "+5401110000092",
+    "clientImage": "https://example.com/photos/cliente92.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (92)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 36,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente93",
+    "clientLastName": "Apellido93",
+    "clientSex": "F",
+    "clientBirthdate": "1993-04-15T00:00:00.000Z",
+    "clientEmail": "cliente93@email.com",
+    "clientPhone": "+5401110000093",
+    "clientImage": "https://example.com/photos/cliente93.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (93)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 27,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente94",
+    "clientLastName": "Apellido94",
+    "clientSex": "M",
+    "clientBirthdate": "1994-05-15T00:00:00.000Z",
+    "clientEmail": "cliente94@email.com",
+    "clientPhone": "+5401110000094",
+    "clientImage": "https://example.com/photos/cliente94.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (94)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 9,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente95",
+    "clientLastName": "Apellido95",
+    "clientSex": "F",
+    "clientBirthdate": "1995-06-15T00:00:00.000Z",
+    "clientEmail": "cliente95@email.com",
+    "clientPhone": "+5401110000095",
+    "clientImage": "https://example.com/photos/cliente95.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (95)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 25,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente96",
+    "clientLastName": "Apellido96",
+    "clientSex": "M",
+    "clientBirthdate": "1996-07-15T00:00:00.000Z",
+    "clientEmail": "cliente96@email.com",
+    "clientPhone": "+5401110000096",
+    "clientImage": "https://example.com/photos/cliente96.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (96)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 47,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente97",
+    "clientLastName": "Apellido97",
+    "clientSex": "F",
+    "clientBirthdate": "1997-08-15T00:00:00.000Z",
+    "clientEmail": "cliente97@email.com",
+    "clientPhone": "+5401110000097",
+    "clientImage": "https://example.com/photos/cliente97.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (97)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 9,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente98",
+    "clientLastName": "Apellido98",
+    "clientSex": "M",
+    "clientBirthdate": "1998-09-15T00:00:00.000Z",
+    "clientEmail": "cliente98@email.com",
+    "clientPhone": "+5401110000098",
+    "clientImage": "https://example.com/photos/cliente98.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (98)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 42,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente99",
+    "clientLastName": "Apellido99",
+    "clientSex": "F",
+    "clientBirthdate": "1999-01-15T00:00:00.000Z",
+    "clientEmail": "cliente99@email.com",
+    "clientPhone": "+5401110000099",
+    "clientImage": "https://example.com/photos/cliente99.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (99)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 37,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente100",
+    "clientLastName": "Apellido100",
+    "clientSex": "M",
+    "clientBirthdate": "1990-02-15T00:00:00.000Z",
+    "clientEmail": "cliente100@email.com",
+    "clientPhone": "+5401110000100",
+    "clientImage": "https://example.com/photos/cliente100.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (100)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 0,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente101",
+    "clientLastName": "Apellido101",
+    "clientSex": "F",
+    "clientBirthdate": "1991-03-15T00:00:00.000Z",
+    "clientEmail": "cliente101@email.com",
+    "clientPhone": "+5401110000101",
+    "clientImage": "https://example.com/photos/cliente101.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (101)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 27,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente102",
+    "clientLastName": "Apellido102",
+    "clientSex": "M",
+    "clientBirthdate": "1992-04-15T00:00:00.000Z",
+    "clientEmail": "cliente102@email.com",
+    "clientPhone": "+5401110000102",
+    "clientImage": "https://example.com/photos/cliente102.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (102)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 37,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente103",
+    "clientLastName": "Apellido103",
+    "clientSex": "F",
+    "clientBirthdate": "1993-05-15T00:00:00.000Z",
+    "clientEmail": "cliente103@email.com",
+    "clientPhone": "+5401110000103",
+    "clientImage": "https://example.com/photos/cliente103.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (103)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 31,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente104",
+    "clientLastName": "Apellido104",
+    "clientSex": "M",
+    "clientBirthdate": "1994-06-15T00:00:00.000Z",
+    "clientEmail": "cliente104@email.com",
+    "clientPhone": "+5401110000104",
+    "clientImage": "https://example.com/photos/cliente104.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (104)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 4,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente105",
+    "clientLastName": "Apellido105",
+    "clientSex": "F",
+    "clientBirthdate": "1995-07-15T00:00:00.000Z",
+    "clientEmail": "cliente105@email.com",
+    "clientPhone": "+5401110000105",
+    "clientImage": "https://example.com/photos/cliente105.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (105)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 42,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente106",
+    "clientLastName": "Apellido106",
+    "clientSex": "M",
+    "clientBirthdate": "1996-08-15T00:00:00.000Z",
+    "clientEmail": "cliente106@email.com",
+    "clientPhone": "+5401110000106",
+    "clientImage": "https://example.com/photos/cliente106.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (106)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 17,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente107",
+    "clientLastName": "Apellido107",
+    "clientSex": "F",
+    "clientBirthdate": "1997-09-15T00:00:00.000Z",
+    "clientEmail": "cliente107@email.com",
+    "clientPhone": "+5401110000107",
+    "clientImage": "https://example.com/photos/cliente107.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (107)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 27,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente108",
+    "clientLastName": "Apellido108",
+    "clientSex": "M",
+    "clientBirthdate": "1998-01-15T00:00:00.000Z",
+    "clientEmail": "cliente108@email.com",
+    "clientPhone": "+5401110000108",
+    "clientImage": "https://example.com/photos/cliente108.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (108)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 41,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente109",
+    "clientLastName": "Apellido109",
+    "clientSex": "F",
+    "clientBirthdate": "1999-02-15T00:00:00.000Z",
+    "clientEmail": "cliente109@email.com",
+    "clientPhone": "+5401110000109",
+    "clientImage": "https://example.com/photos/cliente109.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (109)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 31,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente110",
+    "clientLastName": "Apellido110",
+    "clientSex": "M",
+    "clientBirthdate": "1990-03-15T00:00:00.000Z",
+    "clientEmail": "cliente110@email.com",
+    "clientPhone": "+5401110000110",
+    "clientImage": "https://example.com/photos/cliente110.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (110)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 21,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente111",
+    "clientLastName": "Apellido111",
+    "clientSex": "F",
+    "clientBirthdate": "1991-04-15T00:00:00.000Z",
+    "clientEmail": "cliente111@email.com",
+    "clientPhone": "+5401110000111",
+    "clientImage": "https://example.com/photos/cliente111.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (111)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 3,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente112",
+    "clientLastName": "Apellido112",
+    "clientSex": "M",
+    "clientBirthdate": "1992-05-15T00:00:00.000Z",
+    "clientEmail": "cliente112@email.com",
+    "clientPhone": "+5401110000112",
+    "clientImage": "https://example.com/photos/cliente112.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (112)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 8,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente113",
+    "clientLastName": "Apellido113",
+    "clientSex": "F",
+    "clientBirthdate": "1993-06-15T00:00:00.000Z",
+    "clientEmail": "cliente113@email.com",
+    "clientPhone": "+5401110000113",
+    "clientImage": "https://example.com/photos/cliente113.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (113)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 41,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente114",
+    "clientLastName": "Apellido114",
+    "clientSex": "M",
+    "clientBirthdate": "1994-07-15T00:00:00.000Z",
+    "clientEmail": "cliente114@email.com",
+    "clientPhone": "+5401110000114",
+    "clientImage": "https://example.com/photos/cliente114.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (114)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 46,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente115",
+    "clientLastName": "Apellido115",
+    "clientSex": "F",
+    "clientBirthdate": "1995-08-15T00:00:00.000Z",
+    "clientEmail": "cliente115@email.com",
+    "clientPhone": "+5401110000115",
+    "clientImage": "https://example.com/photos/cliente115.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (115)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 18,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente116",
+    "clientLastName": "Apellido116",
+    "clientSex": "M",
+    "clientBirthdate": "1996-09-15T00:00:00.000Z",
+    "clientEmail": "cliente116@email.com",
+    "clientPhone": "+5401110000116",
+    "clientImage": "https://example.com/photos/cliente116.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (116)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 36,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente117",
+    "clientLastName": "Apellido117",
+    "clientSex": "F",
+    "clientBirthdate": "1997-01-15T00:00:00.000Z",
+    "clientEmail": "cliente117@email.com",
+    "clientPhone": "+5401110000117",
+    "clientImage": "https://example.com/photos/cliente117.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (117)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 17,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente118",
+    "clientLastName": "Apellido118",
+    "clientSex": "M",
+    "clientBirthdate": "1998-02-15T00:00:00.000Z",
+    "clientEmail": "cliente118@email.com",
+    "clientPhone": "+5401110000118",
+    "clientImage": "https://example.com/photos/cliente118.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (118)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 21,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente119",
+    "clientLastName": "Apellido119",
+    "clientSex": "F",
+    "clientBirthdate": "1999-03-15T00:00:00.000Z",
+    "clientEmail": "cliente119@email.com",
+    "clientPhone": "+5401110000119",
+    "clientImage": "https://example.com/photos/cliente119.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (119)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 41,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente120",
+    "clientLastName": "Apellido120",
+    "clientSex": "M",
+    "clientBirthdate": "1990-04-15T00:00:00.000Z",
+    "clientEmail": "cliente120@email.com",
+    "clientPhone": "+5401110000120",
+    "clientImage": "https://example.com/photos/cliente120.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (120)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 40,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente121",
+    "clientLastName": "Apellido121",
+    "clientSex": "F",
+    "clientBirthdate": "1991-05-15T00:00:00.000Z",
+    "clientEmail": "cliente121@email.com",
+    "clientPhone": "+5401110000121",
+    "clientImage": "https://example.com/photos/cliente121.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (121)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 38,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente122",
+    "clientLastName": "Apellido122",
+    "clientSex": "M",
+    "clientBirthdate": "1992-06-15T00:00:00.000Z",
+    "clientEmail": "cliente122@email.com",
+    "clientPhone": "+5401110000122",
+    "clientImage": "https://example.com/photos/cliente122.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (122)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 13,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente123",
+    "clientLastName": "Apellido123",
+    "clientSex": "F",
+    "clientBirthdate": "1993-07-15T00:00:00.000Z",
+    "clientEmail": "cliente123@email.com",
+    "clientPhone": "+5401110000123",
+    "clientImage": "https://example.com/photos/cliente123.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (123)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 44,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente124",
+    "clientLastName": "Apellido124",
+    "clientSex": "M",
+    "clientBirthdate": "1994-08-15T00:00:00.000Z",
+    "clientEmail": "cliente124@email.com",
+    "clientPhone": "+5401110000124",
+    "clientImage": "https://example.com/photos/cliente124.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (124)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 43,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente125",
+    "clientLastName": "Apellido125",
+    "clientSex": "F",
+    "clientBirthdate": "1995-09-15T00:00:00.000Z",
+    "clientEmail": "cliente125@email.com",
+    "clientPhone": "+5401110000125",
+    "clientImage": "https://example.com/photos/cliente125.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (125)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 36,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente126",
+    "clientLastName": "Apellido126",
+    "clientSex": "M",
+    "clientBirthdate": "1996-01-15T00:00:00.000Z",
+    "clientEmail": "cliente126@email.com",
+    "clientPhone": "+5401110000126",
+    "clientImage": "https://example.com/photos/cliente126.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (126)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 11,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente127",
+    "clientLastName": "Apellido127",
+    "clientSex": "F",
+    "clientBirthdate": "1997-02-15T00:00:00.000Z",
+    "clientEmail": "cliente127@email.com",
+    "clientPhone": "+5401110000127",
+    "clientImage": "https://example.com/photos/cliente127.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (127)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 32,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente128",
+    "clientLastName": "Apellido128",
+    "clientSex": "M",
+    "clientBirthdate": "1998-03-15T00:00:00.000Z",
+    "clientEmail": "cliente128@email.com",
+    "clientPhone": "+5401110000128",
+    "clientImage": "https://example.com/photos/cliente128.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (128)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 0,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente129",
+    "clientLastName": "Apellido129",
+    "clientSex": "F",
+    "clientBirthdate": "1999-04-15T00:00:00.000Z",
+    "clientEmail": "cliente129@email.com",
+    "clientPhone": "+5401110000129",
+    "clientImage": "https://example.com/photos/cliente129.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (129)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 36,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente130",
+    "clientLastName": "Apellido130",
+    "clientSex": "M",
+    "clientBirthdate": "1990-05-15T00:00:00.000Z",
+    "clientEmail": "cliente130@email.com",
+    "clientPhone": "+5401110000130",
+    "clientImage": "https://example.com/photos/cliente130.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (130)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 18,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente131",
+    "clientLastName": "Apellido131",
+    "clientSex": "F",
+    "clientBirthdate": "1991-06-15T00:00:00.000Z",
+    "clientEmail": "cliente131@email.com",
+    "clientPhone": "+5401110000131",
+    "clientImage": "https://example.com/photos/cliente131.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (131)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 18,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente132",
+    "clientLastName": "Apellido132",
+    "clientSex": "M",
+    "clientBirthdate": "1992-07-15T00:00:00.000Z",
+    "clientEmail": "cliente132@email.com",
+    "clientPhone": "+5401110000132",
+    "clientImage": "https://example.com/photos/cliente132.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (132)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 21,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente133",
+    "clientLastName": "Apellido133",
+    "clientSex": "F",
+    "clientBirthdate": "1993-08-15T00:00:00.000Z",
+    "clientEmail": "cliente133@email.com",
+    "clientPhone": "+5401110000133",
+    "clientImage": "https://example.com/photos/cliente133.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (133)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 31,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente134",
+    "clientLastName": "Apellido134",
+    "clientSex": "M",
+    "clientBirthdate": "1994-09-15T00:00:00.000Z",
+    "clientEmail": "cliente134@email.com",
+    "clientPhone": "+5401110000134",
+    "clientImage": "https://example.com/photos/cliente134.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (134)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 23,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente135",
+    "clientLastName": "Apellido135",
+    "clientSex": "F",
+    "clientBirthdate": "1995-01-15T00:00:00.000Z",
+    "clientEmail": "cliente135@email.com",
+    "clientPhone": "+5401110000135",
+    "clientImage": "https://example.com/photos/cliente135.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (135)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 1,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente136",
+    "clientLastName": "Apellido136",
+    "clientSex": "M",
+    "clientBirthdate": "1996-02-15T00:00:00.000Z",
+    "clientEmail": "cliente136@email.com",
+    "clientPhone": "+5401110000136",
+    "clientImage": "https://example.com/photos/cliente136.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (136)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 25,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente137",
+    "clientLastName": "Apellido137",
+    "clientSex": "F",
+    "clientBirthdate": "1997-03-15T00:00:00.000Z",
+    "clientEmail": "cliente137@email.com",
+    "clientPhone": "+5401110000137",
+    "clientImage": "https://example.com/photos/cliente137.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (137)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 9,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente138",
+    "clientLastName": "Apellido138",
+    "clientSex": "M",
+    "clientBirthdate": "1998-04-15T00:00:00.000Z",
+    "clientEmail": "cliente138@email.com",
+    "clientPhone": "+5401110000138",
+    "clientImage": "https://example.com/photos/cliente138.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (138)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 42,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente139",
+    "clientLastName": "Apellido139",
+    "clientSex": "F",
+    "clientBirthdate": "1999-05-15T00:00:00.000Z",
+    "clientEmail": "cliente139@email.com",
+    "clientPhone": "+5401110000139",
+    "clientImage": "https://example.com/photos/cliente139.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (139)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 35,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente140",
+    "clientLastName": "Apellido140",
+    "clientSex": "M",
+    "clientBirthdate": "1990-06-15T00:00:00.000Z",
+    "clientEmail": "cliente140@email.com",
+    "clientPhone": "+5401110000140",
+    "clientImage": "https://example.com/photos/cliente140.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (140)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 34,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente141",
+    "clientLastName": "Apellido141",
+    "clientSex": "F",
+    "clientBirthdate": "1991-07-15T00:00:00.000Z",
+    "clientEmail": "cliente141@email.com",
+    "clientPhone": "+5401110000141",
+    "clientImage": "https://example.com/photos/cliente141.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (141)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 9,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente142",
+    "clientLastName": "Apellido142",
+    "clientSex": "M",
+    "clientBirthdate": "1992-08-15T00:00:00.000Z",
+    "clientEmail": "cliente142@email.com",
+    "clientPhone": "+5401110000142",
+    "clientImage": "https://example.com/photos/cliente142.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (142)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 12,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente143",
+    "clientLastName": "Apellido143",
+    "clientSex": "F",
+    "clientBirthdate": "1993-09-15T00:00:00.000Z",
+    "clientEmail": "cliente143@email.com",
+    "clientPhone": "+5401110000143",
+    "clientImage": "https://example.com/photos/cliente143.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (143)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 4,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente144",
+    "clientLastName": "Apellido144",
+    "clientSex": "M",
+    "clientBirthdate": "1994-01-15T00:00:00.000Z",
+    "clientEmail": "cliente144@email.com",
+    "clientPhone": "+5401110000144",
+    "clientImage": "https://example.com/photos/cliente144.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (144)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 42,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente145",
+    "clientLastName": "Apellido145",
+    "clientSex": "F",
+    "clientBirthdate": "1995-02-15T00:00:00.000Z",
+    "clientEmail": "cliente145@email.com",
+    "clientPhone": "+5401110000145",
+    "clientImage": "https://example.com/photos/cliente145.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (145)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 26,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente146",
+    "clientLastName": "Apellido146",
+    "clientSex": "M",
+    "clientBirthdate": "1996-03-15T00:00:00.000Z",
+    "clientEmail": "cliente146@email.com",
+    "clientPhone": "+5401110000146",
+    "clientImage": "https://example.com/photos/cliente146.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (146)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 4,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente147",
+    "clientLastName": "Apellido147",
+    "clientSex": "F",
+    "clientBirthdate": "1997-04-15T00:00:00.000Z",
+    "clientEmail": "cliente147@email.com",
+    "clientPhone": "+5401110000147",
+    "clientImage": "https://example.com/photos/cliente147.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (147)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 49,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente148",
+    "clientLastName": "Apellido148",
+    "clientSex": "M",
+    "clientBirthdate": "1998-05-15T00:00:00.000Z",
+    "clientEmail": "cliente148@email.com",
+    "clientPhone": "+5401110000148",
+    "clientImage": "https://example.com/photos/cliente148.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (148)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 12,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente149",
+    "clientLastName": "Apellido149",
+    "clientSex": "F",
+    "clientBirthdate": "1999-06-15T00:00:00.000Z",
+    "clientEmail": "cliente149@email.com",
+    "clientPhone": "+5401110000149",
+    "clientImage": "https://example.com/photos/cliente149.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (149)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 32,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente150",
+    "clientLastName": "Apellido150",
+    "clientSex": "M",
+    "clientBirthdate": "1990-07-15T00:00:00.000Z",
+    "clientEmail": "cliente150@email.com",
+    "clientPhone": "+5401110000150",
+    "clientImage": "https://example.com/photos/cliente150.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (150)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 26,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente151",
+    "clientLastName": "Apellido151",
+    "clientSex": "F",
+    "clientBirthdate": "1991-08-15T00:00:00.000Z",
+    "clientEmail": "cliente151@email.com",
+    "clientPhone": "+5401110000151",
+    "clientImage": "https://example.com/photos/cliente151.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (151)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 12,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente152",
+    "clientLastName": "Apellido152",
+    "clientSex": "M",
+    "clientBirthdate": "1992-09-15T00:00:00.000Z",
+    "clientEmail": "cliente152@email.com",
+    "clientPhone": "+5401110000152",
+    "clientImage": "https://example.com/photos/cliente152.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (152)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 45,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente153",
+    "clientLastName": "Apellido153",
+    "clientSex": "F",
+    "clientBirthdate": "1993-01-15T00:00:00.000Z",
+    "clientEmail": "cliente153@email.com",
+    "clientPhone": "+5401110000153",
+    "clientImage": "https://example.com/photos/cliente153.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (153)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 17,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente154",
+    "clientLastName": "Apellido154",
+    "clientSex": "M",
+    "clientBirthdate": "1994-02-15T00:00:00.000Z",
+    "clientEmail": "cliente154@email.com",
+    "clientPhone": "+5401110000154",
+    "clientImage": "https://example.com/photos/cliente154.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (154)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 18,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente155",
+    "clientLastName": "Apellido155",
+    "clientSex": "F",
+    "clientBirthdate": "1995-03-15T00:00:00.000Z",
+    "clientEmail": "cliente155@email.com",
+    "clientPhone": "+5401110000155",
+    "clientImage": "https://example.com/photos/cliente155.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (155)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 41,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente156",
+    "clientLastName": "Apellido156",
+    "clientSex": "M",
+    "clientBirthdate": "1996-04-15T00:00:00.000Z",
+    "clientEmail": "cliente156@email.com",
+    "clientPhone": "+5401110000156",
+    "clientImage": "https://example.com/photos/cliente156.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (156)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 39,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente157",
+    "clientLastName": "Apellido157",
+    "clientSex": "F",
+    "clientBirthdate": "1997-05-15T00:00:00.000Z",
+    "clientEmail": "cliente157@email.com",
+    "clientPhone": "+5401110000157",
+    "clientImage": "https://example.com/photos/cliente157.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (157)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 27,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente158",
+    "clientLastName": "Apellido158",
+    "clientSex": "M",
+    "clientBirthdate": "1998-06-15T00:00:00.000Z",
+    "clientEmail": "cliente158@email.com",
+    "clientPhone": "+5401110000158",
+    "clientImage": "https://example.com/photos/cliente158.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (158)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 6,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente159",
+    "clientLastName": "Apellido159",
+    "clientSex": "F",
+    "clientBirthdate": "1999-07-15T00:00:00.000Z",
+    "clientEmail": "cliente159@email.com",
+    "clientPhone": "+5401110000159",
+    "clientImage": "https://example.com/photos/cliente159.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (159)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 4,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente160",
+    "clientLastName": "Apellido160",
+    "clientSex": "M",
+    "clientBirthdate": "1990-08-15T00:00:00.000Z",
+    "clientEmail": "cliente160@email.com",
+    "clientPhone": "+5401110000160",
+    "clientImage": "https://example.com/photos/cliente160.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (160)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 31,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente161",
+    "clientLastName": "Apellido161",
+    "clientSex": "F",
+    "clientBirthdate": "1991-09-15T00:00:00.000Z",
+    "clientEmail": "cliente161@email.com",
+    "clientPhone": "+5401110000161",
+    "clientImage": "https://example.com/photos/cliente161.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (161)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 13,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente162",
+    "clientLastName": "Apellido162",
+    "clientSex": "M",
+    "clientBirthdate": "1992-01-15T00:00:00.000Z",
+    "clientEmail": "cliente162@email.com",
+    "clientPhone": "+5401110000162",
+    "clientImage": "https://example.com/photos/cliente162.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (162)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 8,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente163",
+    "clientLastName": "Apellido163",
+    "clientSex": "F",
+    "clientBirthdate": "1993-02-15T00:00:00.000Z",
+    "clientEmail": "cliente163@email.com",
+    "clientPhone": "+5401110000163",
+    "clientImage": "https://example.com/photos/cliente163.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (163)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 18,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente164",
+    "clientLastName": "Apellido164",
+    "clientSex": "M",
+    "clientBirthdate": "1994-03-15T00:00:00.000Z",
+    "clientEmail": "cliente164@email.com",
+    "clientPhone": "+5401110000164",
+    "clientImage": "https://example.com/photos/cliente164.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (164)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 13,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente165",
+    "clientLastName": "Apellido165",
+    "clientSex": "F",
+    "clientBirthdate": "1995-04-15T00:00:00.000Z",
+    "clientEmail": "cliente165@email.com",
+    "clientPhone": "+5401110000165",
+    "clientImage": "https://example.com/photos/cliente165.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (165)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 4,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente166",
+    "clientLastName": "Apellido166",
+    "clientSex": "M",
+    "clientBirthdate": "1996-05-15T00:00:00.000Z",
+    "clientEmail": "cliente166@email.com",
+    "clientPhone": "+5401110000166",
+    "clientImage": "https://example.com/photos/cliente166.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (166)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 42,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente167",
+    "clientLastName": "Apellido167",
+    "clientSex": "F",
+    "clientBirthdate": "1997-06-15T00:00:00.000Z",
+    "clientEmail": "cliente167@email.com",
+    "clientPhone": "+5401110000167",
+    "clientImage": "https://example.com/photos/cliente167.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (167)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 29,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente168",
+    "clientLastName": "Apellido168",
+    "clientSex": "M",
+    "clientBirthdate": "1998-07-15T00:00:00.000Z",
+    "clientEmail": "cliente168@email.com",
+    "clientPhone": "+5401110000168",
+    "clientImage": "https://example.com/photos/cliente168.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (168)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 23,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente169",
+    "clientLastName": "Apellido169",
+    "clientSex": "F",
+    "clientBirthdate": "1999-08-15T00:00:00.000Z",
+    "clientEmail": "cliente169@email.com",
+    "clientPhone": "+5401110000169",
+    "clientImage": "https://example.com/photos/cliente169.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (169)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 41,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente170",
+    "clientLastName": "Apellido170",
+    "clientSex": "M",
+    "clientBirthdate": "1990-09-15T00:00:00.000Z",
+    "clientEmail": "cliente170@email.com",
+    "clientPhone": "+5401110000170",
+    "clientImage": "https://example.com/photos/cliente170.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (170)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 27,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente171",
+    "clientLastName": "Apellido171",
+    "clientSex": "F",
+    "clientBirthdate": "1991-01-15T00:00:00.000Z",
+    "clientEmail": "cliente171@email.com",
+    "clientPhone": "+5401110000171",
+    "clientImage": "https://example.com/photos/cliente171.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (171)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 25,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente172",
+    "clientLastName": "Apellido172",
+    "clientSex": "M",
+    "clientBirthdate": "1992-02-15T00:00:00.000Z",
+    "clientEmail": "cliente172@email.com",
+    "clientPhone": "+5401110000172",
+    "clientImage": "https://example.com/photos/cliente172.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (172)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 16,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente173",
+    "clientLastName": "Apellido173",
+    "clientSex": "F",
+    "clientBirthdate": "1993-03-15T00:00:00.000Z",
+    "clientEmail": "cliente173@email.com",
+    "clientPhone": "+5401110000173",
+    "clientImage": "https://example.com/photos/cliente173.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (173)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 43,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente174",
+    "clientLastName": "Apellido174",
+    "clientSex": "M",
+    "clientBirthdate": "1994-04-15T00:00:00.000Z",
+    "clientEmail": "cliente174@email.com",
+    "clientPhone": "+5401110000174",
+    "clientImage": "https://example.com/photos/cliente174.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (174)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 23,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente175",
+    "clientLastName": "Apellido175",
+    "clientSex": "F",
+    "clientBirthdate": "1995-05-15T00:00:00.000Z",
+    "clientEmail": "cliente175@email.com",
+    "clientPhone": "+5401110000175",
+    "clientImage": "https://example.com/photos/cliente175.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (175)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 30,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente176",
+    "clientLastName": "Apellido176",
+    "clientSex": "M",
+    "clientBirthdate": "1996-06-15T00:00:00.000Z",
+    "clientEmail": "cliente176@email.com",
+    "clientPhone": "+5401110000176",
+    "clientImage": "https://example.com/photos/cliente176.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (176)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 7,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente177",
+    "clientLastName": "Apellido177",
+    "clientSex": "F",
+    "clientBirthdate": "1997-07-15T00:00:00.000Z",
+    "clientEmail": "cliente177@email.com",
+    "clientPhone": "+5401110000177",
+    "clientImage": "https://example.com/photos/cliente177.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (177)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 19,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente178",
+    "clientLastName": "Apellido178",
+    "clientSex": "M",
+    "clientBirthdate": "1998-08-15T00:00:00.000Z",
+    "clientEmail": "cliente178@email.com",
+    "clientPhone": "+5401110000178",
+    "clientImage": "https://example.com/photos/cliente178.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (178)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 30,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente179",
+    "clientLastName": "Apellido179",
+    "clientSex": "F",
+    "clientBirthdate": "1999-09-15T00:00:00.000Z",
+    "clientEmail": "cliente179@email.com",
+    "clientPhone": "+5401110000179",
+    "clientImage": "https://example.com/photos/cliente179.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (179)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 38,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente180",
+    "clientLastName": "Apellido180",
+    "clientSex": "M",
+    "clientBirthdate": "1990-01-15T00:00:00.000Z",
+    "clientEmail": "cliente180@email.com",
+    "clientPhone": "+5401110000180",
+    "clientImage": "https://example.com/photos/cliente180.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (180)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 40,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente181",
+    "clientLastName": "Apellido181",
+    "clientSex": "F",
+    "clientBirthdate": "1991-02-15T00:00:00.000Z",
+    "clientEmail": "cliente181@email.com",
+    "clientPhone": "+5401110000181",
+    "clientImage": "https://example.com/photos/cliente181.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (181)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 12,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente182",
+    "clientLastName": "Apellido182",
+    "clientSex": "M",
+    "clientBirthdate": "1992-03-15T00:00:00.000Z",
+    "clientEmail": "cliente182@email.com",
+    "clientPhone": "+5401110000182",
+    "clientImage": "https://example.com/photos/cliente182.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (182)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 1,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente183",
+    "clientLastName": "Apellido183",
+    "clientSex": "F",
+    "clientBirthdate": "1993-04-15T00:00:00.000Z",
+    "clientEmail": "cliente183@email.com",
+    "clientPhone": "+5401110000183",
+    "clientImage": "https://example.com/photos/cliente183.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (183)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 10,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente184",
+    "clientLastName": "Apellido184",
+    "clientSex": "M",
+    "clientBirthdate": "1994-05-15T00:00:00.000Z",
+    "clientEmail": "cliente184@email.com",
+    "clientPhone": "+5401110000184",
+    "clientImage": "https://example.com/photos/cliente184.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (184)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 28,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente185",
+    "clientLastName": "Apellido185",
+    "clientSex": "F",
+    "clientBirthdate": "1995-06-15T00:00:00.000Z",
+    "clientEmail": "cliente185@email.com",
+    "clientPhone": "+5401110000185",
+    "clientImage": "https://example.com/photos/cliente185.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (185)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 28,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente186",
+    "clientLastName": "Apellido186",
+    "clientSex": "M",
+    "clientBirthdate": "1996-07-15T00:00:00.000Z",
+    "clientEmail": "cliente186@email.com",
+    "clientPhone": "+5401110000186",
+    "clientImage": "https://example.com/photos/cliente186.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (186)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 22,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente187",
+    "clientLastName": "Apellido187",
+    "clientSex": "F",
+    "clientBirthdate": "1997-08-15T00:00:00.000Z",
+    "clientEmail": "cliente187@email.com",
+    "clientPhone": "+5401110000187",
+    "clientImage": "https://example.com/photos/cliente187.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (187)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 30,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente188",
+    "clientLastName": "Apellido188",
+    "clientSex": "M",
+    "clientBirthdate": "1998-09-15T00:00:00.000Z",
+    "clientEmail": "cliente188@email.com",
+    "clientPhone": "+5401110000188",
+    "clientImage": "https://example.com/photos/cliente188.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (188)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 45,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente189",
+    "clientLastName": "Apellido189",
+    "clientSex": "F",
+    "clientBirthdate": "1999-01-15T00:00:00.000Z",
+    "clientEmail": "cliente189@email.com",
+    "clientPhone": "+5401110000189",
+    "clientImage": "https://example.com/photos/cliente189.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (189)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 11,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente190",
+    "clientLastName": "Apellido190",
+    "clientSex": "M",
+    "clientBirthdate": "1990-02-15T00:00:00.000Z",
+    "clientEmail": "cliente190@email.com",
+    "clientPhone": "+5401110000190",
+    "clientImage": "https://example.com/photos/cliente190.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (190)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 20,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente191",
+    "clientLastName": "Apellido191",
+    "clientSex": "F",
+    "clientBirthdate": "1991-03-15T00:00:00.000Z",
+    "clientEmail": "cliente191@email.com",
+    "clientPhone": "+5401110000191",
+    "clientImage": "https://example.com/photos/cliente191.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (191)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 4,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente192",
+    "clientLastName": "Apellido192",
+    "clientSex": "M",
+    "clientBirthdate": "1992-04-15T00:00:00.000Z",
+    "clientEmail": "cliente192@email.com",
+    "clientPhone": "+5401110000192",
+    "clientImage": "https://example.com/photos/cliente192.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (192)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 34,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente193",
+    "clientLastName": "Apellido193",
+    "clientSex": "F",
+    "clientBirthdate": "1993-05-15T00:00:00.000Z",
+    "clientEmail": "cliente193@email.com",
+    "clientPhone": "+5401110000193",
+    "clientImage": "https://example.com/photos/cliente193.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (193)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 15,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente194",
+    "clientLastName": "Apellido194",
+    "clientSex": "M",
+    "clientBirthdate": "1994-06-15T00:00:00.000Z",
+    "clientEmail": "cliente194@email.com",
+    "clientPhone": "+5401110000194",
+    "clientImage": "https://example.com/photos/cliente194.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (194)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 22,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente195",
+    "clientLastName": "Apellido195",
+    "clientSex": "F",
+    "clientBirthdate": "1995-07-15T00:00:00.000Z",
+    "clientEmail": "cliente195@email.com",
+    "clientPhone": "+5401110000195",
+    "clientImage": "https://example.com/photos/cliente195.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (195)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 10,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente196",
+    "clientLastName": "Apellido196",
+    "clientSex": "M",
+    "clientBirthdate": "1996-08-15T00:00:00.000Z",
+    "clientEmail": "cliente196@email.com",
+    "clientPhone": "+5401110000196",
+    "clientImage": "https://example.com/photos/cliente196.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (196)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 31,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente197",
+    "clientLastName": "Apellido197",
+    "clientSex": "F",
+    "clientBirthdate": "1997-09-15T00:00:00.000Z",
+    "clientEmail": "cliente197@email.com",
+    "clientPhone": "+5401110000197",
+    "clientImage": "https://example.com/photos/cliente197.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (197)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 49,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente198",
+    "clientLastName": "Apellido198",
+    "clientSex": "M",
+    "clientBirthdate": "1998-01-15T00:00:00.000Z",
+    "clientEmail": "cliente198@email.com",
+    "clientPhone": "+5401110000198",
+    "clientImage": "https://example.com/photos/cliente198.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (198)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 38,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente199",
+    "clientLastName": "Apellido199",
+    "clientSex": "F",
+    "clientBirthdate": "1999-02-15T00:00:00.000Z",
+    "clientEmail": "cliente199@email.com",
+    "clientPhone": "+5401110000199",
+    "clientImage": "https://example.com/photos/cliente199.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (199)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 39,
+    "ClientPassword": "hashedPassword123"
+  },
+  {
+    "clientName": "Cliente200",
+    "clientLastName": "Apellido200",
+    "clientSex": "M",
+    "clientBirthdate": "1990-03-15T00:00:00.000Z",
+    "clientEmail": "cliente200@email.com",
+    "clientPhone": "+5401110000200",
+    "clientImage": "https://example.com/photos/cliente200.jpg",
+    "clientActive": true,
+    "clientBaseColor": "Castaño oscuro",
+    "clientHairType": "Ondulado",
+    "clientAllergies": "Ninguna conocida",
+    "clientDiseases": "Ninguna",
+    "clientMedications": "Ninguna",
+    "clientNotes": "Cliente generado para pruebas (200)",
+    "clientServices": [
+      {
+        "serviceDate": "2025-09-26T01:25:47.768Z",
+        "serviceName": "Corte de pelo y barba",
+        "serviceNotes": "Degradado medio, barba perfilada",
+        "servicePrice": 25,
+        "serviceDuration": 45,
+        "fromBarberId": "barber123"
+      }
+    ],
+    "clientWhiteHairs": 0,
+    "ClientPassword": "hashedPassword123"
+  }
+]
