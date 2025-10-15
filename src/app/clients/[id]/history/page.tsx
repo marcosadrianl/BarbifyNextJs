@@ -83,14 +83,14 @@ export default async function ClientHistory({
   const serviceArrayLeaned: IService[] =
     clientServicesArray?.clientServices?.map((service) => {
       return {
-        _id: service._id.toString(),
+        _id: service._id,
         serviceName: service.serviceName,
         servicePrice: service.servicePrice,
         serviceDate: service.serviceDate,
         serviceDuration: service.serviceDuration,
         serviceNotes: service.serviceNotes,
       };
-    });
+    }) ?? [];
 
   if (!clientServicesArray) {
     return notFound();

@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# otros
+letsGoooo.bat
+ESTADO DE AVANCE.txt
+newClientGenerator.js
+clientes-prueba.json
