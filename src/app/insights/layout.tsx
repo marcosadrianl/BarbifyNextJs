@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
-import localFont from "next/font/local";
+/* import localFont from "next/font/local"; */
 import "../globals.css";
 
 import NavBar from "@/components/navBar";
-import TaskBar from "@/components/taskBar";
+/* import TaskBar from "@/components/taskBar"; */
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -12,10 +12,10 @@ const poppins = Poppins({
   variable: "--font-poppins",
 });
 
-const Titles = localFont({
+/* const Titles = localFont({
   src: "../../../public/fonts/MongoDBValueSerif-Regular.woff2",
   variable: "--font-titles",
-});
+}); */
 
 export const metadata: Metadata = {
   title: "Insights",

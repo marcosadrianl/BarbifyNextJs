@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
-import localFont from "next/font/local";
+/* import localFont from "next/font/local"; */
 import "../globals.css";
 
 import NavBar from "@/components/navBar";

@@ -17,7 +17,7 @@ export default function DeleteClient({ id }: { id: string }) {
       },
     })
       .then((res) => res.json())
-      .then((data) => {
+      .then(() => {
         setShowConfirm(false);
       });
     //dirigir a /clients

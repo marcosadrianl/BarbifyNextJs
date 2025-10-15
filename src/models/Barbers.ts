@@ -7,7 +7,7 @@ export interface IBarber extends Document {
   barberEmail: string;
   barberPhone: string;
   barberActive: boolean;
-  barberRole: string;
+  barberRole: "Barber" | "Admin" | "Manager";
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -35,9 +35,8 @@ const BarbersSchema = new Schema<IBarber>(
       trim: true,
       lowercase: true,
       validate: {
-        validator: function (v: string) {
-          return /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(v);
-        },
+        validator: (v: string): boolean =>
+          /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(v),
         message: "Please enter a valid email",
       },
     },
@@ -63,8 +62,12 @@ const BarbersSchema = new Schema<IBarber>(
     timestamps: true,
     versionKey: false,
     toJSON: {
-      transform: function (doc, ret: Record<string, any>) {
-        ret.id = ret._id;
+      transform: function (
+        doc: IBarber,
+        ret: { [key: string]: unknown }
+      ): { [key: string]: unknown } {
+        // Renombrar _id -> id y limpiar props internas
+        ret.id = ret._id as string;
         delete ret._id;
         delete ret.__v;
         return ret;
@@ -74,4 +77,6 @@ const BarbersSchema = new Schema<IBarber>(
 );
 
 // 3. Export Model with Interface
-export default models.Barbers || model<IBarber>("Barbers", BarbersSchema);
+const Barbers = models.Barbers || model<IBarber>("Barbers", BarbersSchema);
+
+export default Barbers;

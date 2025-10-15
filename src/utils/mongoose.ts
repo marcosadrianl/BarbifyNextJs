@@ -1,5 +1,5 @@
-import { connect, connection } from "mongoose";
-import dotenv from "dotenv";
+import { connect /* connection */ } from "mongoose";
+/* import dotenv from "dotenv"; */
 const conn = {
   isConnected: 0, // Track the connection status
 };

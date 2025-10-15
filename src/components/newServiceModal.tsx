@@ -29,7 +29,7 @@ export default function NewServiceModal({ client }: { client: IClient }) {
   }, [isOpen]);
 
   const handleSave = async () => {
-    const numericPrice = servicePrice === "" ? 0 : Number(servicePrice);
+    //const numericPrice = servicePrice === "" ? 0 : Number(servicePrice);
     // Convertir a UTC
     const localDate = new Date(serviceDate);
     const utcDate = new Date(

@@ -1,12 +1,12 @@
 import localFont from "next/font/local";
-import { Poppins } from "next/font/google";
+/* import { Poppins } from "next/font/google"; */
 import Link from "next/link";
 
-const poppins = Poppins({
+/* const poppins = Poppins({
   subsets: ["latin"],
   weight: ["400", "700"],
   variable: "--font-poppins",
-});
+}); */
 
 const Titles = localFont({
   src: "../../public/fonts/Fontspring-DEMO-theseasons-reg.otf",

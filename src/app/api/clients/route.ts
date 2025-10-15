@@ -57,7 +57,7 @@ export async function GET(request: Request) {
     });
   } catch (error) {
     return NextResponse.json(
-      { error: "Error fetching clients" },
+      { error: "Error fetching clients" + error },
       { status: 500 }
     );
   }

@@ -4,7 +4,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const ClientSchema = z.object({
   clientName: z.string().min(1, "Nombre requerido"),
@@ -98,19 +98,28 @@ export default function CreateClientForm() {
     }
   };
 
-  function OnErrorModal({ errors, serverError }: any) {
-    const [isOpen, setIsOpen] = React.useState(true);
+  interface OnErrorModalProps {
+    errors?: {
+      clientName?: { message?: string };
+      clientLastName?: { message?: string };
+    };
+    serverError?: {
+      error: string;
+      field?: string;
+      status?: number;
+      errors?: string[];
+    };
+  }
 
-    if (!isOpen) return null;
+  function OnErrorModal({ errors, serverError }: OnErrorModalProps) {
+    //const [isOpen, setIsOpen] = React.useState(true);
+
+    //if (!isOpen) return null;
 
     return (
-      <div
-        className={`${
-          isOpen ? "bg-red-0" : "bg-red-100"
-        }  text-red-800 rounded-md mb-3`}
-      >
-        {errors.clientName?.message && <p>{errors.clientName.message}</p>}
-        {errors.clientLastName?.message && (
+      <div className="bg-red-100 text-red-800 rounded-md mb-3 p-4">
+        {errors?.clientName?.message && <p>{errors.clientName.message}</p>}
+        {errors?.clientLastName?.message && (
           <p>{errors.clientLastName.message}</p>
         )}
 
@@ -122,43 +131,6 @@ export default function CreateClientForm() {
       </div>
     );
   }
-
-  /*   //modal de imagenes para elegir
-  const imageOptions = [
-    { src: "/default-client.png", label: "Default" },
-    { src: "/avat1.png", label: "Avatar 1" },
-    { src: "/avat2.png", label: "Avatar 2" },
-    { src: "/avat3.png", label: "Avatar 3" },
-    { src: "/avat4.png", label: "Avatar 4" },
-    { src: "/avat5.png", label: "Avatar 5" },
-    { src: "/avat6.png", label: "Avatar 6" },
-  ];
-
-  function ImageSelector({
-    value,
-    onChange,
-  }: {
-    value: string;
-    onChange: (v: string) => void;
-  }) {
-    return (
-      <div className="flex gap-2 flex-wrap mb-4">
-        {imageOptions.map((img) => (
-          <button
-            type="button"
-            key={img.src}
-            className={`border rounded p-1 ${
-              value === img.src ? "border-amber-500" : "border-gray-50"
-            }`}
-            onClick={() => onChange(img.src)}
-          >
-            <Image src={img.src} alt={img.label} width={50} height={50} />
-            <div className="text-xs">{img.label}</div>
-          </button>
-        ))}
-      </div>
-    );
-  } */
 
   const imageOptions = [
     { src: "/default-client.png", label: "Default" },
@@ -317,7 +289,10 @@ export default function CreateClientForm() {
             Crear Cliente
           </button>
           {(errors || serverError) && (
-            <OnErrorModal errors={errors} serverError={serverError} />
+            <OnErrorModal
+              errors={errors}
+              serverError={serverError as ServerError}
+            />
           )}
         </div>
       </div>

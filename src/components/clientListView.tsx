@@ -36,7 +36,7 @@ export default function ClientListView({ clients }: { clients: IClient[] }) {
         </thead>
         <tbody className=" bg-[#ffd49d]">
           {clients.map((client) => (
-            <tr key={client._id.toString()} className="hover:bg-[#f3c78d]">
+            <tr key={client._id!.toString()} className="hover:bg-[#f3c78d]">
               <td className="flex flex-row px-4 py-2 gap-2 items-center text-nowrap">
                 <Image
                   src={client.clientImage || "/default-client.png"}
