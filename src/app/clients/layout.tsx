@@ -12,10 +12,10 @@ const poppins = Poppins({
   variable: "--font-poppins",
 });
 
-const Titles = localFont({
+/* const Titles = localFont({
   src: "../../../public/fonts/MongoDBValueSerif-Regular.woff2",
   variable: "--font-titles",
-});
+}); */
 
 export const metadata: Metadata = {
   title: "Clientes",

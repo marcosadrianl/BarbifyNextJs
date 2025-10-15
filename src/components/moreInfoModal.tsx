@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import Bullet from "@/components/bullet";
+import { IClient } from "@/models/Clients";
 
-export default function MoreInfoModal({ client }: { client: any }) {
+export default function MoreInfoModal({ client }: { client: IClient }) {
   /*PErmite abrir y cerrar el modal usando ESC*/
   const [isOpen, setIsOpen] = React.useState(false);
 
@@ -86,7 +87,7 @@ export default function MoreInfoModal({ client }: { client: any }) {
             <p>
               • Fecha de Nacimiento:{" "}
               {client.clientBirthdate
-                ? validateDate(client.clientBirthdate)
+                ? validateDate(client.clientBirthdate.toLocaleString())
                 : "Sin Detalle"}
             </p>
             <p>• Sexo: {defineClientSex()}</p>

@@ -3,7 +3,8 @@ import React from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
-import { useForm, useFieldArray } from "react-hook-form";
+import { useForm } from "react-hook-form";
+import { useParams, useRouter } from "next/navigation";
 
 const ClientSchema = z.object({
   clientName: z.string().min(1, "Nombre requerido"),
@@ -25,6 +26,12 @@ const ClientSchema = z.object({
 });
 
 type ClientFormData = z.infer<typeof ClientSchema>;
+
+interface ServerError {
+  error: string;
+  field?: string;
+  status?: number;
+}
 
 export default function CreateClientForm() {
   const {
@@ -49,10 +56,13 @@ export default function CreateClientForm() {
     criteriaMode: "firstError",
   });
 
-  const [serverError, setServerError] = React.useState<any>(null);
+  const [serverError, setServerError] = React.useState<ServerError | null>(
+    null
+  );
   const [selectedImage, setSelectedImage] = React.useState(
     "/default-client.png"
   );
+  const router = useRouter();
 
   const handleImageChange = (imgSrc: string) => {
     setSelectedImage(imgSrc);
@@ -62,7 +72,7 @@ export default function CreateClientForm() {
     });
   };
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: Record<string, unknown>) => {
     try {
       const res = await fetch("/api/clients", {
         method: "POST",
@@ -71,15 +81,20 @@ export default function CreateClientForm() {
       });
 
       if (!res.ok) {
-        const errData = await res.json();
+        const errData = (await res.json()) as ServerError;
         throw errData;
       }
 
       // Cliente creado correctamente
-      window.location.href = "/clients";
-    } catch (err: any) {
-      // Aquí guardamos el error en el estado
-      setServerError(err);
+      router.push("/clients/");
+    } catch (err: unknown) {
+      console.error(err);
+
+      if (typeof err === "object" && err !== null && "error" in err) {
+        setServerError(err as ServerError);
+      } else {
+        setServerError({ error: "Unknown error occurred" });
+      }
     }
   };
 

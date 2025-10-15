@@ -1,18 +1,18 @@
-import Clients from "@/models/Clients";
-import SingleClientCard from "./singleClientCard";
+import { IClient } from "@/models/Clients";
+
 export default function ClientCards({
   props,
 }: {
-  props: { clients: object[] };
+  props: { clients: IClient[] };
 }) {
   return (
     <div className="flex flex-col flex-wrap gap-4">
-      {props.clients.map((client: any) => (
-        <div key={client._id.toString()}>
+      {props.clients.map((client: IClient) => (
+        <div key={client._id!.toString()}>
           <h2>{client.clientName}</h2>
           <p>{client.clientEmail}</p>
         </div>
-      ))}
+      )) || <p>No hay clientes registrados</p>}
     </div>
   );
 }

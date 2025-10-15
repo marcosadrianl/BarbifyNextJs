@@ -63,10 +63,10 @@ const BarbersSchema = new Schema<IBarber>(
     timestamps: true,
     versionKey: false,
     toJSON: {
-      transform: function (doc, ret) {
+      transform: function (doc, ret: Record<string, any>) {
         ret.id = ret._id;
         delete ret._id;
-        delete (ret as any).__v;
+        delete ret.__v;
         return ret;
       },
     },

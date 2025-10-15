@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { IClient } from "@/models/Clients";
 
 /**
  * Hook que devuelve los clientes paginados.
@@ -13,7 +14,7 @@ import { useState, useEffect } from "react";
  * - loading: Un booleano que indica si se está cargando o no.
  */
 export function useClients(page: number, limit: number, search: string) {
-  const [data, setData] = useState<any[]>([]);
+  const [data, setData] = useState<IClient[]>([]);
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true);
 

@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { connectDB } from "@/utils/mongoose";
 import Clients from "@/models/Clients";
-import mongoose from "mongoose";
 
 /**
  * GET /api/clients
@@ -93,6 +92,11 @@ export async function GET(request: Request) {
  * with an error message if the request failed.
  */
 export async function POST(request: Request) {
+  interface MongoDuplicateKeyError extends Error {
+    code: number;
+    keyValue: Record<string, string>;
+  }
+
   try {
     const data = await request.json();
     const BarbifyClients = new Clients(data);
@@ -103,20 +107,16 @@ export async function POST(request: Request) {
     console.error("Error in POST /api/clients:", error);
 
     // Detectar error por clave duplicada
-    if (
-      typeof error === "object" &&
-      error !== null &&
-      "code" in error &&
-      (error as any).code === 11000
-    ) {
-      const duplicateKey = Object.keys((error as any).keyValue)[0];
-      const duplicateValue = (error as any).keyValue[duplicateKey];
+    if ((error as MongoDuplicateKeyError).code === 11000) {
+      const { keyValue } = error as MongoDuplicateKeyError;
+      const duplicateKey = Object.keys(keyValue)[0];
+      const duplicateValue = keyValue[duplicateKey];
       return NextResponse.json(
         {
           error: `Duplicated value for ${duplicateKey}: ${duplicateValue}`,
           field: duplicateKey,
         },
-        { status: 409 } // 409 = Conflict
+        { status: 409 }
       );
     }
 

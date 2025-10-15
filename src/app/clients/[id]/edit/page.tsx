@@ -28,12 +28,18 @@ const ClientSchema = z.object({
 
 type ClientFormData = z.infer<typeof ClientSchema>;
 
+interface ServerError {
+  error: string;
+  field?: string;
+  status?: number;
+}
+
 export default function EditClientFormPage() {
   const params = useParams(); // obtiene el id de la URL
   const router = useRouter();
   const clientId = params.id as string;
 
-  const [serverError, setServerError] = useState<any>(null);
+  const [serverError, setServerError] = useState<ServerError | null>(null);
   const [selectedImage, setSelectedImage] = useState("/default-client.png");
   const [loadingData, setLoadingData] = useState(true);
 
@@ -84,7 +90,19 @@ export default function EditClientFormPage() {
   };
 
   // PATCH al enviar el formulario
-  const onSubmit = async (data: any) => {
+  /**
+   *
+   * Este fragmento de código define una función `onSubmit`
+   * que se ejecuta cuando se envía un formulario. La función
+   * realiza una solicitud PATCH a la ruta `/api/clients/{clientId}`
+   * utilizando `fetch`. La solicitud incluye los datos del formulario en formato JSON.
+   * Si la respuesta de la solicitud no es exitosa (`!res.ok`), se captura el error y se lanza.
+   * Si la respuesta es exitosa, se redirige al usuario a la página `/clients/{clientId}` utilizando `router.push`.
+   * Si ocurre algún error durante la solicitud, se captura el error
+   * y se muestra en la consola y en el estado `serverError`.
+   *
+   */
+  const onSubmit = async (data: Record<string, unknown>) => {
     try {
       const res = await fetch(`/api/clients/${clientId}`, {
         method: "PATCH",
@@ -93,13 +111,19 @@ export default function EditClientFormPage() {
       });
 
       if (!res.ok) {
-        const errData = await res.json();
+        const errData = (await res.json()) as ServerError;
         throw errData;
       }
+
       router.push("/clients/" + clientId);
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error(err);
-      setServerError(err);
+
+      if (typeof err === "object" && err !== null && "error" in err) {
+        setServerError(err as ServerError);
+      } else {
+        setServerError({ error: "Unknown error occurred" });
+      }
     }
   };
 
