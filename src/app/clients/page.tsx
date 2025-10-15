@@ -4,8 +4,9 @@ import ClientListView from "@/components/clientListView";
 import { useClients } from "@/utils/useClients";
 import ClientsTableSkeleton from "@/skeletons/clientViewSkeleton";
 import { useSearchParams, useRouter } from "next/navigation";
+import { Suspense } from "react";
 
-export default function ClientsPage() {
+function ClientsPageContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -49,7 +50,8 @@ export default function ClientsPage() {
             fill="#43553b"
             className="inline-block transition-transform duration-200 hover:-translate-x-1"
           >
-            <path d="M440-240 200-480l240-240 56 56-183 184 183 184-56 56Zm264 0L464-480l240-240 56 56-183 184 183 184-56 56Z" />
+            {" "}
+            <path d="M440-240 200-480l240-240 56 56-183 184 183 184-56 56Zm264 0L464-480l240-240 56 56-183 184 183 184-56 56Z" />{" "}
           </svg>
         </button>
 
@@ -70,10 +72,19 @@ export default function ClientsPage() {
             fill="#43553b"
             className="inline-block transition-transform duration-200 hover:translate-x-1"
           >
-            <path d="M383-480 200-664l56-56 240 240-240 240-56-56 183-184Zm264 0L464-664l56-56 240 240-240 240-56-56 183-184Z" />
+            {" "}
+            <path d="M383-480 200-664l56-56 240 240-240 240-56-56 183-184Zm264 0L464-664l56-56 240 240-240 240-56-56 183-184Z" />{" "}
           </svg>
         </button>
       </div>
     </div>
+  );
+}
+
+export default function ClientsPage() {
+  return (
+    <Suspense fallback={<ClientsTableSkeleton />}>
+      <ClientsPageContent />
+    </Suspense>
   );
 }
