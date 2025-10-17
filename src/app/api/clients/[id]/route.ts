@@ -17,7 +17,7 @@ export async function GET(
 
     if (!client) {
       return NextResponse.json(
-        { message: "Client not found" },
+        { message: "Client not found", status: 404 },
         { status: 404 }
       );
     }

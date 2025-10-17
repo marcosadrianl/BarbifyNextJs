@@ -1,17 +1,10 @@
-import Image from "next/image";
+"use client";
+import Calendar from "@/components/calendar";
 
-export default function Diary() {
+export default function Home() {
   return (
-    <div>
-      <h1>Diary</h1>
-      <Image
-        src="/calendarIdea.png"
-        alt="Vercel Logo"
-        width={591}
-        height={498}
-        priority
-        className="rounded-2xl p-2 mx-auto"
-      />
+    <div className="p-4 w-3/4 mx-auto">
+      <Calendar />
     </div>
   );
 }

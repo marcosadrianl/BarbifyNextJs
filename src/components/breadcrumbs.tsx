@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useSelectedLayoutSegments } from "next/navigation";
 import { notFound } from "next/navigation";
+import { no } from "zod/locales";
 
 export default function Breadcrumbs() {
   const segments = useSelectedLayoutSegments();
@@ -25,18 +26,12 @@ export default function Breadcrumbs() {
     if (clientId) {
       fetch(`/api/clients/${clientId}`)
         .then((res) => res.json())
-        .then((data) => setClientName(data.clientName || clientId))
-        .catch(() => setClientName(clientId));
+        .then((data) => {
+          setClientName(data.clientName || clientId);
+        })
+        .catch(() => notFound());
     }
   }, [clientId]);
-
-  if (clientId === clientName) {
-    if (clientName === null) {
-      return;
-    } else {
-      notFound();
-    }
-  }
 
   // Validación de rutas internas seguras
   function isSafeInternalRoute(url: string) {

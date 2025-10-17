@@ -1,5 +1,7 @@
 import React from "react";
 import "./globals.css";
+//import "@fullcalendar/core/main.css";
+//import "@fullcalendar/daygrid/main.css";
 import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";

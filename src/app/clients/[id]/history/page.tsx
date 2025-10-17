@@ -83,7 +83,7 @@ export default async function ClientHistory({
   const serviceArrayLeaned: IService[] =
     clientServicesArray?.clientServices?.map((service) => {
       return {
-        _id: service._id,
+        _id: service._id.toString(), //al motor no le cabe esta movida
         serviceName: service.serviceName,
         servicePrice: service.servicePrice,
         serviceDate: service.serviceDate,
