@@ -24,7 +24,7 @@ function SkeletonRow() {
 
 export default function ClientsTableSkeleton() {
   return (
-    <div className="px-2">
+    <div className="px-2 my-16">
       <table className="w-full rounded-md overflow-hidden">
         <thead className="bg-[#cdaa7e]">
           <tr>

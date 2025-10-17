@@ -3,12 +3,15 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction"; // opcional
 
+/**aseccion de fetch clients */
+
+
 export default function Calendar() {
   const handleDateClick = (arg: any) => {
     alert(`Fecha clickeada: ${arg.dateStr}`);
   };
 
-  return (
+  return ( 
     <FullCalendar
       plugins={[dayGridPlugin, interactionPlugin]}
       initialView="dayGridMonth"

@@ -36,7 +36,7 @@ export default function RootLayout({
             className={`${poppins.variable} flex flex-col w-full overflow-y-auto`}
           >
             <TaskBar />
-            <div className="overflow-auto">{children}</div>
+            <div className="h-full">{children}</div>
           </div>
         </div>
       </body>
