@@ -12,37 +12,6 @@ export default function DeleteService({ id }: { id: string }) {
   const handleDelete = () => {
     setShowModal(true);
   };
-  {
-    /**
-    usar esta logica 
-    export async function DELETE(
-  request: Request,
-  { params }: { params: { id: string; serviceId: string } }
-) {
-  try {
-    await connectDB();
-    const client: IClient | null = await Clients.findById(params.id);
-    if (!client) {
-      return NextResponse.json(
-        { message: "Client not found" },
-        { status: 404 }
-      );
-    }
-    client.clientServices = client.clientServices.filter(
-      (service: IService) => service._id.toString() !== params.serviceId
-    );
-    const savedClient = await client.save();
-    return NextResponse.json(savedClient);
-  } catch (error) {
-    console.error("Error deleting service:", error);
-    return NextResponse.json(
-      { error: "Failed to delete service" },
-      { status: 500 }
-    );
-  }
-}
- */
-  }
   const handleConfirmDelete = () => {
     // Aquí puedes realizar la lógica para eliminar el servicio
     fetch(`/api/services/${id}`, { method: "DELETE" });
@@ -72,7 +41,7 @@ export default function DeleteService({ id }: { id: string }) {
               ¿Seguro que quieres borrar este servicio?
             </h2>
             <p className="text-[#43553b]/60 text-sm mb-4">
-              Esta accion no se puede deshacer
+              Esta acci&oacute;n no se puede deshacer
             </p>
             <div className="flex gap-4 justify-end">
               <button

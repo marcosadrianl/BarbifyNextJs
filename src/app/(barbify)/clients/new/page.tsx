@@ -11,8 +11,10 @@ const ClientSchema = z.object({
   clientLastName: z.string().min(1, "Apellido requerido"),
   clientSex: z.enum(["M", "F", "O"]),
   clientBirthdate: z.string(),
-  clientEmail: z.string().email("Email inválido").optional(),
-  clientPhone: z.string().optional(),
+  clientEmail: z.string().email("Email inválido"),
+  clientPhone: z
+    .string()
+    .max(20, "El telefono no puede tener mas de 20 caracteres"),
   clientImage: z.string().optional(),
   clientActive: z.boolean(),
   clientBaseColor: z.string().optional(),
@@ -42,7 +44,6 @@ export default function CreateClientForm() {
   } = useForm<ClientFormData>({
     resolver: zodResolver(ClientSchema),
     defaultValues: {
-      clientSex: "O",
       clientActive: true,
       clientServices: [],
       clientWhiteHairs: 0,
@@ -50,7 +51,7 @@ export default function CreateClientForm() {
     },
     mode: "onSubmit",
     reValidateMode: "onChange",
-    shouldFocusError: false,
+    shouldFocusError: true,
     shouldUnregister: false,
     shouldUseNativeValidation: false,
     criteriaMode: "firstError",
@@ -102,7 +103,10 @@ export default function CreateClientForm() {
     errors?: {
       clientName?: { message?: string };
       clientLastName?: { message?: string };
+      clientEmail?: { message?: string };
+      clientPhone?: { message?: string };
     };
+
     serverError?: {
       error: string;
       field?: string;
@@ -117,11 +121,13 @@ export default function CreateClientForm() {
     //if (!isOpen) return null;
 
     return (
-      <div className="bg-red-100 text-red-800 rounded-md mb-3 p-4">
+      <div className="flex flex-row gap-4 text-red-800 rounded-md mb-3 p-4">
         {errors?.clientName?.message && <p>{errors.clientName.message}</p>}
         {errors?.clientLastName?.message && (
           <p>{errors.clientLastName.message}</p>
         )}
+        {errors?.clientEmail?.message && <p>{errors.clientEmail.message}</p>}
+        {errors?.clientPhone?.message && <p>{errors.clientPhone.message}</p>}
 
         {serverError?.error && (
           <p>
@@ -209,6 +215,9 @@ export default function CreateClientForm() {
       <div className="flex flex-col gap-4 w-full max-w-lg mx-auto">
         <h1 className="font-bold">Información personal *</h1>
         <select className="p-2 bg-amber-50" {...register("clientSex")}>
+          <option value="" disabled>
+            G&eacute;nero
+          </option>
           <option value="M">Masculino</option>
           <option value="F">Femenino</option>
           <option value="O">Otro</option>
@@ -284,7 +293,7 @@ export default function CreateClientForm() {
         <div className="w-full max-w-lg">
           <button
             type="submit"
-            className="bg-amber-400 rounded w-full p-2 font-bold"
+            className="bg-[#cdaa7e] hover:bg-[#ffd49d] rounded-full cursor-pointer w-full p-2 font-bold"
           >
             Crear Cliente
           </button>

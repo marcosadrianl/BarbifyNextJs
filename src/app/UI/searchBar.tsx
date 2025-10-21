@@ -10,7 +10,7 @@ export default function SearchBar() {
   const handleSearch = () => {
     if (query.trim()) {
       router.push(
-        `/clients?page=1&limit=10&search=${encodeURIComponent(query)}`
+        `barbify/clients?page=1&limit=10&search=${encodeURIComponent(query)}`
       );
     }
   };

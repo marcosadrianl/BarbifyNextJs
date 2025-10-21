@@ -69,11 +69,10 @@ export default function NewServiceModal({ client }: { client: IClient }) {
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="flex flex-row items-center py-1 px-2 rounded-2xl m-1 bg-[#cdaa7e] hover:bg-amber-100 cursor-pointer transition"
+        className="flex flex-row items-center gap-1 py-1 px-2 rounded-2xl m-1 bg-[#cdaa7e] hover:bg-amber-100 cursor-pointer transition"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="w-6 h-6"
           height="24px"
           viewBox="0 -960 960 960"
           width="24px"

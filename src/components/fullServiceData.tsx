@@ -1,12 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { IService } from "@/models/Clients";
+import { LeanService } from "@/models/service";
 
 const TotalServices = ({
   services,
 }: {
-  services: IService[] | null | undefined;
+  services: LeanService[] | null | undefined;
 }) => {
   const [totalServices, setTotalServices] = useState<number>(0);
   const [moda, setModa] = useState<string>("");

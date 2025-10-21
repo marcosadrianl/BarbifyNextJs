@@ -67,7 +67,7 @@ export async function GET(request: Request) {
  * POST /api/clients
  *
  * @param  request
- * @returns NextResponse} Json response with created client data
+ * @returns NextResponse Json response with created client data
  *
  * @example Request URL: /api/clients
  * @example Request Body: {

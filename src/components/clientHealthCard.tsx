@@ -15,7 +15,7 @@ export default function ClientHealthCard({ client }: { client: IClient }) {
   ) => {
     const baseClasses = "p-2 font-semibold cursor-pointer hover:underline";
     const activeClasses = "text-white underline bg-[#dda863]";
-    const inactiveClasses = "bg-[#cdaa7e]";
+    const inactiveClasses = "bg-[#cdaa7e bg-gray-200";
 
     let roundedClasses = "rounded-t-md"; // todos siempre redondeados arriba
 
@@ -68,8 +68,17 @@ export default function ClientHealthCard({ client }: { client: IClient }) {
         </div>
         <Link
           href={`/clients/${client._id}/history`}
-          className="hover:bg-amber-100 cursor-pointer hover:rounded-2xl px-3 py-1"
+          className="flex flex-row gap-1 items-center bg-[#cdaa7e] rounded-2xl hover:bg-amber-100 cursor-pointer hover:rounded-2xl px-3 py-1"
         >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="24px"
+            viewBox="0 -960 960 960"
+            width="24px"
+            fill="#43553b"
+          >
+            <path d="M480-120q-138 0-240.5-91.5T122-440h82q14 104 92.5 172T480-200q117 0 198.5-81.5T760-480q0-117-81.5-198.5T480-760q-69 0-129 32t-101 88h110v80H120v-240h80v94q51-64 124.5-99T480-840q75 0 140.5 28.5t114 77q48.5 48.5 77 114T840-480q0 75-28.5 140.5t-77 114q-48.5 48.5-114 77T480-120Zm112-192L440-464v-216h80v184l128 128-56 56Z" />
+          </svg>
           Ver Historial
         </Link>
       </div>

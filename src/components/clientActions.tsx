@@ -5,7 +5,7 @@ import { IClient } from "@/models/Clients";
 
 export default function ClientActions({ client }: { client: IClient }) {
   return (
-    <div className="flex flex-row gap-4 bg-[#ffd49d]">
+    <div className="flex flex-row gap-4 p-2.5 bg-[#ffd49d]">
       <div className="flex flex-row items-center align-middle gap-1 w-2/3">
         <div className="flex flex-row items-center align-middle gap-1 w-48">
           <NewServiceModal client={client} />

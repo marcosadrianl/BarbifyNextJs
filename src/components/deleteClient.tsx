@@ -28,7 +28,7 @@ export default function DeleteClient({ id }: { id: string }) {
     <div className="flex flex-row gap-4 bg-[#ffd49d] text-[#43553b]">
       <button
         onClick={() => setShowConfirm(true)}
-        className="flex flex-row items-center py-1 px-2 rounded-2xl m-1 bg-[#cdaa7e] hover:bg-amber-100 cursor-pointer transition ml-auto"
+        className="flex flex-row items-center gap-1 py-1 px-2 rounded-2xl m-1 bg-[#cdaa7e] hover:bg-amber-100 cursor-pointer transition ml-auto"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

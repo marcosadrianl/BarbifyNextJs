@@ -40,7 +40,7 @@ function ClientsPageContent() {
         <button
           disabled={page === 1}
           onClick={() => goToPage(page - 1)}
-          className="p-1 disabled:opacity-50"
+          className="p-1 disabled:opacity-50 cursor-pointer"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -62,7 +62,7 @@ function ClientsPageContent() {
         <button
           disabled={page === totalPages}
           onClick={() => goToPage(page + 1)}
-          className="p-1 disabled:opacity-50"
+          className="p-1 disabled:opacity-50 cursor-pointer"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
