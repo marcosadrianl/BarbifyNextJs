@@ -88,10 +88,10 @@ export default function Calendar() {
   // Parseamos los eventos antes de pasarlos al calendario
   const eventsData = parseEventsData(events);
 
-  const handleDateClick = (arg: any) => {
+  /*   const handleDateClick = (arg: any) => {
     console.log("Fecha clickeada:", arg);
     console.log("Eventos en esta fecha:", arg.event?.extendedProps);
-  };
+  }; */
 
   const handleEventClick = (info: any) => {
     const { count, events } = info.event.extendedProps;
