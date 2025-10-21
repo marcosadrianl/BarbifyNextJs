@@ -2,8 +2,8 @@ import { Schema, model, models, Document, Types } from "mongoose";
 import { z } from "zod";
 
 // 1. Interface con los tipos
-export interface IService {
-  _id: Types.ObjectId;
+// 1. Define la DATA del servicio (sin _id)
+export interface IServiceData {
   serviceDate: Date;
   serviceName: string;
   serviceNotes?: string;
@@ -12,7 +12,24 @@ export interface IService {
   fromBarberId?: Types.ObjectId;
 }
 
-export interface IClient extends Document {
+export interface IService extends IServiceData {
+  _id: Types.ObjectId; // _id es agregado por Mongoose en el subdocumento
+}
+
+export interface IClientData {
+  clientName: string;
+  clientLastName: string;
+  clientSex: "M" | "F" | "O";
+  clientBirthdate?: Date;
+  // ... (todos los demás campos de IClient)
+  clientNotes?: string;
+  clientServices: IService[]; // Usa el tipo IService con _id
+  clientWhiteHairs: number;
+  clientFromUserId?: Types.ObjectId;
+  ClientPassword?: string;
+}
+
+export interface IClient extends IClientData, Document {
   clientName: string;
   clientLastName: string;
   clientSex: "M" | "F" | "O";
