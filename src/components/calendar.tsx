@@ -18,6 +18,7 @@ export type ServiceEvent = {
   fromBarberId?: string;
   _id?: string;
   clientId?: string;
+  className?: string;
 };
 
 // Define el tipo de eventos que pasaremos a FullCalendar
@@ -44,6 +45,8 @@ export default function Calendar({ eventsData, onEventClick }: CalendarProps) {
     // 'extendedProps' es donde FullCalendar guarda tus datos personalizados
     const { events } = info.event.extendedProps;
 
+    events.forEach((event: ServiceEvent) => console.log(event));
+
     // Llamamos a la función pasada por el padre para actualizar el estado
     // Te recomiendo un 'cast' aquí para seguridad de tipos
     onEventClick(events as ServiceEvent[]);
@@ -59,7 +62,12 @@ export default function Calendar({ eventsData, onEventClick }: CalendarProps) {
       height="650px"
       aspectRatio={1.4}
       eventColor="#ffd49d"
-      eventTextColor="#000"
+      eventTextColor="#43553b"
+      eventClassNames={[
+        "hover:font-semibold",
+        "cursor-pointer",
+        "hover:text-white",
+      ]}
     />
   );
 }

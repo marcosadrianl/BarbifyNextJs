@@ -25,7 +25,7 @@ export default async function ServiceList({
     return (
       <div className="w-full bg-[#ffd49d] h-fit p-4 rounded-2xl">
         <h2 className=" text-2xl font-bold">Ultimos Servicios</h2>
-        <div className="flex flex-col   gap-1 max-w-[500px] mx-auto">
+        <div className="flex flex-col   gap-1 max-w-[500px] ">
           {/*mapear los ultimos 5 servicios del cliente*/}
           {client.clientServices.length === 0 ? (
             <p className="text-center">No hay servicios registrados</p>

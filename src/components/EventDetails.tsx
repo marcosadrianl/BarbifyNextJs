@@ -9,7 +9,7 @@ interface EventDetailsProps {
 export default function EventDetails({ selectedEvents }: EventDetailsProps) {
   if (!selectedEvents || selectedEvents.length === 0) {
     return (
-      <div className="p-4 border rounded-lg bg-gray-50 text-gray-500">
+      <div className="p-4  rounded-lg  text-gray-400">
         Haz click en una fecha del calendario para ver los detalles de las
         citas.
       </div>
@@ -25,16 +25,20 @@ export default function EventDetails({ selectedEvents }: EventDetailsProps) {
       year: "numeric",
     }
   );
+  console.log(selectedEvents[0]);
 
   return (
-    <div className="p-4 border-2 border-orange-300 rounded-lg shadow-lg bg-white">
-      <h3 className="text-xl font-bold mb-4 text-orange-600">
+    <div className="p-4  rounded-lg">
+      <h3 className="text-2xl font-semibold mb-4">
         Tienes {selectedEvents.length}{" "}
         {selectedEvents.length === 1 ? "cita" : "citas"} para el {date}
       </h3>
-      <div className="space-y-4 max-h-96 overflow-y-auto">
+      <div className="space-y-4 h-[calc(100vh-10rem)] overflow-auto no-scrollbar">
         {selectedEvents.map((event, index) => (
-          <div key={index} className="p-3 border rounded-md bg-orange-50">
+          <div
+            key={index}
+            className="p-3  rounded-2xl bg-amber-50 text-ellipsis"
+          >
             <p className="font-semibold text-gray-800">
               {event.clientName} {event.clientLastName}
             </p>
@@ -43,9 +47,15 @@ export default function EventDetails({ selectedEvents }: EventDetailsProps) {
               {(event.servicePrice / 100).toLocaleString("es-AR")}
             </p>
             <p className="text-sm text-gray-600">
-              {new Date(event.serviceDate).getHours()} hs
+              Hora:{" "}
+              {new Date(event.serviceDate).toLocaleTimeString("es-AR", {
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: false,
+              })}{" "}
+              hs
             </p>
-            <p className="text-xs text-gray-500">
+            <p className="text-xs text-gray-500  w-1/3 text-nowrap">
               Duración: {event.serviceDuration} min | Notas:{" "}
               {event.serviceNotes || "N/A"}
             </p>
