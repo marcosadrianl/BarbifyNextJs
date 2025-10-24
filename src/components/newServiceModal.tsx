@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { IClient } from "@/models/Clients";
+import { IClientLean } from "@/models/Clients";
 
-export default function NewServiceModal({ client }: { client: IClient }) {
+export default function NewServiceModal({ client }: { client: IClientLean }) {
   /*PErmite abrir y cerrar el modal usando ESC*/
   const [isOpen, setIsOpen] = useState(false);
   const [serviceName, setServiceName] = useState("");

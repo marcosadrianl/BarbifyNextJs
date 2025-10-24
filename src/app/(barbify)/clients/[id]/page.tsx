@@ -1,26 +1,27 @@
 import { connectDB } from "@/utils/mongoose";
-import Clients, { IClient, IService } from "@/models/Clients"; // 👈 Sigue leyendo sobre este IClient
+import Clients, { IClientLean } from "@/models/Clients"; // <-- Importa IClientLean
 import SingleClientCard from "@/components/singleClientCard";
 import { notFound } from "next/navigation";
 import SingleClientMetrics from "@/components/singleClientMetrics";
 import ServiceList from "@/components/serviceList";
-import { Types } from "mongoose"; // 👈 Importante para el tipado
+import { serializeClient } from "@/components/serializer";
 
-async function getClient(id: string) {
+/**
+ * falta reparar la compatibilidad entre Typos y Esquemas.
+ * no consigo serializar la estructura de los datos entre lo que obtengo desde mongoose y lo que espera SingleClientCard
+ *
+ * queda pendiente esto, aunque NEXT.js no se queja durante ejecucion
+ *
+ * revisar Client.ts y todos los componentes anidados aqui
+ */
+
+// La función debe tipar el retorno de .lean()
+async function getClient(id: string): Promise<IClientLean | null> {
   await connectDB();
-  // .lean() devuelve un objeto plano.
-  // Usamos un tipo genérico para decirle a lean que esperamos IClient pero sin los métodos de Document
-  const client = await Clients.findById(id).lean<IClient>();
+  // El resultado de .lean() es un POJO que concuerda con IClientLean
+  const client = await Clients.findById(id).lean<IClientLean>();
   return client;
 }
-
-// Define un tipo para el cliente "plano" (de .lean())
-// Esto es IClient pero sin las propiedades de Mongoose Document
-// Es una solución rápida. Lo ideal es arreglarlo en Clients.ts (ver abajo)
-type PlainClient = Omit<IClient, keyof Document | "Document"> & {
-  _id: Types.ObjectId;
-  clientServices: IService[];
-};
 
 export default async function ClientsPage({
   params,
@@ -28,34 +29,35 @@ export default async function ClientsPage({
   params: { id: string };
 }) {
   try {
-    // 1. CORRECCIÓN: 'params' no es una promesa
     const { id } = params;
+    // client es de tipo IClientLean | null
     const client = await getClient(id);
 
     if (!client) {
       return notFound();
     }
 
-    // 2. CORRECCIÓN: No usamos JSON.parse(stringify()).
-    // Pasamos el objeto 'client' (de .lean()) directamente.
-    // Hacemos un casting al tipo PlainClient que definimos arriba.
-    const clientData = client as PlainClient;
+    // Serializamos el cliente para pasarlo a Client Components
+    const clientData = serializeClient(client);
 
     return (
-      <div className="flex flex-row gap-4 ">
+      <div className="flex flex-row gap-4">
         <div className="flex flex-col gap-4">
-          {/* Pasamos clientData a los componentes */}
+          {/* Asegúrate de que clientData sea el tipo que espera SingleClientCard */}
           <SingleClientCard client={clientData} />
-
-          {/* 3. CORRECCIÓN: Eliminamos el prop 'services' */}
           <SingleClientMetrics client={clientData} />
         </div>
-        <div className="flex flex-col gap-4 rounded-2xl  w-1/2">
+        <div className="flex flex-col gap-4 rounded-2xl w-1/2">
           <ServiceList params={params} />
         </div>
       </div>
     );
   } catch (error) {
-    console.log(error);
+    console.error("Error fetching client:", error);
+    return (
+      <div className="text-red-500">
+        An error occurred while fetching the client. Please try again later.
+      </div>
+    );
   }
 }

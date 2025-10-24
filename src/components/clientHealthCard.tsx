@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { IClient } from "@/models/Clients";
+import { IClientLean } from "@/models/Clients";
 
-export default function ClientHealthCard({ client }: { client: IClient }) {
+export default function ClientHealthCard({ client }: { client: IClientLean }) {
   const [activeTab, setActiveTab] = useState<
     "alergias" | "enfermedades" | "medicamentos" | null
   >("alergias");

@@ -1,6 +1,6 @@
 import TotalServices from "@/components/fullServiceData";
 import React from "react";
-import { IService, IClient } from "@/models/Clients";
+import { IService, IClientLean } from "@/models/Clients";
 import { LeanService } from "@/models/service";
 
 function leanService(service: IService): LeanService {
@@ -20,7 +20,7 @@ function leanService(service: IService): LeanService {
 export default function SingleClientMetrics({
   client, // 👈 Se elimina 'services'
 }: {
-  client: IClient;
+  client: IClientLean;
 }) {
   // Se usa directamente client.clientServices, asumiendo que contiene los datos correctos.
   const clientServices = client.clientServices.map((service) =>

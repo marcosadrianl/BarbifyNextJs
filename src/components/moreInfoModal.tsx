@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import Bullet from "@/components/bullet";
-import { IClient } from "@/models/Clients";
+import { IClientLean } from "@/models/Clients";
 
-export default function MoreInfoModal({ client }: { client: IClient }) {
+export default function MoreInfoModal({ client }: { client: IClientLean }) {
   /*PErmite abrir y cerrar el modal usando ESC*/
   const [isOpen, setIsOpen] = React.useState(false);
 

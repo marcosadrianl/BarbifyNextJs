@@ -134,13 +134,48 @@ export const ClientZod = ClientSchemaZod.extend({
   updatedAt: z.date(),
 });
 
-// 3. Exportar el modelo tipado
-/* const ClientsModel =
-  models.BarbifyClients || model<IClient>("BarbifyClients", ClientsSchema);
+// ----------------------------------------------------
+// NUEVAS INTERFACES PARA EL DOCUMENTO PLAIN (resultado de .lean())
+// ----------------------------------------------------
 
-export default ClientsModel; */
+// 1. Interfaz para el servicio plano (después de .lean())
+// Mongoose NO convierte ObjectId a string aquí, solo a un objeto ObjectId de JS.
+// Si necesitas serializar, tienes que hacerlo explícitamente.
+export interface IServiceLean {
+  _id: Types.ObjectId; // Aún como ObjectId antes de serializar
+  serviceDate: Date; // Aún como Date antes de serializar
+  serviceName: string;
+  serviceNotes?: string;
+  servicePrice: number;
+  serviceDuration: number;
+  fromBarberId?: Types.ObjectId; // Aún como ObjectId antes de serializar
+}
+
+// 2. Interfaz para el Cliente Plano (después de .lean())
+export interface IClientLean {
+  _id: Types.ObjectId;
+  clientName: string;
+  clientLastName: string;
+  clientSex: "M" | "F" | "O";
+  clientBirthdate?: Date;
+  clientEmail?: string;
+  clientPhone?: string;
+  clientImage?: string;
+  clientActive: boolean;
+  clientBaseColor?: string;
+  clientHairType?: string;
+  clientAllergies?: string;
+  clientDiseases?: string;
+  clientMedications?: string;
+  clientNotes?: string;
+  clientServices: IServiceLean[];
+  clientWhiteHairs: number;
+  clientFromUserId?: Types.ObjectId;
+  createdAt: Date;
+  updatedAt: Date;
+}
 
 const Clients =
   models.BarbifyClients || model<IClient>("BarbifyClients", ClientsSchema);
 
-export default Clients;
+export default Clients<IClient>;

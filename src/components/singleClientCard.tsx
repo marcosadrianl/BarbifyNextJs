@@ -10,9 +10,9 @@ import Link from "next/link";
 import MoreInfoModal from "./moreInfoModal";
 import ClientHealthCard from "./clientHealthCard";
 import ClientActions from "@/components/clientActions";
-import { IClient } from "@/models/Clients";
+import { IClientLean } from "@/models/Clients";
 
-export default function SingleClientCard({ client }: { client: IClient }) {
+export default function SingleClientCard({ client }: { client: IClientLean }) {
   return (
     <div className="flex flex-col w-2xl gap-1">
       {/* Aquí Imagen y Nombre en grande del Cliente*/}

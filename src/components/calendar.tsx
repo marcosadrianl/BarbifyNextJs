@@ -45,7 +45,7 @@ export default function Calendar({ eventsData, onEventClick }: CalendarProps) {
     // 'extendedProps' es donde FullCalendar guarda tus datos personalizados
     const { events } = info.event.extendedProps;
 
-    events.forEach((event: ServiceEvent) => console.log(event));
+    //events.forEach((event: ServiceEvent) => console.log(event));
 
     // Llamamos a la función pasada por el padre para actualizar el estado
     // Te recomiendo un 'cast' aquí para seguridad de tipos

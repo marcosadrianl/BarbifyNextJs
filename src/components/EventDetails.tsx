@@ -9,9 +9,10 @@ interface EventDetailsProps {
 export default function EventDetails({ selectedEvents }: EventDetailsProps) {
   if (!selectedEvents || selectedEvents.length === 0) {
     return (
-      <div className="p-4  rounded-lg  text-gray-400">
-        Haz click en una fecha del calendario para ver los detalles de las
-        citas.
+      <div className="p-4 rounded-lg">
+        <h3 className="text-2xl font-semibold mb-4 text-[#43553b]/50 text-center">
+          Haga click en una fecha para ver m&aacute;s detalles
+        </h3>
       </div>
     );
   }
@@ -25,13 +26,19 @@ export default function EventDetails({ selectedEvents }: EventDetailsProps) {
       year: "numeric",
     }
   );
-  console.log(selectedEvents[0]);
+
+  const today = new Date();
+  const dateNormalize = new Date(selectedEvents[0].serviceDate);
+
+  //console.log(today, dateNormalize);
 
   return (
     <div className="p-4  rounded-lg">
-      <h3 className="text-2xl font-semibold mb-4">
-        Tienes {selectedEvents.length}{" "}
-        {selectedEvents.length === 1 ? "cita" : "citas"} para el {date}
+      <h3 className="text-2xl font-semibold mb-4 text-center">
+        {/*Formatea el encabezado para fechas antes o despues de hoy: "Hubo x cita/as el //fecha//" o "Tienes x cita/as para el //fecha//" */}
+        {dateNormalize >= today ? "Tienes" : "Hubo"} {selectedEvents.length}{" "}
+        {selectedEvents.length === 1 ? "cita" : "citas"}{" "}
+        {dateNormalize >= today ? "para" : ""} el {date}
       </h3>
       <div className="space-y-4 h-[calc(100vh-10rem)] overflow-auto no-scrollbar">
         {selectedEvents.map((event, index) => (

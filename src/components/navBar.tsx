@@ -1,15 +1,15 @@
 import localFont from "next/font/local";
-/* import { Poppins } from "next/font/google"; */
+import { Chiron_Sung_HK } from "next/font/google";
 import Link from "next/link";
 
-/* const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-poppins",
+/* const Titles = localFont({
+  src: "../../public/fonts/Baskervville-Regular.ttf",
+  variable: "--font-titles",
 }); */
 
-const Titles = localFont({
-  src: "../../public/fonts/Fontspring-DEMO-theseasons-reg.otf",
+const Titles = Chiron_Sung_HK({
+  subsets: ["latin"],
+  weight: ["400", "700"],
   variable: "--font-titles",
 });
 
