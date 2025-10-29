@@ -2,7 +2,34 @@ CRUD CON NEXTJS Y MONGODB
 CONTINUAR DESDE:
 https://youtu.be/CkiuF2wsPRg?si=5DTj0Li6Zv4WUjPE&t=2682
 
-https://www3.gobiernodecanarias.org/medusa/contenidosdigitales/FormacionTIC/cdtic2014/04cd/cd155.jpg
+modelo client view: https://www3.gobiernodecanarias.org/medusa/contenidosdigitales/FormacionTIC/cdtic2014/04cd/cd155.jpg
+
+--------------------------------------------------------------------------------------------------
+
+AVANCE 29/10/2025:
+- Trabajo en las bases para integrar BetterAuth. 
+	- secret key creada
+	- algunas cosas ya estan agregadas.
+- Objetivo: Rediseniar estructura de esquemas e interfaces. Unificar modelos y patrones.
+	- Que informacion necesitare de cada actor? 
+
+
+AVANCE 27/10/2025:
+- La ruta "/" Ahora devuelve landingpage
+- Seccion clientes lista. 
+	- seccion de vista de servicios:
+		- queda hacer funcional el borrar servicios. el problema que hay que resolver es enviar la id del cliente junto con id del servicio.
+- Seccion Agenda en buen progreso:
+	- Ya se visualizan todos los servicios desde la agenda y en gran detalle. 
+	- Queda darle mas practicidad, se me ocurre ahora:
+		- Cabiar vista a "dia" y que esta muestre las citas por horario.
+		- Las citas a futuro deben tener otro color a las pasadas
+		- 
+- Esta semana se comienza con acceso/autenticacion de usuarios y roles. 
+	- Aprender que es Better Auth e implementar acceso con:
+		- Google
+		- Meta
+		- Otro (Barbify mismo)
 
 AVANCE 26/09/2025:
 UN MONTON DE COSAS SE AVANZO! 
@@ -41,7 +68,7 @@ El be guarda todo en barbify-test. esto esta definido en el uri.
 
 AVANCE 15/09/2025:
 SE CREO LAS BASES DEL CRUD, COMO LAS APIS [(GET), (PUT), (PATCH), (DELETE)]
-SE CREARON LOS ESUQUEMAS DE USUARIOS (USERS), CLIENTES (CLIENTS), SERVICIOS (SERVICES) Y LOS EMPLEADOS DEL USUARIO LLAMADOS "BARBERS" (BARBERS)
+SE CREARON LOS ESQUEMAS DE USUARIOS (USERS), CLIENTES (CLIENTS), SERVICIOS (SERVICES) Y LOS EMPLEADOS DEL USUARIO LLAMADOS "BARBERS" (BARBERS)
 
 
 

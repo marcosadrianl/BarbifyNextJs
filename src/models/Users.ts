@@ -1,6 +1,39 @@
 import { Schema, model, models } from "mongoose";
 import Barbers from "./Barbers";
 
+interface BarbersList extends Document {
+  barberName: string;
+  barberLastName: string;
+  barberEmail: string;
+  barberPhone: string;
+  barberActive: boolean;
+  barberRole: string;
+  barberLocation?: {
+    city: string; //Buenos Aires
+    state?: string; //La Plata
+    address?: string;
+    userPostalCode?: string;
+  };
+}
+
+interface IUser {
+  userName: string;
+  userLastName?: string;
+  userEmail: string;
+  userPassword: string;
+  userActive: boolean;
+  userLocation?: {
+    city: string; //Buenos Aires
+    state?: string; //La Plata
+    address?: string;
+    userPostalCode?: string;
+  };
+  userPhome?: string;
+  userLevel: 0 | 1;
+  userBirthDate?: Date;
+  userHasThisBarbers: BarbersList[];
+}
+
 //esuqme del user
 const UsersSchema = new Schema(
   {

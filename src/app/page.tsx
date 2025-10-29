@@ -134,7 +134,7 @@ export default function Dashboard() {
           <section className="bg-[#ffe7c7] flex flex-row flex-1 items-center justify-center py-20 gap-4 text-center w-full">
             <div className="flex flex-col items-center  gap-4 w-1/2 text-[#43553b]">
               <h1
-                className={`${Titles.className}  font-medium text-4xl text-left  mb-4 w-5/6 leading-snug tracking-wide`}
+                className={`${Titles.className}  font-medium text-5xl text-left  mb-4 w-5/6 leading-snug tracking-wide`}
               >
                 Organiza los turnos desde la{" "}
                 <span className="font-semibold">Agenda</span>.
@@ -161,7 +161,7 @@ export default function Dashboard() {
           <section className="bg-[#d8c4a9] flex flex-row flex-1 items-center justify-center gap-4 text-center w-full">
             <div className="bg-[#ffe7c7] flex flex-col items-center  gap-4  text-[#43553b] rounded-ee-[120px]">
               <h1
-                className={`${Titles.className}  font-medium text-4xl text-left  mb-4 w-5/6 leading-snug tracking-wide`}
+                className={`${Titles.className}  font-medium text-5xl text-left  mb-4 w-5/6 leading-snug tracking-wide`}
               >
                 ¿Por qué elegir <span className="font-semibold">Barbify</span>?
               </h1>
@@ -223,15 +223,17 @@ export default function Dashboard() {
 
           <section className="bg-[#d8c4a9] flex flex-col flex-1 items-center justify-center py-20 gap-4 text-center w-full">
             <div className="flex flex-col items-center gap-4 w-1/2 text-[#43553b]">
-              <h1
-                className={`${Titles.className}  font-medium text-4xl text-left  mb-4 leading-snug tracking-wide`}
-              >
-                <span className="text-black/90 font-semibold ">Barbify</span> en
-                2 niveles
-              </h1>
-              <p className={`${poppins.className} text-lg`}>
-                Hay una solución ideal para tu negocio
-              </p>
+              <div className="mb-4">
+                <h1
+                  className={`${Titles.className}  font-medium text-5xl text-left leading-snug tracking-wide`}
+                >
+                  <span className="text-black/90 font-semibold ">Barbify</span>{" "}
+                  en 2 niveles
+                </h1>
+                <p className={`${poppins.className} text-lg text-[#43553b]/50`}>
+                  Hay una solución ideal para tu negocio
+                </p>
+              </div>
             </div>
             <div className="w-full px-12 flex flex-row justify-center gap-6 text-[#43553b]">
               <div className="border-2 border-amber-200 rounded-3xl p-6 w-1/4  shadow-lg hover:scale-105 transition-transform">

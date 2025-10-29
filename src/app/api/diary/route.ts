@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { connectDB } from "@/utils/mongoose";
 import mongoose from "mongoose";
-import Clients, { IClient, IService } from "@/models/Clients";
+import Clients, { IClient, IService, serializeClient } from "@/models/Clients";
 
 /**
  * GET client's services
@@ -22,6 +22,8 @@ export async function GET() {
       }
     );
 
+    const client = clients.map((client) => serializeClient(client));
+
     interface serviceInfo {
       serviceName: string;
       serviceDate: Date;
@@ -38,16 +40,17 @@ export async function GET() {
     }
 
     // Recorremos y combinamos los servicios con la info del cliente
-    const allServices: diaryServices[] = clients.flatMap((client) => {
-      const { clientName, clientLastName, clientPhone } = client;
-      return (client.clientServices || []).map((service: IService) => ({
+    const allServices: diaryServices[] = client.flatMap((c) => {
+      const { clientName, clientLastName, clientPhone } = c;
+
+      return (c.clientServices || []).map((service: IService) => ({
         ...(service instanceof mongoose.Document
           ? service.toObject()
           : service),
         clientName,
         clientLastName,
         clientPhone,
-        clientId: client._id,
+        clientId: c._id,
       }));
     });
     return NextResponse.json({

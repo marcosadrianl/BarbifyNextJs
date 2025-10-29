@@ -1,15 +1,16 @@
 // @/components/serializer.ts
 // Asegúrate de que IClientLean e IServiceLean se exporten desde tu modelo Clients
 import { IClientLean, IServiceLean } from "@/models/Clients";
+import { ObjectId } from "mongodb";
 // ^^^ ¡IMPORTANTE! Reemplaza IClient, IService con IClientLean, IServiceLean
 
 // Tipo para el cliente serializado (sin ObjectId ni métodos de Mongoose)
 export type SerializedClient = {
-  _id: string;
+  _id: ObjectId;
   clientName: string;
   clientLastName: string;
   clientSex: "M" | "F" | "O";
-  clientBirthdate?: string; // Será un string ISO 8601
+  clientBirthdate?: Date; // Será un string ISO 8601
   clientEmail?: string;
   clientPhone?: string;
   clientImage?: string;
@@ -22,10 +23,9 @@ export type SerializedClient = {
   clientNotes?: string;
   clientServices: SerializedService[];
   clientWhiteHairs: number;
-  clientFromUserId?: string;
-  ClientPassword?: string; // Considera si realmente quieres pasar esto a los clientes
-  createdAt?: string; // Será un string ISO 8601
-  updatedAt?: string; // Será un string ISO 8601
+  clientFromUserId?: ObjectId;
+  createdAt?: Date; // Será un string ISO 8601
+  updatedAt?: Date; // Será un string ISO 8601
 };
 
 export type SerializedService = {
@@ -79,11 +79,11 @@ export function serializeClient(client: IClientLean): SerializedClient {
   } = client;
 
   return {
-    _id: _id.toString(), // Convertir ObjectId a string
+    _id, // Convertir ObjectId a string
     clientName,
     clientLastName,
     clientSex,
-    clientBirthdate: clientBirthdate?.toISOString(), // Convertir Date a string ISO 8601
+    clientBirthdate: clientBirthdate, // Convertir Date a string ISO 8601
     clientEmail,
     clientPhone,
     clientImage,
@@ -97,8 +97,8 @@ export function serializeClient(client: IClientLean): SerializedClient {
     // clientServices siempre debería ser un array en IClientLean, no es necesario ?? []
     clientServices: clientServices.map(serializeService),
     clientWhiteHairs,
-    clientFromUserId: clientFromUserId?.toString(), // Convertir ObjectId a string
-    createdAt: createdAt?.toISOString(), // Convertir Date a string ISO 8601
-    updatedAt: updatedAt?.toISOString(), // Convertir Date a string ISO 8601
+    clientFromUserId: clientFromUserId, // Convertir ObjectId a string
+    createdAt: createdAt, // Convertir Date a string ISO 8601
+    updatedAt: updatedAt, // Convertir Date a string ISO 8601
   };
 }

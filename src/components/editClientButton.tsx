@@ -2,7 +2,11 @@
  * este componente recive el client.id desde /clients/[id]
  * y lo envia al endpoint /clients/[id]/edit para ser actualizado
  */
-export default function EditClientButton({ clientId }: { clientId: string }) {
+export default function EditClientButton({
+  clientId,
+}: {
+  clientId: string | unknown;
+}) {
   return (
     <button
       onClick={() => (window.location.href = `/clients/${clientId}/edit`)}

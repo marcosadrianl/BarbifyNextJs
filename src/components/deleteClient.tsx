@@ -6,7 +6,7 @@
 
 import React, { useState } from "react";
 
-export default function DeleteClient({ id }: { id: string }) {
+export default function DeleteClient({ id }: { id: string | unknown }) {
   const [showConfirm, setShowConfirm] = useState(false);
 
   function handleDelete() {

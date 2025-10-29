@@ -1,10 +1,9 @@
 import { connectDB } from "@/utils/mongoose";
-import Clients, { IClientLean } from "@/models/Clients"; // <-- Importa IClientLean
+import Clients, { IClient, serializeClient } from "@/models/Clients"; // <-- Importa IClientLean
 import SingleClientCard from "@/components/singleClientCard";
 import { notFound } from "next/navigation";
 import SingleClientMetrics from "@/components/singleClientMetrics";
 import ServiceList from "@/components/serviceList";
-import { serializeClient } from "@/components/serializer";
 
 /**
  * falta reparar la compatibilidad entre Typos y Esquemas.
@@ -16,10 +15,10 @@ import { serializeClient } from "@/components/serializer";
  */
 
 // La función debe tipar el retorno de .lean()
-async function getClient(id: string): Promise<IClientLean | null> {
+async function getClient(id: string): Promise<IClient | null> {
   await connectDB();
   // El resultado de .lean() es un POJO que concuerda con IClientLean
-  const client = await Clients.findById(id).lean<IClientLean>();
+  const client = await Clients.findById(id).lean<IClient>();
   return client;
 }
 
@@ -29,8 +28,8 @@ export default async function ClientsPage({
   params: { id: string };
 }) {
   try {
-    const { id } = params;
-    // client es de tipo IClientLean | null
+    const { id } = await params;
+    // client es de tipo IClient | null
     const client = await getClient(id);
 
     if (!client) {
@@ -39,6 +38,7 @@ export default async function ClientsPage({
 
     // Serializamos el cliente para pasarlo a Client Components
     const clientData = serializeClient(client);
+    console.log(client);
 
     return (
       <div className="flex flex-row gap-4">
@@ -54,10 +54,6 @@ export default async function ClientsPage({
     );
   } catch (error) {
     console.error("Error fetching client:", error);
-    return (
-      <div className="text-red-500">
-        An error occurred while fetching the client. Please try again later.
-      </div>
-    );
+    return notFound();
   }
 }

@@ -1,11 +1,9 @@
 import { Schema, model, models, Document, Types } from "mongoose";
 import { z } from "zod";
 
-/* ───────────────────────────────
-   1. INTERFACES TYPESCRIPT
-───────────────────────────────── */
-export interface IService {
-  _id: Types.ObjectId;
+// 1. Interface con los tipos
+// 1. Define la DATA del servicio (sin _id)
+export interface IServiceData {
   serviceDate: Date;
   serviceName: string;
   serviceNotes?: string;
@@ -14,7 +12,24 @@ export interface IService {
   fromBarberId?: Types.ObjectId;
 }
 
-export interface IClient extends Document {
+export interface IService extends IServiceData {
+  _id: Types.ObjectId; // _id es agregado por Mongoose en el subdocumento
+}
+
+export interface IClientData {
+  clientName: string;
+  clientLastName: string;
+  clientSex: "M" | "F" | "O";
+  clientBirthdate?: Date;
+  // ... (todos los demás campos de IClient)
+  clientNotes?: string;
+  clientServices: IService[]; // Usa el tipo IService con _id
+  clientWhiteHairs: number;
+  clientFromUserId?: Types.ObjectId;
+  ClientPassword?: string;
+}
+
+export interface IClient extends IClientData, Document {
   clientName: string;
   clientLastName: string;
   clientSex: "M" | "F" | "O";
@@ -33,13 +48,9 @@ export interface IClient extends Document {
   clientWhiteHairs: number;
   clientFromUserId?: Types.ObjectId;
   ClientPassword?: string;
-  createdAt?: Date;
-  updatedAt?: Date;
 }
 
-/* ───────────────────────────────
-   2. ESQUEMAS MONGOOSE
-───────────────────────────────── */
+// 2. Schemas
 const ServicesSchema = new Schema<IService>(
   {
     serviceDate: { type: Date, required: true },
@@ -47,9 +58,12 @@ const ServicesSchema = new Schema<IService>(
     serviceNotes: { type: String, maxlength: 500 },
     servicePrice: { type: Number, min: 0, default: 0, required: true },
     serviceDuration: { type: Number, required: true },
-    fromBarberId: { type: Schema.Types.ObjectId, ref: "Barbers" },
+    fromBarberId: {
+      type: Schema.Types.ObjectId,
+      ref: "Barbers",
+    },
   },
-  { _id: true }
+  { timestamps: false }
 );
 
 const ClientsSchema = new Schema<IClient>(
@@ -75,53 +89,10 @@ const ClientsSchema = new Schema<IClient>(
   },
   {
     timestamps: true,
-    collection: "BarbifyClients",
+    collection: "BarbifyClients", // 👈 importante para que use tu colección ya existente
   }
 );
 
-/* ───────────────────────────────
-   3. SERIALIZADOR UNIFICADO
-───────────────────────────────── */
-
-export const serializeClient = (
-  client: IClient | (IClient & { _doc?: any })
-) => {
-  const doc = client.toObject ? client.toObject() : client;
-
-  return {
-    _id: doc._id.toString(),
-    clientName: doc.clientName,
-    clientLastName: doc.clientLastName,
-    clientSex: doc.clientSex,
-    clientBirthdate: doc.clientBirthdate?.toISOString?.() ?? null,
-    clientEmail: doc.clientEmail,
-    clientPhone: doc.clientPhone,
-    clientImage: doc.clientImage,
-    clientActive: doc.clientActive,
-    clientBaseColor: doc.clientBaseColor,
-    clientHairType: doc.clientHairType,
-    clientAllergies: doc.clientAllergies,
-    clientDiseases: doc.clientDiseases,
-    clientMedications: doc.clientMedications,
-    clientNotes: doc.clientNotes,
-    clientWhiteHairs: doc.clientWhiteHairs,
-    clientServices:
-      doc.clientServices?.map((s: IService) => ({
-        _id: s._id.toString(),
-        serviceDate: s.serviceDate.toISOString(),
-        serviceName: s.serviceName,
-        serviceNotes: s.serviceNotes,
-        servicePrice: s.servicePrice,
-        serviceDuration: s.serviceDuration,
-        fromBarberId: s.fromBarberId?.toString?.() ?? null,
-      })) ?? [],
-    clientFromUserId: doc.clientFromUserId?.toString?.() ?? null,
-    createdAt: doc.createdAt?.toISOString?.() ?? null,
-    updatedAt: doc.updatedAt?.toISOString?.() ?? null,
-  };
-};
-
-////////////////////////// ZOD SCHEMAS //////////////////////////
 // 1. Primero definimos el schema de servicios en Zod
 const ServiceSchemaZod = z.object({
   serviceDate: z.coerce.date(),
@@ -163,10 +134,48 @@ export const ClientZod = ClientSchemaZod.extend({
   updatedAt: z.date(),
 });
 
-/* ───────────────────────────────
-   4. MODELO
-───────────────────────────────── */
+// ----------------------------------------------------
+// NUEVAS INTERFACES PARA EL DOCUMENTO PLAIN (resultado de .lean())
+// ----------------------------------------------------
+
+// 1. Interfaz para el servicio plano (después de .lean())
+// Mongoose NO convierte ObjectId a string aquí, solo a un objeto ObjectId de JS.
+// Si necesitas serializar, tienes que hacerlo explícitamente.
+export interface IServiceLean {
+  _id: Types.ObjectId; // Aún como ObjectId antes de serializar
+  serviceDate: Date; // Aún como Date antes de serializar
+  serviceName: string;
+  serviceNotes?: string;
+  servicePrice: number;
+  serviceDuration: number;
+  fromBarberId?: Types.ObjectId; // Aún como ObjectId antes de serializar
+}
+
+// 2. Interfaz para el Cliente Plano (después de .lean())
+export interface IClientLean {
+  _id: Types.ObjectId;
+  clientName: string;
+  clientLastName: string;
+  clientSex: "M" | "F" | "O";
+  clientBirthdate?: Date;
+  clientEmail?: string;
+  clientPhone?: string;
+  clientImage?: string;
+  clientActive: boolean;
+  clientBaseColor?: string;
+  clientHairType?: string;
+  clientAllergies?: string;
+  clientDiseases?: string;
+  clientMedications?: string;
+  clientNotes?: string;
+  clientServices: IServiceLean[];
+  clientWhiteHairs: number;
+  clientFromUserId?: Types.ObjectId;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 const Clients =
   models.BarbifyClients || model<IClient>("BarbifyClients", ClientsSchema);
 
-export default Clients;
+export default Clients<IClient>;
