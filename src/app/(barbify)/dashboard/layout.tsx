@@ -1,20 +1,8 @@
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
-/* import localFont from "next/font/local"; */
+
 import "../../globals.css";
 
 import NavBar from "@/components/navBar";
-
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-poppins",
-});
-
-/* const Titles = localFont({
-  src: "../../../public/fonts/MongoDBValueSerif-Regular.woff2",
-  variable: "--font-titles",
-}); */
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -31,11 +19,7 @@ export default function RootLayout({
       <body className={` antialiased `}>
         <div className="bg-[#ffe7c7] h-screen flex flex-row text-[#43553b]">
           <NavBar />
-          <div
-            className={`${poppins.variable} flex flex-col w-full overflow-y-auto `}
-          >
-            {children}
-          </div>
+          <div>{children}</div>
         </div>
       </body>
     </html>

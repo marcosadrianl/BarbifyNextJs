@@ -29,7 +29,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <body className={` antialiased `}>
+      <body className="antialiased">
         <div className="bg-[#ffe7c7] h-screen flex flex-row text-[#43553b]">
           <NavBar />
           <div

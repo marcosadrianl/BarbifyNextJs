@@ -3,9 +3,8 @@
  * Luego los muestra con toda la información aplicando un map a la info traída del servidor
  * Usa IClient como client schema
  */
-import { IClient } from "@/models/Clients";
 import Clients from "@/models/Clients";
-import { IService } from "@/models/Clients";
+import { IService, IClient } from "@/models/Clients";
 import { connectDB } from "@/utils/mongoose";
 import { notFound } from "next/navigation";
 import React from "react";
@@ -21,25 +20,13 @@ interface LeanService {
   serviceNotes?: string;
 }
 
-function leanService(service: IService): LeanService {
-  return {
-    _id: service._id.toString(),
-    serviceName: service.serviceName,
-    servicePrice: service.servicePrice,
-    serviceDate:
-      service.serviceDate instanceof Date
-        ? service.serviceDate.toISOString()
-        : service.serviceDate,
-    serviceDuration: service.serviceDuration,
-    serviceNotes: service.serviceNotes,
-  };
-}
-
-type ClientServicesListProps = {
-  services: LeanService[];
-};
-
-function ClientServicesList({ services }: ClientServicesListProps) {
+/**
+ * Muestra la lista de servicios del cliente
+ *
+ * @param  services: IService[] - La lista de servicios del cliente
+ * @returns JSX.Element - Un JSX Element con la lista de servicios del cliente
+ */
+function ClientServicesList({ services }: { services: IService[] }) {
   const daysOfWeek = [
     "Domingo",
     "Lunes",
@@ -50,9 +37,12 @@ function ClientServicesList({ services }: ClientServicesListProps) {
     "Sábado",
   ];
 
+  const result = JSON.parse(JSON.stringify(services));
+  console.log(result);
+
   return (
     <div className="flex flex-col gap-4">
-      {services.map((service) => {
+      {result.clientServices.map((service: IService) => {
         const localDate = new Date(service.serviceDate);
         const formatted = localDate.toLocaleString("es-AR", {
           day: "2-digit",
@@ -63,12 +53,12 @@ function ClientServicesList({ services }: ClientServicesListProps) {
         });
         return (
           <div
-            key={service._id}
+            key={service._id.toString()}
             className="flex flex-col gap-2 bg-[#ffd49d] p-2 rounded-2xl shadow-md w-full"
           >
             <div className="flex flex-row justify-between w-full">
               <h2 className="text-2xl font-bold">{service.serviceName}</h2>
-              <DeleteService id={service._id} />
+              <DeleteService id={service._id.toString()} />
             </div>
             <p className="text-base font-normal">
               • Precio: ${(service.servicePrice / 100).toFixed(2)}
@@ -102,14 +92,14 @@ export default async function ClientHistory({
     .select("clientServices")
     .exec();
 
-  if (!clientServicesArray) {
+  // Mapear los servicios
+  const result = JSON.parse(JSON.stringify(clientServicesArray));
+
+  if (!result.clientServices) {
     return notFound();
   }
 
-  const serviceArrayLeaned: LeanService[] =
-    clientServicesArray.clientServices?.map(leanService) ?? [];
-
-  if (!clientServicesArray.clientServices?.length) {
+  if (!result.clientServices?.length) {
     return (
       <div className="p-4">
         <h2 className="text-2xl font-bold">No hay servicios registrados</h2>
@@ -120,11 +110,11 @@ export default async function ClientHistory({
   return (
     <div className="flex flex-row w-full gap-4 p-4 overflow-auto">
       <div className="w-2/4">
-        <ClientServicesList services={serviceArrayLeaned} />
+        <ClientServicesList services={result} />
       </div>
 
       <div className="w-2/4">
-        <TotalServices services={clientServicesArray.clientServices} />
+        <TotalServices services={result.clientServices} />
       </div>
     </div>
   );

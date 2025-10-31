@@ -7,9 +7,10 @@ export default function SingleClientMetrics({
 }: {
   client: IClient;
 }) {
+  const result = JSON.parse(JSON.stringify(client));
   return (
     <div className="w-full">
-      <TotalServices services={client.clientServices} />
+      <TotalServices services={result.clientServices} />
     </div>
   );
 }

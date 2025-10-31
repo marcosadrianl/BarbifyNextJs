@@ -17,7 +17,7 @@ import ServiceList from "@/components/serviceList";
 // La función debe tipar el retorno de .lean()
 async function getClient(id: string): Promise<IClient | null> {
   await connectDB();
-  // El resultado de .lean() es un POJO que concuerda con IClientLean
+  // El resultado de .lean() es un POJO? que concuerda con IClientLean
   const client = await Clients.findById(id).lean<IClient>();
   return client;
 }
@@ -32,6 +32,8 @@ export default async function ClientsPage({
     // client es de tipo IClient | null
     const client = await getClient(id);
 
+    const result = JSON.parse(JSON.stringify(client));
+
     if (!client) {
       return notFound();
     }
@@ -39,8 +41,7 @@ export default async function ClientsPage({
     return (
       <div className="flex flex-row gap-4">
         <div className="flex flex-col gap-4">
-          {/* Asegúrate de que clientData sea el tipo que espera SingleClientCard */}
-          <SingleClientCard client={client} />
+          <SingleClientCard client={result as IClient} />
           <SingleClientMetrics client={client} />
         </div>
         <div className="flex flex-col gap-4 rounded-2xl w-1/2">
