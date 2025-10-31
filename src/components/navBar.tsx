@@ -1,26 +1,20 @@
-import localFont from "next/font/local";
-import { Chiron_Sung_HK } from "next/font/google";
+import { Alice } from "next/font/google";
 import Link from "next/link";
 
-/* const Titles = localFont({
-  src: "../../public/fonts/Baskervville-Regular.ttf",
-  variable: "--font-titles",
-}); */
-
-const Titles = Chiron_Sung_HK({
+const Titles = Alice({
   subsets: ["latin"],
-  weight: ["400", "700"],
+  weight: ["400"],
   variable: "--font-titles",
 });
 
 export default function NavBar() {
   return (
-    <div className="flex flex-col w-46 h-full justify-between px-2 py-1">
+    <div className="flex flex-col w-46 h-full justify-between">
       <p className={`${Titles.className} text-4xl px-2 select-none`}>Barbify</p>
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col flex-1 gap-4 mt-8">
         <Link
           href="/clients"
-          className="flex flex-row bg-[#cdaa7e] hover:bg-[#ffd49d] rounded-2xl px-3 py-1 w-full"
+          className="flex flex-row bg-[#cdaa7e] hover:bg-[#ffd49d] rounded-r-2xl px-3 py-1 w-full gap-2"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -36,7 +30,7 @@ export default function NavBar() {
 
         <Link
           href="/dashboard"
-          className="flex flex-row bg-[#cdaa7e] hover:bg-[#ffd49d] rounded-2xl px-3 py-1 w-full"
+          className="flex flex-row bg-[#cdaa7e] hover:bg-[#ffd49d] rounded-r-2xl px-3 py-1 w-full gap-2"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -51,7 +45,7 @@ export default function NavBar() {
         </Link>
         <Link
           href="/diary"
-          className="flex flex-row bg-[#cdaa7e] hover:bg-[#ffd49d] rounded-2xl px-3 py-1 w-full"
+          className="flex flex-row bg-[#cdaa7e] hover:bg-[#ffd49d] rounded-r-2xl px-3 py-1 w-full gap-2"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -66,7 +60,7 @@ export default function NavBar() {
         </Link>
         <Link
           href="/insights"
-          className="flex flex-row bg-[#cdaa7e] hover:bg-[#ffd49d] rounded-2xl px-3 py-1 w-full"
+          className="flex flex-row bg-[#cdaa7e] hover:bg-[#ffd49d] rounded-r-2xl px-3 py-1 w-full gap-2"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -79,28 +73,22 @@ export default function NavBar() {
           </svg>
           Insights
         </Link>
-      </div>
-      <Link
-        href="#"
-        className="flex flex-row bg-[#cdaa7e] hover:bg-[#ffd49d] rounded-2xl px-3 py-1 w-full"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="#43553b"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="lucide lucide-user"
+        <Link
+          href="#"
+          className="flex flex-row bg-[#cdaa7e] hover:bg-[#ffd49d] rounded-r-2xl px-3 py-1 w-full gap-2"
         >
-          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-          <circle cx="12" cy="7" r="4"></circle>
-        </svg>
-        Cuenta
-      </Link>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="24px"
+            viewBox="0 -960 960 960"
+            width="24px"
+            fill="#43553b"
+          >
+            <path d="M234-276q51-39 114-61.5T480-360q69 0 132 22.5T726-276q35-41 54.5-93T800-480q0-133-93.5-226.5T480-800q-133 0-226.5 93.5T160-480q0 59 19.5 111t54.5 93Zm246-164q-59 0-99.5-40.5T340-580q0-59 40.5-99.5T480-720q59 0 99.5 40.5T620-580q0 59-40.5 99.5T480-440Zm0 360q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q53 0 100-15.5t86-44.5q-39-29-86-44.5T480-280q-53 0-100 15.5T294-220q39 29 86 44.5T480-160Zm0-360q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Zm0-60Zm0 360Z" />
+          </svg>
+          Cuenta
+        </Link>
+      </div>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-// src/lib/auth.ts
+/* // src/lib/auth.ts
 import { connectDB } from "@/utils/mongoose";
 // src/lib/auth.ts
 import { createAuth } from "better-auth";
@@ -18,3 +18,4 @@ export const auth = createAuth({
     enabled: true,
   },
 });
+ */

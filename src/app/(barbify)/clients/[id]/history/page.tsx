@@ -11,7 +11,15 @@ import { notFound } from "next/navigation";
 import React from "react";
 import DeleteService from "@/components/deleteService";
 import TotalServices from "@/components/fullServiceData";
-import { LeanService } from "@/models/service";
+
+interface LeanService {
+  _id: string;
+  serviceName: string;
+  servicePrice: number;
+  serviceDate: string;
+  serviceDuration: number;
+  serviceNotes?: string;
+}
 
 function leanService(service: IService): LeanService {
   return {
@@ -116,7 +124,7 @@ export default async function ClientHistory({
       </div>
 
       <div className="w-2/4">
-        <TotalServices services={serviceArrayLeaned} />
+        <TotalServices services={clientServicesArray.clientServices} />
       </div>
     </div>
   );

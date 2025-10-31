@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useSelectedLayoutSegments } from "next/navigation";
 import { notFound } from "next/navigation";
-import { no } from "zod/locales";
 
 export default function Breadcrumbs() {
   const segments = useSelectedLayoutSegments();

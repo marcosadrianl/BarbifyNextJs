@@ -1,6 +1,6 @@
-// @/components/serializer.ts
+/* // @/components/serializer.ts
 // Asegúrate de que IClientLean e IServiceLean se exporten desde tu modelo Clients
-import { IClientLean, IServiceLean } from "@/models/Clients";
+import { IClient, IService } from "@/models/Clients";
 import { ObjectId } from "mongodb";
 // ^^^ ¡IMPORTANTE! Reemplaza IClient, IService con IClientLean, IServiceLean
 
@@ -40,7 +40,7 @@ export type SerializedService = {
 
 // Función para serializar un servicio
 // AHORA ESPERA IServiceLean como entrada
-export function serializeService(service: IServiceLean): SerializedService {
+export function serializeService(service: IService): SerializedService {
   return {
     _id: service._id.toString(), // .lean() devuelve Types.ObjectId aquí
     serviceDate: service.serviceDate.toISOString(), // .lean() devuelve Date aquí
@@ -54,7 +54,7 @@ export function serializeService(service: IServiceLean): SerializedService {
 
 // Función para serializar un cliente
 // AHORA ESPERA IClientLean como entrada
-export function serializeClient(client: IClientLean): SerializedClient {
+export function serializeClient(client: IClient): SerializedClient {
   const {
     _id,
     clientName,
@@ -79,7 +79,7 @@ export function serializeClient(client: IClientLean): SerializedClient {
   } = client;
 
   return {
-    _id, // Convertir ObjectId a string
+    _id: _id, // Convertir ObjectId a string
     clientName,
     clientLastName,
     clientSex,
@@ -102,3 +102,4 @@ export function serializeClient(client: IClientLean): SerializedClient {
     updatedAt: updatedAt, // Convertir Date a string ISO 8601
   };
 }
+ */

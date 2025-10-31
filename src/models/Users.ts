@@ -1,5 +1,6 @@
 import { Schema, model, models } from "mongoose";
 import Barbers from "./Barbers";
+import z from "zod";
 
 interface BarbersList extends Document {
   barberName: string;
@@ -25,8 +26,8 @@ interface IUser {
   userLocation?: {
     city: string; //Buenos Aires
     state?: string; //La Plata
-    address?: string;
-    userPostalCode?: string;
+    address?: string; // 44 y 132
+    userPostalCode?: string; // 1900
   };
   userPhome?: string;
   userLevel: 0 | 1;
@@ -37,31 +38,31 @@ interface IUser {
 //esuqme del user
 const UsersSchema = new Schema(
   {
-    UserEmail: {
+    userEmail: {
       type: String,
       required: true,
       unique: true,
       maxlength: 100,
       trim: true,
     },
-    UserPassword: { type: String, required: true, maxlength: 100 },
-    UserActive: { type: Boolean, default: true },
-    UserName: { type: String, required: true, maxlength: 50, trim: true },
-    UserLastName: { type: String, required: true, maxlength: 50, trim: true },
-    UserRole: { type: String, default: "admin", maxlength: 20, trim: true },
-    UserPostalCode: { type: String, maxlength: 10, trim: true },
-    UserCity: { type: String, maxlength: 50, trim: true },
-    UserAddress: { type: String, maxlength: 100, trim: true },
-    UserPhone: {
+    userPassword: { type: String, required: true, maxlength: 100 },
+    userActive: { type: Boolean, default: true },
+    userName: { type: String, required: true, maxlength: 50, trim: true },
+    userLastName: { type: String, required: true, maxlength: 50, trim: true },
+    userRole: { type: String, default: "admin", maxlength: 20, trim: true },
+    userPostalCode: { type: String, maxlength: 10, trim: true },
+    userCity: { type: String, maxlength: 50, trim: true },
+    userAddress: { type: String, maxlength: 100, trim: true },
+    userPhone: {
       type: String,
       maxlength: 20,
       trim: true,
       message: "Please enter a valid phone number",
     },
-    UserLevel: { type: Number, required: true, default: 0, enum: [0, 1, 2] },
-    UserBirthdate: { type: Date },
-    UserSex: { type: String, enum: ["M", "F", "O"], default: "O" },
-    UserHasThisBarbers: [Barbers],
+    userLevel: { type: Number, required: true, default: 0, enum: [0, 1, 2] },
+    userBirthdate: { type: Date },
+    userSex: { type: String, enum: ["M", "F", "O"], default: "O" },
+    userHasThisBarbers: [Barbers],
   },
   {
     timestamps: true,
@@ -69,4 +70,35 @@ const UsersSchema = new Schema(
   }
 );
 
-export default models.BarbifyUsers || model("BarbifyUsers", UsersSchema);
+//ZOD scheme
+export const UserSchemaZod = z
+  .object({
+    userName: z.string().max(50),
+    userLastName: z.string().max(50),
+    userEmail: z.string().email().max(100),
+    userPassword: z.string().max(100),
+    userActive: z.boolean().optional(),
+    userLocation: z
+      .object({
+        city: z.string().max(50),
+        state: z.string().max(50),
+        address: z.string().max(100),
+        PostalCode: z.string().max(10),
+      })
+      .optional(),
+    userPhone: z.string().max(20),
+    userLevel: z.enum(["0", "1"]).transform(Number),
+    userBirthDate: z.date().optional(),
+    userSex: z.enum(["M", "F", "O"]).optional(),
+  })
+  .strict();
+
+export const UserZod = UserSchemaZod.extend({
+  _id: z.string().optional(),
+  createdAt: z.date().optional(),
+  updatedAt: z.date().optional(),
+});
+
+const User = models.BarbifyUsers || model<IUser>("BarbifyUsers", UsersSchema);
+
+export default User;

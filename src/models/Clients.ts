@@ -17,7 +17,7 @@ export interface IService {
 export interface IClient extends Document {
   clientName: string;
   clientLastName: string;
-  clientSex: "M" | "F" | "O";
+  clientSex: "M" | "F" | "O"; //male, female, other
   clientBirthdate?: Date;
   clientEmail?: string;
   clientPhone?: string;
@@ -84,7 +84,7 @@ const ClientsSchema = new Schema<IClient>(
 ───────────────────────────────── */
 
 export const serializeClient = (
-  client: IClient | (IClient & { _doc?: any })
+  client: IClient | (IClient & { _doc?: IClient })
 ) => {
   const doc = client.toObject ? client.toObject() : client;
 

@@ -1,5 +1,5 @@
 import { connectDB } from "@/utils/mongoose";
-import Clients, { IClient, serializeClient } from "@/models/Clients"; // <-- Importa IClientLean
+import Clients, { IClient } from "@/models/Clients"; // <-- Importa IClientLean
 import SingleClientCard from "@/components/singleClientCard";
 import { notFound } from "next/navigation";
 import SingleClientMetrics from "@/components/singleClientMetrics";
@@ -36,16 +36,12 @@ export default async function ClientsPage({
       return notFound();
     }
 
-    // Serializamos el cliente para pasarlo a Client Components
-    const clientData = serializeClient(client);
-    console.log(client);
-
     return (
       <div className="flex flex-row gap-4">
         <div className="flex flex-col gap-4">
           {/* Asegúrate de que clientData sea el tipo que espera SingleClientCard */}
-          <SingleClientCard client={clientData} />
-          <SingleClientMetrics client={clientData} />
+          <SingleClientCard client={client} />
+          <SingleClientMetrics client={client} />
         </div>
         <div className="flex flex-col gap-4 rounded-2xl w-1/2">
           <ServiceList params={params} />
