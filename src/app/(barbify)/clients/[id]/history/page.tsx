@@ -11,15 +11,6 @@ import React from "react";
 import DeleteService from "@/components/deleteService";
 import TotalServices from "@/components/fullServiceData";
 
-interface LeanService {
-  _id: string;
-  serviceName: string;
-  servicePrice: number;
-  serviceDate: string;
-  serviceDuration: number;
-  serviceNotes?: string;
-}
-
 /**
  * Muestra la lista de servicios del cliente
  *
