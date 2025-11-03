@@ -173,7 +173,13 @@ export default function EditClientFormPage() {
   }
 
   if (loadingData) {
-    return <p className="p-4 text-center text-gray-500">Cargando datos...</p>;
+    return (
+      <div className="h-full w-full flex justify-center">
+        <p className="text-center self-center w-1/2 align-middle text-gray-500">
+          Cargando datos...
+        </p>
+      </div>
+    );
   }
 
   return (
@@ -276,7 +282,7 @@ export default function EditClientFormPage() {
 
         <button
           type="submit"
-          className="bg-amber-400 rounded w-full p-2 font-bold"
+          className="bg-amber-400 rounded w-full p-2 font-bold mb-8"
         >
           Guardar cambios
         </button>

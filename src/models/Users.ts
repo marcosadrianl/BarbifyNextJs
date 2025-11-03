@@ -35,7 +35,7 @@ interface IUser {
   userHasThisBarbers: BarbersList[];
 }
 
-//esuqme del user
+//schemme del user mongoDB
 const UsersSchema = new Schema(
   {
     userEmail: {

@@ -28,17 +28,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es">
-      <body className={` antialiased `}>
-        <div className="bg-[#ffe7c7] h-screen flex flex-row text-[#43553b]">
-          <NavBar />
-          <div
-            className={`${poppins.variable} flex flex-col w-full overflow-y-auto `}
-          >
-            {children}
-          </div>
-        </div>
-      </body>
-    </html>
+    <div className="bg-[#ffe7c7] h-screen flex flex-row text-[#43553b]">
+      <NavBar />
+      <div
+        className={`${poppins.variable} flex flex-col w-full overflow-y-auto `}
+      >
+        {children}
+      </div>
+    </div>
   );
 }

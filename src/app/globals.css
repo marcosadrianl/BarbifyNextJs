@@ -2,7 +2,8 @@
 @import "react-loading-skeleton/dist/skeleton.css";
 
 body {
-  @apply bg-gray-900 text-white;
+  background-color: rgb(17, 24, 39);
+  color: white;
 }
 
 @view-transition {
