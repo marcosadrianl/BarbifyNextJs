@@ -1,10 +1,16 @@
-CRUD CON NEXTJS Y MONGODB
-CONTINUAR DESDE:
-https://youtu.be/CkiuF2wsPRg?si=5DTj0Li6Zv4WUjPE&t=2682
 
-modelo client view: https://www3.gobiernodecanarias.org/medusa/contenidosdigitales/FormacionTIC/cdtic2014/04cd/cd155.jpg
 
 --------------------------------------------------------------------------------------------------
+AVANCE 05/11/2025:
+- Se implemento toda la logica de autenticacion. Esta vibeCodeado. QUEDA:
+	- Resolver errores de primer fallo
+	- Ajustar las variables para que apunten a MONGODB
+	- Protejer las rutas correspondientes
+	- Disenar UI de registro/login
+	- probar logica para creacion de usuarios
+- Por el momento descarto la posibilidad de Roles, estos no seran mas que una etiqueta en los servicios, pero no habra roles especificos.
+- Ver error en auth.ts es un error de tipos. pero debe ser resuelto
+
 
 AVANCE 29/10/2025:
 - Trabajo en las bases para integrar BetterAuth. 
