@@ -1,6 +1,19 @@
 
-
+quiero llorar
 --------------------------------------------------------------------------------------------------
+AVANCE 07/11/2025:
+- He sido derrotado. BetterAuth parece muy complejo al perderle control sobre los contratos y manejo de datos.
+- Optamos por Next-Auth.js. Mas integrado con NEXTJS. 
+Queda:
+	- Re-leer toda la documentacion importante, implementar logica. 
+	- (barbify)/ --> barbify/?
+	- preguntas:
+		- como maneja la creacion de usuarios?
+		- donde la guarda? que necesita? 
+		- como leo la informacion de usuarios que se logguearon desde google/meta ?
+		- 
+	- Eliminar avances anteriores de BetterAuth y volver al estado anterior.
+
 AVANCE 05/11/2025:
 - Se implemento toda la logica de autenticacion. Esta vibeCodeado. QUEDA:
 	- Resolver errores de primer fallo

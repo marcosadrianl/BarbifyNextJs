@@ -1,22 +1,45 @@
-// app/signup/page.tsx
-import SignUpForm from "@/components/signUpForm";
-import Link from "next/link";
-
+"use client";
+import React, { useState } from "react";
+import { useRouter } from "next/router";
+import axios from "axios";
 export default function SignUpPage() {
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+  const signUpSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const router = useRouter();
+      await axios.post("/api/auth/signup", { name, email, password });
+      router.push("/login");
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
-      <div className="w-full max-w-md">
-        <SignUpForm />
-        <p className="text-center mt-4 text-sm text-gray-600">
-          ¿Ya tienes cuenta?{" "}
-          <Link
-            href="/login"
-            className="text-[#43553b] font-semibold hover:underline"
-          >
-            Inicia sesión aquí
-          </Link>
-        </p>
-      </div>
+    <div>
+      <form onSubmit={signUpSubmit} className="flex flex-col">
+        <h1>Sign Up</h1>
+        <input
+          type="text"
+          placeholder="Name"
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
+        <input
+          type="text"
+          placeholder="Email"
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        <button type="submit">Sign up</button>
+      </form>
     </div>
   );
 }

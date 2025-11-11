@@ -17,7 +17,7 @@ interface BarbersList extends Document {
   };
 }
 
-interface IUser {
+export interface IUser {
   userName: string;
   userLastName?: string;
   userEmail: string;
@@ -32,7 +32,7 @@ interface IUser {
   userPhome?: string;
   userLevel: 0 | 1;
   userBirthDate?: Date;
-  userHasThisBarbers: BarbersList[];
+  userHasThisBarbers?: BarbersList[];
 }
 
 //schemme del user mongoDB
@@ -62,7 +62,12 @@ const UsersSchema = new Schema(
     userLevel: { type: Number, required: true, default: 0, enum: [0, 1, 2] },
     userBirthdate: { type: Date },
     userSex: { type: String, enum: ["M", "F", "O"], default: "O" },
-    userHasThisBarbers: [Barbers],
+    userHasThisBarbers: {
+      type: [Schema.Types.ObjectId],
+      ref: "Barbers",
+      default: [],
+      optional: true,
+    },
   },
   {
     timestamps: true,

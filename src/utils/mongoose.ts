@@ -1,5 +1,6 @@
-import { connect /* connection */ } from "mongoose";
-/* import dotenv from "dotenv"; */
+// lib/mongoose.ts
+import mongoose from "mongoose";
+
 const conn = {
   isConnected: 0, // Track the connection status
 };
@@ -9,34 +10,27 @@ const conn = {
  *
  * If the connection is already established, it returns immediately.
  * Otherwise, it attempts to connect to the database using the
- * MONGODB_URI environment variable.
- *
- * @returns {Promise<MongoDB>} A promise that resolves to the connected
- * MongoDB instance.
- *
- * @throws {Error} If there is an error connecting to the database.
+ * DATABASE_URL environment variable.
  */
 export async function connectDB() {
   try {
     if (conn.isConnected === 1) {
-      console.log("Already connected to MongoDB");
+      console.log("✅ Already connected to MongoDB");
       return;
     }
 
-    const db = await connect(process.env.MONGODB_URI as string, {
-      // Opciones de conexión recomendadas
+    const db = await mongoose.connect(process.env.DATABASE_URL!, {
       maxPoolSize: 10,
       serverSelectionTimeoutMS: 5000,
       socketTimeoutMS: 45000,
     });
 
-    console.log("Connected to MongoDB");
-
     conn.isConnected = db.connections[0].readyState;
+    console.log("✅ Connected to MongoDB");
 
     return db;
   } catch (error) {
-    console.error("MongoDB connection error:", error);
+    console.error("❌ MongoDB connection error:", error);
     throw error;
   }
 }
