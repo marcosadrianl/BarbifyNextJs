@@ -1,18 +1,37 @@
 
 quiero llorar
 --------------------------------------------------------------------------------------------------
+AVANCE 2/12/2025:
+- Reolviendo un error fatal: GET de /clients trae TODOS los clientes, buscar manera de filtrar antes para el usuario logueado. 
+- Empezamos con la DASHBOARD Page. usando shadcn@latest. (ultimo usado: https://ui.shadcn.com/docs/components/chart)
+
+
+AVANCE 1/12/2025:
+- Loggin Listo! Lets GOOO
+- Queda la seccion de registro. hay que ver que politica uso, si free register o uno manual cliente por cliente.
+
+	RESOLVER: 
+	- Hay un error con las fuentes de google. queda trabajar con fuentes locales. ya descargadas, usar next/font local 
+	algo asi. Hay un archivo Fonts.ts con las fuentes listo para usar.
+
+AVANCE 13/11/2025:
+- NextAuth parece funcionar mejor ahora, ya se pueden logguear y registrar los usuraios.
+QUEDA
+	- Protejer las rutas, hay un bug en el orden de ejecucion de los hooks resuelto, y listo
+	- agregar al arbol de la pag loggin y signup
+	
 AVANCE 07/11/2025:
 - He sido derrotado. BetterAuth parece muy complejo al perderle control sobre los contratos y manejo de datos.
 - Optamos por Next-Auth.js. Mas integrado con NEXTJS. 
 Queda:
 	- Re-leer toda la documentacion importante, implementar logica. 
-	- (barbify)/ --> barbify/?
+	- (barbify)/ --> barbify/? <--- era /clients /diary / etc etc
 	- preguntas:
-		- como maneja la creacion de usuarios?
-		- donde la guarda? que necesita? 
-		- como leo la informacion de usuarios que se logguearon desde google/meta ?
+		- como maneja la creacion de usuarios? No lohace. solo crea un toquen valido si el usuario existe de antemano
+		- donde la guarda? que necesita? No lo hace, esa logica la uso (google, meta, twitter, etc) o creo yo (MongoDB -> BarbifyUsers)
+		- como leo la informacion de usuarios que se logguearon desde google/meta ? Usando la Api (como?)
 		- 
-	- Eliminar avances anteriores de BetterAuth y volver al estado anterior.
+	- Eliminar avances anteriores de BetterAuth y volver al estado anterior. Listo
 
 AVANCE 05/11/2025:
 - Se implemento toda la logica de autenticacion. Esta vibeCodeado. QUEDA:

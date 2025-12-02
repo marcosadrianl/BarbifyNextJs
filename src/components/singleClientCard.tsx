@@ -14,7 +14,7 @@ import { IClient } from "@/models/Clients";
 
 export default function SingleClientCard({ client }: { client: IClient }) {
   return (
-    <div className="flex flex-col w-2xl gap-1">
+    <div className="flex flex-col w-full gap-1">
       {/* Aquí Imagen y Nombre en grande del Cliente*/}
       <div className="bg-[#ffd49d] p-2  h-fit rounded-t-2xl flex flex-col lg:flex-row items-start">
         {/* Imagen del Cliente*/}

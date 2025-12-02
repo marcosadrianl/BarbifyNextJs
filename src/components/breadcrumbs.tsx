@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useSelectedLayoutSegments } from "next/navigation";
 import { notFound } from "next/navigation";
+import LoadingDots from "./loadingDots";
 
 export default function Breadcrumbs() {
   const segments = useSelectedLayoutSegments();
@@ -60,7 +61,7 @@ export default function Breadcrumbs() {
         // Determinar el label
         let label;
         if (idx === 0 && clientId) {
-          label = clientName || "Cargando...";
+          label = clientName || <LoadingDots />;
         } else {
           label = labels[segment] || segment; // fallback al segmento si no hay label
         }
@@ -72,12 +73,27 @@ export default function Breadcrumbs() {
 
         return (
           <span key={segment} className="flex gap-2 w-fit">
-            <span>/</span>
+            <span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="items-center inline-flex"
+              >
+                <path d="m9 18 6-6-6-6"></path>
+              </svg>
+            </span>
             <Link
               href={href}
               className="hover:underline capitalize text-nowrap"
             >
-              {label || "Cargando..."}
+              {label || <LoadingDots />}
             </Link>
           </span>
         );

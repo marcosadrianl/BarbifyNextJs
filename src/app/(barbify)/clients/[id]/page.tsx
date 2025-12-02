@@ -39,8 +39,8 @@ export default async function ClientsPage({
     }
 
     return (
-      <div className="flex flex-row gap-4">
-        <div className="flex flex-col gap-4">
+      <div className="flex flex-row gap-24 bg-[#cebaa1] p-4 ">
+        <div className="flex flex-col gap-4 w-full mx-auto">
           <SingleClientCard client={result as IClient} />
           <SingleClientMetrics client={client} />
         </div>

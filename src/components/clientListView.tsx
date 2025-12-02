@@ -8,7 +8,7 @@ export default function ClientListView({ clients }: { clients: IClient[] }) {
   const router = useRouter();
 
   return (
-    <div className="px-2 my-16">
+    <div className="px-2 my-8">
       <table className="w-full rounded-md overflow-hidden transition-all duration-200">
         <thead className="bg-[#cdaa7e] transition-all duration-200">
           <tr>

@@ -1,8 +1,8 @@
 import { Schema, model, models } from "mongoose";
-import Barbers from "./Barbers";
 import z from "zod";
 
-interface BarbersList extends Document {
+// 1. Interface Definition
+interface Barbers extends Document {
   barberName: string;
   barberLastName: string;
   barberEmail: string;
@@ -13,8 +13,11 @@ interface BarbersList extends Document {
     city: string; //Buenos Aires
     state?: string; //La Plata
     address?: string;
-    userPostalCode?: string;
+    PostalCode?: string;
   };
+  barberLevel?: 0 | 1 | 2; // 0 = Admin, 1 = Barber, 2 = etc
+  barberBirthDate?: Date;
+  barberImageURL?: string;
 }
 
 export interface IUser {
@@ -32,7 +35,7 @@ export interface IUser {
   userPhome?: string;
   userLevel: 0 | 1;
   userBirthDate?: Date;
-  userHasThisBarbers?: BarbersList[];
+  userHasThisBarbers?: Barbers[];
 }
 
 //schemme del user mongoDB
@@ -63,8 +66,7 @@ const UsersSchema = new Schema(
     userBirthdate: { type: Date },
     userSex: { type: String, enum: ["M", "F", "O"], default: "O" },
     userHasThisBarbers: {
-      type: [Schema.Types.ObjectId],
-      ref: "Barbers",
+      type: Array,
       default: [],
       optional: true,
     },

@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import { connectDB } from "@/utils/mongoose";
 import Clients from "@/models/Clients";
-
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 /**
  * GET /api/clients
  *
@@ -25,39 +26,59 @@ export async function GET(request: Request) {
   try {
     await connectDB();
 
+    // Obtener session del usuario
+    const session = await getServerSession(authOptions);
+    if (!session || !session.user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+    // asegurate que en tu authorize devolviste id: user._id (como string u ObjectId)
+    const userId = String(session.user.id);
+    console.log("userID es", userId);
+
+    // params de paginación / búsqueda
     const { searchParams } = new URL(request.url);
-    const page = parseInt(searchParams.get("page") || "1", 10);
-    const limit = parseInt(searchParams.get("limit") || "10", 10);
-    const search = searchParams.get("search") || "";
+    const page = Math.max(1, parseInt(searchParams.get("page") || "1", 10));
+    const limit = Math.max(1, parseInt(searchParams.get("limit") || "10", 10));
+    const search = (searchParams.get("search") || "").trim();
 
     const skip = (page - 1) * limit;
 
+    // Query base: SOLO clientes del usuario autenticado
+    const baseQuery: any = { clientFromUserId: userId };
+
+    // Si hay búsqueda, combinamos con $and para respetar owner + filtro
     const query = search
       ? {
-          $or: [
-            { clientName: { $regex: search.toLowerCase(), $options: "i" } },
-            { clientLastName: { $regex: search.toLowerCase(), $options: "i" } },
+          $and: [
+            baseQuery,
+            {
+              $or: [
+                { clientName: { $regex: search, $options: "i" } },
+                { clientLastName: { $regex: search, $options: "i" } },
+              ],
+            },
           ],
         }
-      : {};
+      : baseQuery;
 
     const clients = await Clients.find(query)
-      .sort({ updatedAt: -1 }) // -1 para orden descendente (más reciente primero)
+      .sort({ updatedAt: -1 })
       .skip(skip)
-      .limit(limit);
+      .limit(limit)
+      .lean();
 
-    // total de clientes que cumplen la búsqueda
     const total = await Clients.countDocuments(query);
 
     return NextResponse.json({
       data: clients,
       total,
       page,
-      totalPages: Math.ceil(total / limit),
+      totalPages: Math.ceil(total / limit) || 1,
     });
   } catch (error) {
+    console.error("Error fetching clients:", error);
     return NextResponse.json(
-      { error: "Error fetching clients" + error },
+      { error: "Error fetching clients: " + (error as Error).message },
       { status: 500 }
     );
   }

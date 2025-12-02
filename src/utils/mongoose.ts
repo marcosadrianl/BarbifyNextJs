@@ -15,22 +15,22 @@ const conn = {
 export async function connectDB() {
   try {
     if (conn.isConnected === 1) {
-      console.log("✅ Already connected to MongoDB");
+      console.log("Already connected to MongoDB");
       return;
     }
 
-    const db = await mongoose.connect(process.env.DATABASE_URL!, {
+    const db = await mongoose.connect(process.env.MONGODB_URI!, {
       maxPoolSize: 10,
       serverSelectionTimeoutMS: 5000,
       socketTimeoutMS: 45000,
     });
 
     conn.isConnected = db.connections[0].readyState;
-    console.log("✅ Connected to MongoDB");
+    console.log("Connected to MongoDB");
 
     return db;
   } catch (error) {
-    console.error("❌ MongoDB connection error:", error);
+    console.error(" MongoDB connection error:", error);
     throw error;
   }
 }

@@ -8,7 +8,6 @@ import { Alice } from "next/font/google";
 const montserrat = Montserrat({
   subsets: ["latin"],
   weight: ["400", "700"],
-  variable: "--font-poppins",
 });
 
 const Titles = Alice({
@@ -17,7 +16,7 @@ const Titles = Alice({
   variable: "--font-titles",
 });
 
-export default function Dashboard() {
+export default function LandingPage() {
   return (
     <>
       <nav
@@ -52,9 +51,9 @@ export default function Dashboard() {
         </span>
         <Link
           className="bg-amber-600/30 rounded-2xl px-4 mr-2 py-1"
-          href="/clients"
+          href="/login"
         >
-          Clientes
+          Ingresar
         </Link>
       </nav>
 
@@ -227,7 +226,7 @@ export default function Dashboard() {
               <p className={`${montserrat.className} text-lg mb-12`}>
                 Obtené métricas y estadísticas para optimizar tu negocio.
               </p>
-              <p className={`${montserrat.className} text-lg`}>
+              <p className={`${montserrat.className} text-lg `}>
                 Accedé a herramientas basicas, gráficos y herramientas de
                 liquidación diaria y mensual.
               </p>
