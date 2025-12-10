@@ -1,6 +1,6 @@
 "use client";
 
-import { Poppins } from "next/font/google";
+import { Poppins } from "@/utils/fonts";
 
 import "../../globals.css";
 import { SessionProvider } from "next-auth/react";
@@ -8,12 +8,6 @@ import React from "react";
 
 import NavBar from "@/components/navBar";
 import SearchBar from "@/components/searchBar";
-
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-poppins",
-});
 
 export default function RootLayout({
   children,
@@ -24,7 +18,7 @@ export default function RootLayout({
     <div className="bg-[#ffe7c7] h-screen flex flex-row text-[#43553b]">
       <NavBar />
       <div
-        className={`${poppins.variable} flex flex-col w-full overflow-y-auto`}
+        className={`${Poppins.variable} flex flex-col w-full overflow-y-auto`}
       >
         <div className="flex flex-col justify-between items-center p-2">
           <div className="flex w-fit">

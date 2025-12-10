@@ -3,6 +3,8 @@ import { connectDB } from "@/utils/mongoose";
 import Clients from "@/models/Clients";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+
+import { Types } from "mongoose";
 /**
  * GET /api/clients
  *
@@ -25,49 +27,44 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 export async function GET(request: Request) {
   try {
     await connectDB();
-
-    // Obtener session del usuario
     const session = await getServerSession(authOptions);
+
     if (!session || !session.user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
-    // asegurate que en tu authorize devolviste id: user._id (como string u ObjectId)
-    const userId = String(session.user.id);
-    console.log("userID es", userId);
 
-    // params de paginación / búsqueda
     const { searchParams } = new URL(request.url);
-    const page = Math.max(1, parseInt(searchParams.get("page") || "1", 10));
-    const limit = Math.max(1, parseInt(searchParams.get("limit") || "10", 10));
-    const search = (searchParams.get("search") || "").trim();
-
+    const page = Math.max(1, parseInt(searchParams.get("page") || "1"));
+    const limit = Math.max(1, parseInt(searchParams.get("limit") || "10"));
     const skip = (page - 1) * limit;
 
-    // Query base: SOLO clientes del usuario autenticado
-    const baseQuery: any = { clientFromUserId: userId };
+    const search = (searchParams.get("search") || "").trim();
 
-    // Si hay búsqueda, combinamos con $and para respetar owner + filtro
-    const query = search
-      ? {
-          $and: [
-            baseQuery,
-            {
-              $or: [
-                { clientName: { $regex: search, $options: "i" } },
-                { clientLastName: { $regex: search, $options: "i" } },
-              ],
-            },
-          ],
-        }
-      : baseQuery;
+    // 🔥 Convertimos a ObjectId una sola vez
+    const userObjectId = new Types.ObjectId(session.user.id);
 
-    const clients = await Clients.find(query)
+    // 🔍 Query base (solo clientes del usuario)
+    const baseQuery = { clientFromUserId: userObjectId };
+
+    // 🔎 Si hay búsqueda, agregamos OR por nombre/apellido
+    const finalQuery =
+      search.length > 0
+        ? {
+            ...baseQuery,
+            $or: [
+              { clientName: { $regex: search, $options: "i" } },
+              { clientLastName: { $regex: search, $options: "i" } },
+            ],
+          }
+        : baseQuery;
+
+    const clients = await Clients.find(finalQuery)
       .sort({ updatedAt: -1 })
       .skip(skip)
       .limit(limit)
       .lean();
 
-    const total = await Clients.countDocuments(query);
+    const total = await Clients.countDocuments(finalQuery);
 
     return NextResponse.json({
       data: clients,
@@ -76,7 +73,7 @@ export async function GET(request: Request) {
       totalPages: Math.ceil(total / limit) || 1,
     });
   } catch (error) {
-    console.error("Error fetching clients:", error);
+    console.error("GET Clients Error:", error);
     return NextResponse.json(
       { error: "Error fetching clients: " + (error as Error).message },
       { status: 500 }

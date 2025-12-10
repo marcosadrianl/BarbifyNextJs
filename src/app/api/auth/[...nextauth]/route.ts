@@ -1,10 +1,17 @@
-import NextAuth from "next-auth";
+import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import User from "@/models/Users";
 import { connectDB } from "@/utils/mongoose";
 
-export const authOptions = {
+// Definimos el tipo de usuario que vamos a devolver
+interface AuthUser {
+  id: string;
+  name: string;
+  email: string;
+}
+
+export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -12,8 +19,9 @@ export const authOptions = {
         email: { label: "Email", type: "text" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials) {
+      async authorize(credentials): Promise<AuthUser | null> {
         await connectDB();
+
         const user = await User.findOne({ userEmail: credentials?.email });
         if (!user) return null;
 
@@ -38,26 +46,28 @@ export const authOptions = {
 
   secret: process.env.NEXTAUTH_SECRET,
 
-  // 👇 NECESARIO PARA GUARDAR id EN TOKEN Y SESSION
   callbacks: {
+    /**
+     * Modifica el token JWT para incluir el id del usuario.
+     */
     async jwt({ token, user }) {
-      // user solo está presente en login
       if (user) {
-        token.id = user.id;
+        token.id = (user as AuthUser).id;
       }
       return token;
     },
 
     async session({ session, token }) {
-      if (token?.id) {
-        session.user.id = token.id; // ahora existe
+      if (token?.id && session.user) {
+        // extendemos el tipo de session.user para incluir id
+        (session.user as AuthUser).id = token.id as string;
       }
       return session;
     },
   },
 };
 
-// Crear handler
+// Handler para App Router
 const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };

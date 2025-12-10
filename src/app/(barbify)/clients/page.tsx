@@ -7,7 +7,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { Suspense } from "react";
 import { useSession } from "next-auth/react";
 import React from "react";
-import LoadingDots from "@/components/loadingDots";
+/* import LoadingDots from "@/components/loadingDots"; */
 
 function CheckAuth() {
   const { data: session, status } = useSession();
@@ -20,7 +20,7 @@ function CheckAuth() {
     }
   }, [status, router]);
 
-  if (status === "loading") {
+  /*  if (status === "loading") {
     return <LoadingDots />;
   }
 
@@ -32,9 +32,9 @@ function CheckAuth() {
         <LoadingDots />
       </div>
     );
-  }
+  } */
 
-  return <div className="px-2">Bienvenido/a {session?.user?.name}!</div>;
+  return null;
 }
 
 function ClientsPageContent() {

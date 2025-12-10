@@ -1,5 +1,9 @@
+"use client";
 import { Alice } from "next/font/google";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
+import React from "react";
+import { useRouter } from "next/navigation";
 
 const Titles = Alice({
   subsets: ["latin"],

@@ -35,42 +35,50 @@ export default function ClientListView({ clients }: { clients: IClient[] }) {
           </tr>
         </thead>
         <tbody className=" bg-[#ffd49d]">
-          {clients.map((client) => (
-            <tr key={client._id!.toString()} className="hover:bg-[#f3c78d]">
-              <td className="flex flex-row px-4 py-2 gap-2 items-center text-nowrap">
-                <Image
-                  src={client.clientImage || "/default-client.png"}
-                  alt={`Perfil de ${client.clientName}`}
-                  width={25}
-                  height={25}
-                  className="rounded-full"
-                />
-                {client.clientName} {client.clientLastName}
-              </td>
-              <td className="px-4 py-2">{client.clientEmail}</td>
-              <td className="px-4 py-2">{client.clientPhone}</td>
-              <td
-                onClick={(e) => e.stopPropagation()}
-                className="px-4 text-nowrap"
-              >
-                <Link
-                  href={`/clients/${client._id}`}
-                  className="flex flex-row items-center ml-auto gap-1 w-fit bg-[#cdaa7e] hover:bg-[#ffd49d] px-8 py-1 rounded-2xl"
+          {clients.length > 0 ? (
+            clients.map((client) => (
+              <tr key={client._id!.toString()} className="hover:bg-[#f3c78d]">
+                <td className="flex flex-row px-4 py-2 gap-2 items-center text-nowrap">
+                  <Image
+                    src={client.clientImage || "/default-client.png"}
+                    alt={`Perfil de ${client.clientName}`}
+                    width={25}
+                    height={25}
+                    className="rounded-full"
+                  />
+                  {client.clientName} {client.clientLastName}
+                </td>
+                <td className="px-4 py-2">{client.clientEmail}</td>
+                <td className="px-4 py-2">{client.clientPhone}</td>
+                <td
+                  onClick={(e) => e.stopPropagation()}
+                  className="px-4 text-nowrap"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    height="20px"
-                    viewBox="0 -960 960 960"
-                    width="20px"
-                    fill="#43553b"
+                  <Link
+                    href={`/clients/${client._id}`}
+                    className="flex flex-row items-center ml-auto gap-1 w-fit bg-[#cdaa7e] hover:bg-[#ffd49d] px-8 py-1 rounded-2xl"
                   >
-                    <path d="M480-480q-51 0-85.5-34.5T360-600q0-50 34.5-85t85.5-35q50 0 85 35t35 85q0 51-35 85.5T480-480Zm0-80q17 0 28.5-11.5T520-600q0-17-11.5-28.5T480-640q-17 0-28.5 11.5T440-600q0 17 11.5 28.5T480-560ZM240-240v-76q0-21 10.5-39.5T279-385q46-27 96.5-41T480-440q54 0 104.5 14t96.5 41q18 11 28.5 29.5T720-316v76H240Zm240-120q-41 0-80 10t-74 30h308q-35-20-74-30t-80-10Zm0-240Zm0 280h154-308 154ZM160-80q-33 0-56.5-23.5T80-160v-160h80v160h160v80H160ZM80-640v-160q0-33 23.5-56.5T160-880h160v80H160v160H80ZM640-80v-80h160v-160h80v160q0 33-23.5 56.5T800-80H640Zm160-560v-160H640v-80h160q33 0 56.5 23.5T880-800v160h-80Z" />
-                  </svg>
-                  Ver Cliente
-                </Link>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      height="20px"
+                      viewBox="0 -960 960 960"
+                      width="20px"
+                      fill="#43553b"
+                    >
+                      <path d="M480-480q-51 0-85.5-34.5T360-600q0-50 34.5-85t85.5-35q50 0 85 35t35 85q0 51-35 85.5T480-480Zm0-80q17 0 28.5-11.5T520-600q0-17-11.5-28.5T480-640q-17 0-28.5 11.5T440-600q0 17 11.5 28.5T480-560ZM240-240v-76q0-21 10.5-39.5T279-385q46-27 96.5-41T480-440q54 0 104.5 14t96.5 41q18 11 28.5 29.5T720-316v76H240Zm240-120q-41 0-80 10t-74 30h308q-35-20-74-30t-80-10Zm0-240Zm0 280h154-308 154ZM160-80q-33 0-56.5-23.5T80-160v-160h80v160h160v80H160ZM80-640v-160q0-33 23.5-56.5T160-880h160v80H160v160H80ZM640-80v-80h160v-160h80v160q0 33-23.5 56.5T800-80H640Zm160-560v-160H640v-80h160q33 0 56.5 23.5T880-800v160h-80Z" />
+                    </svg>
+                    Ver Cliente
+                  </Link>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan={4} className=" px-4 py-2  text-nowrap">
+                No hay clientes
               </td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
     </div>

@@ -3,18 +3,21 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import esLocale from "@fullcalendar/core/locales/es";
 import React from "react";
-import { EventClickArg } from "@fullcalendar/core"; // 👈 1. Importa el tipo
+import { EventClickArg } from "@fullcalendar/core";
 
-// (Mantén el tipo ServiceEvent aquí)
+// 🔧 CORRECCIÓN: Tipo que refleja la estructura real de la API
 export type ServiceEvent = {
-  serviceName: string;
-  serviceDate: string;
-  serviceDuration: number;
-  servicePrice: number;
+  clientServices: {
+    serviceName: string;
+    serviceDate: string;
+    serviceDuration: number;
+    servicePrice: number;
+    serviceNotes?: string;
+    _id?: string;
+  };
   clientName: string;
   clientLastName: string;
   clientPhone?: string;
-  serviceNotes?: string;
   fromBarberId?: string;
   _id?: string;
   clientId?: string;
@@ -39,16 +42,8 @@ interface CalendarProps {
 }
 
 export default function Calendar({ eventsData, onEventClick }: CalendarProps) {
-  // 👈 2. Usa el tipo importado 'EventClickArg' en lugar del tuyo
   const handleEventClick = (info: EventClickArg) => {
-    // Extraemos el array de eventos de la fecha clickeada
-    // 'extendedProps' es donde FullCalendar guarda tus datos personalizados
     const { events } = info.event.extendedProps;
-
-    //events.forEach((event: ServiceEvent) => console.log(event));
-
-    // Llamamos a la función pasada por el padre para actualizar el estado
-    // Te recomiendo un 'cast' aquí para seguridad de tipos
     onEventClick(events as ServiceEvent[]);
   };
 
@@ -58,7 +53,7 @@ export default function Calendar({ eventsData, onEventClick }: CalendarProps) {
       initialView="dayGridMonth"
       locale={esLocale}
       events={eventsData}
-      eventClick={handleEventClick} // ✨ ¡Esto ahora es compatible!
+      eventClick={handleEventClick}
       height="650px"
       aspectRatio={1.4}
       eventColor="#ffd49d"

@@ -1,6 +1,26 @@
 
 quiero llorar
 --------------------------------------------------------------------------------------------------
+AVANCE 05/12/2025:
+- por fin ahora los clientes solo corresponden al usuario loggueado, el error estaba en la bd que no 
+	tenia el id del usuario. asique no debe faltar eso en los siguientees clientes que se creen
+- Diary ahora trae solo los servicios y del usuario logueado. queda ver que pasa con la info que no la parsea bien, 
+	revisar el parseador en que falla
+
+TODO:
+- Revisar el parseador en page.tsx de diary
+- corregir los tipos de datos y propiedades de ts
+- Crear clientes debe asignar la id del usuario antes de guardarse
+- La funcion eliminar servicio no funciona
+- hay usuarios que no mantienen la estructura correcta, limpiar o adjustar 
+- Limpiar console.logs que no se usan
+- hacer una build lista para vercel
+
+
+AVANCE 04/12/2025:
+- Sigo sin poder filtrar por usuario. voy a volver al codigo anterior y hacerlo mas facil.
+
+
 AVANCE 2/12/2025:
 - Reolviendo un error fatal: GET de /clients trae TODOS los clientes, buscar manera de filtrar antes para el usuario logueado. 
 - Empezamos con la DASHBOARD Page. usando shadcn@latest. (ultimo usado: https://ui.shadcn.com/docs/components/chart)
