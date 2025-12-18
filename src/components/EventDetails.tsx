@@ -2,6 +2,8 @@
 import React from "react";
 import { ServiceEvent } from "@/components/calendar";
 import Link from "next/link";
+import { format } from "date-fns";
+import { es } from "date-fns/locale";
 
 interface EventDetailsProps {
   selectedEvents: ServiceEvent[] | null;
@@ -18,27 +20,34 @@ export default function EventDetails({ selectedEvents }: EventDetailsProps) {
     );
   }
 
-  console.log("selectedEvents en EventDetails:", selectedEvents);
+  /*   console.log("selectedEvents en EventDetails:", selectedEvents); */
 
   // 🔧 Acceder a clientServices.serviceDate
-  const date = new Date(
-    selectedEvents[0].clientServices.serviceDate
-  ).toLocaleDateString("es-ES", {
-    weekday: "long",
-    day: "numeric",
-    month: "long",
-    year: "numeric",
+  const serviceDate = new Date(selectedEvents[0].clientServices.serviceDate);
+
+  // 👉 Formato: miércoles, 11 de diciembre de 2025
+  const formattedDate = format(serviceDate, "EEEE, dd 'de' MMMM 'de' yyyy", {
+    locale: es,
   });
 
+  // 👉 Capitalizar primera letra
+  const formattedDateCapitalized =
+    formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
+
+  // 👉 Comparación normalizada (solo fecha, no hora)
   const today = new Date();
-  const dateNormalize = new Date(selectedEvents[0].clientServices.serviceDate);
+  today.setHours(0, 0, 0, 0);
+
+  const normalizedServiceDate = new Date(serviceDate);
+  normalizedServiceDate.setHours(0, 0, 0, 0);
 
   return (
     <div className="p-4 rounded-lg">
       <h3 className="text-2xl font-semibold mb-4 text-center">
-        {dateNormalize >= today ? "Tienes" : "Hubo"} {selectedEvents.length}{" "}
-        {selectedEvents.length === 1 ? "cita" : "citas"}{" "}
-        {dateNormalize >= today ? "para" : ""} el {date}
+        {normalizedServiceDate >= today ? "Tienes" : "Hubo"}{" "}
+        {selectedEvents.length} {selectedEvents.length === 1 ? "cita" : "citas"}{" "}
+        {normalizedServiceDate >= today ? "para" : ""} el{" "}
+        {formattedDateCapitalized}
       </h3>
       <div className="space-y-4 h-[calc(100vh-10rem)] overflow-auto no-scrollbar">
         {selectedEvents.map((event) => (
@@ -84,7 +93,7 @@ export default function EventDetails({ selectedEvents }: EventDetailsProps) {
                 Tel: {event.clientPhone}
               </Link>
             </p>
-            <p className="text-xs text-gray-500 w-1/3 text-nowrap">
+            <p className="text-xs text-gray-500 text-nowrap text-ellipsis overflow-hidden w-2/4">
               Duración: {event.clientServices.serviceDuration} min | Notas:{" "}
               {event.clientServices.serviceNotes || "N/A"}
             </p>

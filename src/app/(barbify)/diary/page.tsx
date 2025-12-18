@@ -10,7 +10,7 @@ const parseEventsData = (events: ServiceEvent[]): CalendarEvent[] => {
   const eventsByDate: Record<string, ServiceEvent[]> = {};
 
   events.forEach((event: ServiceEvent) => {
-    console.log("evento en parseData", event);
+    /*     console.log("evento en parseData", event); */
 
     // 🔧 Validar que serviceDate existe y es válido
     if (!event.clientServices.serviceDate) {
@@ -26,9 +26,9 @@ const parseEventsData = (events: ServiceEvent[]): CalendarEvent[] => {
       return; // Saltar este evento
     }
 
-    console.log("Date is: ", date.toISOString());
+    /*     console.log("Date is: ", date.toISOString()); */
     const dateKey = date.toISOString().split("T")[0];
-    console.log("DateKey is: ", dateKey);
+    /*     console.log("DateKey is: ", dateKey); */
 
     if (!eventsByDate[dateKey]) {
       eventsByDate[dateKey] = [];
@@ -71,7 +71,7 @@ export default function Dashboard() {
     fetchData();
   }, []);
 
-  console.log("Dashboard events: ", events);
+  /*   console.log("Dashboard events: ", events); */
   const eventsData = parseEventsData(events);
 
   const handleCalendarEventClick = useCallback((events: ServiceEvent[]) => {
@@ -79,7 +79,7 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <div className="flex flex-row gap-4 p-4">
+    <div className="flex flex-row gap-4 p-4 bg-[#cebaa1] grow w-full h-full">
       {/* Calendario */}
       <div className="w-1/2">
         <Calendar

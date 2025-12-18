@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { IClient } from "@/models/Clients";
+import DeleteClient from "@/components/deleteClient";
 
 export default function ClientListView({ clients }: { clients: IClient[] }) {
   const router = useRouter();
@@ -54,21 +55,39 @@ export default function ClientListView({ clients }: { clients: IClient[] }) {
                   onClick={(e) => e.stopPropagation()}
                   className="px-4 text-nowrap"
                 >
-                  <Link
-                    href={`/clients/${client._id}`}
-                    className="flex flex-row items-center ml-auto gap-1 w-fit bg-[#cdaa7e] hover:bg-[#ffd49d] px-8 py-1 rounded-2xl"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      height="20px"
-                      viewBox="0 -960 960 960"
-                      width="20px"
-                      fill="#43553b"
+                  <div className="flex flex-row justify-end  w-fit ml-auto gap-1">
+                    <Link
+                      href={`/clients/${client._id}`}
+                      className="flex flex-row items-center  gap-1 w-fit bg-[#cdaa7e] hover:bg-[#ffd49d] px-4 py-1 rounded-2xl"
                     >
-                      <path d="M480-480q-51 0-85.5-34.5T360-600q0-50 34.5-85t85.5-35q50 0 85 35t35 85q0 51-35 85.5T480-480Zm0-80q17 0 28.5-11.5T520-600q0-17-11.5-28.5T480-640q-17 0-28.5 11.5T440-600q0 17 11.5 28.5T480-560ZM240-240v-76q0-21 10.5-39.5T279-385q46-27 96.5-41T480-440q54 0 104.5 14t96.5 41q18 11 28.5 29.5T720-316v76H240Zm240-120q-41 0-80 10t-74 30h308q-35-20-74-30t-80-10Zm0-240Zm0 280h154-308 154ZM160-80q-33 0-56.5-23.5T80-160v-160h80v160h160v80H160ZM80-640v-160q0-33 23.5-56.5T160-880h160v80H160v160H80ZM640-80v-80h160v-160h80v160q0 33-23.5 56.5T800-80H640Zm160-560v-160H640v-80h160q33 0 56.5 23.5T880-800v160h-80Z" />
-                    </svg>
-                    Ver Cliente
-                  </Link>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        height="20px"
+                        viewBox="0 -960 960 960"
+                        width="20px"
+                        fill="#43553b"
+                      >
+                        <path d="M480-480q-51 0-85.5-34.5T360-600q0-50 34.5-85t85.5-35q50 0 85 35t35 85q0 51-35 85.5T480-480Zm0-80q17 0 28.5-11.5T520-600q0-17-11.5-28.5T480-640q-17 0-28.5 11.5T440-600q0 17 11.5 28.5T480-560ZM240-240v-76q0-21 10.5-39.5T279-385q46-27 96.5-41T480-440q54 0 104.5 14t96.5 41q18 11 28.5 29.5T720-316v76H240Zm240-120q-41 0-80 10t-74 30h308q-35-20-74-30t-80-10Zm0-240Zm0 280h154-308 154ZM160-80q-33 0-56.5-23.5T80-160v-160h80v160h160v80H160ZM80-640v-160q0-33 23.5-56.5T160-880h160v80H160v160H80ZM640-80v-80h160v-160h80v160q0 33-23.5 56.5T800-80H640Zm160-560v-160H640v-80h160q33 0 56.5 23.5T880-800v160h-80Z" />
+                      </svg>
+                    </Link>
+                    <Link
+                      href={`/clients/${client._id}/edit`}
+                      className="flex flex-row items-center  gap-1 w-fit bg-[#cdaa7e] hover:bg-[#ffd49d] px-4 py-1 rounded-2xl"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        height="24px"
+                        viewBox="0 -960 960 960"
+                        width="24px"
+                        fill="#43553b"
+                      >
+                        <path d="M480-240Zm-320 80v-112q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q37 0 73 4.5t72 14.5l-67 68q-20-3-39-5t-39-2q-56 0-111 13.5T260-306q-9 5-14.5 14t-5.5 20v32h240v80H160Zm400 40v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q8 9 12.5 20t4.5 22q0 11-4 22.5T903-340L683-120H560Zm300-263-37-37 37 37ZM620-180h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19ZM480-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47Zm0-80q33 0 56.5-23.5T560-640q0-33-23.5-56.5T480-720q-33 0-56.5 23.5T400-640q0 33 23.5 56.5T480-560Zm0-80Z"></path>
+                      </svg>
+                    </Link>
+                    <div className="flex flex-row items-center  gap-1 w-fit bg-[#cdaa7e] hover:bg-[#ffd49d] px-4 py-1 rounded-2xl">
+                      <DeleteClient id={client._id} title="" />
+                    </div>
+                  </div>
                 </td>
               </tr>
             ))

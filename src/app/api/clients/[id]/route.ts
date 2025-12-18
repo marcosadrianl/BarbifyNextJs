@@ -1,10 +1,28 @@
 import { NextResponse } from "next/server";
 import { connectDB } from "@/utils/mongoose";
 import Clients from "@/models/Clients";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { Types } from "mongoose";
+
+// --- Helper: Validar sesión ---
+async function requireSession() {
+  const session = await getServerSession(authOptions);
+
+  if (!session || !session.user?.id) {
+    return null;
+  }
+
+  return session;
+}
+
+// --- Helper: Validar ID ---
+function validateId(id: string) {
+  return Types.ObjectId.isValid(id);
+}
 
 /**
  * GET /api/clients/[id]
- * Fetch a client by ID
  */
 export async function GET(
   request: Request,
@@ -12,29 +30,62 @@ export async function GET(
 ) {
   try {
     await connectDB();
-    const { id } = await params;
-    const client = await Clients.findById(id);
+    const session = await requireSession();
 
-    if (!client) {
-      return NextResponse.json(
-        { message: "Client not found", status: 404 },
-        { status: 404 }
-      );
+    if (!session)
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+    const clientId = params.id;
+
+    // Validar ID
+    if (!validateId(clientId)) {
+      return NextResponse.json({ error: "Invalid ID" }, { status: 400 });
     }
 
-    return NextResponse.json(client);
+    const userId = new Types.ObjectId(session.user.id);
+
+    // Buscar el cliente que pertenezca al usuario
+    // Ajusta .select(...) si quieres limitar campos devueltos
+    const client = await Clients.findOne({
+      _id: new Types.ObjectId(clientId),
+      clientFromUserId: userId,
+    }).lean(); // ← importante: devuelve POJO
+
+    if (!client)
+      return NextResponse.json({ error: "Client not found" }, { status: 404 });
+
+    // Normalizar ObjectId/Date a tipos serializables por JSON
+    const normalizeService = (s: any) => ({
+      ...s,
+      _id: s._id?.toString ? s._id.toString() : s._id,
+      serviceDate:
+        s.serviceDate instanceof Date
+          ? s.serviceDate.toISOString()
+          : s.serviceDate,
+    });
+
+    const serialized = {
+      ...client,
+      _id: (client as any)._id?.toString
+        ? (client as any)._id.toString()
+        : (client as any)._id,
+      clientFromUserId: (client as any).clientFromUserId?.toString
+        ? (client as any).clientFromUserId.toString()
+        : (client as any).clientFromUserId,
+      clientServices: Array.isArray((client as any).clientServices)
+        ? (client as any).clientServices.map(normalizeService)
+        : (client as any).clientServices,
+    };
+
+    return NextResponse.json(serialized);
   } catch (error) {
-    console.error("Error fetching client:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch client" },
-      { status: 500 }
-    );
+    console.error("GET Client error:", error);
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }
 
 /**
  * PUT /api/clients/[id]
- * Update a client by ID
  */
 export async function PUT(
   request: Request,
@@ -42,62 +93,35 @@ export async function PUT(
 ) {
   try {
     await connectDB();
-    const data = await request.json();
+    const session = await requireSession();
 
-    const updatedClient = await Clients.findByIdAndUpdate(params.id, data, {
-      new: true,
-      runValidators: true,
-    });
+    if (!session)
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-    if (!updatedClient) {
-      return NextResponse.json(
-        { message: "Client not found" },
-        { status: 404 }
-      );
-    }
+    if (!validateId(params.id))
+      return NextResponse.json({ error: "Invalid ID" }, { status: 400 });
 
-    return NextResponse.json(updatedClient);
-  } catch (error) {
-    console.error("Error updating client:", error);
-    return NextResponse.json(
-      { error: "Failed to update client" },
-      { status: 500 }
+    const userId = new Types.ObjectId(session.user.id);
+    const body = await request.json();
+
+    const updated = await Clients.findOneAndUpdate(
+      { _id: params.id, clientFromUserId: userId },
+      body,
+      { new: true, runValidators: true }
     );
-  }
-}
 
-/**
- * DELETE /api/clients/[id]
- * Delete a client by ID
- */
-export async function DELETE(
-  request: Request,
-  { params }: { params: { id: string } }
-) {
-  try {
-    await connectDB();
-    const deletedClient = await Clients.findByIdAndDelete(params.id);
+    if (!updated)
+      return NextResponse.json({ error: "Client not found" }, { status: 404 });
 
-    if (!deletedClient) {
-      return NextResponse.json(
-        { message: "Client not found" },
-        { status: 404 }
-      );
-    }
-
-    return NextResponse.json({ message: "Client deleted successfully" });
+    return NextResponse.json(updated);
   } catch (error) {
-    console.error("Error deleting client:", error);
-    return NextResponse.json(
-      { error: "Failed to delete client" },
-      { status: 500 }
-    );
+    console.error("PUT client error:", error);
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }
 
 /**
  * PATCH /api/clients/[id]
- * Partially update a client by ID
  */
 export async function PATCH(
   request: Request,
@@ -105,26 +129,63 @@ export async function PATCH(
 ) {
   try {
     await connectDB();
+    const session = await requireSession();
+
+    if (!session)
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+    if (!validateId(params.id))
+      return NextResponse.json({ error: "Invalid ID" }, { status: 400 });
+
+    const userId = new Types.ObjectId(session.user.id);
     const data = await request.json();
 
-    const updatedClient = await Clients.findByIdAndUpdate(params.id, data, {
-      new: true,
-      runValidators: true,
+    const updated = await Clients.findOneAndUpdate(
+      { _id: params.id, clientFromUserId: userId },
+      data,
+      { new: true, runValidators: true }
+    );
+
+    if (!updated)
+      return NextResponse.json({ error: "Client not found" }, { status: 404 });
+
+    return NextResponse.json(updated);
+  } catch (error) {
+    console.error("PATCH client error:", error);
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
+  }
+}
+
+/**
+ * DELETE /api/clients/[id]
+ */
+export async function DELETE(
+  request: Request,
+  { params }: { params: { id: string } }
+) {
+  try {
+    await connectDB();
+    const session = await requireSession();
+
+    if (!session)
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+    if (!validateId(params.id))
+      return NextResponse.json({ error: "Invalid ID" }, { status: 400 });
+
+    const userId = new Types.ObjectId(session.user.id);
+
+    const deleted = await Clients.findOneAndDelete({
+      _id: params.id,
+      clientFromUserId: userId,
     });
 
-    if (!updatedClient) {
-      return NextResponse.json(
-        { message: "Client not found" },
-        { status: 404 }
-      );
-    }
+    if (!deleted)
+      return NextResponse.json({ error: "Client not found" }, { status: 404 });
 
-    return NextResponse.json(updatedClient);
+    return NextResponse.json({ message: "Client deleted successfully" });
   } catch (error) {
-    console.error("Error updating client:", error);
-    return NextResponse.json(
-      { error: "Failed to update client" },
-      { status: 500 }
-    );
+    console.error("DELETE client error:", error);
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }

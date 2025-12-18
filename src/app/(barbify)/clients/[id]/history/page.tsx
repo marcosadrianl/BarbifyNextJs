@@ -29,7 +29,7 @@ function ClientServicesList({ services }: { services: IService[] }) {
   ];
 
   const result = JSON.parse(JSON.stringify(services));
-  console.log(" 🚀 ~ file: page.tsx:32 ~ ClientServicesList ~ result", result);
+  /*   console.log(" 🚀 ~ file: page.tsx:32 ~ ClientServicesList ~ result", result); */
 
   return (
     <div className="flex flex-col gap-4">

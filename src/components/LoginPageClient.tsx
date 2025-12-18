@@ -2,10 +2,12 @@
 
 import { signIn } from "next-auth/react";
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 export default function LoginPageClient() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const callbackUrl = useSearchParams().get("callbackUrl") ?? "/clients";
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -13,7 +15,7 @@ export default function LoginPageClient() {
       email,
       password,
       redirect: true,
-      callbackUrl: "/clients",
+      callbackUrl: callbackUrl,
     });
   };
 

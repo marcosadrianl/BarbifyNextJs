@@ -1,6 +1,51 @@
 
 quiero llorar
+
 --------------------------------------------------------------------------------------------------
+AVANCE 18/12/2025:
+
+
+AVANCE 17/12/2025:
+muy poco, ui de eliminar clientes, falta mejorar los svg y el cuadro esta desbordado en clientviews
+
+Barbers sigue mejoarando la estructura. se creo la pagina settings con notas de lo que si hara.
+
+
+AVANCE 16/12/2025:
+tremendo!! Ahora existe la coleccion barbifybarbers! Barberstable los trae perfecto, pero! 
+
+- ahora los servicios deben ser una coleccion aparte! esto modifica la estructura de barbify completamente! 
+- Citas estaria bueno que siga el mismo camino, me va demorar mas tiempo pero lo va a hacer escalable mucho mejor!!!!
+
+Por ahora solo trabaje en eso, ver avance anterior para continuar trabajando
+
+AVANCE 12/12/2025:
+- Dashboard parece complicado, pero hay que mantener el ritmo. 
+
+Queda:
+- Hacer que el area Chart de servicios traiga los servicios usando useStoreServicesInLocalStorage() 
+	la idea es que los traiga una vez cada 5min y use lo guardado en local storage. aca no importa tanto los cambios recientes sino relativos
+- CUENTA: Todo lo que se crea se debe hacer compatyible para configurar mas tarde, por ejemplo CRUD barbers, setear objetivos para el dashboard, etc. 
+
+EXISTE LA PAGINA PARA CREAR CUENTAS DE USUARIO. Verla mas tarde. 
+
+AVANCE 11/12/2025:
+- Empezamos con el DashBoard view.
+- para estilizar el DataTable tocar TableHeader en table.tsx (function TableHeader({ className, ...props }: React.ComponentProps<"thead">) {
+  return (
+    <thead
+      data-slot="table-header"
+      className={cn("[&_tr]:border-b bg-amber-100", className)}
+      {...props}
+    />
+  );
+})
+
+- Traer datos desde la BD y serializar:
+	- nombre - email / telefono - servicio (nombre) - precio
+	- permitir filtros y selector de columnas (se podra guardar la config en localstorage?)
+
+
 AVANCE 05/12/2025:
 - por fin ahora los clientes solo corresponden al usuario loggueado, el error estaba en la bd que no 
 	tenia el id del usuario. asique no debe faltar eso en los siguientees clientes que se creen
@@ -132,3 +177,23 @@ SE CREARON LOS ESQUEMAS DE USUARIOS (USERS), CLIENTES (CLIENTS), SERVICIOS (SERV
 
 
 "NO ES QUE NO SEPAS NADA, SOLO NO SABES HASTA DONDE PODES LLEGAR"
+
+userHasThisBarbers": [
+    {
+      "barberName": "Andrea",
+      "barberLastName": "Berguesi",
+      "barberEmail": "andre@gmail.com",
+      "barberPhone": "2214507131",
+      "barberActive": true,
+      "barberRole": "Peluquera",
+      "barberLocation": {
+        "city": "Buenos Aires",
+        "state": "La Plata",
+        "address": "132 n1365",
+        "postalCode": "1900B"
+      },
+      "barberLevel": 0,
+      "barberBirthDate": "1996-04-23T00:00:00.000Z",
+      "barberImageURL": ""
+    }
+  ],

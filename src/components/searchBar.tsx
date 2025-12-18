@@ -7,6 +7,12 @@ export default function SearchBar() {
   const router = useRouter();
   const [query, setQuery] = useState("");
 
+  /**
+   * Function to handle search input.
+   * If the search query is not empty, it will push to the clients page with the search query.
+   * The search query is URL encoded to ensure it can be passed as a parameter in the URL.
+   * The page number is set to 1 and the limit to 10 by default.
+   */
   const handleSearch = () => {
     if (query.trim()) {
       router.push(

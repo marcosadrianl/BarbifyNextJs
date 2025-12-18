@@ -1,24 +1,7 @@
 import { Schema, model, models } from "mongoose";
 import z from "zod";
-
-// 1. Interface Definition
-interface Barbers extends Document {
-  barberName: string;
-  barberLastName: string;
-  barberEmail: string;
-  barberPhone: string;
-  barberActive: boolean;
-  barberRole: string;
-  barberLocation?: {
-    city: string; //Buenos Aires
-    state?: string; //La Plata
-    address?: string;
-    PostalCode?: string;
-  };
-  barberLevel?: 0 | 1 | 2; // 0 = Admin, 1 = Barber, 2 = etc
-  barberBirthDate?: Date;
-  barberImageURL?: string;
-}
+import mongoose from "mongoose";
+import { IBarbers } from "@/models/Barbers";
 
 export interface IUser {
   userName: string;
@@ -35,7 +18,7 @@ export interface IUser {
   userPhome?: string;
   userLevel: 0 | 1;
   userBirthDate?: Date;
-  userHasThisBarbers?: Barbers[];
+  userHasThisBarbers?: IBarbers[];
 }
 
 //schemme del user mongoDB
@@ -65,11 +48,13 @@ const UsersSchema = new Schema(
     userLevel: { type: Number, required: true, default: 0, enum: [0, 1, 2] },
     userBirthdate: { type: Date },
     userSex: { type: String, enum: ["M", "F", "O"], default: "O" },
-    userHasThisBarbers: {
-      type: Array,
-      default: [],
-      optional: true,
-    },
+    userHasThisBarbers: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "BarbifyBarbers",
+        select: true,
+      },
+    ],
   },
   {
     timestamps: true,
@@ -82,7 +67,7 @@ export const UserSchemaZod = z
   .object({
     userName: z.string().max(50),
     userLastName: z.string().max(50),
-    userEmail: z.string().email().max(100),
+    userEmail: z.email().max(100),
     userPassword: z.string().max(100),
     userActive: z.boolean().optional(),
     userLocation: z

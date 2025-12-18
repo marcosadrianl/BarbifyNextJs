@@ -4,7 +4,7 @@ import mongoose, { Types, Model } from "mongoose";
 import Clients, { IClient, IService } from "@/models/Clients";
 
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/utils/auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import type { Session } from "next-auth";
 
 // Extiende el tipo Session (solo tipado)
@@ -46,7 +46,7 @@ export async function GET() {
     await connectDB();
 
     const session = await getServerSession(authOptions);
-    console.log("SESSION:", session);
+    /*     console.log("SESSION:", session); */
 
     if (!session) {
       return NextResponse.json(
@@ -57,7 +57,7 @@ export async function GET() {
 
     // Obtener clientes filtrados
     const clients = await filterByUser(Clients, session).lean();
-    console.log("diary: Clientes filtrados: ", clients);
+    /*     console.log("diary: Clientes filtrados: ", clients); */
 
     /** Tipado estricto de servicio */
     interface serviceInfo {

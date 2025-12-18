@@ -16,7 +16,6 @@ export default function RootLayout({
     <div className="bg-[#ffe7c7] h-screen flex flex-row text-[#43553b]">
       <NavBar />
       <div className={` flex flex-col w-full overflow-y-auto`}>
-        <TaskBar />
         <div className="grow overflow-auto ">
           <SessionProvider>{children}</SessionProvider>
         </div>

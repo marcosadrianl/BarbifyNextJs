@@ -42,6 +42,8 @@ interface CalendarProps {
 }
 
 export default function Calendar({ eventsData, onEventClick }: CalendarProps) {
+  console.log("events data form: ", eventsData);
+
   const handleEventClick = (info: EventClickArg) => {
     const { events } = info.event.extendedProps;
     onEventClick(events as ServiceEvent[]);

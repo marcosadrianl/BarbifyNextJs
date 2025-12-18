@@ -72,6 +72,7 @@ export const authOptions: NextAuthOptions = {
           email: user.userEmail,
           name: user.userName,
           active: user.userActive,
+          barbers: user.userHasThisBarbers,
         };
       },
     }),

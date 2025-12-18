@@ -13,7 +13,7 @@ const Titles = Alice({
 
 export default function NavBar() {
   return (
-    <div className="flex flex-col w-46 h-full justify-between mr-2">
+    <div className="flex flex-col w-46 max-w-[185px] h-full justify-between mr-2">
       <p className={`${Titles.className} text-4xl px-2 select-none`}>Barbify</p>
       <div className="flex flex-col flex-1 gap-4 mt-8">
         <Link
