@@ -3,6 +3,8 @@ import { connectDB } from "@/utils/mongoose";
 import Clients from "@/models/Clients";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import mongoose from "mongoose";
+import type { IClient } from "@/models/Clients";
 
 import { Types } from "mongoose";
 /**
@@ -58,7 +60,8 @@ export async function GET(request: Request) {
           }
         : baseQuery;
 
-    const clients = await Clients.find(finalQuery)
+    const clients = await (Clients as mongoose.Model<IClient>)
+      .find(finalQuery)
       .sort({ updatedAt: -1 })
       .skip(skip)
       .limit(limit)

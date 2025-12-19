@@ -16,7 +16,6 @@ export function BarberTable() {
       try {
         const res = await fetch(`/api/users/${session.user.id}/barbers`);
         const data: IBarbers[] = await res.json(); // 👈 TIPO CORRECTO
-        console.log(data);
 
         const mapped: BarbersData[] = data.map((barber) => ({
           id: String(new Date().getTime() + Math.random()), // Generar un ID único temporal

@@ -3,7 +3,11 @@ quiero llorar
 
 --------------------------------------------------------------------------------------------------
 AVANCE 18/12/2025:
-
+mejoras de ui
+areachart sigue rotom hay que parsear la info de los servicios al tipo quee spera areachart. falta que clientsex se inserte correctamente
+la api de servicios lee los servicios cada 10 min elegibles, y actualiza o no segun eso.
+hacer lo mismo para barbers ya que estos son mas persistentes todavia. 
+no aflojes gorddooooooo
 
 AVANCE 17/12/2025:
 muy poco, ui de eliminar clientes, falta mejorar los svg y el cuadro esta desbordado en clientviews

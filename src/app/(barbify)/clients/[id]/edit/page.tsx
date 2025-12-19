@@ -34,10 +34,10 @@ interface ServerError {
   status?: number;
 }
 
-export default function EditClientFormPage() {
+export default async function EditClientFormPage() {
   const params = useParams(); // obtiene el id de la URL
   const router = useRouter();
-  const clientId = params.id as string;
+  const clientId = (await params.id) as string;
 
   const [serverError, setServerError] = useState<ServerError | null>(null);
   const [selectedImage, setSelectedImage] = useState("/default-client.png");

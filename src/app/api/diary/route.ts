@@ -35,7 +35,9 @@ export function filterByUser<T>(model: Model<T>, session: Session | null) {
     .find({
       clientFromUserId: userObjectId,
     })
-    .select("_id clientName clientLastName clientPhone clientServices");
+    .select(
+      "_id clientName clientLastName clientPhone clientServices clientSex"
+    );
 }
 
 /**
@@ -57,7 +59,6 @@ export async function GET() {
 
     // Obtener clientes filtrados
     const clients = await filterByUser(Clients, session).lean();
-    /*     console.log("diary: Clientes filtrados: ", clients); */
 
     /** Tipado estricto de servicio */
     interface serviceInfo {
@@ -75,21 +76,32 @@ export async function GET() {
       clientLastName: string;
       clientPhone?: string;
       clientId: string;
+      clientSex?: "M" | "F" | "O";
       clientServices: serviceInfo;
     }
 
     /** Tipo resumido y seguro del cliente */
     type ClientLean = Pick<
       IClient,
-      "clientName" | "clientLastName" | "clientPhone" | "clientServices"
+      | "clientName"
+      | "clientLastName"
+      | "clientPhone"
+      | "clientServices"
+      | "clientSex"
     > & {
       _id: Types.ObjectId;
     };
 
     // Combinar servicios + datos del cliente
     const allServices: diaryServices[] = clients.flatMap((c) => {
-      const { clientName, clientLastName, clientPhone, clientServices, _id } =
-        c as unknown as ClientLean & { _id: Types.ObjectId };
+      const {
+        clientName,
+        clientLastName,
+        clientPhone,
+        clientServices,
+        _id,
+        clientSex,
+      } = c as unknown as ClientLean & { _id: Types.ObjectId };
 
       return (clientServices || []).map((service: IService) => {
         const srv: IService =
@@ -102,6 +114,7 @@ export async function GET() {
           clientLastName,
           clientPhone,
           clientId: _id.toString(),
+          clientSex,
           clientServices: {
             _id: srv._id.toString(),
             serviceName: srv.serviceName,

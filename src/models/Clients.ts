@@ -56,7 +56,10 @@ const ClientsSchema = new Schema<IClient>(
   {
     clientName: { type: String, required: true, maxlength: 50, trim: true },
     clientLastName: { type: String, required: true, maxlength: 50, trim: true },
-    clientSex: { type: String, enum: ["M", "F", "O"], default: "O" },
+    clientSex: {
+      type: String,
+      enum: ["M", "F", "O"],
+    },
     clientBirthdate: { type: Date },
     clientEmail: { type: String, unique: true, maxlength: 100, trim: true },
     clientPhone: { type: String, unique: true, maxlength: 20, trim: true },

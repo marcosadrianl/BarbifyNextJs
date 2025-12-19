@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { connectDB } from "@/utils/mongoose";
 import Clients, { IClient, IService } from "@/models/Clients";
+import mongoose from "mongoose";
+
 /**
  * Create a new service for a client
  * route: /api/services/[id]
@@ -14,7 +16,9 @@ export async function POST(
     const data: IService = await request.json();
     const { id } = await params;
 
-    const client: IClient | null = await Clients.findById(id);
+    const client: IClient | null = await (
+      Clients as mongoose.Model<IClient>
+    ).findById(id);
     if (!client) {
       return NextResponse.json(
         { message: "Client not found" },
@@ -44,7 +48,9 @@ export async function GET(
 ) {
   try {
     await connectDB();
-    const client: IClient | null = await Clients.findById(params.id);
+    const client: IClient | null = await (
+      Clients as mongoose.Model<IClient>
+    ).findById(params.id);
     if (!client) {
       return NextResponse.json(
         { message: "Client not found" },
@@ -71,7 +77,9 @@ export async function DELETE(
 ) {
   try {
     await connectDB();
-    const client: IClient | null = await Clients.findById(params.id);
+    const client: IClient | null = await (
+      Clients as mongoose.Model<IClient>
+    ).findById(params.id);
     if (!client) {
       return NextResponse.json(
         { message: "Client not found" },
@@ -103,7 +111,9 @@ export async function PATCH(
   try {
     await connectDB();
     const data: Partial<IService> = await request.json();
-    const client: IClient | null = await Clients.findById(params.id);
+    const client: IClient | null = await (
+      Clients as mongoose.Model<IClient>
+    ).findById(params.id);
     if (!client) {
       return NextResponse.json(
         { message: "Client not found" },

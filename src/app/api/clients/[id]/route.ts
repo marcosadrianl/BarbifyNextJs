@@ -4,6 +4,8 @@ import Clients from "@/models/Clients";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { Types } from "mongoose";
+import mongoose from "mongoose";
+import type { IClient } from "@/models/Clients";
 
 // --- Helper: Validar sesión ---
 async function requireSession() {
@@ -35,7 +37,7 @@ export async function GET(
     if (!session)
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-    const clientId = params.id;
+    const clientId = await params.id;
 
     // Validar ID
     if (!validateId(clientId)) {
@@ -46,10 +48,13 @@ export async function GET(
 
     // Buscar el cliente que pertenezca al usuario
     // Ajusta .select(...) si quieres limitar campos devueltos
-    const client = await Clients.findOne({
-      _id: new Types.ObjectId(clientId),
-      clientFromUserId: userId,
-    }).lean(); // ← importante: devuelve POJO
+    //const clients = await (Clients as mongoose.Model<IClient>)
+    const client = await (Clients as mongoose.Model<IClient>)
+      .findOne({
+        _id: new Types.ObjectId(clientId),
+        clientFromUserId: userId,
+      })
+      .lean(); // ← importante: devuelve POJO
 
     if (!client)
       return NextResponse.json({ error: "Client not found" }, { status: 404 });
@@ -104,7 +109,7 @@ export async function PUT(
     const userId = new Types.ObjectId(session.user.id);
     const body = await request.json();
 
-    const updated = await Clients.findOneAndUpdate(
+    const updated = await (Clients as mongoose.Model<IClient>).findOneAndUpdate(
       { _id: params.id, clientFromUserId: userId },
       body,
       { new: true, runValidators: true }
@@ -140,7 +145,7 @@ export async function PATCH(
     const userId = new Types.ObjectId(session.user.id);
     const data = await request.json();
 
-    const updated = await Clients.findOneAndUpdate(
+    const updated = await (Clients as mongoose.Model<IClient>).findOneAndUpdate(
       { _id: params.id, clientFromUserId: userId },
       data,
       { new: true, runValidators: true }
@@ -175,10 +180,12 @@ export async function DELETE(
 
     const userId = new Types.ObjectId(session.user.id);
 
-    const deleted = await Clients.findOneAndDelete({
-      _id: params.id,
-      clientFromUserId: userId,
-    });
+    const deleted = await (Clients as mongoose.Model<IClient>).findOneAndDelete(
+      {
+        _id: params.id,
+        clientFromUserId: userId,
+      }
+    );
 
     if (!deleted)
       return NextResponse.json({ error: "Client not found" }, { status: 404 });
