@@ -6,6 +6,7 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { Types } from "mongoose";
 import mongoose from "mongoose";
 import type { IClient } from "@/models/Clients";
+import type { IService } from "@/models/Clients";
 
 // --- Helper: Validar sesión ---
 async function requireSession() {
@@ -60,7 +61,7 @@ export async function GET(
       return NextResponse.json({ error: "Client not found" }, { status: 404 });
 
     // Normalizar ObjectId/Date a tipos serializables por JSON
-    const normalizeService = (s: any) => ({
+    const normalizeService = (s: IService) => ({
       ...s,
       _id: s._id?.toString ? s._id.toString() : s._id,
       serviceDate:
@@ -71,15 +72,13 @@ export async function GET(
 
     const serialized = {
       ...client,
-      _id: (client as any)._id?.toString
-        ? (client as any)._id.toString()
-        : (client as any)._id,
-      clientFromUserId: (client as any).clientFromUserId?.toString
-        ? (client as any).clientFromUserId.toString()
-        : (client as any).clientFromUserId,
-      clientServices: Array.isArray((client as any).clientServices)
-        ? (client as any).clientServices.map(normalizeService)
-        : (client as any).clientServices,
+      _id: client._id?.toString ? client._id.toString() : client._id,
+      clientFromUserId: client.clientFromUserId?.toString
+        ? client.clientFromUserId.toString()
+        : client.clientFromUserId,
+      clientServices: Array.isArray(client.clientServices)
+        ? client.clientServices.map(normalizeService)
+        : client.clientServices,
     };
 
     return NextResponse.json(serialized);

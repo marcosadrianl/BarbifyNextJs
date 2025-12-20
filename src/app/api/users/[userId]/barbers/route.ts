@@ -1,8 +1,11 @@
 import { NextResponse } from "next/server";
-import mongoose from "mongoose";
+import mongoose, { Model } from "mongoose";
 import { connectDB } from "@/utils/mongoose";
-import User from "@/models/Users";
+import User, { IUser } from "@/models/Users";
 import Barbers from "@/models/Barbers";
+
+// Type assertion para el modelo
+const UserModel = User as Model<IUser>;
 
 export async function GET(
   req: Request,
@@ -11,13 +14,13 @@ export async function GET(
   try {
     await connectDB();
 
-    const { userId } = await params;
+    const { userId } = params;
 
     if (!mongoose.Types.ObjectId.isValid(userId)) {
       return NextResponse.json({ error: "Invalid user ID" }, { status: 400 });
     }
 
-    const user = await User.findById(userId).populate({
+    const user = await UserModel.findById(userId).populate({
       path: "userHasThisBarbers",
       select: "barberName barberLastName barberEmail barberActive",
       model: Barbers,
@@ -30,9 +33,12 @@ export async function GET(
     console.log("Barbers:", user.userHasThisBarbers);
 
     return NextResponse.json(user.userHasThisBarbers ?? [], { status: 200 });
-  } catch (error: any) {
+  } catch (error) {
     console.error("GET barbers error:", error);
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json(
+      { error: (error as Error).message },
+      { status: 500 }
+    );
   }
 }
 
@@ -43,13 +49,13 @@ export async function PUT(
   try {
     await connectDB();
 
-    const userId = params.userId;
+    const { userId } = params;
 
     if (!mongoose.Types.ObjectId.isValid(userId)) {
       return NextResponse.json({ error: "Invalid user ID" }, { status: 400 });
     }
 
-    const user = await User.findById(userId);
+    const user = await UserModel.findById(userId);
 
     if (!user) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
@@ -62,8 +68,11 @@ export async function PUT(
       { message: "Barbers cleared successfully" },
       { status: 200 }
     );
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  } catch (error) {
+    return NextResponse.json(
+      { error: (error as Error).message },
+      { status: 500 }
+    );
   }
 }
 
@@ -74,14 +83,13 @@ export async function POST(
   try {
     await connectDB();
 
-    const userId = params.id;
+    const { id: userId } = params;
 
-    // Verifica formato válido
     if (!mongoose.Types.ObjectId.isValid(userId)) {
       return NextResponse.json({ error: "Invalid user ID" }, { status: 400 });
     }
 
-    const user = await User.findById(userId);
+    const user = await UserModel.findById(userId);
 
     if (!user) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
@@ -94,8 +102,11 @@ export async function POST(
     await user.save();
 
     return NextResponse.json(user.userHasThisBarbers, { status: 200 });
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  } catch (error) {
+    return NextResponse.json(
+      { error: (error as Error).message },
+      { status: 500 }
+    );
   }
 }
 
@@ -106,14 +117,13 @@ export async function PATCH(
   try {
     await connectDB();
 
-    const userId = params.id;
+    const { id: userId } = params;
 
-    // Verifica formato válido
     if (!mongoose.Types.ObjectId.isValid(userId)) {
       return NextResponse.json({ error: "Invalid user ID" }, { status: 400 });
     }
 
-    const user = await User.findById(userId);
+    const user = await UserModel.findById(userId);
 
     if (!user) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
@@ -126,7 +136,10 @@ export async function PATCH(
     await user.save();
 
     return NextResponse.json(user.userHasThisBarbers, { status: 200 });
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  } catch (error) {
+    return NextResponse.json(
+      { error: (error as Error).message },
+      { status: 500 }
+    );
   }
 }

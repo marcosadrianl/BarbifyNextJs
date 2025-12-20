@@ -1,10 +1,14 @@
 import { type NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-import { connectDB } from "@/utils/mongoose"; // tu función para conectar a Mongo
-import User from "@/models/Users"; // tu modelo Mongoose
+import { connectDB } from "@/utils/mongoose";
+import { type Model } from "mongoose";
 import bcrypt from "bcryptjs";
-import NextAuth, { DefaultSession } from "next-auth";
+import User, { IUser } from "@/models/Users";
+import { IBarbers } from "@/models/Barbers";
+
+// Type assertion para el modelo
+const UserModel = User as Model<IUser>;
 
 declare module "next-auth" {
   interface Session {
@@ -24,7 +28,10 @@ declare module "next-auth" {
 
   interface User {
     id: string;
+    email?: string | null;
+    name?: string | null;
     active?: boolean;
+    barbers?: IBarbers[];
   }
 }
 
@@ -41,7 +48,7 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Contraseña", type: "password" },
       },
 
-      async authorize(credentials, req) {
+      async authorize(credentials) {
         await connectDB();
 
         if (!credentials?.email || !credentials?.password) {
@@ -49,22 +56,15 @@ export const authOptions: NextAuthOptions = {
         }
 
         // Buscar usuario
-        const user = await User.findOne({ email: credentials.email });
+        const user = await UserModel.findOne({ userEmail: credentials.email });
         if (!user) return null;
 
         // Validar password
         const isValid = await bcrypt.compare(
           credentials.password,
-          user.password
+          user.userPassword
         );
         if (!isValid) return null;
-
-        // Validar de nuevo  password
-        const isValid2 = await bcrypt.compare(
-          credentials.password,
-          user.password
-        );
-        if (!isValid2) return null;
 
         // Devolver datos públicos
         return {
@@ -95,7 +95,7 @@ export const authOptions: NextAuthOptions = {
         session.user.id = token.id as string;
       }
       if (token?.active !== undefined) {
-        (session.user as any).active = token.active;
+        session.user.active = token.active as boolean;
       }
       return session;
     },

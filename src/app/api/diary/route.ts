@@ -20,6 +20,12 @@ declare module "next-auth" {
   }
 }
 
+// Tipado estricto de la respuesta
+/* interface errorResponse {
+  error: string;
+  status?: number;
+}
+ */
 /**
  * Filtrar clientes por usuario autenticado
  */
@@ -131,7 +137,7 @@ export async function GET() {
       totalServices: allServices.length,
       data: allServices,
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error("API /api/diary ERROR:", error);
     return NextResponse.json(
       { error: "Error fetching diary data: " + error.message },

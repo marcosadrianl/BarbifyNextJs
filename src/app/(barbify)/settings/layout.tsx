@@ -5,7 +5,6 @@ import { SessionProvider } from "next-auth/react";
 import React from "react";
 
 import NavBar from "@/components/navBar";
-import TaskBar from "@/components/taskBar";
 
 export default function RootLayout({
   children,

@@ -6,7 +6,9 @@ import { useAllServices } from "@/components/getAllClientServicesForShowing";
 import type { IService } from "@/models/Clients";
 import type { IClient } from "@/models/Clients";
 
-type ServiceWithClientSex = IService & Pick<IClient, "clientSex">;
+type ClientWithServices = Pick<IClient, "clientSex"> & {
+  clientServices: IService;
+};
 
 import {
   Card,
@@ -37,16 +39,16 @@ const chartConfig = {
   visitors: {
     label: "Visitors",
   },
-  male: {
-    label: "male",
+  Hombre: {
+    label: "Hombre",
     color: "var(--chart-1)",
   },
-  female: {
-    label: "female",
+  Mujer: {
+    label: "Mujer",
     color: "var(--chart-2)",
   },
-  other: {
-    label: "other",
+  Otro: {
+    label: "Otro",
     color: "var(--chart-3)",
   },
 } satisfies ChartConfig;
@@ -74,32 +76,36 @@ function getStartDate(range: string) {
 
 export function ChartAreaInteractive() {
   const [timeRange, setTimeRange] = React.useState("90d");
-  const { services, loading } = useAllServices(5, false);
+  const { services, loading } = useAllServices(5, false) as unknown as {
+    services: ClientWithServices[];
+    loading: boolean;
+  };
 
   const chartData = React.useMemo(() => {
     const startDate = getStartDate(timeRange);
-
     return Object.values(
       services
-        .filter((client: ServiceWithClientSex) => {
+        .filter((client) => {
           const serviceDate = new Date(client.clientServices.serviceDate);
           return serviceDate >= startDate;
         })
-        .reduce((acc, client: ServiceWithClientSex) => {
+        .reduce<
+          Record<
+            string,
+            { date: string; Hombre: number; Mujer: number; Otro: number }
+          >
+        >((acc, client) => {
           const date = new Date(client.clientServices.serviceDate)
             .toISOString()
             .split("T")[0];
-
           if (!acc[date]) {
-            acc[date] = { date, male: 0, female: 0, other: 0 };
+            acc[date] = { date, Hombre: 0, Mujer: 0, Otro: 0 };
           }
-
-          if (client.clientSex === "M") acc[date].male++;
-          if (client.clientSex === "F") acc[date].female++;
-          if (client.clientSex === "O") acc[date].other++;
-
+          if (client.clientSex === "M") acc[date].Hombre++;
+          if (client.clientSex === "F") acc[date].Mujer++;
+          if (client.clientSex === "O") acc[date].Otro++;
           return acc;
-        }, {} as Record<string, { date: string; male: number; female: number; other: number }>)
+        }, {})
     ).sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
   }, [services, timeRange]);
 
@@ -177,39 +183,39 @@ export function ChartAreaInteractive() {
             margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
           >
             <defs>
-              <linearGradient id="fillmale" x1="0" y1="0" x2="0" y2="1">
+              <linearGradient id="fillHombre" x1="0" y1="0" x2="0" y2="1">
                 <stop
                   offset="5%"
-                  stopColor="var(--color-male)"
+                  stopColor="var(--color-Hombre)"
                   stopOpacity={0.8}
                 />
                 <stop
                   offset="95%"
-                  stopColor="var(--color-male)"
+                  stopColor="var(--color-Hombre)"
                   stopOpacity={0.1}
                 />
               </linearGradient>
-              <linearGradient id="fillfemale" x1="0" y1="0" x2="0" y2="1">
+              <linearGradient id="fillMujer" x1="0" y1="0" x2="0" y2="1">
                 <stop
                   offset="5%"
-                  stopColor="var(--color-female)"
+                  stopColor="var(--color-Mujer)"
                   stopOpacity={0.8}
                 />
                 <stop
                   offset="95%"
-                  stopColor="var(--color-female)"
+                  stopColor="var(--color-Mujer)"
                   stopOpacity={0.1}
                 />
               </linearGradient>
-              <linearGradient id="fillother" x1="0" y1="0" x2="0" y2="1">
+              <linearGradient id="fillOtro" x1="0" y1="0" x2="0" y2="1">
                 <stop
                   offset="5%"
-                  stopColor="var(--color-other)"
+                  stopColor="var(--color-Otro)"
                   stopOpacity={0.8}
                 />
                 <stop
                   offset="95%"
-                  stopColor="var(--color-other)"
+                  stopColor="var(--color-Otro)"
                   stopOpacity={0.1}
                 />
               </linearGradient>
@@ -244,24 +250,24 @@ export function ChartAreaInteractive() {
               }
             />
             <Area
-              dataKey="female"
+              dataKey="Mujer"
               type="natural"
-              fill="url(#fillfemale)"
-              stroke="var(--color-female)"
+              fill="url(#fillMujer)"
+              stroke="var(--color-Mujer)"
               stackId="a"
             />
             <Area
-              dataKey="male"
+              dataKey="Hombre"
               type="natural"
-              fill="url(#fillmale)"
-              stroke="var(--color-male)"
+              fill="url(#fillHombre)"
+              stroke="var(--color-Hombre)"
               stackId="a"
             />
             <Area
-              dataKey="other"
+              dataKey="Otro"
               type="natural"
-              fill="url(#fillother)"
-              stroke="var(--color-other)"
+              fill="url(#fillOtro)"
+              stroke="var(--color-Otro)"
               stackId="a"
             />
             <ChartLegend content={<ChartLegendContent />} />

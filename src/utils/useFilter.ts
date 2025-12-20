@@ -1,16 +1,8 @@
-import { Types, Model } from "mongoose";
+import { Model } from "mongoose";
 import type { Session } from "next-auth";
 
-declare module "next-auth" {
-  interface Session {
-    user: {
-      id: string;
-      name?: string | null;
-      email?: string | null;
-      image?: string | null;
-    };
-  }
-}
+// No redeclares el módulo aquí si ya lo hiciste en auth.ts
+// Solo importa el tipo Session que ya tiene la declaración completa
 
 export function filterByUser<T>(model: Model<T>, session: Session | null) {
   if (!session?.user?.id) {

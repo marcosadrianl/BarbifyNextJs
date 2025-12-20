@@ -10,7 +10,7 @@ import React from "react";
 /* import LoadingDots from "@/components/loadingDots"; */
 
 function CheckAuth() {
-  const { data: session, status } = useSession();
+  const { status } = useSession();
   const router = useRouter();
 
   // redirect ONLY inside an effect
@@ -21,20 +21,6 @@ function CheckAuth() {
       );
     }
   }, [status, router]);
-
-  /*  if (status === "loading") {
-    return <LoadingDots />;
-  }
-
-  if (status === "unauthenticated") {
-    // Render something while redirecting (optional)
-    return (
-      <div>
-        Redirigiendo
-        <LoadingDots />
-      </div>
-    );
-  } */
 
   return null;
 }

@@ -34,10 +34,10 @@ interface ServerError {
   status?: number;
 }
 
-export default async function EditClientFormPage() {
+export default function EditClientFormPage() {
   const params = useParams(); // obtiene el id de la URL
   const router = useRouter();
-  const clientId = (await params.id) as string;
+  const clientId = params.id as string;
 
   const [serverError, setServerError] = useState<ServerError | null>(null);
   const [selectedImage, setSelectedImage] = useState("/default-client.png");
@@ -282,7 +282,7 @@ export default async function EditClientFormPage() {
 
         <button
           type="submit"
-          className="bg-amber-400 rounded w-full p-2 font-bold mb-8"
+          className="bg-amber-400 rounded w-full p-2 font-bold mb-8 hover:bg-amber-500 hover:text-white cursor-pointer"
         >
           Guardar cambios
         </button>
