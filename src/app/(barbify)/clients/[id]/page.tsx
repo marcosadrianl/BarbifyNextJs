@@ -3,7 +3,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { connectDB } from "@/utils/mongoose";
 import Clients, { IClient } from "@/models/Clients";
-import { Types } from "mongoose";
+import mongoose, { Types } from "mongoose";
 import SingleClientCard from "@/components/singleClientCard";
 import SingleClientMetrics from "@/components/singleClientMetrics";
 import ServiceList from "@/components/serviceList";
@@ -18,12 +18,16 @@ export default async function ClientsPage({
 
   if (!session?.user?.id) return notFound();
 
-  if (!Types.ObjectId.isValid(params.id)) return notFound();
+  const { id } = await params;
 
-  const client = await Clients.findOne({
-    _id: new Types.ObjectId(params.id),
-    clientFromUserId: new Types.ObjectId(session.user.id),
-  }).lean();
+  if (!Types.ObjectId.isValid(id)) return notFound();
+
+  const client = await (Clients as mongoose.Model<IClient>)
+    .findOne({
+      _id: new Types.ObjectId(id),
+      clientFromUserId: new Types.ObjectId(session.user.id),
+    })
+    .lean();
 
   if (!client) return notFound();
 

@@ -2,6 +2,10 @@
 quiero llorar
 
 --------------------------------------------------------------------------------------------------
+AVANCE 23/12/2025: 
+Mejoras de typescript, corregido error de next 16, iniciado componente totalreveniew. 
+Como carancho se usa el recuadro de shadcn de totalreveniew? ? ??  ? averiguar eso y mantener visual.
+
 AVANCE 19/12/2025:
 Listo, el areaChart ya muestra los servicios realizados 
 

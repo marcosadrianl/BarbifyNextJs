@@ -58,6 +58,8 @@ export default function EditClientFormPage() {
     const fetchClient = async () => {
       try {
         const res = await fetch(`/api/clients/${clientId}`);
+        console.log("res dice: ", res);
+
         if (!res.ok) throw new Error("Error al obtener cliente");
         const client = await res.json();
 
@@ -187,7 +189,7 @@ export default function EditClientFormPage() {
       onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col gap-2 px-4 w-full mx-auto overflow-auto"
     >
-      <div className="flex flex-row items-center p-4 gap-4 w-full max-w-[1500px] mb-4 mx-auto">
+      <div className="flex flex-row items-center p-4 gap-4 w-full max-w-375 mb-4 mx-auto">
         <div className="flex flex-col gap-2 w-full max-w-lg mx-auto">
           <h1 className="font-bold">Editar cliente</h1>
           <input

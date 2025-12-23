@@ -136,7 +136,7 @@ export function ChartAreaInteractive() {
   }
 
   return (
-    <Card className="pt-0">
+    <Card className="pt-0 rounded-md">
       <CardHeader className="flex items-center gap-2 space-y-0 border-b py-5 sm:flex-row">
         <div className="grid flex-1 gap-1">
           <CardTitle className="text-2xl font-semibold tracking-tight flex flex-row items-center gap-2">
@@ -176,7 +176,7 @@ export function ChartAreaInteractive() {
       <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
         <ChartContainer
           config={chartConfig}
-          className="aspect-auto h-[250px] w-full"
+          className="aspect-auto h-62.5 w-full"
         >
           <AreaChart
             data={chartData}

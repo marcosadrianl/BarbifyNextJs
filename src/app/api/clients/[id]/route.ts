@@ -37,8 +37,8 @@ export async function GET(
 
     if (!session)
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-
-    const clientId = await params.id;
+    const { id } = await params;
+    const clientId = id;
 
     // Validar ID
     if (!validateId(clientId)) {

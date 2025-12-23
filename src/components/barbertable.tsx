@@ -1,42 +1,24 @@
+"use client";
+
 import { DataTable } from "@/components/ui/dataTable";
-import { useSession } from "next-auth/react";
+
 import { IBarbers } from "@/models/Barbers";
 import * as React from "react";
 import { BarbersData } from "@/models/Barbers";
+import { DefaultSession } from "next-auth";
 
-export function BarberTable() {
-  const { data: session } = useSession();
-  const [barbers, setBarbers] = React.useState<BarbersData[]>([]);
-  const [loading, setLoading] = React.useState(true);
+interface sessionUser extends DefaultSession {
+  user: {
+    id: string;
+    name?: string | null;
+    email?: string | null;
+    image?: string | null;
+    active?: boolean;
+  };
+}
 
-  React.useEffect(() => {
-    if (!session?.user?.id) return;
-
-    const fetchBarbers = async () => {
-      try {
-        const res = await fetch(`/api/users/${session.user.id}/barbers`);
-        const data: IBarbers[] = await res.json(); // 👈 TIPO CORRECTO
-
-        const mapped: BarbersData[] = data.map((barber) => ({
-          id: String(new Date().getTime() + Math.random()), // Generar un ID único temporal
-          name: `${barber.barberName} ${barber.barberLastName}`,
-          email: barber.barberEmail,
-          amount: (Math.random() * 1000).toFixed(2) as unknown as number, // Valor aleatorio para amount
-          status: barber.barberActive ? "activo" : "inactivo", // 👈 este campo EXISTE
-        }));
-
-        setBarbers(mapped);
-      } catch (err) {
-        console.error("Error fetching barbers:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchBarbers();
-  }, [session]);
-
-  if (loading)
+export function BarberTable({ data }: { data: BarbersData[] }) {
+  if (!data.length)
     return (
       <DataTable
         data={[
@@ -51,5 +33,5 @@ export function BarberTable() {
       />
     );
 
-  return <DataTable data={barbers} />;
+  return <DataTable data={data} />;
 }

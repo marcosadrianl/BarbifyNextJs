@@ -1,8 +1,9 @@
 import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
-import User from "@/models/Users";
+import User, { IUser } from "@/models/Users";
 import { connectDB } from "@/utils/mongoose";
+import mongoose from "mongoose";
 
 // Definimos el tipo de usuario que vamos a devolver
 interface AuthUser {
@@ -22,7 +23,9 @@ export const authOptions: NextAuthOptions = {
       async authorize(credentials): Promise<AuthUser | null> {
         await connectDB();
 
-        const user = await User.findOne({ userEmail: credentials?.email });
+        const user = await (User as mongoose.Model<IUser>).findOne({
+          userEmail: credentials?.email,
+        });
         if (!user) return null;
 
         const isValid = await bcrypt.compare(
