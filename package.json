@@ -9,10 +9,10 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@fullcalendar/core": "^6.1.19",
-    "@fullcalendar/daygrid": "^6.1.19",
-    "@fullcalendar/interaction": "^6.1.19",
-    "@fullcalendar/react": "^6.1.19",
+    "@fullcalendar/core": "^6.1.20",
+    "@fullcalendar/daygrid": "^6.1.20",
+    "@fullcalendar/interaction": "^6.1.20",
+    "@fullcalendar/react": "^6.1.20",
     "@hookform/resolvers": "^5.2.2",
     "@radix-ui/react-select": "^2.2.6",
     "@radix-ui/react-slot": "^1.2.4",
@@ -37,7 +37,8 @@
     "react-loading-skeleton": "3.5.0",
     "recharts": "2.15.4",
     "tailwind-merge": "^3.4.0",
-    "zod": "4.1.11"
+    "zod": "4.1.11",
+    "zustand": "^5.0.9"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.3",

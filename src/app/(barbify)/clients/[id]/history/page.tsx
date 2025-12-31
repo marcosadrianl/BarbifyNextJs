@@ -7,7 +7,7 @@ import Clients from "@/models/Clients";
 import { IService, IClient } from "@/models/Clients";
 import { connectDB } from "@/utils/mongoose";
 import { notFound } from "next/navigation";
-import React from "react";
+
 import DeleteService from "@/components/deleteService";
 import TotalServices from "@/components/fullServiceData";
 
@@ -29,7 +29,6 @@ function ClientServicesList({ services }: { services: IService[] }) {
   ];
 
   const result = JSON.parse(JSON.stringify(services));
-  /*   console.log(" 🚀 ~ file: page.tsx:32 ~ ClientServicesList ~ result", result); */
 
   return (
     <div className="flex flex-col gap-4">

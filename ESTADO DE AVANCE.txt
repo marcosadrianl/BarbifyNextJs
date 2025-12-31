@@ -2,6 +2,28 @@
 quiero llorar
 
 --------------------------------------------------------------------------------------------------
+AVANCE 30/12/2025:
+LETSGOOOOOO bien, ahora hay dos nuevas cards leyendo desde el localstorage, que ahora se guarda bien PERO! 
+- al actualizar el localstorage no se actualizan las cards, corregir desp eso.
+chequear: c:\Users\marco\Desktop\TODO.txt
+
+- TODO: Crear servicios debe traer los barberos implicados
+- TODO: Corregir bug al eliminar servicios.
+- TODO: Cerrar session y seccion cuenta hay que implementarlo ya
+- TODO: Fix loggin en vercel. 
+- TODO: lista de barberos en dashboard no funciona, ver dashboard page.
+- TODO: continuar los insights
+- TODO: seccion INSIGHTS implementar ya, solo da resumen imprimible del dia/mes/anio semana, 15na, etc etc.
+	- Facturacion realizada por barbero/ total / por periodo, estaria bueno esa funcion.
+- TODO: CRUD de barberos.
+
+- ???: Editar contrasenia es un riesgo de seguridad, debo implementarlo? o la dinamica seria contactar al web-master (a.k.a. yo)?
+
+AVANCE 26/12/2025:
+Se volvio a la fecha del commit nextjs fixed. Hay un error fatal en barbersTable. CORREGIR PRONTO! 
+totalrevenew creado y andando. queda hacer que el trending muetre up o down segun sigo de "variacion"
+
+
 AVANCE 23/12/2025: 
 Mejoras de typescript, corregido error de next 16, iniciado componente totalreveniew. 
 Como carancho se usa el recuadro de shadcn de totalreveniew? ? ??  ? averiguar eso y mantener visual.

@@ -30,8 +30,6 @@ export async function GET(
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
-    console.log("Barbers:", user.userHasThisBarbers);
-
     return NextResponse.json(user.userHasThisBarbers ?? [], { status: 200 });
   } catch (error) {
     console.error("GET barbers error:", error);

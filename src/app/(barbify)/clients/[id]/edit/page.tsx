@@ -58,7 +58,6 @@ export default function EditClientFormPage() {
     const fetchClient = async () => {
       try {
         const res = await fetch(`/api/clients/${clientId}`);
-        console.log("res dice: ", res);
 
         if (!res.ok) throw new Error("Error al obtener cliente");
         const client = await res.json();

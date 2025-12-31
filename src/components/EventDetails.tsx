@@ -20,8 +20,6 @@ export default function EventDetails({ selectedEvents }: EventDetailsProps) {
     );
   }
 
-  /*   console.log("selectedEvents en EventDetails:", selectedEvents); */
-
   // 🔧 Acceder a clientServices.serviceDate
   const serviceDate = new Date(selectedEvents[0].clientServices.serviceDate);
 

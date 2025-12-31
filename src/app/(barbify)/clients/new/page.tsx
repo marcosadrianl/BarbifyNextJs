@@ -6,6 +6,8 @@ import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 
+import { useSession } from "next-auth/react";
+
 const ClientSchema = z.object({
   clientName: z.string().min(1, "Nombre requerido"),
   clientLastName: z.string().min(1, "Apellido requerido"),
@@ -25,6 +27,7 @@ const ClientSchema = z.object({
   clientMedications: z.string().optional(),
   clientNotes: z.string().optional(),
   clientServices: z.array(z.any()).optional(),
+  clientFromUserId: z.string(),
 });
 
 type ClientFormData = z.infer<typeof ClientSchema>;
@@ -36,6 +39,7 @@ interface ServerError {
 }
 
 export default function CreateClientForm() {
+  const { data: session } = useSession();
   const {
     register,
     handleSubmit,
@@ -48,6 +52,7 @@ export default function CreateClientForm() {
       clientServices: [],
       clientWhiteHairs: 0,
       clientBirthdate: new Date().toISOString().split("T")[0],
+      clientFromUserId: session?.user?.id || "",
     },
     mode: "onSubmit",
     reValidateMode: "onChange",
@@ -188,7 +193,7 @@ export default function CreateClientForm() {
       onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col gap-2 px-4 w-full mx-auto"
     >
-      <div className=" flex flex-row items-center p-4 gap-4 w-full max-w-[1500px] mb-4 mx-auto">
+      <div className=" flex flex-row items-center p-4 gap-4 w-full max-w-375 mb-4 mx-auto">
         <div className="flex flex-col gap-2 w-full max-w-lg mx-auto">
           <h1 className="font-bold">Nombre *</h1>
           <input

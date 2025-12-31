@@ -1,7 +1,7 @@
 import { Schema, model, models } from "mongoose";
 import z from "zod";
 import mongoose from "mongoose";
-import { IBarbers } from "@/models/Barbers";
+import BarbifyBarbers, { IBarbers } from "@/models/Barbers";
 
 export interface IUser {
   userName: string;
@@ -51,8 +51,7 @@ const UsersSchema = new Schema(
     userHasThisBarbers: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "BarbifyBarbers",
-        select: true,
+        ref: "Barbers",
       },
     ],
   },

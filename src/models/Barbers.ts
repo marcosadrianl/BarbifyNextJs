@@ -51,7 +51,7 @@ const BarbersSchema = new Schema(
     barberBirthDate: { type: Date },
     barberImageURL: { type: String },
     ownerUserId: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "BarbifyUsers",
     },
   },
@@ -83,5 +83,8 @@ export const BarberSchemaZod = z.object({
   ownerUserId: z.string().optional(),
 });
 
-export default mongoose.models.BarbifyBarbers ||
+const Barbers =
+  mongoose.models.BarbifyBarbers ||
   model<IBarbers>("BarbifyBarbers", BarbersSchema);
+
+export default Barbers;

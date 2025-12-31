@@ -54,7 +54,6 @@ export async function GET() {
     await connectDB();
 
     const session = await getServerSession(authOptions);
-    /*     console.log("SESSION:", session); */
 
     if (!session) {
       return NextResponse.json(

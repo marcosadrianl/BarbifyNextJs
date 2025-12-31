@@ -107,6 +107,7 @@ export async function GET(request: Request) {
  *   clientMedications: string,
  *   clientNotes: string,
  *   clientServices: Service[]
+ * clientFromUserId : ObjectId
  * }
  * @description This endpoint creates a new client based on the request body.
  * It returns a JSON response with the created client data, or a JSON response
