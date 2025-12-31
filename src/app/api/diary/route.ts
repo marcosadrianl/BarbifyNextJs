@@ -42,7 +42,7 @@ export function filterByUser<T>(model: Model<T>, session: Session | null) {
       clientFromUserId: userObjectId,
     })
     .select(
-      "_id clientName clientLastName clientPhone clientServices clientSex clientActive createdAt"
+      "_id clientName clientLastName clientPhone clientServices clientSex clientActive createdAt updatedAt"
     );
 }
 
@@ -95,6 +95,7 @@ export async function GET() {
       | "clientSex"
       | "clientActive"
       | "createdAt"
+      | "updatedAt"
     > & {
       _id: Types.ObjectId;
     };
@@ -110,6 +111,7 @@ export async function GET() {
         clientSex,
         clientActive,
         createdAt,
+        updatedAt,
       } = c as unknown as ClientLean & { _id: Types.ObjectId };
 
       return (clientServices || []).map((service: IService) => {
@@ -134,6 +136,7 @@ export async function GET() {
           },
           clientActive,
           createdAt,
+          updatedAt,
         } as diaryServices;
       });
     });

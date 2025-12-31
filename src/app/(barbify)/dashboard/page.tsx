@@ -5,6 +5,7 @@ import { authOptions } from "@/utils/auth";
 import { FinancialSummaryCard } from "@/components/financialCard";
 import { TimeCheckDashboard } from "@/components/timeCheckDashboard";
 import { ClientRecurrenceCard } from "@/components/ClientRecurrenceCard";
+import InactiveClientsCard from "@/components/inactiveclients";
 
 import { TotalRevenue } from "@/components/getTotalReveniew";
 
@@ -28,6 +29,9 @@ export default async function Page() {
         <TotalRevenue />
         <FinancialSummaryCard />
         <ClientRecurrenceCard />
+      </div>
+      <div className="flex flex-row gap-8">
+        <InactiveClientsCard />
       </div>
     </div>
   );

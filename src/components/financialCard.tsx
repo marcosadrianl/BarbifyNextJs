@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { TrendingUp, TrendingDown, Equal } from "lucide-react";
 
 export function FinancialSummaryCard() {
   const [currentTotal, setCurrentTotal] = useState(0);
@@ -95,7 +96,7 @@ export function FinancialSummaryCard() {
   const trend = variation > 0.1 ? "up" : variation < -0.1 ? "down" : "equal";
 
   return (
-    <div className="rounded-md  text-black border bg-accent p-4 flex flex-col gap-3 w-1/3">
+    <div className="rounded-md border text-black bg-accent p-4 w-1/3 flex flex-col gap-4">
       {/* Header con variación */}
       <div className="flex justify-between items-center">
         <h2 className="text-sm font-medium">Ingresos del mes</h2>
@@ -109,60 +110,29 @@ export function FinancialSummaryCard() {
               : "bg-gray-100 text-gray-700"
           }`}
         >
-          {trend === "up" && (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="size-3"
-            >
-              <path d="M3 17l6 -6l4 4l8 -8" />
-              <path d="M14 7l7 0l0 7" />
-            </svg>
-          )}
-          {trend === "down" && (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="size-3"
-            >
-              <path d="M3 7l6 6l4 -4l8 8" />
-              <path d="M14 17l7 0l0 -7" />
-            </svg>
-          )}
-          {trend === "down" && "-"}
+          {trend === "up" && <TrendingUp className="w-4" />}
+          {trend === "down" && <TrendingDown className="w-4" />}
+          {trend === "equal" && <Equal className="w-4" />}
           {Math.abs(variation).toFixed(1)}%
         </div>
       </div>
 
       {/* Total del mes actual */}
-      <p className="text-3xl font-bold mb-2">
-        {formatter.format(currentTotal)}
-      </p>
+      <p className="text-3xl font-bold">{formatter.format(currentTotal)}</p>
 
       {/* Descripción */}
-      <div className="flex flex-col gap-1">
-        <p className="text-sm text-muted-foreground">
-          {trend === "up" && "📈 Mejor que el mes anterior"}
-          {trend === "down" && "📉 Menor que el mes anterior"}
-          {trend === "equal" && "➡️ Igual que el mes anterior"}
-        </p>
 
-        {previousTotal > 0 && (
-          <p className="text-xs text-muted-foreground border-t pt-2 mt-2">
-            Mes anterior: {formatter.format(previousTotal)}
-          </p>
-        )}
-      </div>
+      <p className="text-sm text-muted-foreground">
+        {trend === "up" && "📈 Mejor que el mes anterior"}
+        {trend === "down" && "📉 Menor que el mes anterior"}
+        {trend === "equal" && "➡️ Igual que el mes anterior"}
+      </p>
+
+      {previousTotal > 0 && (
+        <p className="text-xs text-muted-foreground border-t pt-2">
+          Mes anterior: {formatter.format(previousTotal)}
+        </p>
+      )}
     </div>
   );
 }

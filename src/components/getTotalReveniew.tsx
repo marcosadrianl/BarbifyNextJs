@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { useEffect, useState } from "react";
+import { TrendingUp, TrendingDown, Equal } from "lucide-react";
 
 type TrendDirection = "up" | "down" | "equal";
 
@@ -153,7 +154,7 @@ export function TotalRevenue() {
     <div className="rounded-md border text-black bg-accent p-4 w-1/3 flex flex-col gap-4">
       {/* Header */}
       <span className="flex flex-row justify-between items-center">
-        <h2 className="text-sm tracking-tight font-medium">Total Revenue</h2>
+        <h2 className="text-sm tracking-tight font-medium">Ingresos Totales</h2>
 
         {/* Trend Badge */}
         <div
@@ -165,37 +166,9 @@ export function TotalRevenue() {
               : "bg-gray-100 text-gray-700"
           }`}
         >
-          {trendDirection === "up" && (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="size-3"
-            >
-              <path d="M3 17l6 -6l4 4l8 -8" />
-              <path d="M14 7l7 0l0 7" />
-            </svg>
-          )}
-          {trendDirection === "down" && (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="size-3"
-            >
-              <path d="M3 7l6 6l4 -4l8 8" />
-              <path d="M14 17l7 0l0 -7" />
-            </svg>
-          )}
-          {trendDirection === "down" && "-"}
+          {trendDirection === "up" && <TrendingUp className="w-4" />}
+          {trendDirection === "down" && <TrendingDown className="w-4" />}
+          {trendDirection === "equal" && <Equal className="w-4" />}
           {trendValue}
         </div>
       </span>
