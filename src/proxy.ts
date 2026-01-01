@@ -15,10 +15,11 @@ export default withAuth(
 
     // Si intenta acceder a /login con sesión activa, redirigir a dashboard
     if (path === "/login" && token) {
+      console.log("✅ Ya tiene sesión, redirigiendo a dashboard");
       return NextResponse.redirect(new URL("/dashboard", req.url));
     }
 
-    // Permitir acceso si hay token
+    // Permitir acceso
     return NextResponse.next();
   },
   {
@@ -27,18 +28,54 @@ export default withAuth(
       authorized: ({ token, req }) => {
         const path = req.nextUrl.pathname;
 
-        // Siempre permitir acceso a páginas públicas
-        if (
-          path === "/login" ||
-          path === "/register" ||
-          path === "/" ||
-          path.startsWith("/api/auth")
-        ) {
+        console.log("🔍 Authorized callback:", { path, hasToken: !!token });
+
+        // ✅ RUTAS PÚBLICAS (no requieren autenticación)
+        const publicPaths = ["/", "/login", "/register", "/about", "/contact"];
+
+        // ✅ PREFIJOS PÚBLICOS
+        const publicPrefixes = [
+          "/api/auth", // NextAuth endpoints
+          "/_next", // Next.js static files
+          "/favicon",
+          "/public",
+        ];
+
+        // Verificar si es ruta pública
+        if (publicPaths.includes(path)) {
+          console.log("✅ Ruta pública permitida:", path);
           return true;
         }
 
-        // Para rutas protegidas, verificar token
-        return !!token;
+        // Verificar si empieza con prefijo público
+        if (publicPrefixes.some((prefix) => path.startsWith(prefix))) {
+          console.log("✅ Prefijo público permitido:", path);
+          return true;
+        }
+
+        // ✅ RUTAS PROTEGIDAS (requieren autenticación)
+        const protectedPrefixes = [
+          "/dashboard",
+          "/clients",
+          "/diary",
+          "/insights",
+          "/account",
+          "/settings",
+        ];
+
+        // Si es ruta protegida, verificar token
+        if (protectedPrefixes.some((prefix) => path.startsWith(prefix))) {
+          if (!token) {
+            console.log("❌ Ruta protegida sin token:", path);
+            return false;
+          }
+          console.log("✅ Ruta protegida con token:", path);
+          return true;
+        }
+
+        // Por defecto, permitir acceso
+        console.log("✅ Ruta no especificada, permitir:", path);
+        return true;
       },
     },
     pages: {
@@ -47,17 +84,17 @@ export default withAuth(
   }
 );
 
-// ✅ IMPORTANTE: Configuración correcta del matcher
+// ✅ Configuración del matcher
 export const config = {
   matcher: [
     /*
-     * Proteger todas las rutas excepto:
-     * - api (excepto /api/auth)
-     * - _next/static
-     * - _next/image
+     * Match all request paths except:
+     * - api routes (except /api/auth)
+     * - _next/static (static files)
+     * - _next/image (image optimization)
      * - favicon.ico
-     * - public files
+     * - public folder
      */
-    "/((?!api/(?!auth)|_next/static|_next/image|favicon.ico|.*\\..*|public).*)",
+    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],
 };

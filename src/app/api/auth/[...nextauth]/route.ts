@@ -22,9 +22,13 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials): Promise<AuthUser | null> {
         try {
+          console.log("🔐 Authorize llamado con email:", credentials?.email);
+
           await connectDB();
+          console.log("✅ Conectado a DB");
 
           if (!credentials?.email || !credentials?.password) {
+            console.log("❌ Credenciales faltantes");
             return null;
           }
 
@@ -36,6 +40,8 @@ export const authOptions: NextAuthOptions = {
             console.log("❌ Usuario no encontrado:", credentials.email);
             return null;
           }
+
+          console.log("✅ Usuario encontrado:", user.userEmail);
 
           const isValid = await bcrypt.compare(
             credentials.password,
@@ -49,11 +55,15 @@ export const authOptions: NextAuthOptions = {
 
           console.log("✅ Login exitoso:", user.userEmail);
 
-          return {
+          const authUser: AuthUser = {
             id: user._id.toString(),
             name: user.userName,
             email: user.userEmail,
           };
+
+          console.log("✅ Retornando authUser:", authUser);
+
+          return authUser;
         } catch (error) {
           console.error("❌ Error en authorize:", error);
           return null;
@@ -70,13 +80,13 @@ export const authOptions: NextAuthOptions = {
 
   pages: {
     signIn: "/login",
-    error: "/login", // ← Redirigir errores al login
+    error: "/login",
   },
 
   secret: process.env.NEXTAUTH_SECRET,
 
-  // ✅ IMPORTANTE: Debug en desarrollo
-  debug: process.env.NODE_ENV === "development",
+  // ✅ IMPORTANTE: Debug para ver qué está pasando
+  debug: true, // Activar en producción temporalmente para ver logs
 
   callbacks: {
     /**
