@@ -16,6 +16,8 @@ function CheckAuth() {
   // redirect ONLY inside an effect
   React.useEffect(() => {
     if (status === "unauthenticated") {
+      console.log("errior al iniciar", status);
+
       router.push(
         `/login?callbackUrl=${encodeURIComponent(window.location.pathname)}`
       );

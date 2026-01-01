@@ -14,10 +14,10 @@ export default withAuth(
       url.pathname = "/login";
 
       // agregar callbackUrl con la ruta original
-      url.searchParams.set(
+      /* url.searchParams.set(
         "callbackUrl",
         req.nextUrl.pathname + req.nextUrl.search
-      );
+      ); */
 
       return NextResponse.redirect(url);
     }
