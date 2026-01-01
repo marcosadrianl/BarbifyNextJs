@@ -2,7 +2,7 @@
 
 import { signIn } from "next-auth/react";
 import { useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -10,8 +10,6 @@ export default function LoginPage() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl") || "/dashboard";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,8 +20,7 @@ export default function LoginPage() {
       const result = await signIn("credentials", {
         email,
         password,
-        redirect: false, // ✅ No redirigir automáticamente
-        callbackUrl,
+        redirect: false, // No redirigir automáticamente
       });
 
       console.log("📝 Resultado de login:", result);
@@ -35,8 +32,8 @@ export default function LoginPage() {
       }
 
       if (result?.ok) {
-        // ✅ Redirigir manualmente después de login exitoso
-        router.push(callbackUrl);
+        // Redirigir al dashboard después de login exitoso
+        router.push("/dashboard");
         router.refresh();
       }
     } catch (err) {
