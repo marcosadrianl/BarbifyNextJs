@@ -92,6 +92,8 @@ export function ClientRecurrenceCard() {
     }
     const services = JSON.parse(cached);
 
+    console.log("📊 Datos de los servicios:", services);
+
     // ✅ CORRECCIÓN: Usar el año correcto (2025, no 2024)
     // Detectar automáticamente el año más reciente en los datos
     let maxYear = 2024;

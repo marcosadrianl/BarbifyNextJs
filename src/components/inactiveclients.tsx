@@ -66,7 +66,11 @@ export default function InactiveClientsCard() {
       </div>
 
       <p className="text-sm text-muted-foreground">
-        Clientes que no regresaron en los últimos {DAYS_LIMIT} días
+        {" "}
+        Tienes <span className="font-medium">
+          {inactiveClients.length}
+        </span>{" "}
+        clientes que no regresaron en los últimos {DAYS_LIMIT} días
       </p>
 
       {/* List */}
@@ -90,7 +94,7 @@ export default function InactiveClientsCard() {
       <div className="border-t pt-3">
         <p className="text-xs font-medium mb-1">Acciones sugeridas</p>
         <ul className="text-xs text-muted-foreground list-disc pl-4 space-y-1">
-          <li>Enviar WhatsApp automático</li>
+          <li>Contactar via whatsapp o correo </li>
           <li>Ofrecer promoción de retorno</li>
         </ul>
       </div>
