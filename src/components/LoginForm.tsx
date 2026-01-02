@@ -3,15 +3,19 @@
 import { signIn } from "next-auth/react";
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { motion } from "framer-motion";
+import { Scissors } from "lucide-react";
+import Link from "next/link";
 
-export default function LoginForm() {
+export default function LoginFormPremium() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
   const router = useRouter();
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl") || "/dashboard";
+  const callbackUrl = searchParams.get("callbackUrl") || "/clients";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,10 +30,8 @@ export default function LoginForm() {
         callbackUrl,
       });
 
-      console.log("📝 Resultado de login:", result);
-
       if (result?.error) {
-        setError("Credenciales incorrectas");
+        setError("Email o contraseña incorrectos");
         setLoading(false);
         return;
       }
@@ -39,68 +41,85 @@ export default function LoginForm() {
         router.refresh();
       }
     } catch (err) {
-      console.error("❌ Error en login:", err);
       setError("Error al iniciar sesión");
       setLoading(false);
     }
   };
 
   return (
-    <div className="w-full max-w-md">
-      <div className="bg-white rounded-lg shadow-md p-6">
-        <h2 className="text-2xl font-bold mb-6 text-center">Iniciar Sesión</h2>
+    <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-[#fff7ec] to-[#f3eadb] px-4 w-full">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="w-full max-w-md"
+      >
+        <div className="bg-white rounded-4xl shadow-2xl p-10 relative overflow-hidden">
+          {/* Decorative accent */}
+          <div className="absolute -top-20 -right-20 w-40 h-40 bg-[#2f3e2f]/10 rounded-full" />
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium mb-1">
-              Email
-            </label>
-            <input
-              id="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              autoComplete="email"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#ffd49d]"
-              placeholder="tu@email.com"
-            />
-          </div>
-
-          <div>
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium mb-1"
-            >
-              Contraseña
-            </label>
-            <input
-              id="password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              autoComplete="current-password"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#ffd49d]"
-              placeholder="••••••••"
-            />
-          </div>
-
-          {error && (
-            <div className="p-3 bg-red-100 text-red-700 rounded-md text-sm">
-              {error}
+          <div className="flex flex-col items-center mb-8">
+            <div className="w-14 h-14 rounded-2xl bg-[#2f3e2f] flex items-center justify-center text-[#fff7ec] mb-4">
+              <Scissors size={28} />
             </div>
-          )}
+            <h1 className="text-2xl font-semibold">Bienvenido a Barbify</h1>
+            <p className="text-sm text-black/60 mt-1">
+              Gestioná tu peluquería con claridad
+            </p>
+          </div>
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-[#ffd49d] text-black font-semibold py-2 rounded-md hover:bg-[#ffc570] transition disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {loading ? "Iniciando sesión..." : "Iniciar Sesión"}
-          </button>
-        </form>
-      </div>
+          <form onSubmit={handleSubmit} className="space-y-5">
+            <div>
+              <label className="block text-sm font-medium mb-1">Email</label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                autoComplete="email"
+                placeholder="tu@email.com"
+                className="w-full px-4 py-3 rounded-xl border border-black/10 focus:outline-none focus:ring-2 focus:ring-[#2f3e2f]/30"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-1">
+                Contraseña
+              </label>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                autoComplete="current-password"
+                placeholder="••••••••"
+                className="w-full px-4 py-3 rounded-xl border border-black/10 focus:outline-none focus:ring-2 focus:ring-[#2f3e2f]/30"
+              />
+            </div>
+
+            {error && (
+              <div className="rounded-xl bg-red-50 text-red-700 text-sm px-4 py-3">
+                {error}
+              </div>
+            )}
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full py-3 rounded-xl bg-[#2f3e2f] text-[#fff7ec] font-semibold hover:scale-[1.02] transition disabled:opacity-60"
+            >
+              {loading ? "Ingresando…" : "Ingresar"}
+            </button>
+          </form>
+
+          <div className="text-center text-sm text-black/60 mt-6">
+            ¿No tenés cuenta?{" "}
+            <Link href="/register" className="font-medium underline">
+              Crear cuenta
+            </Link>
+          </div>
+        </div>
+      </motion.div>
     </div>
   );
 }

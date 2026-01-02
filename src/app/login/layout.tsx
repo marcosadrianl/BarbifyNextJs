@@ -9,12 +9,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="bg-[#ffe7c7] h-screen flex flex-row text-[#43553b]">
-      <div className={`flex flex-col w-full overflow-y-auto`}>
-        <div className="flex-grow overflow-auto">
-          <SessionProvider>{children}</SessionProvider>
-        </div>
-      </div>
+    <div className="w-screen min-h-screen flex items-center justify-center bg-gray-50">
+      <SessionProvider>{children}</SessionProvider>
     </div>
   );
 }

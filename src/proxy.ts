@@ -15,8 +15,8 @@ export default withAuth(
 
     // Si intenta acceder a /login con sesión activa, redirigir a dashboard
     if (path === "/login" && token) {
-      console.log("✅ Ya tiene sesión, redirigiendo a dashboard");
-      return NextResponse.redirect(new URL("/dashboard", req.url));
+      console.log("✅ Ya tiene sesión, redirigiendo a clients");
+      return NextResponse.redirect(new URL("/clients", req.url));
     }
 
     // Permitir acceso

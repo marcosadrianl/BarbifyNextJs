@@ -125,8 +125,8 @@ export const authOptions: NextAuthOptions = {
       else if (new URL(url).origin === baseUrl) {
         return url;
       }
-      // Por defecto, ir al dashboard
-      return `${baseUrl}/dashboard`;
+      // Por defecto, ir al clients
+      return `${baseUrl}/clients`;
     },
   },
 };
