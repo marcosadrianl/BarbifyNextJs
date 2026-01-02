@@ -3,21 +3,47 @@
  * Luego los muestra con toda la información aplicando un map a la info traída del servidor
  * Usa IClient como client schema
  */
+import { IClient, IService } from "@/models/Clients";
 import Clients from "@/models/Clients";
-import { IService, IClient } from "@/models/Clients";
+import mongoose from "mongoose";
 import { connectDB } from "@/utils/mongoose";
 import { notFound } from "next/navigation";
-
 import DeleteService from "@/components/deleteService";
 import TotalServices from "@/components/fullServiceData";
 
-/**
- * Muestra la lista de servicios del cliente
- *
- * @param  services: IService[] - La lista de servicios del cliente
- * @returns JSX.Element - Un JSX Element con la lista de servicios del cliente
- */
-function ClientServicesList({ services }: { services: IService[] }) {
+// Definir el tipo LeanService
+type LeanService = {
+  _id: string;
+  serviceName: string;
+  servicePrice: number;
+  serviceDate: string;
+  serviceDuration: number;
+  serviceNotes: string;
+};
+
+// Función para convertir IService a LeanService
+function leanService(service: IService): LeanService {
+  return {
+    _id: service._id.toString(),
+    serviceName: service.serviceName,
+    servicePrice: service.servicePrice,
+    serviceDate:
+      service.serviceDate instanceof Date
+        ? service.serviceDate.toISOString()
+        : service.serviceDate,
+    serviceDuration: service.serviceDuration,
+    serviceNotes: service.serviceNotes || "",
+  };
+}
+
+// Props del componente
+type ClientServicesListProps = {
+  services: LeanService[];
+  clientId: string;
+};
+
+// Componente para mostrar la lista de servicios
+function ClientServicesList({ services, clientId }: ClientServicesListProps) {
   const daysOfWeek = [
     "Domingo",
     "Lunes",
@@ -28,11 +54,9 @@ function ClientServicesList({ services }: { services: IService[] }) {
     "Sábado",
   ];
 
-  const result = JSON.parse(JSON.stringify(services));
-
   return (
     <div className="flex flex-col gap-4">
-      {result.clientServices.map((service: IService) => {
+      {services.map((service) => {
         const localDate = new Date(service.serviceDate);
         const formatted = localDate.toLocaleString("es-AR", {
           day: "2-digit",
@@ -43,12 +67,12 @@ function ClientServicesList({ services }: { services: IService[] }) {
         });
         return (
           <div
-            key={service._id.toString()}
+            key={service._id}
             className="flex flex-col gap-2 bg-[#ffd49d] p-2 rounded-2xl shadow-md w-full"
           >
             <div className="flex flex-row justify-between w-full">
               <h2 className="text-2xl font-bold">{service.serviceName}</h2>
-              <DeleteService id={service._id.toString()} />
+              <DeleteService serviceId={service._id} clientId={clientId} />
             </div>
             <p className="text-base font-normal">
               • Precio: ${(service.servicePrice / 100).toFixed(2)}
@@ -69,6 +93,7 @@ function ClientServicesList({ services }: { services: IService[] }) {
   );
 }
 
+// Página principal
 export default async function ClientHistory({
   params,
 }: {
@@ -76,20 +101,25 @@ export default async function ClientHistory({
 }) {
   await connectDB();
   const { id } = await params;
-  const clientServicesArray: IClient | null = await Clients.findOne({
-    _id: id,
-  })
+
+  // Buscar el cliente y sus servicios
+  const clientServicesArray = await (Clients as mongoose.Model<IClient>)
+    .findOne({
+      _id: id,
+    })
     .select("clientServices")
-    .exec();
+    .lean();
 
-  // Mapear los servicios
-  const result = JSON.parse(JSON.stringify(clientServicesArray));
-
-  if (!result.clientServices) {
+  if (!clientServicesArray) {
     return notFound();
   }
 
-  if (!result.clientServices?.length) {
+  // Serializar servicios
+  const serviceArrayLeaned: LeanService[] =
+    clientServicesArray.clientServices?.map(leanService) ?? [];
+
+  // Si no hay servicios
+  if (!serviceArrayLeaned.length) {
     return (
       <div className="p-4">
         <h2 className="text-2xl font-bold">No hay servicios registrados</h2>
@@ -100,11 +130,11 @@ export default async function ClientHistory({
   return (
     <div className="flex flex-row w-full gap-4 p-4 overflow-auto">
       <div className="w-2/4">
-        <ClientServicesList services={result} />
+        <ClientServicesList services={serviceArrayLeaned} clientId={id} />
       </div>
 
       <div className="w-2/4">
-        <TotalServices services={result.clientServices} />
+        <TotalServices services={serviceArrayLeaned} />
       </div>
     </div>
   );

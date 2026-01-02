@@ -58,8 +58,8 @@ export default function MoreInfoModal({ client }: { client: IClient }) {
       <button onClick={() => setIsOpen(true)}>
         <p className="cursor-pointer">
           Más información sobre el cliente{" "}
-          <span className="hover:underline cursor-pointer font-bold">
-            ...Leer m&aacute;s
+          <span className="hover:underline cursor-pointer font-semibold">
+            ...m&aacute;s
           </span>
         </p>
       </button>
@@ -69,14 +69,19 @@ export default function MoreInfoModal({ client }: { client: IClient }) {
           onClick={() => setIsOpen(false)}
         >
           <div
-            className="bg-[#ffe7c7]  w-1/2 p-4 rounded-2xl"
+            className="bg-[#ffe7c7] w-full m-80 p-4 rounded-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex flex-row justify-between">
               <h2 className=" font-bold mb-4">
                 {client.clientName} {client.clientLastName}
               </h2>
-              <div className="animate-pulse">
+              <div
+                className="animate-pulse p-1"
+                title={
+                  client.clientActive ? "Cliente activo" : "Cliente inactivo"
+                }
+              >
                 <Bullet state={client.clientActive} />
               </div>
             </div>

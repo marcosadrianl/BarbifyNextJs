@@ -138,14 +138,16 @@ export async function PATCH(
     if (!session)
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-    if (!validateId(params.id))
+    const { id } = await params;
+
+    if (!validateId(id))
       return NextResponse.json({ error: "Invalid ID" }, { status: 400 });
 
     const userId = new Types.ObjectId(session.user.id);
     const data = await request.json();
 
     const updated = await (Clients as mongoose.Model<IClient>).findOneAndUpdate(
-      { _id: params.id, clientFromUserId: userId },
+      { _id: id, clientFromUserId: userId },
       data,
       { new: true, runValidators: true }
     );

@@ -5,6 +5,7 @@ import { Poppins } from "@/utils/fonts";
 import "../../globals.css";
 import { SessionProvider } from "next-auth/react";
 import React from "react";
+import { ServicesBootstrap } from "@/components/ServicesBootstrap";
 
 import NavBar from "@/components/navBar";
 import SearchBar from "@/components/searchBar";
@@ -14,6 +15,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  ServicesBootstrap();
   return (
     <div className="bg-[#ffe7c7] h-screen flex flex-row text-[#43553b]">
       <NavBar />

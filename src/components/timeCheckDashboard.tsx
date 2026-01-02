@@ -41,11 +41,8 @@ export function TimeCheckDashboard() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Última actualización</CardTitle>
-
-        <CardDescription className="flex items-center justify-between gap-2">
-          <span>{lastUpdated ?? "Nunca"}</span>
-
+        <div className="flex flex-row justify-between">
+          <CardTitle>Última actualización</CardTitle>
           <Button
             size="sm"
             variant="outline"
@@ -54,9 +51,14 @@ export function TimeCheckDashboard() {
               window.location.reload();
             }}
             disabled={loading}
+            className="w-fit"
           >
             {loading ? "Actualizando..." : "Actualizar ahora"}
           </Button>
+        </div>
+
+        <CardDescription className="flex items-center justify-between gap-2">
+          <span>{lastUpdated ?? "Nunca"}</span>
         </CardDescription>
       </CardHeader>
     </Card>

@@ -42,7 +42,7 @@ export default function InactiveClientsCard() {
   }, []);
 
   return (
-    <div className="rounded-xl border bg-background p-4 flex flex-col gap-4 w-full">
+    <div className="rounded-xl border bg-background p-4 flex flex-col gap-4 w-1/4">
       {/* Header */}
       <div className="flex items-center justify-between">
         <h3 className="text-sm font-medium flex items-center gap-2">

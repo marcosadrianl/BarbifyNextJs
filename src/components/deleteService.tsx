@@ -1,22 +1,59 @@
 /**
- * delete a service in the /clients/[id]/history page
- *
+ * Delete a service in the /clients/[id]/history page
  */
 "use client";
 
+import axios from "axios";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 
-export default function DeleteService({ id }: { id: string }) {
+interface DeleteServiceProps {
+  serviceId: string; // serviceId
+  clientId: string; // clientId
+}
+
+export default function DeleteService({
+  serviceId,
+  clientId,
+}: DeleteServiceProps) {
   const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const router = useRouter();
 
   const handleDelete = () => {
     setShowModal(true);
   };
-  const handleConfirmDelete = () => {
-    // Aquí puedes realizar la lógica para eliminar el servicio
-    fetch(`/api/services/${id}`, { method: "DELETE" });
-    setShowModal(false);
+
+  const handleConfirmDelete = async () => {
+    setLoading(true);
+    setError("");
+
+    try {
+      console.log("🗑️ Eliminando servicio:", { clientId, serviceId });
+
+      // ✅ URL correcta con ambos IDs
+
+      const response = await axios.delete(
+        `/api/clients/${clientId}/services/${serviceId}`
+      );
+
+      console.log("✅ Servicio eliminado:", response.data);
+
+      // Cerrar modal
+      setShowModal(false);
+
+      // Recargar la página para ver los cambios
+      router.refresh();
+    } catch (error: any) {
+      console.error("❌ Error al eliminar el servicio:", error);
+      setError(
+        error.response?.data?.message || "Error al eliminar el servicio"
+      );
+      setLoading(false);
+    }
   };
+
   return (
     <div>
       <button
@@ -34,27 +71,37 @@ export default function DeleteService({ id }: { id: string }) {
         </svg>
         Eliminar
       </button>
+
       {showModal && (
-        <div className="fixed inset-0 bg-[#ffe7c7]/50  bg-opacity-10 flex items-center justify-center z-50">
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#ffe7c7]  p-6 rounded-lg shadow-lg">
-            <h2 className="font-bold">
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-[#ffe7c7] p-6 rounded-lg shadow-lg max-w-md w-full mx-4">
+            <h2 className="text-xl font-bold mb-2">
               ¿Seguro que quieres borrar este servicio?
             </h2>
             <p className="text-[#43553b]/60 text-sm mb-4">
-              Esta acci&oacute;n no se puede deshacer
+              Esta acción no se puede deshacer
             </p>
+
+            {error && (
+              <div className="mb-4 p-3 bg-red-100 text-red-700 rounded text-sm">
+                {error}
+              </div>
+            )}
+
             <div className="flex gap-4 justify-end">
               <button
-                className="bg-[#e68f1d] hover:bg-[#cdaa7e] text-white px-4 py-2 rounded transition cursor-pointer"
-                onClick={handleConfirmDelete}
-              >
-                Sí, borrar
-              </button>
-              <button
-                className="bg-[#eed1ab] hover:bg-[#cdaa7e] text-white px-4 py-2 rounded transition cursor-pointer"
+                className="bg-[#eed1ab] hover:bg-[#cdaa7e] text-[#43553b] px-4 py-2 rounded transition cursor-pointer disabled:opacity-50"
                 onClick={() => setShowModal(false)}
+                disabled={loading}
               >
                 Cancelar
+              </button>
+              <button
+                className="bg-[#e68f1d] hover:bg-[#d47a0f] text-white px-4 py-2 rounded transition cursor-pointer disabled:opacity-50"
+                onClick={handleConfirmDelete}
+                disabled={loading}
+              >
+                {loading ? "Eliminando..." : "Sí, borrar"}
               </button>
             </div>
           </div>

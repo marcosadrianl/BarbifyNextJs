@@ -92,25 +92,30 @@ export function ClientRecurrenceCard() {
     }
     const services = JSON.parse(cached);
 
-    console.log("📊 Datos de los servicios:", services);
+    if (services.length === 0) {
+      setLoading(false);
+      return;
+    }
 
-    // ✅ CORRECCIÓN: Usar el año correcto (2025, no 2024)
-    // Detectar automáticamente el año más reciente en los datos
-    let maxYear = 2024;
-    services.forEach((item: any) => {
-      const date = new Date(item.clientServices?.serviceDate);
-      if (date.getFullYear() > maxYear) {
-        maxYear = date.getFullYear();
-      }
-    });
+    // 1. DETECCIÓN DINÁMICA DE LA FECHA MÁS RECIENTE
+    // En lugar de hardcodear 2025 u Octubre, buscamos el servicio más nuevo
+    const validDates = services
+      .map((s: any) => new Date(s.clientServices?.serviceDate))
+      .filter((d: Date) => !isNaN(d.getTime()));
 
-    /*     console.log("📅 Año detectado en los datos:", maxYear); */
+    if (validDates.length === 0) {
+      setLoading(false);
+      return;
+    }
 
-    // Usar octubre 2025 como mes actual (el que tiene más datos)
-    const currentMonth = 9; // Octubre (0-indexed)
-    const currentYear = maxYear;
+    const latestDate = new Date(
+      Math.max(...validDates.map((d: Date) => d.getTime()))
+    );
 
-    // Fechas del mes actual (Octubre 2025)
+    // 2. DEFINIR MES ACTUAL (basado en el dato más reciente)
+    const currentYear = latestDate.getFullYear();
+    const currentMonth = latestDate.getMonth();
+
     const currentMonthStart = new Date(currentYear, currentMonth, 1);
     const currentMonthEnd = new Date(
       currentYear,
@@ -121,67 +126,40 @@ export function ClientRecurrenceCard() {
       59
     );
 
-    // Fechas del mes anterior (Septiembre 2025)
+    // 3. DEFINIR MES ANTERIOR (Manejo automático de cambio de año)
+    // El constructor de Date en JS es inteligente:
+    // Si currentMonth es 0 (Enero) y restas 1, automáticamente va a Diciembre del año anterior.
     const prevMonthStart = new Date(currentYear, currentMonth - 1, 1);
     const prevMonthEnd = new Date(currentYear, currentMonth, 0, 23, 59, 59);
 
-    /*     console.log("📊 Analizando períodos:", {
-      mesActual: `${currentMonthStart.toLocaleDateString()} - ${currentMonthEnd.toLocaleDateString()}`,
-      mesAnterior: `${prevMonthStart.toLocaleDateString()} - ${prevMonthEnd.toLocaleDateString()}`,
-    }); */
+    console.log("📅 Periodos Calculados:", {
+      actual: `${currentMonthStart.toLocaleDateString()} al ${currentMonthEnd.toLocaleDateString()}`,
+      anterior: `${prevMonthStart.toLocaleDateString()} al ${prevMonthEnd.toLocaleDateString()}`,
+    });
 
-    // Analizar mes actual
+    // 4. ANÁLISIS
     const currentResult = analyzeClientRecurrence(
       services,
       currentMonthStart,
       currentMonthEnd
     );
-
-    // Analizar mes anterior
     const previousResult = analyzeClientRecurrence(
       services,
       prevMonthStart,
       prevMonthEnd
     );
 
-    // Calcular variación
-    let diff = 0;
-    if (previousResult.recurrentPercentage > 0) {
-      diff =
-        currentResult.recurrentPercentage - previousResult.recurrentPercentage;
-    } else if (
-      currentResult.recurrentPercentage > 0 &&
-      previousResult.recurrentPercentage === 0
-    ) {
-      diff = 100;
-    }
+    // Calcular variación (puntos porcentuales)
+    const diff =
+      currentResult.recurrentPercentage - previousResult.recurrentPercentage;
 
+    // Umbral de 0.5 para evitar oscilaciones insignificantes
     const trendDirection = diff > 0.5 ? "up" : diff < -0.5 ? "down" : "equal";
 
     setCurrentPercentage(currentResult.recurrentPercentage);
     setPreviousPercentage(previousResult.recurrentPercentage);
     setVariation(diff);
     setTrend(trendDirection);
-
-    /*     console.log("📊 Análisis de recurrencia:", {
-      mesActual: {
-        recurrentes: `${currentResult.recurrentPercentage.toFixed(1)}%`,
-        nuevos: `${currentResult.newPercentage.toFixed(1)}%`,
-        totalRevenue: `${currentResult.totalRevenue.toFixed(2)}`,
-        clientesUnicos: Object.keys(currentResult.debug).length,
-        serviciosProcesados: services.filter((s: any) => {
-          const d = new Date(s.clientServices?.serviceDate);
-          return d >= currentMonthStart && d <= currentMonthEnd;
-        }).length,
-      },
-      mesAnterior: {
-        recurrentes: `${previousResult.recurrentPercentage.toFixed(1)}%`,
-        nuevos: `${previousResult.newPercentage.toFixed(1)}%`,
-        totalRevenue: `${previousResult.totalRevenue.toFixed(2)}`,
-        clientesUnicos: Object.keys(previousResult.debug).length,
-      },
-      variacion: `${diff > 0 ? "+" : ""}${diff.toFixed(1)}pp`,
-    }); */
 
     setLoading(false);
   }, []);
@@ -196,10 +174,8 @@ export function ClientRecurrenceCard() {
 
   return (
     <div className="rounded-md border text-black bg-accent p-4 w-1/3 flex flex-col gap-4">
-      {/* Header con trend */}
       <div className="flex justify-between items-center">
         <h2 className="text-sm font-medium">Clientes recurrentes</h2>
-
         <div
           className={`flex items-center gap-1 px-2 py-1 rounded-full text-xs font-semibold ${
             trend === "up"
@@ -210,42 +186,29 @@ export function ClientRecurrenceCard() {
           }`}
         >
           {trend === "up" && <TrendingUp className="w-4" />}
-
           {trend === "down" && <TrendingDown className="w-4" />}
-
-          {variation !== 0 && (
-            <>
-              {variation > 0 ? "+" : ""}
-              {variation.toFixed(1)}%
-            </>
+          {variation !== 0 ? (
+            `${variation > 0 ? "+" : ""}${variation.toFixed(1)}%`
+          ) : (
+            <Equal className="w-4" />
           )}
-          {variation === 0 && <Equal className="w-4" />}
         </div>
       </div>
 
-      {/* Porcentaje principal */}
       <p className="text-3xl font-bold">{currentPercentage.toFixed(0)}%</p>
 
-      {/* Descripción y comparación */}
       <div className="flex flex-col gap-1">
         <p className="text-sm text-muted-foreground">
-          {trend === "up" && "📈 Más clientes recurrentes que el mes anterior"}
-          {trend === "down" &&
-            "📉 Menos clientes recurrentes que el mes anterior"}
-          {trend === "equal" && "➡️ Similar al mes anterior"}
+          {trend === "up" && "📈 Más recurrencia que el mes anterior"}
+          {trend === "down" && "📉 Menos recurrencia que el mes anterior"}
+          {trend === "equal" && "➡️ Sin cambios significativos"}
         </p>
-
         {previousPercentage > 0 && (
-          <p className="text-xs text-muted-foreground">
+          <p className="text-xs text-muted-foreground border-t pt-1 mt-3">
             Mes anterior: {previousPercentage.toFixed(0)}%
           </p>
         )}
       </div>
-
-      <p className="text-xs text-muted-foreground border-t pt-2">
-        <span className="">{currentPercentage.toFixed(0)}%</span> de la
-        facturación del mes proviene de clientes recurrentes
-      </p>
     </div>
   );
 }

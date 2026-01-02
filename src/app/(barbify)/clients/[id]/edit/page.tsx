@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { useParams, useRouter } from "next/navigation";
+import axios from "axios";
 
 // Esquema Zod (igual que el que ya tenías)
 const ClientSchema = z.object({
@@ -57,10 +58,10 @@ export default function EditClientFormPage() {
   useEffect(() => {
     const fetchClient = async () => {
       try {
-        const res = await fetch(`/api/clients/${clientId}`);
+        const res = axios.get(`/api/clients/${clientId}`);
 
-        if (!res.ok) throw new Error("Error al obtener cliente");
-        const client = await res.json();
+        const { data: client } = await res;
+        console.log(client);
 
         // Formatear la fecha para el input type="date"
         if (client.clientBirthdate) {
@@ -116,9 +117,9 @@ export default function EditClientFormPage() {
         throw errData;
       }
 
-      router.push("/clients/" + clientId);
+      router.push(`/clients/${clientId}`);
     } catch (err: unknown) {
-      console.error(err);
+      console.error("Error", err);
 
       if (typeof err === "object" && err !== null && "error" in err) {
         setServerError(err as ServerError);

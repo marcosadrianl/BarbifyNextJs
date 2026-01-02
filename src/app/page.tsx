@@ -166,7 +166,7 @@ export default function BarbifyLanding() {
             viewport={{ once: true }}
             className={`${titles.className} text-4xl mb-8`}
           >
-            Pensada para peluqueros, no para empresas genéricas
+            Diseñada para peluqueros, por peluqueros.
           </motion.h2>
           <p className="text-lg text-black/70 leading-relaxed">
             Barbify nace del día a día real de una peluquería: clientes que
@@ -185,12 +185,12 @@ export default function BarbifyLanding() {
           </h2>
           <div className="grid md:grid-cols-2 gap-10">
             <Plan
-              title="Silver"
+              title="Standard"
               price="Acceso esencial"
               features={["Clientes", "Servicios", "Estadísticas básicas"]}
             />
             <Plan
-              title="Gold"
+              title="Premium"
               price="Gestión completa"
               highlight
               features={[
@@ -211,7 +211,7 @@ export default function BarbifyLanding() {
             Dejá atrás la libreta
           </h2>
           <p className="text-lg text-black/70 mb-10">
-            Empezá hoy a gestionar tu negocio como se merece.
+            Empezá hoy a gestionar tu peluquería con Barbify.
           </p>
           <Link
             href="/register"

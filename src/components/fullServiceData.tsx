@@ -3,7 +3,16 @@
 import { useEffect, useState } from "react";
 import { IService } from "@/models/Clients";
 
-const TotalServices = ({ services }: { services: IService[] }) => {
+type LeanService = {
+  _id: string;
+  serviceName: string;
+  servicePrice: number;
+  serviceDate: string;
+  serviceDuration: number;
+  serviceNotes: string;
+};
+
+const TotalServices = ({ services }: { services: LeanService[] }) => {
   const [totalServices, setTotalServices] = useState<number>(0);
   const [moda, setModa] = useState<string>("");
   const [promedio, setPromedio] = useState<string>("$0.00");
