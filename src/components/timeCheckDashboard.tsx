@@ -39,28 +39,8 @@ export function TimeCheckDashboard() {
   }, [loading, refresh, readLastUpdated]);
 
   return (
-    <Card>
-      <CardHeader>
-        <div className="flex flex-row justify-between">
-          <CardTitle>Última actualización</CardTitle>
-          <Button
-            size="sm"
-            variant="outline"
-            onClick={() => {
-              setRefresh(true);
-              window.location.reload();
-            }}
-            disabled={loading}
-            className="w-fit"
-          >
-            {loading ? "Actualizando..." : "Actualizar ahora"}
-          </Button>
-        </div>
-
-        <CardDescription className="flex items-center justify-between gap-2">
-          <span>{lastUpdated ?? "Nunca"}</span>
-        </CardDescription>
-      </CardHeader>
-    </Card>
+    <div className="self-end text-xs text-gray-600/80 select-none space-x-4 flex items-center">
+      Ultima actualización: {lastUpdated ?? "Nunca"}
+    </div>
   );
 }

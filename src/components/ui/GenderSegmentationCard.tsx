@@ -1,7 +1,8 @@
 "use client";
 
 import { useMemo } from "react";
-import { Users, Venus, Mars, ArrowRight, Zap } from "lucide-react";
+import { Users, Venus, Mars, ArrowRight, Zap, Circle } from "lucide-react";
+
 import {
   Card,
   CardContent,
@@ -38,14 +39,18 @@ export function GenderSegmentationCard() {
     > = {
       Femenino: { revenue: 0, count: 0, services: {} },
       Masculino: { revenue: 0, count: 0, services: {} },
+      Otro: { revenue: 0, count: 0, services: {} },
     };
 
     services.forEach((s: any) => {
       const sDate = new Date(s.clientServices?.serviceDate);
       if (sDate < filterStartDate) return;
 
-      // Asumimos que el género viene en s.clientGender o s.gender
-      const gender = s.clientSex === "F" ? "Femenino" : "Masculino";
+      // Asumimos que el género viene en s.clientGender
+      let gender: "Femenino" | "Masculino" | "Otro" = "Otro";
+
+      if (s.clientSex === "F") gender = "Femenino";
+      else if (s.clientSex === "M") gender = "Masculino";
       const price = (s.clientServices?.servicePrice || 0) / 100;
       const serviceName = s.clientServices?.serviceName || "General";
 
@@ -94,18 +99,25 @@ export function GenderSegmentationCard() {
       </CardHeader>
 
       <CardContent className="flex flex-col gap-6">
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-3 gap-4">
           {stats.groups.map((group) => (
             <div
               key={group.name}
               className="p-3 rounded-lg bg-accent/50 border"
             >
-              <div className="flex items-center gap-2 mb-2">
-                {group.name === "Femenino" ? (
+              <div className="flex flex-row items-center gap-2 mb-2">
+                {group.name === "Femenino" && (
                   <Venus className="w-4 h-4 text-pink-500" />
-                ) : (
+                )}
+
+                {group.name === "Masculino" && (
                   <Mars className="w-4 h-4 text-blue-500" />
                 )}
+
+                {group.name === "Otro" && (
+                  <Circle className="w-4 h-4 text-green-500" />
+                )}
+
                 <span className="font-semibold text-sm">{group.name}</span>
               </div>
               <p className="text-2xl font-bold">

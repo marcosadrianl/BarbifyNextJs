@@ -7,11 +7,11 @@ export default withAuth(
     const token = req.nextauth.token;
     const path = req.nextUrl.pathname;
 
-    console.log("🔐 Middleware:", {
+    /*     console.log("🔐 Middleware:", {
       path,
       hasToken: !!token,
       email: token?.email,
-    });
+    }); */
 
     // Si intenta acceder a /login con sesión activa, redirigir a dashboard
     if (path === "/login" && token) {

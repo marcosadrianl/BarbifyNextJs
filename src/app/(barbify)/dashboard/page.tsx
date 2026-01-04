@@ -1,4 +1,3 @@
-import CalendarDemo from "@/components/calendarDemo";
 import { ChartAreaInteractive } from "@/components/ui/areaChartDashBoard";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/utils/auth";
@@ -14,32 +13,31 @@ import { GenderSegmentationCard } from "@/components/ui/GenderSegmentationCard";
 
 export default async function Page() {
   const session = await getServerSession(authOptions);
+  console.log("🛡️ Session en dashboard:", session);
 
   if (!session?.user?.id) {
     return <p>No autorizado</p>;
   }
 
   return (
-    <div className="flex flex-col gap-8 p-4 grow h-full bg-[#cebaa1] w-full">
+    <div className="flex flex-col gap-4 p-4 grow h-full bg-[#cebaa1] w-full">
       <TimeCheckDashboard />
-      {/* <div className="flex flex-row gap-8">
-        <CalendarDemo />
-      </div> */}
+
       <div className="">
         <ChartAreaInteractive />
       </div>
-      <div className="flex flex-row gap-8">
+      <div className="flex flex-row gap-4">
         <TotalRevenue />
         <FinancialSummaryCard />
         <ClientRecurrenceCard />
       </div>
-      <div className="flex flex-row gap-8">
+      <div className="flex flex-row gap-4">
         <InactiveClientsCard />
         <AverageTicketCard />
         <AverageDurationCard />
         <IncomePerHourByHourChart />
       </div>
-      <div className="flex flex-row gap-8">
+      <div className="flex flex-row gap-4">
         <GenderSegmentationCard />
       </div>
     </div>

@@ -1,7 +1,8 @@
 "use client";
 import * as React from "react";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
-import { useAllServices } from "@/components/getAllClientServicesForShowing";
+import { useServicesStore } from "@/lib/store/services.store";
+
 import type { IService } from "@/models/Clients";
 import type { IClient } from "@/models/Clients";
 type ClientWithServices = Pick<IClient, "clientSex"> & {
@@ -78,31 +79,15 @@ function getStartDate(range) {
 
 export function ChartAreaInteractive() {
   const [timeRange, setTimeRange] = React.useState("90d");
-  const [services, setServices] = React.useState<ClientWithServices[]>([]);
+
   const [loading, setLoading] = React.useState(true);
 
+  const services = useServicesStore((s) => s.services);
   React.useEffect(() => {
-    const cached = localStorage.getItem("services");
-    if (cached) {
-      try {
-        setServices(JSON.parse(cached));
-      } catch (err) {
-        console.error("Error parseando services", err);
-      }
+    if (services && services.length > 0) {
+      setLoading(false);
     }
-    setLoading(false);
-  }, []);
-
-  React.useEffect(() => {
-    const cached = localStorage.getItem("services");
-    if (!cached) return;
-    try {
-      const parsed = JSON.parse(cached) as ClientWithServices[];
-      setServices(parsed);
-    } catch (err) {
-      console.error("Error parseando services del localStorage", err);
-    }
-  }, []);
+  }, [services]);
 
   // Aquí se agrupan los datos usando la fecha local
   const chartData = React.useMemo(() => {
