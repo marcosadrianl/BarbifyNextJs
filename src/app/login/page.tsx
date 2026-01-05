@@ -2,7 +2,18 @@
 import { Suspense } from "react";
 import LoginForm from "@/components/LoginForm";
 
-export default function LoginPage() {
+import { redirect } from "next/navigation";
+
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/utils/auth";
+
+export default async function LoginPage() {
+  const session = await getServerSession(authOptions);
+
+  if (session) {
+    redirect("/clients");
+  }
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 w-screen">
       <Suspense fallback={<LoginSkeleton />}>

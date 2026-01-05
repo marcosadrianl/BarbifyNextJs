@@ -3,7 +3,7 @@ import { connectDB } from "@/utils/mongoose";
 import Clients, { IClient, IService } from "@/models/Clients";
 import mongoose from "mongoose";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/utils/auth";
 
 /**
  * DELETE /api/clients/[id]/services/[serviceId]

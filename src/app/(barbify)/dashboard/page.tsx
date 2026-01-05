@@ -20,7 +20,7 @@ export default async function Page() {
   }
 
   return (
-    <div className="flex flex-col gap-4 p-4 grow h-full bg-[#cebaa1] w-full">
+    <div className="flex flex-col gap-4 p-4 bg-[#cebaa1]">
       <TimeCheckDashboard />
 
       <div className="">

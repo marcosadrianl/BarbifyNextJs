@@ -1,14 +1,13 @@
 import { Schema, model, models } from "mongoose";
 import z from "zod";
 import mongoose from "mongoose";
-import BarbifyBarbers, { IBarbers } from "@/models/Barbers";
+import { IBarbers } from "@/models/Barbers";
 
 export interface IUser {
   userName: string;
   userLastName?: string;
   userEmail: string;
   userPassword: string;
-  userActive: boolean;
   userLocation?: {
     city: string; //Buenos Aires
     state?: string; //La Plata
@@ -16,7 +15,9 @@ export interface IUser {
     userPostalCode?: string; // 1900
   };
   userPhome?: string;
+  userActive: boolean;
   userLevel: 0 | 1;
+  paymentStatus: boolean;
   userBirthDate?: Date;
   userHasThisBarbers?: IBarbers[];
 }
@@ -31,8 +32,13 @@ const UsersSchema = new Schema(
       maxlength: 100,
       trim: true,
     },
-    userPassword: { type: String, required: true, maxlength: 100 },
+    userLevel: { type: Number, required: true, default: 0, enum: [0, 1, 2] },
     userActive: { type: Boolean, default: true },
+    paymentStatus: {
+      type: Boolean,
+      default: false,
+    },
+    userPassword: { type: String, required: true, maxlength: 100 },
     userName: { type: String, required: true, maxlength: 50, trim: true },
     userLastName: { type: String, required: true, maxlength: 50, trim: true },
     userRole: { type: String, default: "admin", maxlength: 20, trim: true },
@@ -45,7 +51,6 @@ const UsersSchema = new Schema(
       trim: true,
       message: "Please enter a valid phone number",
     },
-    userLevel: { type: Number, required: true, default: 0, enum: [0, 1, 2] },
     userBirthdate: { type: Date },
     userSex: { type: String, enum: ["M", "F", "O"], default: "O" },
     userHasThisBarbers: [

@@ -3,12 +3,15 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { TrendingUp, TrendingDown, Equal } from "lucide-react";
+import { useServicesStore } from "@/lib/store/services.store";
 
 type TrendDirection = "up" | "down" | "equal";
 
 const TTL_MINUTES = 30;
 
 export function TotalRevenue() {
+  const services = useServicesStore((s) => s.services); // ✅ ARRIBA
+
   const [totalRevenue, setTotalRevenue] = useState("0");
   const [trendValue, setTrendValue] = useState("0%");
   const [trendDirection, setTrendDirection] = useState<TrendDirection>("equal");
@@ -17,33 +20,13 @@ export function TotalRevenue() {
 
   useEffect(() => {
     try {
-      const cached = localStorage.getItem("services");
-      const lastSaved = localStorage.getItem("services_last_saved");
-
-      if (!cached) {
-        setLoading(false);
-        return;
-      }
-
-      if (lastSaved) {
-        const diff = Date.now() - Number(lastSaved);
-        const isExpired = diff > TTL_MINUTES * 60 * 1000;
-
-        if (isExpired) {
-          console.warn("⚠️ Cache expirado (usando último valor)");
-        }
-      }
-
-      const services = JSON.parse(cached) as any[];
+      if (!services || services.length === 0) return;
 
       const now = new Date();
       const currentMonth = now.getMonth();
       const currentYear = now.getFullYear();
 
-      // Fecha de hace 6 meses
       const sixMonthsAgo = new Date(currentYear, currentMonth - 6, 1);
-
-      // Mes anterior
       const prevMonthDate = new Date(currentYear, currentMonth - 1, 1);
       const prevMonth = prevMonthDate.getMonth();
       const prevYear = prevMonthDate.getFullYear();
@@ -53,27 +36,12 @@ export function TotalRevenue() {
       let last6MonthsTotal = 0;
 
       services.forEach((service) => {
-        // ✅ CORRECCIÓN 1: Acceso correcto a la fecha
-        // Antes: service.clientServices.serviceDate (incorrecto)
-        // Ahora: service.serviceDate (correcto)
-        const serviceDate =
-          service.serviceDate || service.clientServices?.serviceDate;
-
-        if (!serviceDate) {
-          console.warn("Servicio sin fecha:", service);
-          return;
-        }
+        const serviceDate = service.clientServices.serviceDate;
+        if (!serviceDate) return;
 
         const date = new Date(serviceDate);
+        const price = (service.clientServices.servicePrice ?? 0) / 100;
 
-        // ✅ CORRECCIÓN 2: Acceso correcto al precio
-        const price =
-          (service.servicePrice || service.clientServices?.servicePrice || 0) /
-          100;
-
-        // ✅ CORRECCIÓN 3: Calcular totales correctamente
-
-        // Total del mes actual
         if (
           date.getMonth() === currentMonth &&
           date.getFullYear() === currentYear
@@ -81,29 +49,25 @@ export function TotalRevenue() {
           currentMonthTotal += price;
         }
 
-        // Total del mes anterior
         if (date.getMonth() === prevMonth && date.getFullYear() === prevYear) {
           previousMonthTotal += price;
         }
 
-        // ✅ CORRECCIÓN 4: Total de últimos 6 meses (incluye mes actual)
         if (date >= sixMonthsAgo && date <= now) {
           last6MonthsTotal += price;
         }
       });
 
-      // ✅ CORRECCIÓN 5: Calcular variación correctamente
       let variation = 0;
       if (previousMonthTotal > 0) {
         variation =
           ((currentMonthTotal - previousMonthTotal) / previousMonthTotal) * 100;
-      } else if (currentMonthTotal > 0 && previousMonthTotal === 0) {
-        // Si el mes anterior fue 0 y este mes hay ingresos, es 100% de aumento
+      } else if (currentMonthTotal > 0) {
         variation = 100;
       }
 
       let direction: TrendDirection = "equal";
-      if (variation > 0.1) direction = "up"; // Margen de error mínimo
+      if (variation > 0.1) direction = "up";
       else if (variation < -0.1) direction = "down";
 
       const formatter = new Intl.NumberFormat("es-AR", {
@@ -111,36 +75,15 @@ export function TotalRevenue() {
         maximumFractionDigits: 2,
       });
 
-      // ✅ CORRECCIÓN 6: Mostrar el total de últimos 6 meses (no solo mes actual)
       setTotalRevenue(formatter.format(last6MonthsTotal));
       setTrendValue(`${Math.abs(variation).toFixed(1)}%`);
       setTrendDirection(direction);
-
-      // Descripción del período
-      const monthNames = [
-        "Enero",
-        "Febrero",
-        "Marzo",
-        "Abril",
-        "Mayo",
-        "Junio",
-        "Julio",
-        "Agosto",
-        "Septiembre",
-        "Octubre",
-        "Noviembre",
-        "Diciembre",
-      ];
-
-      const startMonth = monthNames[sixMonthsAgo.getMonth()];
-      const endMonth = monthNames[currentMonth];
-      setPeriodDescription(`${startMonth} - ${endMonth} ${currentYear}`);
     } catch (err) {
       console.error("Error calculando TotalRevenue", err);
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [services]); // ✅ dependencia correcta
 
   if (loading) {
     return (

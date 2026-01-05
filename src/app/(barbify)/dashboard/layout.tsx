@@ -1,14 +1,13 @@
 "use client";
 
-import { Poppins } from "@/utils/fonts";
-
 import "../../globals.css";
 import { SessionProvider } from "next-auth/react";
 import React from "react";
 import { ServicesBootstrap } from "@/components/ServicesBootstrap";
 
 import NavBar from "@/components/navBar";
-import SearchBar from "@/components/searchBar";
+
+import TaskBar from "@/components/taskBar";
 
 export default function RootLayout({
   children,
@@ -17,17 +16,11 @@ export default function RootLayout({
 }>) {
   ServicesBootstrap();
   return (
-    <div className="bg-[#ffe7c7] h-screen flex flex-row text-[#43553b]">
+    <div className="bg-[#ffe7c7] flex flex-row h-screen text-[#43553b]">
       <NavBar />
-      <div
-        className={`${Poppins.variable} flex flex-col w-full overflow-y-auto`}
-      >
-        <div className="flex flex-col justify-between items-center p-2">
-          <div className="flex w-full justify-center mb-2">
-            <SearchBar />
-          </div>
-        </div>
-        <div className="grow">
+      <div className="flex flex-col">
+        <TaskBar />
+        <div className="bg-[#cebaa1] overflow-auto">
           <SessionProvider>{children}</SessionProvider>
         </div>
       </div>

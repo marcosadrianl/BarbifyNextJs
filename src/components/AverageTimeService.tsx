@@ -2,7 +2,6 @@
 
 import { useServicesStore } from "@/lib/store/services.store";
 import { Timer, Info } from "lucide-react";
-import { useState } from "react";
 
 type AvgService = {
   name: string;
@@ -12,7 +11,6 @@ type AvgService = {
 
 export function AverageDurationCard() {
   const services = useServicesStore((s) => s.services);
-  const [fastServices, setFastServices] = useState("");
 
   if (!services.length) {
     return (

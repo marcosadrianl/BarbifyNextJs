@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/utils/auth";
 import { connectDB } from "@/utils/mongoose";
 import Clients, { IClient } from "@/models/Clients";
 import mongoose, { Types } from "mongoose";

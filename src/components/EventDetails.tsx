@@ -96,11 +96,11 @@ export default function EventDetails({ selectedEvents }: EventDetailsProps) {
 
       <CardContent className="flex-1 pt-6">
         <ScrollArea className="h-[calc(100vh-16rem)] pr-4">
-          <div className="space-y-4">
+          <div className="space-y-4 mb-12">
             {selectedEvents.map((event, index) => (
               <Card key={event.clientServices._id} className="overflow-hidden ">
-                <CardHeader className="bg-[#ffd49d]/20 pb-3">
-                  <div className="flex items-start justify-between">
+                <CardHeader className="bg-[#ffd49d]/20 p-4">
+                  <div className="flex items-center justify-between">
                     <div className="flex-1">
                       <Link
                         href={`/clients/${event.clientId}`}

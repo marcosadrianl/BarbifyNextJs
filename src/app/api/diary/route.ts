@@ -2,23 +2,9 @@ import { NextResponse } from "next/server";
 import { connectDB } from "@/utils/mongoose";
 import mongoose, { Types, Model } from "mongoose";
 import Clients, { IClient, IService } from "@/models/Clients";
-
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/utils/auth";
 import type { Session } from "next-auth";
-
-// Extiende el tipo Session (solo tipado)
-declare module "next-auth" {
-  interface Session {
-    user: {
-      id: string;
-      name?: string | null;
-      email?: string | null;
-      image?: string | null;
-      active?: boolean;
-    };
-  }
-}
 
 // Tipado estricto de la respuesta
 /* interface errorResponse {

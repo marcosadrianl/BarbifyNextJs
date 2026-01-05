@@ -9,17 +9,24 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Button } from "@/components/ui/button";
+import { Plus } from "lucide-react";
 
 export default function ClientsTableSkeleton() {
   return (
-    <div className="rounded-xl border-b bg-card">
+    <div className="rounded-xl border-b bg-card animate-pulse">
       <Table>
         <TableHeader>
           <TableRow>
             <TableHead>Cliente</TableHead>
             <TableHead>Email</TableHead>
             <TableHead>Teléfono</TableHead>
-            <TableHead className="text-right" />
+            <TableHead className="text-right">
+              <Button className="hover:cursor-pointer ml-auto m-1 bg-[#55533b] hover:bg-[#837d3d] text-white">
+                <Plus className=" h-4 w-4" />
+                Nuevo Cliente
+              </Button>
+            </TableHead>
           </TableRow>
         </TableHeader>
 

@@ -2,8 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { TrendingUp, TrendingDown, Equal } from "lucide-react";
+import { useServicesStore } from "@/lib/store/services.store";
 
 export function FinancialSummaryCard() {
+  // ✅ Hook del store (ARRIBA del componente)
+  const services = useServicesStore((s) => s.services);
+
   const [currentTotal, setCurrentTotal] = useState(0);
   const [previousTotal, setPreviousTotal] = useState(0);
   const [variation, setVariation] = useState(0);
@@ -11,13 +15,10 @@ export function FinancialSummaryCard() {
 
   useEffect(() => {
     try {
-      const raw = localStorage.getItem("services");
-      if (!raw) {
+      if (!services || services.length === 0) {
         setLoading(false);
         return;
       }
-
-      const services = JSON.parse(raw);
 
       const now = new Date();
       const currentMonth = now.getMonth();
@@ -30,17 +31,12 @@ export function FinancialSummaryCard() {
       let current = 0;
       let previous = 0;
 
-      services.forEach((service: any) => {
-        // ✅ CORRECCIÓN: Acceso correcto a la fecha y precio
-        const serviceDate =
-          service.serviceDate || service.clientServices?.serviceDate;
-        const servicePrice =
-          service.servicePrice || service.clientServices?.servicePrice;
+      services.forEach((service) => {
+        const serviceDate = service.clientServices?.serviceDate;
 
-        if (!serviceDate || servicePrice === undefined) {
-          console.warn("Servicio con datos faltantes:", service);
-          return;
-        }
+        const servicePrice = service.clientServices?.servicePrice;
+
+        if (!serviceDate || servicePrice == null) return;
 
         const date = new Date(serviceDate);
         const price = servicePrice / 100;
@@ -59,12 +55,10 @@ export function FinancialSummaryCard() {
         }
       });
 
-      // ✅ CORRECCIÓN: Calcular variación correctamente
       let diff = 0;
       if (previous > 0) {
         diff = ((current - previous) / previous) * 100;
-      } else if (current > 0 && previous === 0) {
-        // Si el mes anterior fue 0 pero este mes hay ingresos
+      } else if (current > 0) {
         diff = 100;
       }
 
@@ -72,11 +66,11 @@ export function FinancialSummaryCard() {
       setPreviousTotal(previous);
       setVariation(diff);
     } catch (err) {
-      console.error("Error leyendo services del localStorage", err);
+      console.error("Error calculando FinancialSummaryCard", err);
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [services]); // ✅ dependencia correcta
 
   if (loading) {
     return (
@@ -97,7 +91,7 @@ export function FinancialSummaryCard() {
 
   return (
     <div className="rounded-md border text-black bg-accent p-4 w-1/3 flex flex-col gap-4">
-      {/* Header con variación */}
+      {/* Header */}
       <div className="flex justify-between items-center">
         <h2 className="text-sm font-medium">Ingresos del mes</h2>
 
@@ -117,11 +111,10 @@ export function FinancialSummaryCard() {
         </div>
       </div>
 
-      {/* Total del mes actual */}
+      {/* Total */}
       <p className="text-3xl font-bold">{formatter.format(currentTotal)}</p>
 
       {/* Descripción */}
-
       <p className="text-sm text-muted-foreground">
         {trend === "up" && "📈 Mejor que el mes anterior"}
         {trend === "down" && "📉 Menor que el mes anterior"}

@@ -40,10 +40,10 @@ export default function ClientListView({ clients }: { clients: IClient[] }) {
               <TableHead className="text-right">
                 <Button
                   onClick={() => router.push("/clients/new")}
-                  className="hover:cursor-pointer ml-auto m-1 bg-[#43553b]"
+                  className="hover:cursor-pointer ml-auto m-1 bg-[#55533b] hover:bg-[#837d3d] text-white"
                 >
-                  <Plus className="mr-2 h-4 w-4" />
-                  Nuevo cliente
+                  <Plus className=" h-4 w-4" />
+                  Nuevo Cliente
                 </Button>
               </TableHead>
             </TableRow>

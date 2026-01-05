@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { connectDB } from "@/utils/mongoose";
 import Clients from "@/models/Clients";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/utils/auth";
 import mongoose from "mongoose";
 import type { IClient } from "@/models/Clients";
 
