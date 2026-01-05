@@ -1,4 +1,8 @@
 "use client";
+
+/**
+ * Página para editar un cliente existente - UI Sincronizada con CreateClient
+ */
 import React, { useEffect, useState } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -7,19 +11,52 @@ import { useForm } from "react-hook-form";
 import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
 
-// Esquema Zod (igual que el que ya tenías)
+// Shadcn UI Components
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Separator } from "@/components/ui/separator";
+import { Badge } from "@/components/ui/badge";
+
+// Esquema Zod (Consistente con page.tsx)
 const ClientSchema = z.object({
   clientName: z.string().min(1, "Nombre requerido"),
   clientLastName: z.string().min(1, "Apellido requerido"),
   clientSex: z.enum(["M", "F", "O"]),
   clientBirthdate: z.string(),
-  clientEmail: z.string().email("Email inválido").optional(),
-  clientPhone: z.string().optional(),
+  clientEmail: z.string().email("Email inválido"),
+  clientPhone: z
+    .string()
+    .max(20, "El teléfono no puede tener más de 20 caracteres"),
   clientImage: z.string().optional(),
-  clientActive: z.boolean(),
+  clientActive: z.boolean().optional(),
   clientBaseColor: z.string().optional(),
   clientHairType: z.string().optional(),
-  clientWhiteHairs: z.number().gte(0).lte(100).optional(),
+  clientWhiteHairs: z.number().min(0).max(100).optional(),
   clientAllergies: z.string().optional(),
   clientDiseases: z.string().optional(),
   clientMedications: z.string().optional(),
@@ -29,82 +66,106 @@ const ClientSchema = z.object({
 
 type ClientFormData = z.infer<typeof ClientSchema>;
 
-interface ServerError {
-  error: string;
-  field?: string;
-  status?: number;
+const imageOptions = [
+  { src: "/default-client.png", label: "Default" },
+  { src: "/avat1.png", label: "Avatar 1" },
+  { src: "/avat2.png", label: "Avatar 2" },
+  { src: "/avat3.png", label: "Avatar 3" },
+  { src: "/avat4.png", label: "Avatar 4" },
+  { src: "/avat5.png", label: "Avatar 5" },
+  { src: "/avat6.png", label: "Avatar 6" },
+];
+
+function ImageSelector({
+  value,
+  onChange,
+}: {
+  value: string;
+  onChange: (v: string) => void;
+}) {
+  return (
+    <div className="flex h-24 gap-3 overflow-x-auto pb-2">
+      {imageOptions.map((img) => (
+        <button
+          type="button"
+          key={img.src}
+          className={`relative shrink-0 aspect-square rounded-lg border-2 transition-all hover:scale-105 ${
+            value === img.src
+              ? "border-[#ffd49d] ring-2 ring-[#ffd49d] ring-offset-2"
+              : "border-gray-200 hover:border-gray-300"
+          }`}
+          onClick={() => onChange(img.src)}
+        >
+          <Image
+            src={img.src}
+            alt={img.label}
+            fill
+            sizes="256px"
+            className="rounded-lg object-cover"
+          />
+          {value === img.src && (
+            <Badge className="absolute -top-2 -right-2 bg-[#ffd49d] text-black hover:bg-[#ffc570]">
+              ✓
+            </Badge>
+          )}
+        </button>
+      ))}
+    </div>
+  );
 }
 
 export default function EditClientFormPage() {
-  const params = useParams(); // obtiene el id de la URL
+  const params = useParams();
   const router = useRouter();
   const clientId = params.id as string;
 
-  const [serverError, setServerError] = useState<ServerError | null>(null);
-  const [selectedImage, setSelectedImage] = useState("/default-client.png");
+  const [serverError, setServerError] = useState<string | null>(null);
   const [loadingData, setLoadingData] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    formState: { errors },
-    reset,
-  } = useForm<ClientFormData>({
+  const form = useForm<ClientFormData>({
     resolver: zodResolver(ClientSchema),
+    defaultValues: {
+      clientImage: "/default-client.png",
+    },
   });
 
-  // Traer datos actuales del cliente (GET)
+  // Carga de datos iniciales
   useEffect(() => {
     const fetchClient = async () => {
       try {
-        const res = axios.get(`/api/clients/${clientId}`);
+        const res = await axios.get(`/api/clients/${clientId}`);
+        const client = res.data;
 
-        const { data: client } = await res;
-        console.log(client);
-
-        // Formatear la fecha para el input type="date"
+        // 1. Formatear la fecha
         if (client.clientBirthdate) {
           client.clientBirthdate = client.clientBirthdate.split("T")[0];
         }
 
-        reset(client);
-        setSelectedImage(client.clientImage || "/default-client.png");
+        // 2. Sanitizar valores null a "" para evitar el error de React
+        // Esto recorre todas las propiedades del objeto client
+        const sanitizedClient = Object.fromEntries(
+          Object.entries(client).map(([key, value]) => [
+            key,
+            value === null ? "" : value,
+          ])
+        );
+
+        // 3. Cargar los datos sanitizados en el formulario
+        form.reset(sanitizedClient);
       } catch (err) {
         console.error(err);
-        setServerError({
-          error: "No se pudo cargar la información del cliente",
-        });
+        setServerError("No se pudo cargar la información del cliente");
       } finally {
         setLoadingData(false);
       }
     };
     if (clientId) fetchClient();
-  }, [clientId, reset]);
+  }, [clientId, form]);
 
-  // Función para manejar cambio de imagen
-  const handleImageChange = (imgSrc: string) => {
-    setSelectedImage(imgSrc);
-    setValue("clientImage", imgSrc, {
-      shouldDirty: true,
-      shouldValidate: true,
-    });
-  };
-
-  // PATCH al enviar el formulario
-  /**
-   *
-   * Este fragmento de código define una función `onSubmit`
-   * que se ejecuta cuando se envía un formulario. La función
-   * realiza una solicitud PATCH a la ruta `/api/clients/{clientId}`
-   * utilizando `fetch`. La solicitud incluye los datos del formulario en formato JSON.
-   * Si la respuesta de la solicitud no es exitosa (`!res.ok`), se captura el error y se lanza.
-   * Si la respuesta es exitosa, se redirige al usuario a la página `/clients/{clientId}` utilizando `router.push`.
-   * Si ocurre algún error durante la solicitud, se captura el error
-   * y se muestra en la consola y en el estado `serverError`.
-   *
-   */
-  const onSubmit = async (data: Record<string, unknown>) => {
+  const onSubmit = async (data: ClientFormData) => {
+    setIsSubmitting(true);
+    setServerError(null);
     try {
       const res = await fetch(`/api/clients/${clientId}`, {
         method: "PATCH",
@@ -113,188 +174,348 @@ export default function EditClientFormPage() {
       });
 
       if (!res.ok) {
-        const errData = (await res.json()) as ServerError;
-        throw errData;
+        const errData = await res.json();
+        throw new Error(errData.error || "Error al actualizar cliente");
       }
 
       router.push(`/clients/${clientId}`);
-    } catch (err: unknown) {
+      router.refresh();
+    } catch (err: any) {
       console.error("Error", err);
-
-      if (typeof err === "object" && err !== null && "error" in err) {
-        setServerError(err as ServerError);
-      } else {
-        setServerError({ error: "Unknown error occurred" });
-      }
+      setServerError(err.message || "Ocurrió un error desconocido");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
-  const imageOptions = [
-    { src: "/default-client.png", label: "Default" },
-    { src: "/avat1.png", label: "Avatar 1" },
-    { src: "/avat2.png", label: "Avatar 2" },
-    { src: "/avat3.png", label: "Avatar 3" },
-    { src: "/avat4.png", label: "Avatar 4" },
-    { src: "/avat5.png", label: "Avatar 5" },
-    { src: "/avat6.png", label: "Avatar 6" },
-  ];
-
-  function ImageSelector({
-    value,
-    onChange,
-  }: {
-    value: string;
-    onChange: (v: string) => void;
-  }) {
-    return (
-      <div className="flex gap-2 flex-wrap mb-4">
-        {imageOptions.map((img) => (
-          <button
-            type="button"
-            key={img.src}
-            className={`border rounded p-1 flex flex-col items-center transition-colors duration-200 ${
-              value === img.src
-                ? "border-amber-500 ring-2 ring-amber-300"
-                : "border-gray-200 hover:border-gray-400"
-            }`}
-            aria-pressed={value === img.src}
-            onClick={() => onChange(img.src)}
-          >
-            <Image
-              src={img.src}
-              alt={img.label}
-              width={50}
-              height={50}
-              className="rounded-md"
-            />
-            <div className="text-xs mt-1">{img.label}</div>
-          </button>
-        ))}
-      </div>
-    );
-  }
-
   if (loadingData) {
     return (
-      <div className="h-full w-full flex justify-center">
-        <p className="text-center self-center w-1/2 align-middle text-gray-500">
-          Cargando datos...
-        </p>
+      <div className="h-screen w-full flex items-center justify-center">
+        <div className="flex flex-col items-center gap-2">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-amber-500"></div>
+          <p className="text-gray-500">Cargando datos del cliente...</p>
+        </div>
       </div>
     );
   }
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col gap-2 px-4 w-full mx-auto overflow-auto"
-    >
-      <div className="flex flex-row items-center p-4 gap-4 w-full max-w-375 mb-4 mx-auto">
-        <div className="flex flex-col gap-2 w-full max-w-lg mx-auto">
-          <h1 className="font-bold">Editar cliente</h1>
-          <input
-            className="p-2 bg-amber-50"
-            {...register("clientName")}
-            placeholder="Nombre"
-          />
-          {errors.clientName && <span>{errors.clientName.message}</span>}
-          <input
-            className="p-2 bg-amber-50"
-            {...register("clientLastName")}
-            placeholder="Apellido"
-          />
-          {errors.clientLastName && (
-            <span>{errors.clientLastName.message}</span>
-          )}
-          <ImageSelector value={selectedImage} onChange={handleImageChange} />
-          <input type="hidden" {...register("clientImage")} />
-        </div>
-      </div>
+    <div className="container mx-auto p-4">
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-3xl">Editar Cliente</CardTitle>
+          <CardDescription>
+            Actualiza la información del perfil del cliente
+          </CardDescription>
+        </CardHeader>
 
-      <div className="flex flex-col gap-4 w-full max-w-lg mx-auto">
-        <h1 className="font-bold">Información personal *</h1>
-        <select className="p-2 bg-amber-50" {...register("clientSex")}>
-          <option value="M">Masculino</option>
-          <option value="F">Femenino</option>
-          <option value="O">Otro</option>
-        </select>
-        <input
-          type="date"
-          className="p-2 bg-amber-50"
-          {...register("clientBirthdate")}
-        />
+        <CardContent>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+              {/* Información Básica */}
+              <div className="space-y-4">
+                <h3 className="text-lg font-semibold">Información Básica</h3>
+                <Separator />
 
-        <h1 className="font-bold">Datos de contacto *</h1>
-        <input
-          type="email"
-          className="p-2 bg-amber-50"
-          {...register("clientEmail")}
-          placeholder="Email"
-        />
-        <input
-          className="p-2 bg-amber-50"
-          {...register("clientPhone")}
-          placeholder="Teléfono"
-        />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <FormField
+                    control={form.control}
+                    name="clientName"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Nombre *</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Nombre" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
-        <h1 className="font-bold">Datos de cabello</h1>
-        <input
-          className="p-2 bg-amber-50"
-          {...register("clientBaseColor")}
-          placeholder="Color base"
-        />
-        <input
-          className="p-2 bg-amber-50"
-          {...register("clientHairType")}
-          placeholder="Tipo de cabello"
-        />
-        <div className="flex flex-row items-center">
-          <h2 className="bg-amber-50 h-full w-full select-none text-[#a1a893] opacity/80 flex flex-col p-2 justify-center">
-            Porcentaje de cabello blanco:
-          </h2>
-          <input
-            type="number"
-            className="p-2 bg-amber-50"
-            {...register("clientWhiteHairs", { valueAsNumber: true })}
-            placeholder="Cabello blanco"
-          />
-        </div>
+                  <FormField
+                    control={form.control}
+                    name="clientLastName"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Apellido *</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Apellido" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
 
-        <h1 className="font-bold">Datos de salud</h1>
-        <input
-          className="p-2 bg-amber-50"
-          {...register("clientAllergies")}
-          placeholder="Alergias"
-        />
-        <input
-          className="p-2 bg-amber-50"
-          {...register("clientDiseases")}
-          placeholder="Enfermedades"
-        />
-        <input
-          className="p-2 bg-amber-50"
-          {...register("clientMedications")}
-          placeholder="Medicamentos"
-        />
-        <textarea
-          className="p-2 bg-amber-50"
-          {...register("clientNotes")}
-          placeholder="Notas"
-        />
+                <FormField
+                  control={form.control}
+                  name="clientImage"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Foto de Perfil</FormLabel>
+                      <FormControl>
+                        <ImageSelector
+                          value={field.value || "/default-client.png"}
+                          onChange={field.onChange}
+                        />
+                      </FormControl>
+                      <FormDescription>
+                        Selecciona una imagen para el cliente
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
 
-        <button
-          type="submit"
-          className="bg-amber-400 rounded w-full p-2 font-bold mb-8 hover:bg-amber-500 hover:text-white cursor-pointer"
-        >
-          Guardar cambios
-        </button>
+              {/* Información Personal */}
+              <div className="space-y-4">
+                <h3 className="text-lg font-semibold">Información Personal</h3>
+                <Separator />
 
-        {serverError && (
-          <div className="text-red-600 text-sm mt-2">
-            {serverError.error || "Error al guardar los cambios"}
-          </div>
-        )}
-      </div>
-    </form>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <FormField
+                    control={form.control}
+                    name="clientSex"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Género *</FormLabel>
+                        <Select
+                          onValueChange={field.onChange}
+                          value={field.value}
+                        >
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Selecciona género" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value="M">Masculino</SelectItem>
+                            <SelectItem value="F">Femenino</SelectItem>
+                            <SelectItem value="O">Otro</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="clientBirthdate"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Fecha de Nacimiento</FormLabel>
+                        <FormControl>
+                          <Input type="date" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+              </div>
+
+              {/* Datos de Contacto */}
+              <div className="space-y-4">
+                <h3 className="text-lg font-semibold">Datos de Contacto</h3>
+                <Separator />
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <FormField
+                    control={form.control}
+                    name="clientEmail"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Email *</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="email"
+                            placeholder="email@ejemplo.com"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="clientPhone"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Teléfono *</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Teléfono" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+              </div>
+
+              {/* Datos de Cabello */}
+              <div className="space-y-4">
+                <h3 className="text-lg font-semibold">Datos de Cabello</h3>
+                <Separator />
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <FormField
+                    control={form.control}
+                    name="clientBaseColor"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Color Base</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Castaño, rubio..." {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="clientHairType"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Tipo de Cabello</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Liso, ondulado..." {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                <FormField
+                  control={form.control}
+                  name="clientWhiteHairs"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Porcentaje de Cabello Blanco (%)</FormLabel>
+                      <FormControl>
+                        <div className="flex items-center gap-2">
+                          <Input
+                            type="number"
+                            min={0}
+                            max={100}
+                            {...field}
+                            onChange={(e) =>
+                              field.onChange(parseInt(e.target.value) || 0)
+                            }
+                          />
+                          <span className="text-muted-foreground">%</span>
+                        </div>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+
+              {/* Datos de Salud */}
+              <div className="space-y-4">
+                <h3 className="text-lg font-semibold">Datos de Salud</h3>
+                <Separator />
+
+                <FormField
+                  control={form.control}
+                  name="clientAllergies"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Alergias</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Alergias..." {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="clientDiseases"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Enfermedades</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Enfermedades..." {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="clientMedications"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Medicamentos</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="Medicamentos actuales..."
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="clientNotes"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Notas Adicionales</FormLabel>
+                      <FormControl>
+                        <Textarea
+                          placeholder="Notas adicionales..."
+                          className="resize-none"
+                          rows={4}
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+
+              {/* Error del servidor */}
+              {serverError && (
+                <Alert variant="destructive">
+                  <AlertDescription>{serverError}</AlertDescription>
+                </Alert>
+              )}
+
+              {/* Botones de acción */}
+              <div className="flex gap-4 justify-end">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => router.back()}
+                  disabled={isSubmitting}
+                >
+                  Cancelar
+                </Button>
+                <Button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="bg-[#ffd49d] text-black hover:bg-[#ffc570]"
+                >
+                  {isSubmitting ? "Guardando..." : "Guardar Cambios"}
+                </Button>
+              </div>
+            </form>
+          </Form>
+        </CardContent>
+      </Card>
+    </div>
   );
 }

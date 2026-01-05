@@ -42,7 +42,7 @@ export default function InactiveClientsCard() {
   }, []);
 
   return (
-    <div className="rounded-xl border bg-background p-4 flex flex-col gap-4 w-1/4">
+    <div className="rounded-md border text-black bg-accent p-4 w-1/4 flex flex-col gap-4">
       {/* Header */}
       <div className="flex items-center justify-between">
         <h3 className="text-sm font-medium flex items-center gap-2">
@@ -91,7 +91,7 @@ export default function InactiveClientsCard() {
       )}
 
       {/* Actions */}
-      <div className="border-t pt-3">
+      <div className="border-t pt-3 mt-auto">
         <p className="text-xs font-medium mb-1">Acciones sugeridas</p>
         <ul className="text-xs text-muted-foreground list-disc pl-4 space-y-1">
           <li>Contactar via whatsapp o correo </li>

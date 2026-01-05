@@ -1,7 +1,8 @@
 "use client";
 
 import { useServicesStore } from "@/lib/store/services.store";
-import { Timer, Zap } from "lucide-react";
+import { Timer, Info } from "lucide-react";
+import { useState } from "react";
 
 type AvgService = {
   name: string;
@@ -11,6 +12,7 @@ type AvgService = {
 
 export function AverageDurationCard() {
   const services = useServicesStore((s) => s.services);
+  const [fastServices, setFastServices] = useState("");
 
   if (!services.length) {
     return (
@@ -40,10 +42,10 @@ export function AverageDurationCard() {
       count: data.count,
     }))
     .sort((a, b) => a.avgDuration - b.avgDuration)
-    .slice(0, 3);
+    .slice(0, 5);
 
   return (
-    <div className="rounded-xl border bg-background p-4 flex flex-col gap-4 w-1/4">
+    <div className="rounded-xl border bg-accent p-4 flex flex-col gap-4 w-1/4">
       {/* Header */}
       <div className="flex items-center gap-2">
         <Timer className="h-4 w-4 text-muted-foreground" />
@@ -65,12 +67,11 @@ export function AverageDurationCard() {
       </ul>
 
       {/* Insight */}
-      <div className="flex items-start gap-2 text-sm text-muted-foreground border-t pt-2">
-        <Zap className="h-4 w-4 mt-0.5 text-green-600" />
+      <div className="flex items-start gap-2 text-sm text-muted-foreground border-t pt-2 mt-auto">
+        <Info className="h-6 w-6 text-muted-foreground" />
         <p>
           Los servicios más rápidos son ideales para ofrecer como{" "}
-          <span className="font-medium text-foreground">extra</span> y aumentar
-          el ticket sin ocupar más tiempo.
+          <span className="font-medium text-foreground">extra</span>
         </p>
       </div>
     </div>

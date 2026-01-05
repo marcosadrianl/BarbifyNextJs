@@ -13,11 +13,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="bg-[#ffe7c7] h-screen flex flex-row text-[#43553b]">
+    <div className="bg-[#ffe7c7] flex flex-row h-screen text-[#43553b]">
       <NavBar />
       <div className={` flex flex-col w-full overflow-y-auto`}>
         <TaskBar />
-        <div className="grow overflow-auto ">
+        <div className="bg-[#cebaa1] flex grow overflow-auto">
           <SessionProvider>{children}</SessionProvider>
         </div>
       </div>

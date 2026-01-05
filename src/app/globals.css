@@ -2,10 +2,6 @@
 @import "react-loading-skeleton/dist/skeleton.css";
 @import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
-
-/* @custom-variant dark (&:is(.dark *)); */
-
 body {
   background-color: rgb(17, 24, 39);
   color: white;

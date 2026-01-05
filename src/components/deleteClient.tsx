@@ -72,7 +72,7 @@ export default function DeleteClient({
       </button>
 
       {showConfirm && (
-        <div className="fixed inset-0 bg-[#ffe7c7]/50 flex items-center justify-center z-50 w-full h-full">
+        <div className="absolute inset-0 bg-[#ffe7c7]/50 flex items-center justify-center z-50 w-full h-full">
           <div className="bg-[#ffe7c7] p-6 rounded-lg shadow-lg w-fit">
             <h2 className="font-bold mb-1">
               ¿Seguro que quieres borrar este cliente?
@@ -85,7 +85,7 @@ export default function DeleteClient({
               <button
                 disabled={isDeleting}
                 onClick={handleDelete}
-                className="bg-[#e68f1d] hover:bg-[#cdaa7e] disabled:opacity-70 text-white px-4 py-2 rounded flex items-center justify-center min-w-[110px]"
+                className="bg-[#e68f1d] hover:bg-[#cdaa7e] disabled:opacity-70 text-white px-4 py-2 rounded flex items-center justify-center min-w-27.5"
               >
                 {isDeleting ? (
                   <svg

@@ -74,18 +74,17 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <div className="flex flex-row gap-4 p-4 bg-[#cebaa1] grow w-full h-full">
+    <div className="flex flex-row p-4 bg-[#cebaa1] w-full">
+      {/* Detalles del Evento */}
+      <div className="w-1/3">
+        <EventDetails selectedEvents={selectedEvents} />
+      </div>
       {/* Calendario */}
-      <div className="w-1/2">
+      <div className="w-2/3 bg-white p-4 rounded-r-lg shadow-md">
         <Calendar
           eventsData={eventsData}
           onEventClick={handleCalendarEventClick}
         />
-      </div>
-
-      {/* Detalles del Evento */}
-      <div className="w-1/2">
-        <EventDetails selectedEvents={selectedEvents} />
       </div>
     </div>
   );

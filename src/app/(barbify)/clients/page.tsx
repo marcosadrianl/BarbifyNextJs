@@ -27,7 +27,7 @@ function CheckAuth() {
   return null;
 }
 
-function ClientsPageContent() {
+export default function ClientsPageContent() {
   const router = useRouter();
 
   const searchParams = useSearchParams();
@@ -53,14 +53,14 @@ function ClientsPageContent() {
   return (
     <>
       <CheckAuth />
-      <div className="relative flex flex-col">
+      <div className="relative flex flex-col w-full p-4">
         {loading ? (
           <ClientsTableSkeleton />
         ) : (
           <ClientListView clients={clients} />
         )}
 
-        <div className="fixed bottom-0 left-0 right-0 mx-auto p-4 flex gap-2 justify-center">
+        <div className="mx-auto mt-auto  flex gap-2 justify-center">
           <button
             disabled={page === 1}
             onClick={() => goToPage(page - 1)}
@@ -103,13 +103,5 @@ function ClientsPageContent() {
         </div>
       </div>
     </>
-  );
-}
-
-export default function ClientsPage() {
-  return (
-    <Suspense fallback={<ClientsTableSkeleton />}>
-      <ClientsPageContent />
-    </Suspense>
   );
 }

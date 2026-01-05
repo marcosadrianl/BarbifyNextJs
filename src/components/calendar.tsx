@@ -2,7 +2,6 @@
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import esLocale from "@fullcalendar/core/locales/es";
-import React from "react";
 import { EventClickArg } from "@fullcalendar/core";
 
 // 🔧 CORRECCIÓN: Tipo que refleja la estructura real de la API
@@ -58,11 +57,7 @@ export default function Calendar({ eventsData, onEventClick }: CalendarProps) {
       aspectRatio={1.4}
       eventColor="#ffd49d"
       eventTextColor="#43553b"
-      eventClassNames={[
-        "hover:font-semibold",
-        "cursor-pointer",
-        "hover:text-white",
-      ]}
+      eventClassNames={["hover:font-semibold", "cursor-pointer"]}
     />
   );
 }
