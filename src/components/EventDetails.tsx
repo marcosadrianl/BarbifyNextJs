@@ -1,5 +1,4 @@
 // components/EventDetails.tsx
-import { cn } from "@/lib/utils";
 import { ServiceEvent } from "@/components/calendar";
 import Link from "next/link";
 import { format } from "date-fns";

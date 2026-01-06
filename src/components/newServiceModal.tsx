@@ -75,7 +75,7 @@ export default function NewServiceModal({ client }: { client: IClient }) {
     try {
       const res = await fetch("/api/users");
       const data = await res.json();
-      console.log("Barberos disponibles:", data);
+      /*       console.log("Barberos disponibles:", data); */
       return data;
     } catch (err) {
       console.error("Error al obtener la lista de barberos:", err);
@@ -114,9 +114,14 @@ export default function NewServiceModal({ client }: { client: IClient }) {
           className="absolute inset-0 bg-gray-500/60 bg-opacity-50 flex items-center justify-center z-50 text-sm"
           onClick={() => setIsOpen(false)}
         >
-          <div
-            className="bg-[#ffe7c7]  w-1/2 p-4 rounded-2xl"
+          {/* Cambiamos div por form y agregamos onSubmit */}
+          <form
+            className="bg-[#ffe7c7] w-1/2 p-4 rounded-2xl"
             onClick={(e) => e.stopPropagation()}
+            onSubmit={(e) => {
+              e.preventDefault(); // Evita que la página se recargue
+              handleSave();
+            }}
           >
             <div className="flex flex-row justify-between">
               <h2 className=" font-bold mb-4">Nuevo Servicio</h2>
@@ -127,8 +132,9 @@ export default function NewServiceModal({ client }: { client: IClient }) {
                 <input
                   type="text"
                   value={serviceName}
+                  required
                   onChange={(e) => setServiceName(e.target.value)}
-                  className="w-full p-2 border border-gray-300 rounded mb-4"
+                  className="w-full p-2 border border-gray-300 rounded mb-4 capitalize"
                   placeholder="Corte de cabello, Afeitado, etc."
                 />
               </div>
@@ -137,6 +143,7 @@ export default function NewServiceModal({ client }: { client: IClient }) {
                 <input
                   type="number"
                   value={servicePrice}
+                  required
                   onChange={(e) => setServicePrice(e.target.value)}
                   className="w-full p-2 border border-gray-300 rounded mb-4"
                   placeholder="Precio del servicio"
@@ -161,6 +168,7 @@ export default function NewServiceModal({ client }: { client: IClient }) {
                 <input
                   type="datetime-local"
                   value={serviceDate}
+                  required
                   onChange={(e) => setServiceDate(e.target.value)}
                   className="w-full p-2 border border-gray-300 rounded mb-4"
                 />
@@ -175,13 +183,16 @@ export default function NewServiceModal({ client }: { client: IClient }) {
               placeholder="Observaciones"
             ></textarea>
             <p className="mt-4 font-bold">Atendido por:</p>
-            {/*es una lista de barberos*/}
+
             <select
               value={barberId}
+              required
               onChange={(e) => setBarberId(e.target.value)}
               className="w-full p-2 border border-gray-300 rounded mb-4"
             >
-              <option value="">Selecciona un barbero</option>
+              <option value="" disabled>
+                Selecciona un barbero
+              </option>
               {barberList &&
                 barberList.map((barber: BarberWithId) => (
                   <option key={barber._id} value={barber._id}>
@@ -191,20 +202,23 @@ export default function NewServiceModal({ client }: { client: IClient }) {
             </select>
 
             <div className="flex flex-row justify-end gap-4">
+              {/* Botón de Guardar ahora es type="submit" */}
               <button
+                type="submit"
                 className="mt-4 bg-[#cdaa7e] hover:bg-[#f0b66c] font-bold py-1 px-2 rounded"
-                onClick={handleSave}
               >
                 Guardar
               </button>
+              {/* Botón de Cerrar DEBE ser type="button" para no disparar el submit */}
               <button
+                type="button"
                 className="mt-4 bg-[#cdaa7e] hover:bg-[#e7c598] font-bold py-1 px-2 rounded"
                 onClick={() => setIsOpen(false)}
               >
                 Cerrar
               </button>
             </div>
-          </div>
+          </form>
         </div>
       )}
     </>

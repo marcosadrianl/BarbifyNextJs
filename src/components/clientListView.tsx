@@ -56,7 +56,11 @@ export default function ClientListView({ clients }: { clients: IClient[] }) {
                   <TableCell className="flex items-center gap-3">
                     <Avatar className="h-8 w-8">
                       <AvatarImage
-                        src={client.clientImage || "/default-client.png"}
+                        src={
+                          client.clientImage == "/default-client.png"
+                            ? undefined
+                            : client.clientImage
+                        }
                       />
                       <AvatarFallback>
                         {client.clientName?.[0]}

@@ -84,7 +84,7 @@ function ImageSelector({
   onChange: (v: string) => void;
 }) {
   return (
-    <div className="flex h-24 gap-3 overflow-x-auto pb-2">
+    <div className="flex h-24 gap-3 overflow-x-auto p-2">
       {imageOptions.map((img) => (
         <button
           type="button"
