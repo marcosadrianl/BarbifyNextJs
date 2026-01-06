@@ -2,6 +2,24 @@
 quiero llorar
 
 --------------------------------------------------------------------------------------------------
+AVANCE 06/01/2026: 
+Cambio de anio y sigo aca ! 
+- DASHBOARD todo: 
+	- actividad semanal (BarChart) w-1/2
+	- actividad mensual (Barchart) w-1/2
+
+- INSIGHT todo: Ya se puede traer la lista de barberos		
+	- BarberList w- 2/3
+	- barber activity (PieChart) w-1/3
+	- facturacion mensual/15-nal/semanal/diario/hora (bar chart) w-full
+		- permitir fijar objetivo mensual (extrapolar a otros periodos segun se pida)
+	- imprimir informe
+		- opcional: Incluir graficos: si/no
+		- ver modelos de resumenes
+			- indicar fecha actual, periodo marcado, facturado por barbero, total, 
+			- o usar mismo modelo de barbify 1.0?
+	
+
 AVANCE 30/12/2025:
 LETSGOOOOOO bien, ahora hay dos nuevas cards leyendo desde el localstorage, que ahora se guarda bien PERO! 
 - al actualizar el localstorage no se actualizan las cards, corregir desp eso.
@@ -215,23 +233,3 @@ SE CREARON LOS ESQUEMAS DE USUARIOS (USERS), CLIENTES (CLIENTS), SERVICIOS (SERV
 
 
 "NO ES QUE NO SEPAS NADA, SOLO NO SABES HASTA DONDE PODES LLEGAR"
-
-userHasThisBarbers": [
-    {
-      "barberName": "Andrea",
-      "barberLastName": "Berguesi",
-      "barberEmail": "andre@gmail.com",
-      "barberPhone": "2214507131",
-      "barberActive": true,
-      "barberRole": "Peluquera",
-      "barberLocation": {
-        "city": "Buenos Aires",
-        "state": "La Plata",
-        "address": "132 n1365",
-        "postalCode": "1900B"
-      },
-      "barberLevel": 0,
-      "barberBirthDate": "1996-04-23T00:00:00.000Z",
-      "barberImageURL": ""
-    }
-  ],
