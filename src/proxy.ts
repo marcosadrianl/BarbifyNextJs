@@ -15,7 +15,7 @@ export default withAuth(
 
     // Si intenta acceder a /login con sesión activa, redirigir a dashboard
     if (path === "/login" && token) {
-      console.log("✅ Ya tiene sesión, redirigiendo a clients");
+      /* console.log("✅ Ya tiene sesión, redirigiendo a clients"); */
       return NextResponse.redirect(new URL("/clients", req.url));
     }
 
@@ -28,7 +28,7 @@ export default withAuth(
       authorized: ({ token, req }) => {
         const path = req.nextUrl.pathname;
 
-        console.log("🔍 Authorized callback:", { path, hasToken: !!token });
+        /* console.log("🔍 Authorized callback:", { path, hasToken: !!token }); */
 
         // ✅ RUTAS PÚBLICAS (no requieren autenticación)
         const publicPaths = ["/", "/login", "/register", "/about", "/contact"];
@@ -43,13 +43,13 @@ export default withAuth(
 
         // Verificar si es ruta pública
         if (publicPaths.includes(path)) {
-          console.log("✅ Ruta pública permitida:", path);
+          /* console.log("✅ Ruta pública permitida:", path); */
           return true;
         }
 
         // Verificar si empieza con prefijo público
         if (publicPrefixes.some((prefix) => path.startsWith(prefix))) {
-          console.log("✅ Prefijo público permitido:", path);
+          /* console.log("✅ Prefijo público permitido:", path); */
           return true;
         }
 
@@ -66,15 +66,15 @@ export default withAuth(
         // Si es ruta protegida, verificar token
         if (protectedPrefixes.some((prefix) => path.startsWith(prefix))) {
           if (!token) {
-            console.log("❌ Ruta protegida sin token:", path);
+            /* console.log("❌ Ruta protegida sin token:", path); */
             return false;
           }
-          console.log("✅ Ruta protegida con token:", path);
+          /* console.log("✅ Ruta protegida con token:", path); */
           return true;
         }
 
         // Por defecto, permitir acceso
-        console.log("✅ Ruta no especificada, permitir:", path);
+        /* console.log("✅ Ruta no especificada, permitir:", path); */
         return true;
       },
     },

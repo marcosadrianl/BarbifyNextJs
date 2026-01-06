@@ -1,7 +1,8 @@
 // app/api/users/create/route.ts
 import { NextResponse } from "next/server";
 import { connectDB } from "@/utils/mongoose";
-import User from "@/models/Users";
+import User, { IUser } from "@/models/Users";
+import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 
 export async function POST(req: Request) {
@@ -24,7 +25,9 @@ export async function POST(req: Request) {
 
     await connectDB();
 
-    const existingUser = await User.findOne({ userEmail });
+    const existingUser = await (User as mongoose.Model<IUser>).findOne({
+      userEmail,
+    });
     if (existingUser) {
       return NextResponse.json(
         { error: "El usuario ya existe" },

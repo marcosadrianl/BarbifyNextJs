@@ -13,7 +13,7 @@ import { GenderSegmentationCard } from "@/components/ui/GenderSegmentationCard";
 
 export default async function Page() {
   const session = await getServerSession(authOptions);
-  console.log("🛡️ Session en dashboard:", session);
+  /* console.log("🛡️ Session en dashboard:", session); */
 
   if (!session?.user?.id) {
     return <p>No autorizado</p>;

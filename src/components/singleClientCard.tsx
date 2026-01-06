@@ -4,7 +4,6 @@
  * Recibe las propiedades del cliente como props.
 
  */
-import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import MoreInfoModal from "./moreInfoModal";

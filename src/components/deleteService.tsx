@@ -30,7 +30,7 @@ export default function DeleteService({
     setError("");
 
     try {
-      console.log("🗑️ Eliminando servicio:", { clientId, serviceId });
+      /*  console.log("🗑️ Eliminando servicio:", { clientId, serviceId }); */
 
       // ✅ URL correcta con ambos IDs
 
@@ -38,7 +38,7 @@ export default function DeleteService({
         `/api/clients/${clientId}/services/${serviceId}`
       );
 
-      console.log("✅ Servicio eliminado:", response.data);
+      /* console.log("✅ Servicio eliminado:", response.data); */
 
       // Cerrar modal
       setShowModal(false);

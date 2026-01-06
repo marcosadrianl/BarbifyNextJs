@@ -63,12 +63,12 @@ function isCacheExpired(lastSaved: string | null): boolean {
   const diff = Date.now() - Number(lastSaved);
   const isExpired = diff > TTL_MINUTES * 60 * 1000;
 
-  if (isExpired) {
+  /* if (isExpired) {
     console.log("⚠️ Cache expirado:", {
       minutosTranscurridos: Math.floor(diff / 60000),
       TTL: TTL_MINUTES,
     });
-  }
+  } */
 
   return isExpired;
 }
@@ -102,7 +102,7 @@ export const useServicesStore = create<ServicesStore>((set) => ({
 
     // Verificar si está expirado
     if (isCacheExpired(lastSaved)) {
-      console.log("🔄 Cache expirado, se necesita refresh");
+      /* console.log("🔄 Cache expirado, se necesita refresh"); */
       return;
     }
 
@@ -112,11 +112,11 @@ export const useServicesStore = create<ServicesStore>((set) => ({
       // ✅ Filtrar solo servicios pasados o presentes
       const filteredServices = filterPastOrPresentServices(allServices);
 
-      console.log("📦 Servicios cargados del cache:", {
+      /* console.log("📦 Servicios cargados del cache:", {
         total: allServices.length,
         filtrados: filteredServices.length,
         eliminados: allServices.length - filteredServices.length,
-      });
+      }); */
 
       set({
         services: filteredServices,

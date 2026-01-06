@@ -1,5 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { IClient } from "@/models/Clients";
+import { IBarbers } from "@/models/Barbers";
+
+interface BarberWithId extends IBarbers {
+  _id: string;
+}
 
 export default function NewServiceModal({ client }: { client: IClient }) {
   /*PErmite abrir y cerrar el modal usando ESC*/
@@ -10,6 +15,7 @@ export default function NewServiceModal({ client }: { client: IClient }) {
   const [serviceNotes, setServiceNotes] = useState("");
   const [serviceDuration, setServiceDuration] = useState("");
   const [barberId, setBarberId] = useState("");
+  const [barberList, setBarberList] = useState<BarberWithId[]>([]);
 
   /**
    * Event handler for keydown events.
@@ -54,8 +60,8 @@ export default function NewServiceModal({ client }: { client: IClient }) {
       if (res.ok) {
         // Opcional: feedback, cerrar modal, refrescar datos, etc.
         //refresh
-        window.location.reload();
         setIsOpen(false);
+        window.location.reload();
       } else {
         // Manejo de error
         alert("Error al guardar el servicio");
@@ -64,6 +70,25 @@ export default function NewServiceModal({ client }: { client: IClient }) {
       alert("Error de red" + err);
     }
   };
+
+  const getBarberList = async () => {
+    try {
+      const res = await fetch("/api/users");
+      const data = await res.json();
+      console.log("Barberos disponibles:", data);
+      return data;
+    } catch (err) {
+      console.error("Error al obtener la lista de barberos:", err);
+    }
+  };
+
+  useEffect(() => {
+    const fetchBarberList = async () => {
+      const barberList = await getBarberList();
+      setBarberList(barberList);
+    };
+    fetchBarberList();
+  }, []);
 
   return (
     <>
@@ -153,13 +178,16 @@ export default function NewServiceModal({ client }: { client: IClient }) {
             {/*es una lista de barberos*/}
             <select
               value={barberId}
-              required
               onChange={(e) => setBarberId(e.target.value)}
               className="w-full p-2 border border-gray-300 rounded mb-4"
             >
-              <option value="68d5ebc3f657459cb98f49a3">Barbero 1</option>
-              <option value="68d5ebc3f657459cb98f49a4">Barbero 2</option>
-              <option value="68d5ebc3f657459cb98f49a5">Barbero 3</option>
+              <option value="">Selecciona un barbero</option>
+              {barberList &&
+                barberList.map((barber: BarberWithId) => (
+                  <option key={barber._id} value={barber._id}>
+                    {barber.barberName}
+                  </option>
+                ))}
             </select>
 
             <div className="flex flex-row justify-end gap-4">

@@ -25,23 +25,23 @@ export async function DELETE(
     // ✅ CORRECCIÓN: Obtener parámetros correctamente
     const { id, serviceId } = await params;
 
-    console.log("🗑️ Eliminando servicio:", { clientId: id, serviceId });
+    /* console.log("🗑️ Eliminando servicio:", { clientId: id, serviceId }); */
 
     // Buscar el cliente
     const client = await (Clients as mongoose.Model<IClient>).findById(id);
 
     if (!client) {
-      console.log("❌ Cliente no encontrado:", id);
+      /* console.log("❌ Cliente no encontrado:", id); */
       return NextResponse.json(
         { message: "Client not found" },
         { status: 404 }
       );
     }
 
-    console.log("✅ Cliente encontrado:", {
+    /* console.log("✅ Cliente encontrado:", {
       clientId: client._id,
       totalServicios: client.clientServices.length,
-    });
+    }); */
 
     // Verificar que el servicio existe
     const serviceExists = client.clientServices.some(
@@ -49,11 +49,11 @@ export async function DELETE(
     );
 
     if (!serviceExists) {
-      console.log("❌ Servicio no encontrado:", serviceId);
-      console.log(
+      /* console.log("❌ Servicio no encontrado:", serviceId); */
+      /*  console.log(
         "Servicios disponibles:",
         client.clientServices.map((s: IService) => s._id.toString())
-      );
+      ); */
       return NextResponse.json(
         { message: "Service not found" },
         { status: 404 }
@@ -66,16 +66,16 @@ export async function DELETE(
       (service: IService) => service._id.toString() !== serviceId
     );
 
-    console.log("📊 Cambios:", {
+    /* console.log("📊 Cambios:", {
       antes: originalLength,
       después: client.clientServices.length,
       eliminados: originalLength - client.clientServices.length,
-    });
+    }); */
 
     // Guardar cambios
     await client.save();
 
-    console.log("✅ Servicio eliminado exitosamente");
+    /* console.log("✅ Servicio eliminado exitosamente"); */
 
     return NextResponse.json({
       success: true,
