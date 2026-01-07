@@ -105,7 +105,7 @@ const TotalServices = ({ services }: { services: LeanService[] }) => {
         {/* Botón para desplegar */}{" "}
         <button
           onClick={() => setOpen(!open)}
-          className="p-2 rounded-md hover:bg-accent transition"
+          className="p-2 rounded-md hover:bg-white transition"
         >
           {" "}
           {open ? <ChevronUp size={20} /> : <ChevronDown size={20} />}{" "}

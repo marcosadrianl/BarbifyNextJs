@@ -113,7 +113,7 @@ export function IncomePerHourByHourChart() {
   }
 
   return (
-    <Card className="w-1/4 bg-accent">
+    <Card className="w-1/4 bg-white">
       <CardHeader>
         <CardTitle title="Ingresos por hora">
           <h3 className="text-sm font-medium flex items-center gap-2">

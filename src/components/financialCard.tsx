@@ -74,7 +74,7 @@ export function FinancialSummaryCard() {
 
   if (loading) {
     return (
-      <div className="rounded-md border bg-accent p-4 flex items-center justify-center min-h-35">
+      <div className="rounded-md border bg-white p-4 flex items-center justify-center min-h-35">
         <p className="text-sm text-muted-foreground">Cargando ingresos...</p>
       </div>
     );
@@ -90,7 +90,7 @@ export function FinancialSummaryCard() {
   const trend = variation > 0.1 ? "up" : variation < -0.1 ? "down" : "equal";
 
   return (
-    <div className="rounded-md border text-black bg-accent p-4 w-1/3 flex flex-col gap-4">
+    <div className="rounded-md border text-black bg-white p-4 w-1/3 flex flex-col gap-4">
       {/* Header */}
       <div className="flex justify-between items-center">
         <h2 className="text-sm font-medium">Ingresos del mes</h2>

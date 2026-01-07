@@ -168,6 +168,7 @@ export default function NewServiceModal({ client }: { client: IClient }) {
                 <input
                   type="datetime-local"
                   value={serviceDate}
+                  title="Fecha"
                   required
                   onChange={(e) => setServiceDate(e.target.value)}
                   className="w-full p-2 border border-gray-300 rounded mb-4"
@@ -187,6 +188,7 @@ export default function NewServiceModal({ client }: { client: IClient }) {
             <select
               value={barberId}
               required
+              title="Barbero"
               onChange={(e) => setBarberId(e.target.value)}
               className="w-full p-2 border border-gray-300 rounded mb-4"
             >

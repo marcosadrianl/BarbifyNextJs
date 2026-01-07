@@ -1,27 +1,43 @@
 "use client";
 
-// app/page.tsx o Dashboard.tsx (Componente Padre)
 import React, { useEffect, useState, useCallback } from "react";
-import Calendar, { ServiceEvent, CalendarEvent } from "@/components/calendar";
+import Calendar, { CalendarEvent } from "@/components/calendar"; // Quitamos ServiceEvent de aquí si choca, o lo reemplazamos
 import EventDetails from "@/components/EventDetails";
+import {
+  useServicesStore,
+  useAllServicesStore,
+} from "@/lib/store/services.store"; // 👈 Ajusta la ruta según tu estructura
+import FullCalendar from "@fullcalendar/react";
 
-// Función de parseo CORREGIDA con validación
-const parseEventsData = (events: ServiceEvent[]): CalendarEvent[] => {
-  const eventsByDate: Record<string, ServiceEvent[]> = {};
+type ClientService = {
+  clientId: string;
+  clientServices: {
+    serviceDate: string;
+    serviceName: string;
+    servicePrice: number;
+    serviceDuration: number;
+    serviceNotes: string;
+    _id: string;
+  };
+  clientName: string;
+  clientLastName: string;
+};
 
-  events.forEach((event: ServiceEvent) => {
-    // 🔧 Validar que serviceDate existe y es válido
-    if (!event.clientServices.serviceDate) {
-      console.warn("Evento sin serviceDate:", event.clientServices.serviceDate);
-      return; // Saltar este evento
+// 1. Actualizamos el parser para usar el tipo del Store (ClientService)
+const parseEventsData = (events: ClientService[]): CalendarEvent[] => {
+  const eventsByDate: Record<string, ClientService[]> = {};
+
+  events.forEach((event: ClientService) => {
+    // Validación de seguridad
+    if (!event.clientServices?.serviceDate) {
+      return;
     }
 
     const date = new Date(event.clientServices.serviceDate);
 
-    // Validar que la fecha es válida
     if (isNaN(date.getTime())) {
       console.warn("Fecha inválida para evento:", event);
-      return; // Saltar este evento
+      return;
     }
 
     const dateKey = date.toISOString().split("T")[0];
@@ -49,38 +65,51 @@ const parseEventsData = (events: ServiceEvent[]): CalendarEvent[] => {
 };
 
 export default function Dashboard() {
-  const [events, setEvents] = useState<ServiceEvent[]>([]);
-  const [selectedEvents, setSelectedEvents] = useState<ServiceEvent[] | null>(
+  // 2. Usamos el Store
+  const { services, refreshFromAPI, loadFromCache } = useAllServicesStore();
+  const loading = useServicesStore((state) => state.loading);
+
+  // Mantenemos el estado de selección local, ya que es UI efímera
+  const [selectedEvents, setSelectedEvents] = useState<ClientService[] | null>(
     null
   );
 
+  // 3. Efecto de Carga Inteligente
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("/api/diary");
-        const data = await response.json();
-        setEvents(data.data || []);
-      } catch (error) {
-        console.error("Error al obtener los datos del servidor:", error);
-      }
-    };
-    fetchData();
+    // Primero intentamos cargar del cache local (síncrono)
+    loadFromCache();
+
+    // Verificamos el estado actual después de intentar cargar el cache
+    const currentState = useServicesStore.getState();
+
+    // Si no hay 'lastUpdated', significa que no había cache o estaba expirado.
+    // Entonces forzamos la carga desde la API.
+    if (!currentState.lastUpdated) {
+      refreshFromAPI();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const eventsData = parseEventsData(events);
+  // 4. Transformamos los datos del store para el calendario
+  const eventsData = parseEventsData(services);
 
-  const handleCalendarEventClick = useCallback((events: ServiceEvent[]) => {
-    setSelectedEvents(events);
+  // Callback ajustado al nuevo tipo
+  const handleCalendarEventClick = useCallback((events: any[]) => {
+    // Casteamos a ClientService[] para mantener tipado estricto si es necesario
+    setSelectedEvents(events as ClientService[]);
   }, []);
 
   return (
-    <div className="flex flex-row p-4 bg-[#cebaa1] w-full">
-      {/* Detalles del Evento */}
-      <div className="w-1/3">
+    <div className="flex flex-row p-0 bg-[#cebaa1] w-full h-full overflow-hidden">
+      {/* El contenedor padre debe tener overflow-hidden para evitar el scroll general de la página */}
+
+      {/* Detalles del Evento: scroll independiente */}
+      <div className="w-1/3 h-full overflow-y-auto">
         <EventDetails selectedEvents={selectedEvents} />
       </div>
-      {/* Calendario */}
-      <div className="w-2/3 bg-white p-4 rounded-r-lg shadow-md">
+
+      {/* Calendario: scroll independiente */}
+      <div className="w-2/3 bg-white p-4 h-full relative overflow-y-auto">
         <Calendar
           eventsData={eventsData}
           onEventClick={handleCalendarEventClick}

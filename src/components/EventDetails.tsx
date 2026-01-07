@@ -34,7 +34,7 @@ export default function EventDetails({ selectedEvents }: EventDetailsProps) {
   // Estado vacío
   if (!selectedEvents || selectedEvents.length === 0) {
     return (
-      <Card className="h-full rounded-r-none border-none">
+      <Card className="h-full rounded-none border-r-accent border-t-0 border-b-0 border-l-0">
         <CardContent className="flex flex-col items-center justify-center h-full min-h-100">
           <Calendar className="h-16 w-16 text-muted-foreground mb-4" />
           <CardTitle className="text-center text-muted-foreground">
@@ -66,7 +66,7 @@ export default function EventDetails({ selectedEvents }: EventDetailsProps) {
   const isToday = normalizedServiceDate.getTime() === today.getTime();
 
   return (
-    <Card className="h-full flex flex-col rounded-r-none border-none">
+    <Card className="h-full flex flex-col rounded-none border-r-accent border-t-0 border-b-0 border-l-0">
       <CardHeader>
         <div className="flex items-center justify-between">
           <div className="flex-1">
@@ -93,9 +93,9 @@ export default function EventDetails({ selectedEvents }: EventDetailsProps) {
 
       <Separator />
 
-      <CardContent className="flex-1 pt-6">
-        <ScrollArea className="h-[calc(100vh-16rem)] pr-4">
-          <div className="space-y-4 mb-12">
+      <CardContent className="flex-1 pt-0 ">
+        <ScrollArea className="h-[calc(100vh-13rem)] pr-4">
+          <div className="space-y-4 mb-8">
             {selectedEvents.map((event, index) => (
               <Card key={event.clientServices._id} className="overflow-hidden ">
                 <CardHeader className="bg-[#ffd49d]/20 p-4">

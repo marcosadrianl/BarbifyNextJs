@@ -16,65 +16,45 @@ export type ClientService = {
     serviceDate: string;
     serviceDuration: number;
     serviceNotes: string;
+    fromBarberId?: string;
   };
 };
 
 const TTL_MINUTES = 30;
 
-/**
- * Obtiene la fecha/hora actual en Argentina (UTC-3)
- * Retorna un objeto Date en hora de Argentina
- */
-function getCurrentDateInArgentina(): Date {
-  // Crear fecha en UTC
-  const now = new Date();
+// --- Funciones de Ayuda (Sin cambios en lógica, solo uso) ---
 
-  // Convertir a hora de Argentina (UTC-3)
-  // toLocaleString con timezone devuelve string, lo convertimos a Date
+function getCurrentDateInArgentina(): Date {
+  const now = new Date();
   const argentinaTimeString = now.toLocaleString("en-US", {
     timeZone: "America/Argentina/Buenos_Aires",
   });
-
   return new Date(argentinaTimeString);
 }
 
-/**
- * Filtra servicios que sean anteriores o iguales a la fecha actual en Argentina
- */
 function filterPastOrPresentServices(
   services: ClientService[]
 ): ClientService[] {
   const now = getCurrentDateInArgentina();
-
   return services.filter((service) => {
+    // Validación de seguridad por si serviceDate es null/undefined
+    if (!service.clientServices?.serviceDate) return false;
     const serviceDate = new Date(service.clientServices.serviceDate);
-
-    // Comparar: servicio debe ser <= ahora
     return serviceDate <= now;
   });
 }
 
-/**
- * Verifica si el cache está expirado
- */
 function isCacheExpired(lastSaved: string | null): boolean {
   if (!lastSaved) return true;
-
   const diff = Date.now() - Number(lastSaved);
-  const isExpired = diff > TTL_MINUTES * 60 * 1000;
-
-  /* if (isExpired) {
-    console.log("⚠️ Cache expirado:", {
-      minutosTranscurridos: Math.floor(diff / 60000),
-      TTL: TTL_MINUTES,
-    });
-  } */
-
-  return isExpired;
+  return diff > TTL_MINUTES * 60 * 1000;
 }
 
+// --- Definición del Store ---
+
 type ServicesStore = {
-  services: ClientService[];
+  services: ClientService[]; // 👈 Mantiene solo Pasados/Presentes (comportamiento default)
+  allServices: ClientService[]; // 👈 NUEVO: Contiene TODOS los servicios (Futuros incluidos)
   loading: boolean;
   lastUpdated: number | null;
 
@@ -85,41 +65,28 @@ type ServicesStore = {
 
 export const useServicesStore = create<ServicesStore>((set) => ({
   services: [],
+  allServices: [], // Inicialización
   loading: false,
   lastUpdated: null,
 
-  /**
-   * Carga servicios desde localStorage si no está expirado
-   */
   loadFromCache: () => {
     const cached = localStorage.getItem("services");
     const lastSaved = localStorage.getItem("services_last_saved");
 
-    if (!cached) {
-      console.log("📭 No hay servicios en cache");
-      return;
-    }
+    if (!cached) return;
 
-    // Verificar si está expirado
-    if (isCacheExpired(lastSaved)) {
-      /* console.log("🔄 Cache expirado, se necesita refresh"); */
-      return;
-    }
+    if (isCacheExpired(lastSaved)) return;
 
     try {
+      // Ahora asumimos que el cache tiene TODOS los servicios
       const allServices: ClientService[] = JSON.parse(cached);
 
-      // ✅ Filtrar solo servicios pasados o presentes
+      // Calculamos la vista filtrada
       const filteredServices = filterPastOrPresentServices(allServices);
 
-      /* console.log("📦 Servicios cargados del cache:", {
-        total: allServices.length,
-        filtrados: filteredServices.length,
-        eliminados: allServices.length - filteredServices.length,
-      }); */
-
       set({
-        services: filteredServices,
+        allServices: allServices, // Guardamos crudos
+        services: filteredServices, // Guardamos filtrados
         lastUpdated: Number(lastSaved),
       });
     } catch (error) {
@@ -129,15 +96,10 @@ export const useServicesStore = create<ServicesStore>((set) => ({
     }
   },
 
-  /**
-   * Refresca servicios desde la API
-   */
   refreshFromAPI: async () => {
     set({ loading: true });
 
     try {
-      console.log("🔄 Refrescando servicios desde API...");
-
       const res = await fetch("/api/diary");
 
       if (!res.ok) {
@@ -147,24 +109,16 @@ export const useServicesStore = create<ServicesStore>((set) => ({
       const json = await res.json();
       const allServices: ClientService[] = json.data || [];
 
-      console.log("📡 Servicios recibidos de API:", allServices.length);
-
-      // ✅ Filtrar solo servicios pasados o presentes
+      // 1. Filtramos para la vista principal
       const filteredServices = filterPastOrPresentServices(allServices);
 
-      console.log("✅ Servicios filtrados:", {
-        total: allServices.length,
-        filtrados: filteredServices.length,
-        futuros: allServices.length - filteredServices.length,
-        fechaActualArgentina: getCurrentDateInArgentina().toISOString(),
-      });
-
-      // Guardar en localStorage
-      localStorage.setItem("services", JSON.stringify(filteredServices));
+      // 2. Guardamos TODO en localStorage (para poder usar allServices offline)
+      localStorage.setItem("services", JSON.stringify(allServices));
       localStorage.setItem("services_last_saved", String(Date.now()));
 
       set({
-        services: filteredServices,
+        allServices: allServices, // 👈 Estado completo
+        services: filteredServices, // 👈 Estado filtrado
         lastUpdated: Date.now(),
         loading: false,
       });
@@ -174,16 +128,29 @@ export const useServicesStore = create<ServicesStore>((set) => ({
     }
   },
 
-  /**
-   * Limpia el cache de servicios
-   */
   clearCache: () => {
     localStorage.removeItem("services");
     localStorage.removeItem("services_last_saved");
     set({
       services: [],
+      allServices: [],
       lastUpdated: null,
     });
-    console.log("🗑️ Cache limpiado");
+    /* console.log("🗑️ Cache limpiado"); */
   },
 }));
+
+/**
+ * 🪝 HOOK HELPER: useAllServicesStore
+ * Este hook envuelve el store original pero intercambia la propiedad 'services'
+ * para devolver el array completo 'allServices' en su lugar.
+ */
+export const useAllServicesStore = () => {
+  const store = useServicesStore();
+
+  return {
+    ...store,
+    services: store.allServices, // 🔄 Aquí ocurre la magia: 'services' ahora es 'allServices'
+    filteredServices: store.services, // Opcional: acceso a los filtrados si se necesita con otro nombre
+  };
+};

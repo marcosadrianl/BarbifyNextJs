@@ -43,7 +43,7 @@ export function AverageDurationCard() {
     .slice(0, 5);
 
   return (
-    <div className="rounded-xl border bg-accent p-4 flex flex-col gap-4 w-1/4">
+    <div className="rounded-xl border bg-white p-4 flex flex-col gap-4 w-1/4">
       {/* Header */}
       <div className="flex items-center gap-2">
         <Timer className="h-4 w-4 text-muted-foreground" />

@@ -10,6 +10,8 @@ import { AverageDurationCard } from "@/components/AverageTimeService";
 import { TotalRevenue } from "@/components/getTotalReveniew";
 import { IncomePerHourByHourChart } from "@/components/ui/chart-area-step";
 import { GenderSegmentationCard } from "@/components/ui/GenderSegmentationCard";
+import { YearlyServicesChart } from "@/components/ui/YearlyServicesChart";
+import { WeeklyDayChart } from "@/components/ui/WeeklyDayChart";
 
 export default async function Page() {
   const session = await getServerSession(authOptions);
@@ -39,6 +41,10 @@ export default async function Page() {
       </div>
       <div className="flex flex-row gap-4">
         <GenderSegmentationCard />
+      </div>
+      <div className="flex flex-row gap-4">
+        <YearlyServicesChart />
+        <WeeklyDayChart />
       </div>
     </div>
   );

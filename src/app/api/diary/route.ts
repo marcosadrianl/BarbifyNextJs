@@ -59,6 +59,7 @@ export async function GET() {
       serviceDate: string | Date;
       serviceDuration: number;
       serviceNotes?: string;
+      fromBarberId?: string;
     }
 
     /** Tipado estricto de la respuesta */
@@ -119,6 +120,7 @@ export async function GET() {
             serviceDate: srv.serviceDate,
             serviceDuration: srv.serviceDuration,
             serviceNotes: srv.serviceNotes,
+            fromBarberId: srv.fromBarberId?.toString(),
           },
           clientActive,
           createdAt,

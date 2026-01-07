@@ -94,14 +94,14 @@ export default function InactiveClientsCard() {
 
   if (loading) {
     return (
-      <div className="rounded-md border text-black bg-accent p-4 w-1/4 flex items-center justify-center min-h-50">
+      <div className="rounded-md border text-black bg-white p-4 w-1/4 flex items-center justify-center min-h-50">
         <p className="text-sm text-muted-foreground">Calculando...</p>
       </div>
     );
   }
 
   return (
-    <div className="rounded-md border text-black bg-accent p-4 w-1/4 flex flex-col gap-4">
+    <div className="rounded-md border text-black bg-white p-4 w-1/4 flex flex-col gap-4">
       {/* Header */}
       <div className="flex items-center justify-between">
         <h3 className="text-sm font-medium flex items-center gap-2">

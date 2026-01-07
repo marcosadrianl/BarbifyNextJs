@@ -87,14 +87,14 @@ export function TotalRevenue() {
 
   if (loading) {
     return (
-      <div className="rounded-md border text-black bg-accent p-4 w-1/3 flex items-center justify-center">
+      <div className="rounded-md border text-black bg-white p-4 w-1/3 flex items-center justify-center">
         <p className="text-sm text-muted-foreground">Cargando ingresos...</p>
       </div>
     );
   }
 
   return (
-    <div className="rounded-md border text-black bg-accent p-4 w-1/3 flex flex-col gap-4">
+    <div className="rounded-md border text-black bg-white p-4 w-1/3 flex flex-col gap-4">
       {/* Header */}
       <span className="flex flex-row justify-between items-center">
         <h2 className="text-sm tracking-tight font-medium">Ingresos Totales</h2>

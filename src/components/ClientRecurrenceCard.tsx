@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { TrendingUp, TrendingDown, Equal } from "lucide-react";
+import { useServicesStore } from "@/lib/store/services.store";
 
 type ClientGroup = {
   count: number;
@@ -84,14 +85,8 @@ export function ClientRecurrenceCard() {
   const [trend, setTrend] = useState<"up" | "down" | "equal">("equal");
   const [loading, setLoading] = useState(true);
 
+  const services = useServicesStore((s) => s.services);
   useEffect(() => {
-    const cached = localStorage.getItem("services");
-    if (!cached) {
-      setLoading(false);
-      return;
-    }
-    const services = JSON.parse(cached);
-
     if (services.length === 0) {
       setLoading(false);
       return;
@@ -162,18 +157,18 @@ export function ClientRecurrenceCard() {
     setTrend(trendDirection);
 
     setLoading(false);
-  }, []);
+  }, [services]);
 
   if (loading) {
     return (
-      <div className="rounded-md text-black border bg-accent p-4 flex items-center justify-center w-1/3 min-h-35">
+      <div className="rounded-md text-black border bg-white p-4 flex items-center justify-center w-1/3 min-h-35">
         <p className="text-sm text-muted-foreground">Cargando...</p>
       </div>
     );
   }
 
   return (
-    <div className="rounded-md border text-black bg-accent p-4 w-1/3 flex flex-col gap-4">
+    <div className="rounded-md border text-black bg-white p-4 w-1/3 flex flex-col gap-4">
       <div className="flex justify-between items-center">
         <h2 className="text-sm font-medium">Clientes recurrentes</h2>
         <div
