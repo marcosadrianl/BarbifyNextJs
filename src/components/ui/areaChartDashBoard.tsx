@@ -143,7 +143,7 @@ export function ChartAreaInteractive() {
   }
 
   return (
-    <Card className="pt-0 rounded-md">
+    <Card className="pt-0 rounded-md w-full">
       <CardHeader className="flex items-center gap-2 space-y-0 border-b py-5 sm:flex-row">
         <div className="grid flex-1 gap-1">
           <CardTitle className="text-2xl font-semibold tracking-tight flex flex-row items-center gap-2">

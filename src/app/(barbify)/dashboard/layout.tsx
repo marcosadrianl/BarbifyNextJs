@@ -18,9 +18,9 @@ export default function RootLayout({
   return (
     <div className="bg-[#ffe7c7] flex flex-row h-screen text-[#43553b]">
       <NavBar />
-      <div className="flex flex-col">
+      <div className="flex flex-col w-full h-screen">
         <TaskBar />
-        <div className="bg-[#cebaa1] overflow-auto">
+        <div className="bg-[#cebaa1] flex overflow-y-auto">
           <SessionProvider>{children}</SessionProvider>
         </div>
       </div>

@@ -42,12 +42,18 @@ const Stat = ({
   </div>
 );
 
-const TotalServices = ({ services }: { services: LeanService[] }) => {
+const TotalServices = ({
+  services,
+  defautlState,
+}: {
+  services: LeanService[];
+  defautlState: boolean;
+}) => {
   const [totalServices, setTotalServices] = useState(0);
   const [moda, setModa] = useState("");
   const [promedio, setPromedio] = useState("$0.00");
   const [totalGastado, setTotalGastado] = useState("$0.00");
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(defautlState);
 
   useEffect(() => {
     if (!services || services.length === 0) {
@@ -93,7 +99,7 @@ const TotalServices = ({ services }: { services: LeanService[] }) => {
   }, [services]);
 
   return (
-    <Card className="w-full mb-12 shadow-md border">
+    <Card className="w-full mb-12 ">
       <CardHeader>
         <div className="flex flex-row justify-between">
           <div>
@@ -112,7 +118,7 @@ const TotalServices = ({ services }: { services: LeanService[] }) => {
         </div>
       </CardHeader>
       {open && (
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-4 h-44">
           <Stat
             label="Total de servicios"
             value={totalServices.toString()}

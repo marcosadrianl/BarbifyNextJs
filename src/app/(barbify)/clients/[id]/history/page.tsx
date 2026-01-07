@@ -8,7 +8,7 @@ import Clients from "@/models/Clients";
 import mongoose from "mongoose";
 import { connectDB } from "@/utils/mongoose";
 import { notFound } from "next/navigation";
-import DeleteService from "@/components/deleteService";
+import ClientServiceList from "@/components/clientServiceList";
 import TotalServices from "@/components/fullServiceData";
 
 // Definir el tipo LeanService
@@ -43,55 +43,6 @@ type ClientServicesListProps = {
 };
 
 // Componente para mostrar la lista de servicios
-function ClientServicesList({ services, clientId }: ClientServicesListProps) {
-  const daysOfWeek = [
-    "Domingo",
-    "Lunes",
-    "Martes",
-    "Miércoles",
-    "Jueves",
-    "Viernes",
-    "Sábado",
-  ];
-
-  return (
-    <div className="flex flex-col gap-4">
-      {services.map((service) => {
-        const localDate = new Date(service.serviceDate);
-        const formatted = localDate.toLocaleString("es-AR", {
-          day: "2-digit",
-          month: "2-digit",
-          year: "numeric",
-          hour: "2-digit",
-          minute: "2-digit",
-        });
-        return (
-          <div
-            key={service._id}
-            className="flex flex-col gap-2 bg-[#ffd49d] p-2 rounded-2xl shadow-md w-full"
-          >
-            <div className="flex flex-row justify-between w-full">
-              <h2 className="text-2xl font-bold">{service.serviceName}</h2>
-              <DeleteService serviceId={service._id} clientId={clientId} />
-            </div>
-            <p className="text-base font-normal">
-              • Precio: ${(service.servicePrice / 100).toFixed(2)}
-            </p>
-            <p className="text-base font-normal">
-              • {daysOfWeek[localDate.getDay()]}, {formatted}
-            </p>
-            <p className="text-base font-normal">
-              • Duración: ~{service.serviceDuration} min.
-            </p>
-            <p className="text-base font-normal italic">
-              • {service.serviceNotes ? service.serviceNotes : "Sin notas"}
-            </p>
-          </div>
-        );
-      })}
-    </div>
-  );
-}
 
 // Página principal
 export default async function ClientHistory({
@@ -128,13 +79,12 @@ export default async function ClientHistory({
   }
 
   return (
-    <div className="flex flex-row w-full gap-4 p-4 overflow-auto">
+    <div className="flex flex-row w-full gap-4 px-4 pt-4 overflow-auto">
       <div className="w-2/4">
-        <ClientServicesList services={serviceArrayLeaned} clientId={id} />
+        <TotalServices services={serviceArrayLeaned} defautlState={true} />
       </div>
-
-      <div className="w-2/4">
-        <TotalServices services={serviceArrayLeaned} />
+      <div className="w-2/4 overflow-auto no-scrollbar">
+        <ClientServiceList services={serviceArrayLeaned} clientId={id} />
       </div>
     </div>
   );

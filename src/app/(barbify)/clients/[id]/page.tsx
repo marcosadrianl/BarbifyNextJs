@@ -36,14 +36,14 @@ export default async function ClientsPage({
   const result = JSON.parse(JSON.stringify(client));
 
   return (
-    <div className="flex flex-row gap-24 p-4 w-full h-fit">
-      <div className="flex flex-col gap-4 w-full mx-auto">
+    <div className="flex flex-row gap-4 p-4 w-full h-fit">
+      <div className="flex flex-col gap-4 w-3/5 mx-auto">
         <SingleClientCard client={result as IClient} />
         <ClientActions client={result as IClient} />
         <ClientHealthCard client={result as IClient} />
         <SingleClientMetrics client={result as IClient} />
       </div>
-      <div className="flex flex-col gap-4 rounded-2xl w-1/2 ">
+      <div className="flex flex-col gap-4 rounded-2xl w-2/5 ">
         <ServiceList params={params} />
       </div>
     </div>

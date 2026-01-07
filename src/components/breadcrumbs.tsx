@@ -42,7 +42,7 @@ export default function Breadcrumbs() {
   }
 
   return (
-    <nav className="flex flex-row gap-1  items-center">
+    <nav className="flex flex-row gap-1  items-center select-none">
       {/* Nivel fijo */}
       <Link href={base} className="hover:underline">
         Clientes
@@ -72,12 +72,12 @@ export default function Breadcrumbs() {
         }
 
         return (
-          <span key={segment} className="flex ">
+          <span key={segment} className="flex gap-1">
+            {"/"}
             <Link
               href={href}
               className="hover:underline capitalize text-nowrap"
             >
-              {"/ "}
               {label || <LoadingDots />}
             </Link>
           </span>

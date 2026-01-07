@@ -33,6 +33,17 @@ type SortField = "date" | "client" | "service" | "price" | "barber";
 
 type SortOrder = "asc" | "desc";
 
+function TableSkeleton() {
+  return (
+    <TableRow>
+      <TableCell>No hay servicios realizados</TableCell>
+      <TableCell> </TableCell>
+      <TableCell> </TableCell>
+      <TableCell> </TableCell>
+    </TableRow>
+  );
+}
+
 export default function ServicesDashboard() {
   const { services, refreshFromAPI, loading } = useServicesStore();
 
@@ -51,7 +62,7 @@ export default function ServicesDashboard() {
     const now = new Date();
 
     const start = new Date(now);
-    if (period === "day") start.setDate(now.getDate() - 1);
+    if (period === "day") start.setDate(now.getDate() - 0);
     if (period === "week") start.setDate(now.getDate() - 7);
     if (period === "fortnight") start.setDate(now.getDate() - 15);
     if (period === "month") start.setMonth(now.getMonth() - 1);
@@ -157,31 +168,37 @@ export default function ServicesDashboard() {
           </TableHeader>
 
           <TableBody>
-            {filteredAndSorted.map((s) => (
-              <TableRow key={s.clientServices._id}>
-                <TableCell>
-                  {new Date(s.clientServices.serviceDate).toLocaleDateString()}
-                </TableCell>
-                <TableCell>
-                  <Link href={`/clients/${s.clientId}`}>
-                    {s.clientName.toLocaleUpperCase().toWellFormed()}{" "}
-                    {s.clientLastName.toLocaleUpperCase().toWellFormed()}
-                  </Link>
-                </TableCell>
-                <TableCell>
-                  {s.clientServices.serviceName
-                    .toLocaleUpperCase()
-                    .toWellFormed()}
-                </TableCell>
-                <TableCell className="text-right font-medium px-4">
-                  $
-                  {(s.clientServices.servicePrice / 100).toLocaleString(
-                    "es-AR"
-                  )}
-                </TableCell>
-                {/* <TableCell>{s.clientServices.fromBarberId}</TableCell> */}
-              </TableRow>
-            ))}
+            {filteredAndSorted.length > 0 ? (
+              filteredAndSorted.map((s) => (
+                <TableRow key={s.clientServices._id}>
+                  <TableCell>
+                    {new Date(
+                      s.clientServices.serviceDate
+                    ).toLocaleDateString()}
+                  </TableCell>
+                  <TableCell>
+                    <Link href={`/clients/${s.clientId}`}>
+                      {s.clientName.toLocaleUpperCase().toWellFormed()}{" "}
+                      {s.clientLastName.toLocaleUpperCase().toWellFormed()}
+                    </Link>
+                  </TableCell>
+                  <TableCell>
+                    {s.clientServices.serviceName
+                      .toLocaleUpperCase()
+                      .toWellFormed()}
+                  </TableCell>
+                  <TableCell className="text-right font-medium px-4">
+                    $
+                    {(s.clientServices.servicePrice / 100).toLocaleString(
+                      "es-AR"
+                    )}
+                  </TableCell>
+                  {/* <TableCell>{s.clientServices.fromBarberId}</TableCell> */}
+                </TableRow>
+              ))
+            ) : (
+              <TableSkeleton />
+            )}
           </TableBody>
         </Table>
       </div>

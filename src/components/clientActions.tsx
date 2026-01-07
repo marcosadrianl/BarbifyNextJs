@@ -12,36 +12,32 @@ import { IClient } from "@/models/Clients";
 
 export default function ClientActions({ client }: { client: IClient }) {
   return (
-    <div className="flex flex-wrap items-center gap-3">
+    <div className="flex justify-between bg-white p-4 rounded-2xl">
       {/* Acciones principales */}
-      <div className="flex flex-wrap items-center gap-2">
+      <div className="flex  gap-3">
         <NewServiceModal client={client} />
 
         <EditClientButton clientId={client._id} />
 
-        <Button asChild variant="outline">
-          <Link
-            href={`/clients/${client._id}/history`}
-            className="flex items-center gap-2"
-          >
-            <History className="h-8 w-8" />
-            Ver historial
-          </Link>
+        <Button className="flex flex-row w-36 rounded-full bg-[#cdaa7e] hover:bg-amber-100 cursor-pointer text-[#43553b] gap-1">
+          <History className="h-6 w-6" />
+          <Link href={`/clients/${client._id}/history`}>Ver historial</Link>
         </Button>
       </div>
+      <div className="flex flex-row gap-3">
+        <Separator orientation="vertical" className="h-6" />
 
-      <Separator orientation="vertical" className="h-6" />
-
-      {/* Acción destructiva */}
-      <DeleteClient
-        id={client._id as string}
-        title="Eliminar cliente"
-        trigger={
-          <Button variant="destructive" size="icon">
-            <Trash2 className="h-4 w-4" />
-          </Button>
-        }
-      />
+        {/* Acción destructiva */}
+        <DeleteClient
+          id={client._id as string}
+          title="Eliminar cliente"
+          trigger={
+            <Button variant="destructive" size="icon">
+              <Trash2 className="h-4 w-4" />
+            </Button>
+          }
+        />
+      </div>
     </div>
   );
 }

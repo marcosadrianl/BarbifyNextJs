@@ -10,7 +10,7 @@ export default function SingleClientMetrics({
   const result = JSON.parse(JSON.stringify(client));
   return (
     <div className="w-full">
-      <TotalServices services={result.clientServices} />
+      <TotalServices services={result.clientServices} defautlState={false} />
     </div>
   );
 }
