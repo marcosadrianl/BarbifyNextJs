@@ -1,18 +1,32 @@
 import React, { useEffect } from "react";
 import Bullet from "@/components/bullet";
 import { IClient } from "@/models/Clients";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  User,
+  Calendar,
+  Palette,
+  Scissors,
+  FileText,
+  Info,
+} from "lucide-react";
 
 export default function MoreInfoModal({ client }: { client: IClient }) {
-  /*PErmite abrir y cerrar el modal usando ESC*/
   const [isOpen, setIsOpen] = React.useState(false);
 
   useEffect(() => {
     if (!isOpen) return;
 
-    /**
-     * Event handler for keydown events.
-     * If the key pressed is "Escape", it will close the modal.
-     */
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         setIsOpen(false);
@@ -23,13 +37,6 @@ export default function MoreInfoModal({ client }: { client: IClient }) {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [isOpen]);
 
-  //funcion para definir el sexo del cliente segun la letra en la base de datos
-
-  /**
-   * Define el sexo del cliente segun la letra en la base de datos.
-   * @returns El sexo del cliente en formato de string.
-   * @example "Masculino" si el sexo es "M"
-   */
   function defineClientSex() {
     if (client.clientSex === "M") {
       return "Masculino";
@@ -40,11 +47,6 @@ export default function MoreInfoModal({ client }: { client: IClient }) {
     }
   }
 
-  /**
-   * Verifica que la fecha sea en el formato correcto., de serlo, devuelve la fecha en formato "DD/MM/YYYY".
-   * @param dateString - La fecha en formato "YYYY-MM-DD"
-   * @returns la fecha en formato "DD/MM/YYYY"
-   */
   function validateDate(dateString: string) {
     const date = new Date(dateString);
     const day = String(date.getDate()).padStart(2, "0");
@@ -54,60 +56,126 @@ export default function MoreInfoModal({ client }: { client: IClient }) {
   }
 
   return (
-    <>
-      <button onClick={() => setIsOpen(true)}>
-        <p className="cursor-pointer">
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+      <DialogTrigger asChild>
+        <button className="text-md text-muted-foreground hover:text-foreground transition-colors">
           Más información sobre el cliente{" "}
-          <span className="hover:underline cursor-pointer font-semibold">
-            ...m&aacute;s
+          <span className="hover:underline font-semibold text-primary">
+            ...más
           </span>
-        </p>
-      </button>
-      {isOpen && (
-        <div
-          className="fixed inset-0 bg-gray-500/60 bg-opacity-50 flex items-center justify-center z-50"
-          onClick={() => setIsOpen(false)}
-        >
-          <div
-            className="bg-[#ffe7c7] w-full m-80 p-4 rounded-2xl"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="flex flex-row justify-between">
-              <h2 className=" font-bold mb-4">
-                {client.clientName} {client.clientLastName}
-              </h2>
-              <div
-                className="animate-pulse p-1"
-                title={
-                  client.clientActive ? "Cliente activo" : "Cliente inactivo"
-                }
-              >
-                <Bullet state={client.clientActive} />
+        </button>
+      </DialogTrigger>
+      <DialogContent className="max-h-[90vh] overflow-y-auto bg-white w-[60vw] text-[#43553b] no-scrollbar rounded-2xl">
+        <DialogHeader>
+          <div className="flex items-center justify-between ">
+            <DialogTitle className="text-2xl flex items-center gap-2">
+              <User className="w-6 h-6" />
+              {client.clientName} {client.clientLastName}
+            </DialogTitle>
+            <div
+              className="flex items-center gap-2"
+              title={
+                client.clientActive ? "Cliente activo" : "Cliente inactivo"
+              }
+            >
+              <Badge variant={client.clientActive ? "default" : "secondary"}>
+                {client.clientActive ? "Activo" : "Inactivo"}
+              </Badge>
+            </div>
+          </div>
+        </DialogHeader>
+
+        <div className="space-y-4 mt-4">
+          {/* Notas Section */}
+          <Card>
+            <CardContent className="">
+              <div className="flex items-center gap-2 mb-3">
+                <FileText className="w-5 h-5 text-primary" />
+                <h3 className="text-lg font-semibold">Notas</h3>
+              </div>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                {client.clientNotes || "Sin notas registradas"}
+              </p>
+            </CardContent>
+          </Card>
+
+          <Separator />
+
+          {/* Información Personal */}
+          <div>
+            <div className="flex items-center gap-2 mb-4">
+              <Info className="w-5 h-5 text-primary" />
+              <h3 className="text-lg font-semibold">Información Personal</h3>
+            </div>
+
+            <div className="grid gap-3">
+              <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50 hover:bg-muted transition-colors">
+                <Calendar className="w-4 h-4 text-muted-foreground" />
+                <div className="flex-1">
+                  <p className="text-sm font-medium">Fecha de Nacimiento</p>
+                  <p className="text-sm text-muted-foreground">
+                    {client.clientBirthdate
+                      ? validateDate(client.clientBirthdate.toLocaleString())
+                      : "Sin detalle"}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50 hover:bg-muted transition-colors">
+                <User className="w-4 h-4 text-muted-foreground" />
+                <div className="flex-1">
+                  <p className="text-sm font-medium">Sexo</p>
+                  <p className="text-sm text-muted-foreground">
+                    {defineClientSex()}
+                  </p>
+                </div>
               </div>
             </div>
-            <h3 className="text-lg font-semibold mb-2">Notas:</h3>
-            <p className="text-sm mb-4">{client.clientNotes || "Sin Notas"}</p>
-            <hr />
-            <p className="mt-4 font-bold">M&aacute;s informaci&oacute;n:</p>
-            <p>
-              • Fecha de Nacimiento:{" "}
-              {client.clientBirthdate
-                ? validateDate(client.clientBirthdate.toLocaleString())
-                : "Sin Detalle"}
-            </p>
-            <p>• Sexo: {defineClientSex()}</p>
-            <p>• % Pelo Blanco: {client.clientWhiteHairs || 0}%</p>
-            <p>• Tono Base: {client.clientBaseColor || "Sin Detalle"}</p>
-            <p>• Tipo de Pelo: {client.clientHairType || "Sin Detalle"}</p>
-            <button
-              className="mt-4 bg-[#cdaa7e] hover:bg-[#dda863] font-bold py-1 px-2 rounded"
-              onClick={() => setIsOpen(false)}
-            >
-              Cerrar
-            </button>
+          </div>
+
+          <Separator />
+
+          {/* Información del Cabello */}
+          <div>
+            <div className="flex items-center gap-2 mb-4">
+              <Scissors className="w-5 h-5 text-primary" />
+              <h3 className="text-lg font-semibold">Información del Cabello</h3>
+            </div>
+
+            <div className="grid gap-3">
+              <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50 hover:bg-muted transition-colors">
+                <div className="w-4 h-4 rounded-full bg-gradient-to-br from-gray-200 to-gray-400" />
+                <div className="flex-1">
+                  <p className="text-sm font-medium">Pelo Blanco</p>
+                  <p className="text-sm text-muted-foreground">
+                    {client.clientWhiteHairs || 0}%
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50 hover:bg-muted transition-colors">
+                <Palette className="w-4 h-4 text-muted-foreground" />
+                <div className="flex-1">
+                  <p className="text-sm font-medium">Tono Base</p>
+                  <p className="text-sm text-muted-foreground">
+                    {client.clientBaseColor || "Sin detalle"}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50 hover:bg-muted transition-colors">
+                <Scissors className="w-4 h-4 text-muted-foreground" />
+                <div className="flex-1">
+                  <p className="text-sm font-medium">Tipo de Pelo</p>
+                  <p className="text-sm text-muted-foreground">
+                    {client.clientHairType || "Sin detalle"}
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      )}
-    </>
+      </DialogContent>
+    </Dialog>
   );
 }

@@ -93,38 +93,37 @@ const TotalServices = ({ services }: { services: LeanService[] }) => {
   }, [services]);
 
   return (
-    <Card className="w-full mb-12">
-      {" "}
-      <CardHeader className="flex flex-row items-center justify-between">
-        {" "}
-        <div>
-          {" "}
-          <CardTitle className="text-2xl">Resumen de servicios</CardTitle>{" "}
-          <CardDescription>Estadísticas generales del cliente</CardDescription>{" "}
-        </div>{" "}
-        {/* Botón para desplegar */}{" "}
-        <button
-          onClick={() => setOpen(!open)}
-          className="p-2 rounded-md hover:bg-white transition"
-        >
-          {" "}
-          {open ? <ChevronUp size={20} /> : <ChevronDown size={20} />}{" "}
-        </button>{" "}
-      </CardHeader>{" "}
+    <Card className="w-full mb-12 shadow-md border">
+      <CardHeader>
+        <div className="flex flex-row justify-between">
+          <div>
+            <CardTitle className="text-2xl">Resumen de servicios</CardTitle>
+            <CardDescription>
+              Estadísticas generales del cliente
+            </CardDescription>
+          </div>
+          {/* Botón para desplegar */}
+          <button
+            onClick={() => setOpen(!open)}
+            className="p-2 rounded-md hover:bg-accent transition"
+          >
+            {open ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+          </button>
+        </div>
+      </CardHeader>
       {open && (
         <CardContent className="space-y-4">
-          {" "}
           <Stat
             label="Total de servicios"
             value={totalServices.toString()}
             highlight
-          />{" "}
-          <div className="border-t my-2" />{" "}
-          <Stat label="Lo más solicitado" value={moda || "Sin preferencias"} />{" "}
-          <Stat label="Promedio por servicio" value={promedio} />{" "}
-          <Stat label="Total gastado" value={totalGastado} emphasize />{" "}
+          />
+          <div className="border-t my-2" />
+          <Stat label="Lo más solicitado" value={moda || "Sin preferencias"} />
+          <Stat label="Promedio por servicio" value={promedio} />
+          <Stat label="Total gastado" value={totalGastado} emphasize />
         </CardContent>
-      )}{" "}
+      )}
     </Card>
   );
 };
