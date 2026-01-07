@@ -62,7 +62,7 @@ export default function ServicesDashboard() {
     const now = new Date();
 
     const start = new Date(now);
-    if (period === "day") start.setDate(now.getDate() - 0);
+    if (period === "day") start.setDate(now.getDate() - 1);
     if (period === "week") start.setDate(now.getDate() - 7);
     if (period === "fortnight") start.setDate(now.getDate() - 15);
     if (period === "month") start.setMonth(now.getMonth() - 1);
