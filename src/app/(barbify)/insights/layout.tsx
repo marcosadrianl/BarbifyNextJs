@@ -17,7 +17,7 @@ export default function RootLayout({
       <NavBar />
       <div className="flex flex-col grow h-screen">
         <TaskBar />
-        <div className="bg-accent flex grow overflow-auto">
+        <div className="bg-[#cebaa1] flex grow overflow-auto">
           <SessionProvider>{children}</SessionProvider>
         </div>
       </div>
