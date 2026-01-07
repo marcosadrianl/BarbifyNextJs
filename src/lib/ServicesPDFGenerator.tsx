@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { FileDown, Calendar, Loader2 } from "lucide-react";
 import { parseISO, isWithinInterval, startOfDay, endOfDay } from "date-fns";
+import { useServicesStore } from "@/lib/store/services.store";
 
 // Tipos copiados de tu store
 type ClientService = {
@@ -27,6 +28,11 @@ type ClientService = {
 const ServicesPDFGenerator = () => {
   const [loading, setLoading] = useState(false);
   const [dateRange, setDateRange] = useState({ from: "", to: "" });
+  let services = useServicesStore((s) => s.services);
+  console.log(
+    "servicios de insight",
+    useServicesStore((s) => s.services)
+  );
 
   // Función para formatear fecha
   const formatDate = (dateString: string) => {
@@ -49,11 +55,6 @@ const ServicesPDFGenerator = () => {
   // Función para obtener y ordenar servicios
   const getServicesData = (): ClientService[] => {
     try {
-      const cached = localStorage.getItem("services");
-      if (!cached) return [];
-
-      let services: ClientService[] = JSON.parse(cached);
-
       if (dateRange.from || dateRange.to) {
         const from = dateRange.from
           ? startOfDay(parseISO(dateRange.from))

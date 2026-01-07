@@ -19,7 +19,7 @@ import {
 
 import { ArrowUpDown } from "lucide-react";
 import { useServicesStore } from "@/lib/store/services.store";
-
+import Link from "next/link";
 import { useEffect } from "react";
 
 const PERIODS = {
@@ -163,9 +163,16 @@ export default function ServicesDashboard() {
                   {new Date(s.clientServices.serviceDate).toLocaleDateString()}
                 </TableCell>
                 <TableCell>
-                  {s.clientName} {s.clientLastName}
+                  <Link href={`/clients/${s.clientId}`}>
+                    {s.clientName.toLocaleUpperCase().toWellFormed()}{" "}
+                    {s.clientLastName.toLocaleUpperCase().toWellFormed()}
+                  </Link>
                 </TableCell>
-                <TableCell>{s.clientServices.serviceName}</TableCell>
+                <TableCell>
+                  {s.clientServices.serviceName
+                    .toLocaleUpperCase()
+                    .toWellFormed()}
+                </TableCell>
                 <TableCell className="text-right font-medium px-4">
                   $
                   {(s.clientServices.servicePrice / 100).toLocaleString(
