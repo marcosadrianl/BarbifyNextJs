@@ -99,13 +99,13 @@ export default function UsersList({ endpoint = "/api/users" }: UsersListProps) {
         openSection !== "edit" &&
         (openSection !== "account" ? (
           <div
-            className="text-muted cursor-pointer hover:bg-gray-100 p-4"
+            className="cursor-pointer hover:bg-gray-100 p-4"
             onClick={() => setOpenSection("account")}
           >
             <span className="flex flex-row w-full justify-between items-center">
               <span>
                 <h2>Información de la cuenta</h2>
-                <p className="text-xs text-muted-foreground">
+                <p className="text-xs foreground">
                   Ve información de la cuenta como email, teléfono, estado y
                   fecha de creación.
                 </p>
@@ -117,7 +117,7 @@ export default function UsersList({ endpoint = "/api/users" }: UsersListProps) {
           <div className="p-4 ">
             <div className="flex flex-row gap-4 mb-4">
               <ChevronLeft
-                className="cursor-pointer text-muted rounded-full hover:bg-gray-100"
+                className="cursor-pointer rounded-full hover:bg-gray-100"
                 onClick={() => setOpenSection(null)}
               />
               <h2>Información de la cuenta</h2>
@@ -125,28 +125,24 @@ export default function UsersList({ endpoint = "/api/users" }: UsersListProps) {
 
             <div className="mb-2">
               <h2>Email de la cuenta</h2>
-              <p className="text-muted-foreground text-sm">
-                {users[0].userEmail}
-              </p>
+              <p className="foreground text-sm">{users[0].userEmail}</p>
             </div>
 
             <div className="mb-2">
               <h2>Teléfono</h2>
-              <p className="text-muted-foreground text-sm">
-                {users[0].userPhone}
-              </p>
+              <p className="foreground text-sm">{users[0].userPhone}</p>
             </div>
 
             <div className="mb-2">
               <h2>Activo</h2>
-              <p className="text-muted-foreground text-sm">
+              <p className="foreground text-sm">
                 {users[0].userActive ? "Sí" : "No"}
               </p>
             </div>
 
             <div className="mb-2">
               <h2>Creación de la cuenta</h2>
-              <p className="text-muted-foreground text-sm">
+              <p className="foreground text-sm">
                 {formatValue(users[0].createdAt)}
               </p>
             </div>
@@ -157,13 +153,13 @@ export default function UsersList({ endpoint = "/api/users" }: UsersListProps) {
         openSection !== "edit" &&
         (openSection !== "user" ? (
           <div
-            className="text-muted cursor-pointer hover:bg-gray-100 p-4"
+            className="cursor-pointer hover:bg-gray-100 p-4"
             onClick={() => setOpenSection("user")}
           >
             <span className="flex flex-row w-full justify-between items-center">
               <span>
                 <h2>Información de Usuario</h2>
-                <p className="text-xs text-muted-foreground">
+                <p className="text-xs foreground">
                   Ve información personal asociada a tu usuario.
                 </p>
               </span>
@@ -174,7 +170,7 @@ export default function UsersList({ endpoint = "/api/users" }: UsersListProps) {
           <div className="p-4">
             <div className="flex flex-row gap-4 mb-4">
               <ChevronLeft
-                className="cursor-pointer text-muted rounded-full hover:bg-gray-100"
+                className="cursor-pointer rounded-full hover:bg-gray-100"
                 onClick={() => setOpenSection(null)}
               />
               <h2>Información de Usuario</h2>
@@ -182,14 +178,14 @@ export default function UsersList({ endpoint = "/api/users" }: UsersListProps) {
 
             <div className="mb-2">
               <h2>Nombre de usuario</h2>
-              <p className="text-muted-foreground text-sm">
+              <p className="foreground text-sm">
                 {users[0].userName} {users[0].userLastName}
               </p>
             </div>
 
             <div className="mb-2">
               <h2>Ubicación</h2>
-              <p className="text-muted-foreground text-sm">
+              <p className="foreground text-sm">
                 {users[0].userState ?? "-"}, {users[0].userCity},{" "}
                 {users[0].userAddress}, {users[0].userPostalCode}
               </p>
@@ -197,7 +193,7 @@ export default function UsersList({ endpoint = "/api/users" }: UsersListProps) {
 
             <div className="mb-2">
               <h2>Género</h2>
-              <p className="text-muted-foreground text-sm">
+              <p className="foreground text-sm">
                 {users[0].userSex === "M"
                   ? "Hombre"
                   : users[0].userSex === "F"
@@ -208,7 +204,7 @@ export default function UsersList({ endpoint = "/api/users" }: UsersListProps) {
 
             <div className="mb-2">
               <h2>Nacimiento</h2>
-              <p className="text-muted-foreground text-sm">
+              <p className="foreground text-sm">
                 {users[0].userBirthDate
                   .toString()
                   .slice(0, 10)
@@ -225,13 +221,13 @@ export default function UsersList({ endpoint = "/api/users" }: UsersListProps) {
         openSection !== "user" &&
         (openSection !== "edit" ? (
           <div
-            className="text-muted cursor-pointer hover:bg-gray-100 p-4"
+            className="cursor-pointer hover:bg-gray-100 p-4"
             onClick={() => setOpenSection("edit")}
           >
             <span className="flex flex-row w-full justify-between items-center">
               <span>
                 <h2>Editar Información de la Cuenta</h2>
-                <p className="text-xs text-muted-foreground">
+                <p className="text-xs foreground">
                   Edita la información general de tu cuenta.
                 </p>
               </span>
@@ -242,7 +238,7 @@ export default function UsersList({ endpoint = "/api/users" }: UsersListProps) {
           <div className="p-4">
             <div className="flex flex-row gap-4 mb-4">
               <ChevronLeft
-                className="cursor-pointer text-muted rounded-full hover:bg-gray-100"
+                className="cursor-pointer rounded-full hover:bg-gray-100"
                 onClick={() => setOpenSection(null)}
               />
               <h2>Editar Información de la Cuenta</h2>
@@ -262,7 +258,7 @@ export default function UsersList({ endpoint = "/api/users" }: UsersListProps) {
             Puedes conocer más sobre nuestra{" "}
             <Link
               href="#"
-              className="text-muted hover:underline text-blue-500 transition-all delay-200"
+              className="hover:underline text-blue-500 transition-all delay-200"
             >
               Política de Privacidad
             </Link>{" "}
