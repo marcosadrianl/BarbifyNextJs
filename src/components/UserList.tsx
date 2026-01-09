@@ -2,9 +2,15 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
-
-import { ChevronRight, ChevronLeft, SquareArrowUpRight } from "lucide-react";
+import Link from "next/link";
+import {
+  ChevronRight,
+  ChevronLeft,
+  SquareArrowUpRight,
+  ArrowUpRight,
+} from "lucide-react";
 import EditUserCard from "@/components/EditUserCard";
+import { Separator } from "@radix-ui/react-separator";
 
 /**
  * UsersList - componente cliente que consume un endpoint GET y muestra campos dinámicamente.
@@ -248,6 +254,22 @@ export default function UsersList({ endpoint = "/api/users" }: UsersListProps) {
             />
           </div>
         ))}
+
+      {openSection === null && (
+        <div className="p-4 border-t border-[#cebaa1] mt-4">
+          <p className="text-xs">
+            Barbify protege tu información personal y no la comparte con nadie.
+            Puedes conocer más sobre nuestra{" "}
+            <Link
+              href="#"
+              className="text-muted hover:underline text-blue-500 transition-all delay-200"
+            >
+              Política de Privacidad
+            </Link>{" "}
+            en nuestra página web.
+          </p>
+        </div>
+      )}
     </div>
   );
 }
