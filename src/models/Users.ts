@@ -8,21 +8,22 @@ export interface IUser {
   userLastName?: string;
   userEmail: string;
   userPassword: string;
-  userLocation?: {
-    city: string; //Buenos Aires
-    state?: string; //La Plata
-    address?: string; // 44 y 132
-    userPostalCode?: string; // 1900
-  };
-  userPhome?: string;
+
+  userCity: string;
+  userState?: string;
+  userAddress?: string;
+  userPostalCode?: string;
+
+  userPhone?: string;
   userActive: boolean;
   userLevel: 0 | 1;
   paymentStatus: boolean;
-  userBirthDate?: Date;
+  userRole?: string;
+  userSex?: string;
+  userBirthDate?: Date; // ✅ Mayúscula D
   userHasThisBarbers?: IBarbers[];
 }
 
-//schemme del user mongoDB
 const UsersSchema = new Schema(
   {
     userEmail: {
@@ -42,16 +43,19 @@ const UsersSchema = new Schema(
     userName: { type: String, required: true, maxlength: 50, trim: true },
     userLastName: { type: String, required: true, maxlength: 50, trim: true },
     userRole: { type: String, default: "admin", maxlength: 20, trim: true },
-    userPostalCode: { type: String, maxlength: 10, trim: true },
+
     userCity: { type: String, maxlength: 50, trim: true },
+    userState: { type: String, maxlength: 50, trim: true },
     userAddress: { type: String, maxlength: 100, trim: true },
+    userPostalCode: { type: String, maxlength: 10, trim: true },
+
     userPhone: {
       type: String,
       maxlength: 20,
       trim: true,
       message: "Please enter a valid phone number",
     },
-    userBirthdate: { type: Date },
+    userBirthDate: { type: Date }, // ✅ Cambiado a mayúscula D
     userSex: { type: String, enum: ["M", "F", "O"], default: "O" },
     userHasThisBarbers: [
       {
@@ -66,7 +70,6 @@ const UsersSchema = new Schema(
   }
 );
 
-//ZOD scheme
 export const UserSchemaZod = z
   .object({
     userName: z.string().max(50),
@@ -74,18 +77,17 @@ export const UserSchemaZod = z
     userEmail: z.email().max(100),
     userPassword: z.string().max(100),
     userActive: z.boolean().optional(),
-    userLocation: z
-      .object({
-        city: z.string().max(50),
-        state: z.string().max(50),
-        address: z.string().max(100),
-        PostalCode: z.string().max(10),
-      })
-      .optional(),
+
+    userCity: z.string().max(50),
+    userState: z.string().max(50),
+    userAddress: z.string().max(100),
+    userPostalCode: z.string().max(10),
+
     userPhone: z.string().max(20),
     userLevel: z.enum(["0", "1"]).transform(Number),
     userBirthDate: z.date().optional(),
     userSex: z.enum(["M", "F", "O"]).optional(),
+    paymentStatus: z.boolean().default(false),
   })
   .strict();
 

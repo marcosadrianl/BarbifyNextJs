@@ -94,7 +94,7 @@ export function WeeklyDayChart() {
     return <div className="p-10 text-center">Cargando gráfico...</div>;
 
   return (
-    <Card className="w-1/2">
+    <Card className="w-full">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-7">
         <div className="space-y-1">
           <CardTitle>Demanda por Día</CardTitle>

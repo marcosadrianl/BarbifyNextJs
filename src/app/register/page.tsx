@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { motion } from "framer-motion";
-import { Scissors, UserPlus } from "lucide-react";
+import { UserPlus } from "lucide-react";
 import Link from "next/link";
 
 export default function RegisterPagePremium() {
@@ -28,6 +28,20 @@ export default function RegisterPagePremium() {
         userPassword: password,
         userName: name,
         userLastName: lastname,
+        userLocation: {
+          userCity: "",
+          userState: "",
+          userAddress: "",
+          userPostalCode: "",
+        },
+        userPhone: "",
+        userActive: true,
+        userLevel: 0,
+        paymentStatus: false,
+        userRole: "",
+        userSex: "",
+        userBirthDate: "",
+        userHasThisBarbers: [],
       });
       router.push("/login");
     } catch (err) {

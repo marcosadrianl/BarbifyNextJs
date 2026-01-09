@@ -175,7 +175,7 @@ export function IncomePerHourByHourChart() {
       </CardContent>
 
       <CardFooter>
-        <div className="text-xs text-muted-foreground border-t pt-2 w-full flex items-center justify-between">
+        <div className="text-xs text-muted-foreground border-t pt-2 flex items-center justify-between">
           Facturación media: ${avg.toLocaleString("es-AR")} / h
           <TrendingUp className="h-4 w-4" />
         </div>

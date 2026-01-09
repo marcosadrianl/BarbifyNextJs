@@ -1,13 +1,35 @@
-// app/api/users/create/route.ts
 import { NextResponse } from "next/server";
 import { connectDB } from "@/utils/mongoose";
 import User, { IUser } from "@/models/Users";
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 
+/**
+ * DTO (tipo) para la request entrante.
+ * Lo mantenemos separado porque la API recibe campos planos
+ * (userCity, userAddress, userPostalCode) y la interface IUser
+ * define userLocation como objeto anidado.
+ */
+type CreateUserBody = {
+  userEmail: string;
+  userPassword: string;
+  userPhone?: string;
+  userName?: string;
+  userLastName?: string;
+  userRole?: string;
+  userLevel?: 0 | 1;
+  userActive: boolean;
+  userCity?: string;
+  userAddress?: string;
+  userPostalCode?: string;
+  userBirthdate?: string | Date;
+  userSex?: string;
+};
+
 export async function POST(req: Request) {
   try {
-    const body = await req.json();
+    const body = (await req.json()) as CreateUserBody;
+
     const {
       userEmail,
       userPassword,
@@ -37,20 +59,33 @@ export async function POST(req: Request) {
 
     const hashedPassword = await bcrypt.hash(userPassword, 10);
 
-    const newUser = new User({
-      userEmail,
-      userPassword: hashedPassword,
-      userName,
+    // Mapear el DTO plano a la interface IUser esperada por el modelo
+    const userLocation =
+      userCity || userAddress || userPostalCode
+        ? {
+            city: userCity ?? "",
+            address: userAddress,
+            userPostalCode: userPostalCode,
+          }
+        : undefined;
+
+    const userPayload: IUser = {
+      userName: userName ?? "",
       userLastName,
-      userPhone,
+      userEmail,
       userRole,
-      userLevel,
-      userCity,
-      userAddress,
-      userPostalCode,
-      userBirthdate,
       userSex,
-    });
+      userPassword: hashedPassword,
+      userLocation,
+      userPhone: userPhone,
+      userActive: true,
+      userLevel: (userLevel ?? 0) as 0 | 1,
+      paymentStatus: false,
+      userBirthDate: userBirthdate ? new Date(userBirthdate) : undefined,
+      userHasThisBarbers: [],
+    };
+
+    const newUser = new User(userPayload);
 
     await newUser.save();
 

@@ -16,11 +16,19 @@ export default function RootLayout({
 }>) {
   ServicesBootstrap();
   return (
-    <div className="bg-[#ffe7c7] flex flex-row h-screen text-[#43553b]">
+    <div className="bg-[#ffe7c7] h-screen flex flex-row text-[#43553b]">
+      {/* Barra lateral */}
       <NavBar />
-      <div className="flex flex-col w-full h-screen">
-        <TaskBar />
-        <div className="bg-[#cebaa1] flex overflow-y-auto">
+
+      {/* Contenedor principal con scroll */}
+      <div className="flex flex-col grow h-full overflow-hidden">
+        {/* TaskBar fija arriba */}
+        <div className="sticky top-0 z-10">
+          <TaskBar />
+        </div>
+
+        {/* Contenido con scroll */}
+        <div className="flex-1 overflow-auto">
           <SessionProvider>{children}</SessionProvider>
         </div>
       </div>

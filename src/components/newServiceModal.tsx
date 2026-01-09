@@ -55,7 +55,7 @@ export default function NewServiceModal({ client }: { client: IClient }) {
 
   useEffect(() => {
     if (open) {
-      fetch("/api/users")
+      fetch("/api/users/barbers")
         .then((res) => res.json())
         .then((data) => setBarberList(data))
         .catch((err) => console.error("Error al obtener barberos:", err));

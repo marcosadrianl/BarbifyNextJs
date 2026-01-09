@@ -98,7 +98,7 @@ export function YearlyServicesChart() {
     return <div className="p-4 text-center">Cargando estadísticas...</div>;
 
   return (
-    <Card className="w-1/2">
+    <Card className="w-full">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-7">
         <div className="space-y-1">
           <CardTitle className="flex items-center gap-2">
