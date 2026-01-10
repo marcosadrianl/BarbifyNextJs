@@ -37,12 +37,12 @@ export async function POST(request: Request) {
       userLevel: body.userLevel,
       paymentStatus: body.paymentStatus,
       userRole: body.userRole,
-      userLocation: {
-        userCity: body.userLocation.userCity,
-        userState: body.userLocation.userState,
-        userAddress: body.userLocation.userAddress,
-        userPostalCode: body.userLocation.userPostalCode,
-      },
+
+      userCity: body.userLocation.userCity,
+      userState: body.userLocation.userState,
+      userAddress: body.userLocation.userAddress,
+      userPostalCode: body.userLocation.userPostalCode,
+
       userPhone: body.userPhone,
       userSex: body.userSex,
       userBirthDate: body.userBirthDate,

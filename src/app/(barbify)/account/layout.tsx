@@ -14,7 +14,7 @@ export default function AccountLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="bg-[#ffe7c7] flex flex-row h-screen text-[#43553b]">
+    <div className="bg-[#ffe7c7] flex flex-row h-screen text-black">
       <NavBar />
       <div className="flex flex-col w-full h-full">
         {/* Barra superior fija */}

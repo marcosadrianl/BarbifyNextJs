@@ -51,14 +51,14 @@ export default function RegisterPagePremium() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-[#fff7ec] to-[#f3eadb] px-4">
+    <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-[#fff7ec] to-[#f3eadb] px-4 ">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         className="w-full max-w-md"
       >
-        <div className="bg-white rounded-4xl shadow-2xl p-10 relative overflow-hidden">
+        <div className="bg-white rounded-4xl shadow-2xl p-10 relative overflow-hidden text-black">
           {/* Decorative accent */}
           <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-[#2f3e2f]/10 rounded-full" />
 

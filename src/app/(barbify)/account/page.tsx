@@ -1,4 +1,4 @@
-import UsersList from "@/components/UserList";
+import AccountSettings from "@/components/accountSettings";
 
 export default function Page() {
   return (
@@ -7,7 +7,7 @@ export default function Page() {
       <p className="text-muted-foreground mb-6 px-4">
         Ve la información de la cuenta asociada a tu usuario.
       </p>
-      <UsersList />
+      <AccountSettings />
     </div>
   );
 }

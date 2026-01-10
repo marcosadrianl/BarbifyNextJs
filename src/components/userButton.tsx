@@ -1,10 +1,11 @@
 "use client";
 
-import { useSession, signOut } from "@/utils/auth-clients";
+import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 export default function UserButton() {
-  const { data: session, isPending } = useSession();
+  const { data: session } = useSession();
+  const isPending = session === undefined;
   const router = useRouter();
 
   const handleSignOut = async () => {

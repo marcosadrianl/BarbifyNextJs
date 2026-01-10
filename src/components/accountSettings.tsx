@@ -7,6 +7,7 @@ import {
   ChevronRight,
   ChevronLeft,
   SquareArrowUpRight,
+  Info,
   ArrowUpRight,
 } from "lucide-react";
 import EditUserCard from "@/components/EditUserCard";
@@ -20,7 +21,9 @@ type UsersListProps = {
   endpoint?: string;
 };
 
-export default function UsersList({ endpoint = "/api/users" }: UsersListProps) {
+export default function AccountSettings({
+  endpoint = "/api/users",
+}: UsersListProps) {
   const [users, setUsers] = useState<any[] | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -69,8 +72,6 @@ export default function UsersList({ endpoint = "/api/users" }: UsersListProps) {
     };
   }, [endpoint]);
 
-  console.log("UsersList - users:", users);
-
   const formatValue = (val: any) => {
     if (val === null || typeof val === "undefined") return "-";
     if (typeof val === "boolean") return val ? "Sí" : "No";
@@ -114,36 +115,60 @@ export default function UsersList({ endpoint = "/api/users" }: UsersListProps) {
             </span>
           </div>
         ) : (
-          <div className="p-4 ">
-            <div className="flex flex-row gap-4 mb-4">
-              <ChevronLeft
-                className="cursor-pointer rounded-full hover:bg-gray-100"
-                onClick={() => setOpenSection(null)}
-              />
+          <div className="">
+            <div
+              className="flex flex-row gap-4 mb-4 cursor-pointer hover:bg-gray-100 py-4"
+              onClick={() => setOpenSection(null)}
+            >
+              <ChevronLeft />
               <h2>Información de la cuenta</h2>
             </div>
 
-            <div className="mb-2">
+            <div className="mb-2 px-4">
+              {" "}
               <h2>Email de la cuenta</h2>
-              <p className="foreground text-sm">{users[0].userEmail}</p>
+              <p className="foreground text-sm">{users[0].userEmail ?? "-"}</p>
             </div>
 
-            <div className="mb-2">
+            <div className="mb-2 px-4">
+              {" "}
               <h2>Teléfono</h2>
-              <p className="foreground text-sm">{users[0].userPhone}</p>
-            </div>
-
-            <div className="mb-2">
-              <h2>Activo</h2>
               <p className="foreground text-sm">
-                {users[0].userActive ? "Sí" : "No"}
+                {users[0].userPhone ?? "Sin teléfono registrado"}
               </p>
             </div>
 
-            <div className="mb-2">
+            <div className="mb-2 px-4">
+              {" "}
+              <h2>Cuenta Activa</h2>
+              <span className="flex flex-col">
+                <p
+                  className="foreground text-sm flex items-center w-fit"
+                  title={`${
+                    users[0].userActive
+                      ? "Estas al dia con tu suscripción"
+                      : "Tu cuenta está inactiva, revisa el estado de tu suscripción desde MercadoPago."
+                  }`}
+                >
+                  {users[0].userActive ? "Sí" : "No"}{" "}
+                  <Info className="inline-block w-4 h-4 ml-1" />
+                </p>{" "}
+                <Link
+                  href="https://www.mercadopago.com.ar/subscriptions"
+                  target="_blank"
+                  className="flex items-center text-blue-500 hover:underline text-sm w-fit"
+                >
+                  Gestionar suscripción
+                  <ArrowUpRight className="inline-block w-4 h-4 ml-1" />
+                </Link>
+              </span>
+            </div>
+
+            <div className="mb-2 px-4">
+              {" "}
               <h2>Creación de la cuenta</h2>
               <p className="foreground text-sm">
-                {formatValue(users[0].createdAt)}
+                {formatValue(users[0].createdAt) ?? "Error al mostrar fecha"}
               </p>
             </div>
           </div>
@@ -167,23 +192,25 @@ export default function UsersList({ endpoint = "/api/users" }: UsersListProps) {
             </span>
           </div>
         ) : (
-          <div className="p-4">
-            <div className="flex flex-row gap-4 mb-4">
-              <ChevronLeft
-                className="cursor-pointer rounded-full hover:bg-gray-100"
-                onClick={() => setOpenSection(null)}
-              />
+          <div className="">
+            <div
+              className="flex flex-row gap-4 mb-4 py-4 cursor-pointer hover:bg-gray-100"
+              onClick={() => setOpenSection(null)}
+            >
+              <ChevronLeft className="" onClick={() => setOpenSection(null)} />
               <h2>Información de Usuario</h2>
             </div>
 
-            <div className="mb-2">
+            <div className="mb-2 px-4">
               <h2>Nombre de usuario</h2>
               <p className="foreground text-sm">
-                {users[0].userName} {users[0].userLastName}
+                {users[0].userName ?? "Sin nombre"}{" "}
+                {users[0].userLastName ?? "Sin apellido"}
               </p>
             </div>
 
-            <div className="mb-2">
+            <div className="mb-2 px-4">
+              {" "}
               <h2>Ubicación</h2>
               <p className="foreground text-sm">
                 {users[0].userState ?? "-"}, {users[0].userCity},{" "}
@@ -191,18 +218,20 @@ export default function UsersList({ endpoint = "/api/users" }: UsersListProps) {
               </p>
             </div>
 
-            <div className="mb-2">
+            <div className="mb-2 px-4">
+              {" "}
               <h2>Género</h2>
               <p className="foreground text-sm">
                 {users[0].userSex === "M"
                   ? "Hombre"
                   : users[0].userSex === "F"
                   ? "Mujer"
-                  : "Otro"}
+                  : "Sin especificar"}
               </p>
             </div>
 
-            <div className="mb-2">
+            <div className="mb-2 px-4">
+              {" "}
               <h2>Nacimiento</h2>
               <p className="foreground text-sm">
                 {users[0].userBirthDate
@@ -211,7 +240,7 @@ export default function UsersList({ endpoint = "/api/users" }: UsersListProps) {
                   .replaceAll("-", "/")
                   .split("/")
                   .reverse()
-                  .join("/")}
+                  .join("/") ?? "Error al mostrar fecha"}
               </p>
             </div>
           </div>
@@ -236,13 +265,6 @@ export default function UsersList({ endpoint = "/api/users" }: UsersListProps) {
           </div>
         ) : (
           <div className="p-4">
-            <div className="flex flex-row gap-4 mb-4">
-              <ChevronLeft
-                className="cursor-pointer rounded-full hover:bg-gray-100"
-                onClick={() => setOpenSection(null)}
-              />
-              <h2>Editar Información de la Cuenta</h2>
-            </div>
             <EditUserCard
               open={true}
               onClose={() => setOpenSection(null)}

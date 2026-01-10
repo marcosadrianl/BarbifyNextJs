@@ -120,7 +120,7 @@ export default function EditUserCard({ open, onClose, user }: Props) {
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="max-w-xl">
         <DialogHeader>
           <DialogTitle className="text-[#43553b] flex flex-row gap-4 items-center">
             <UserPen />

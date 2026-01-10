@@ -11,7 +11,7 @@ export function AccountSidebar() {
   const linkClass = (path: string) =>
     pathname === path
       ? "font-semibold  bg-gray-100 py-4"
-      : "text-muted-freground hover:bg-gray-100 transition-all delay-200 py-4";
+      : "freground hover:bg-gray-100 transition-all delay-200 py-4";
 
   return (
     <nav className="flex flex-col">
@@ -69,7 +69,7 @@ export function AccountSidebar() {
 
       <Link
         href="#"
-        className="text-muted hover:bg-gray-100 transition-all delay-200 py-4"
+        className="hover:bg-gray-100 transition-all delay-200 py-4"
       >
         <span className="flex flex-row w-full justify-between px-2">
           <p>Términos y Condiciones</p>
@@ -79,7 +79,7 @@ export function AccountSidebar() {
 
       <Link
         href="#"
-        className="text-muted hover:bg-gray-100 transition-all delay-200 py-4"
+        className="hover:bg-gray-100 transition-all delay-200 py-4"
       >
         <span className="flex flex-row w-full justify-between px-2">
           <p>Preguntas Frecuentes</p>
@@ -89,7 +89,7 @@ export function AccountSidebar() {
 
       <Link
         href="#"
-        className="text-muted hover:bg-gray-100 transition-all delay-200 py-4"
+        className="hover:bg-gray-100 transition-all delay-200 py-4"
       >
         <span className="flex flex-row w-full justify-between px-2">
           <p>Noticias</p>

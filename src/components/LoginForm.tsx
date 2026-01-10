@@ -47,7 +47,7 @@ export default function LoginFormPremium() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-[#fff7ec] to-[#f3eadb] px-4 w-full">
+    <div className="min-h-screen flex items-center justify-center text-black bg-linear-to-br from-[#fff7ec] to-[#f3eadb] px-4 w-full">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
