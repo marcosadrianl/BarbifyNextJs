@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import {
   Bar,
   BarChart,
@@ -29,7 +29,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useServicesStore } from "@/lib/store/services.store"; //
+import { useServicesStore } from "@/lib/store/services.store";
 import { Calendar1 } from "lucide-react";
 
 const chartConfig = {
@@ -40,30 +40,38 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export function YearlyServicesChart() {
-  const { services, loading } = useServicesStore(); //
+  const { services, loading } = useServicesStore();
 
-  // 1. Estado para el año seleccionado (por defecto el actual)
+  // Solución para "window is not defined" y responsividad
+  const [isMobile, setIsMobile] = useState(false);
   const currentYear = new Date().getFullYear().toString();
   const [selectedYear, setSelectedYear] = useState<string>(currentYear);
 
-  // 2. Obtener lista de años disponibles de los datos para el Selector
+  useEffect(() => {
+    // Detectar el ancho solo en el cliente
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+
+    handleResize(); // Ejecución inicial
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const availableYears = useMemo(() => {
     const years = services
       .map((s) => {
-        const date = new Date(s.clientServices?.serviceDate); //
+        const date = new Date(s.clientServices?.serviceDate);
         return isNaN(date.getTime()) ? null : date.getFullYear().toString();
       })
       .filter(Boolean) as string[];
 
-    // Eliminar duplicados y ordenar de mayor a menor
     return Array.from(new Set([currentYear, ...years])).sort((a, b) =>
       b.localeCompare(a)
     );
   }, [services, currentYear]);
 
-  // 3. Procesar datos filtrados por el año seleccionado
   const chartData = useMemo(() => {
-    // Inicializamos todos los meses para que el gráfico no se vea vacío
     const monthNames = [
       "Ene",
       "Feb",
@@ -81,12 +89,12 @@ export function YearlyServicesChart() {
     const dataModel = monthNames.map((name) => ({ month: name, total: 0 }));
 
     services.forEach((service) => {
-      const dateStr = service.clientServices?.serviceDate; //
+      const dateStr = service.clientServices?.serviceDate;
       if (!dateStr) return;
 
       const date = new Date(dateStr);
       if (date.getFullYear().toString() === selectedYear) {
-        const monthIndex = date.getMonth(); // 0-11
+        const monthIndex = date.getMonth();
         dataModel[monthIndex].total += 1;
       }
     });
@@ -98,10 +106,11 @@ export function YearlyServicesChart() {
     return <div className="p-4 text-center">Cargando estadísticas...</div>;
 
   return (
-    <Card className="w-full">
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-7">
+    // min-w-0 es la clave para que el gráfico no desborde en flex/grid
+    <Card className="w-full min-w-0 overflow-hidden border-none shadow-none sm:border sm:shadow-sm">
+      <CardHeader className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-4 sm:space-y-0 pb-7">
         <div className="space-y-1">
-          <CardTitle className="flex items-center gap-2">
+          <CardTitle className="text-xl flex flex-row items-center gap-2">
             <Calendar1 />
             Servicios por Año
           </CardTitle>
@@ -109,10 +118,8 @@ export function YearlyServicesChart() {
             Visualización mensual del año {selectedYear}
           </CardDescription>
         </div>
-
-        {/* Selector de Año */}
         <Select value={selectedYear} onValueChange={setSelectedYear}>
-          <SelectTrigger className="w-30">
+          <SelectTrigger className="w-full sm:w-30">
             <SelectValue placeholder="Año" />
           </SelectTrigger>
           <SelectContent>
@@ -124,37 +131,43 @@ export function YearlyServicesChart() {
           </SelectContent>
         </Select>
       </CardHeader>
-
-      <CardContent>
-        <ChartContainer config={chartConfig} className="h-[300px] w-full">
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart
-              data={chartData}
-              margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
-            >
-              <CartesianGrid
-                vertical={false}
-                strokeDasharray="3 3"
-                opacity={0.4}
-              />
-              <XAxis
-                dataKey="month"
-                tickLine={false}
-                tickMargin={10}
-                axisLine={false}
-                tickFormatter={(value) => value}
-              />
-              <YAxis tickLine={false} axisLine={false} allowDecimals={false} />
-              <ChartTooltip content={<ChartTooltipContent />} />
-              <Bar
-                dataKey="total"
-                fill="var(--color-total)"
-                radius={[4, 4, 0, 0]}
-                barSize={35}
-              />
-            </BarChart>
-          </ResponsiveContainer>
-        </ChartContainer>
+      <CardContent className="px-2 sm:px-6">
+        <div className="h-75 w-full min-w-0">
+          <ChartContainer config={chartConfig} className="h-full w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart
+                data={chartData}
+                margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
+              >
+                <CartesianGrid
+                  vertical={false}
+                  strokeDasharray="3 3"
+                  opacity={0.3}
+                />
+                <XAxis
+                  dataKey="month"
+                  tickLine={false}
+                  tickMargin={10}
+                  axisLine={false}
+                  fontSize={12}
+                />
+                <YAxis
+                  tickLine={false}
+                  axisLine={false}
+                  allowDecimals={false}
+                  fontSize={12}
+                />
+                <ChartTooltip content={<ChartTooltipContent />} />
+                <Bar
+                  dataKey="total"
+                  fill="var(--color-total)"
+                  radius={[4, 4, 0, 0]}
+                  barSize={isMobile ? 18 : 32}
+                />
+              </BarChart>
+            </ResponsiveContainer>
+          </ChartContainer>
+        </div>
       </CardContent>
     </Card>
   );

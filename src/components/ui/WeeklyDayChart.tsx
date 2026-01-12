@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import {
   Bar,
   BarChart,
@@ -29,7 +29,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useServicesStore } from "@/lib/store/services.store"; //
+import { useServicesStore } from "@/lib/store/services.store";
+import { CalendarArrowUp } from "lucide-react";
 
 const chartConfig = {
   total: {
@@ -43,7 +44,16 @@ export function WeeklyDayChart() {
   const currentYear = new Date().getFullYear().toString();
   const [selectedYear, setSelectedYear] = useState<string>(currentYear);
 
-  // 1. Años disponibles para el selector
+  // Estado para manejar responsividad de forma segura en Next.js
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 640);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   const availableYears = useMemo(() => {
     const years = services.map((s) =>
       new Date(s.clientServices?.serviceDate).getFullYear().toString()
@@ -53,9 +63,7 @@ export function WeeklyDayChart() {
       .sort((a, b) => b.localeCompare(a));
   }, [services, currentYear]);
 
-  // 2. Procesar datos: Agrupar por día de la semana
   const chartData = useMemo(() => {
-    // Definimos el orden de los días (Domingo es 0 en JS, pero lo reordenamos para que empiece Lunes)
     const daysMap = [
       { day: "Lun", count: 0, index: 1 },
       { day: "Mar", count: 0, index: 2 },
@@ -69,22 +77,13 @@ export function WeeklyDayChart() {
     services.forEach((service) => {
       const date = new Date(service.clientServices?.serviceDate);
       if (date.getFullYear().toString() === selectedYear) {
-        const dayIndex = date.getDay(); // 0 (Dom) a 6 (Sáb)
+        const dayIndex = date.getDay();
         const dayEntry = daysMap.find((d) => d.index === dayIndex);
         if (dayEntry) dayEntry.count += 1;
       }
     });
 
-    // Retornamos en orden Lunes -> Domingo
-    return [
-      daysMap[0],
-      daysMap[1],
-      daysMap[2],
-      daysMap[3],
-      daysMap[4],
-      daysMap[5],
-      daysMap[6],
-    ].map((d) => ({
+    return daysMap.map((d) => ({
       name: d.day,
       total: d.count,
     }));
@@ -94,16 +93,19 @@ export function WeeklyDayChart() {
     return <div className="p-10 text-center">Cargando gráfico...</div>;
 
   return (
-    <Card className="w-full">
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-7">
+    <Card className="w-full min-w-0 overflow-hidden border-none shadow-none sm:border sm:shadow-sm">
+      <CardHeader className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-4 sm:space-y-0 pb-7">
         <div className="space-y-1">
-          <CardTitle>Demanda por Día</CardTitle>
+          <CardTitle className="text-xl flex flex-row items-center gap-2">
+            <CalendarArrowUp />
+            Servicios por día de la semana
+          </CardTitle>
           <CardDescription>
-            Total acumulado por día de la semana en {selectedYear}
+            Total acumulado por día en {selectedYear}
           </CardDescription>
         </div>
         <Select value={selectedYear} onValueChange={setSelectedYear}>
-          <SelectTrigger className="w-[110px]">
+          <SelectTrigger className="w-full sm:w-30">
             <SelectValue placeholder="Año" />
           </SelectTrigger>
           <SelectContent>
@@ -115,35 +117,43 @@ export function WeeklyDayChart() {
           </SelectContent>
         </Select>
       </CardHeader>
-      <CardContent>
-        <ChartContainer config={chartConfig} className="h-[300px] w-full">
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart
-              data={chartData}
-              margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
-            >
-              <CartesianGrid
-                vertical={false}
-                strokeDasharray="3 3"
-                opacity={0.3}
-              />
-              <XAxis
-                dataKey="name"
-                tickLine={false}
-                tickMargin={10}
-                axisLine={false}
-              />
-              <YAxis tickLine={false} axisLine={false} allowDecimals={false} />
-              <ChartTooltip content={<ChartTooltipContent />} />
-              <Bar
-                dataKey="total"
-                fill="var(--color-total)"
-                radius={[4, 4, 0, 0]}
-                barSize={45}
-              />
-            </BarChart>
-          </ResponsiveContainer>
-        </ChartContainer>
+      <CardContent className="px-2 sm:px-6">
+        <div className="h-50 w-full min-w-0">
+          <ChartContainer config={chartConfig} className="h-full w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart
+                data={chartData}
+                margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
+              >
+                <CartesianGrid
+                  vertical={false}
+                  strokeDasharray="3 3"
+                  opacity={0.3}
+                />
+                <XAxis
+                  dataKey="name"
+                  tickLine={false}
+                  tickMargin={10}
+                  axisLine={false}
+                  fontSize={12}
+                />
+                <YAxis
+                  tickLine={false}
+                  axisLine={false}
+                  allowDecimals={false}
+                  fontSize={12}
+                />
+                <ChartTooltip content={<ChartTooltipContent />} />
+                <Bar
+                  dataKey="total"
+                  fill="var(--color-total)"
+                  radius={[4, 4, 0, 0]}
+                  barSize={isMobile ? 25 : 45}
+                />
+              </BarChart>
+            </ResponsiveContainer>
+          </ChartContainer>
+        </div>
       </CardContent>
     </Card>
   );
