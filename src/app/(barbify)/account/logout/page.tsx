@@ -3,7 +3,7 @@
 import { signOut } from "next-auth/react";
 import { ChevronRight } from "lucide-react";
 
-export default function LogoutPage() {
+export default function LogOutPage() {
   function handleLogout() {
     signOut({
       callbackUrl: "/",

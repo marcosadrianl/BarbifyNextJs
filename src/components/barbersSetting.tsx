@@ -1,127 +1,140 @@
-"use client";
-
 import { useEffect, useState } from "react";
-import axios from "axios";
-import Link from "next/link";
-import {
-  ChevronRight,
-  ChevronLeft,
-  SquareArrowUpRight,
-  Info,
-  ArrowUpRight,
-} from "lucide-react";
-import EditUserCard from "@/components/EditUserCard";
+import { ChevronRight, ChevronLeft } from "lucide-react";
 import { Separator } from "@radix-ui/react-separator";
+import { useBarbers } from "@/lib/store/services.store";
+import { IBarbers } from "@/models/Barbers";
 
-/**
- * UsersList - componente cliente que consume un endpoint GET y muestra campos dinámicamente.
- * Ajusta endpoint si tu ruta es distinta.
- */
-type UsersListProps = {
-  endpoint?: string;
-};
+export default function BarbersSettings() {
+  const [openSection, setOpenSection] = useState<"create" | null>(null);
+  const [selectedBarber, setSelectedBarber] = useState<IBarbers | null>(null);
 
-export default function BarbersSettings({
-  endpoint = "/api/users",
-}: UsersListProps) {
-  const [users, setUsers] = useState<any[] | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
-  const [openSection, setOpenSection] = useState<
-    "create" | "ver" | "edit" | null
-  >(null);
-
-  const normalizeData = (resData: any): any[] => {
-    // Si ya es array, devuelvo tal cual
-    if (Array.isArray(resData)) return resData;
-    if (resData == null) return [];
-    // Common wrappers
-    if (typeof resData === "object") {
-      if (Array.isArray(resData.data)) return resData.data;
-      if (Array.isArray(resData.users)) return resData.users;
-      if (Array.isArray(resData.results)) return resData.results;
-      // Si es un objeto Mongoose/documento o un único recurso, lo envuelvo en array
-      return [resData];
-    }
-    // Otros tipos (string/number), lo devuelvo en array
-    return [resData];
-  };
+  const { barbers, loading, refreshFromAPI } = useBarbers();
 
   useEffect(() => {
-    let mounted = true;
-    const fetchUsers = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        const res = await axios.get(endpoint);
-        // Intenta normalizar distintas formas de respuesta
-        const raw = res.data;
-        const data = normalizeData(raw);
-        if (mounted) setUsers(data);
-      } catch (err: any) {
-        setError(
-          err?.response?.data?.error || err?.message || "Error al obtener datos"
-        );
-      } finally {
-        if (mounted) setLoading(false);
-      }
-    };
-    fetchUsers();
-    return () => {
-      mounted = false;
-    };
-  }, [endpoint]);
+    refreshFromAPI();
+  }, [refreshFromAPI]);
 
-  const formatValue = (val: any) => {
-    if (val === null || typeof val === "undefined") return "-";
-    if (typeof val === "boolean") return val ? "Sí" : "No";
-    if (typeof val === "string") {
-      // detecta ISO date-like strings
-      const d = Date.parse(val);
-      if (!isNaN(d) && /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/.test(val)) {
-        return new Date(val).toLocaleString();
-      }
-      return val;
-    }
-    if (val instanceof Date) return val.toLocaleDateString();
-    if (typeof val === "object") {
-      try {
-        return JSON.stringify(val);
-      } catch {
-        return String(val);
-      }
-    }
-    return String(val);
-  };
-
-  <div className="flex flex-col">
-    {openSection !== "create" ? (
-      <div
-        className="cursor-pointer hover:bg-gray-100 p-4"
-        onClick={() => setOpenSection("create")}
-      >
-        <span className="flex flex-row w-full justify-between items-center">
-          <span>
-            <h2>Información de los Barbers</h2>
-            <p className="text-xs foreground">
-              Ve la información de los barbers registrados en tu cuenta.
-            </p>
-          </span>
-          <ChevronRight className="w-6 h-6" />
-        </span>
-      </div>
-    ) : (
-      <div>
+  return (
+    <div className="flex flex-col h-[300px] overflow-hidden">
+      {openSection !== "create" ? (
         <div
-          className="flex flex-row gap-4 mb-4 cursor-pointer hover:bg-gray-100 py-4"
-          onClick={() => setOpenSection(null)}
+          className="cursor-pointer hover:bg-gray-100 p-4"
+          onClick={() => setOpenSection("create")}
         >
-          <ChevronLeft />
-          <h2>Información de los Barbers</h2>
+          <span className="flex flex-row w-full justify-between items-center">
+            <span>
+              <h2 className="font-semibold text-lg">
+                Información de los Barbers
+              </h2>
+              <p className="text-xs text-gray-600">
+                Ve la información de los barbers registrados en tu cuenta.
+              </p>
+            </span>
+            <ChevronRight className="w-6 h-6" />
+          </span>
         </div>
+      ) : (
+        <div className="">
+          <div
+            className="flex flex-row gap-4 mb-4 cursor-pointer hover:bg-gray-100 py-4 px-2 "
+            onClick={() => setOpenSection(null)}
+          >
+            <ChevronLeft />
+            <h2 className="font-semibold text-lg">
+              Información de los Barbers
+            </h2>
+          </div>
 
-        {/* acá va la lista de barbers */}
-      </div>
-    )}
-  </div>;
+          {loading ? (
+            <p>Cargando barbers...</p>
+          ) : barbers.length === 0 ? (
+            <p className="px-4">No hay Barbers registrados.</p>
+          ) : (
+            <div className="relative overflow-hidden min-h-100  ">
+              {/* LISTA DE BARBERS */}
+              <div
+                className={`transition-transform duration-300 ease-in-out ${
+                  selectedBarber ? "-translate-x-full" : "translate-x-0"
+                }`}
+              >
+                <div className="flex flex-col gap-4 ">
+                  {barbers.map((barber) => (
+                    <div
+                      key={barber._id.toString()}
+                      className="p-4  flex justify-between items-center cursor-pointer hover:bg-gray-100 transition-colors"
+                      onClick={() => setSelectedBarber(barber)}
+                    >
+                      <h3 className="font-medium">
+                        {barber.barberName} {barber.barberLastName}
+                      </h3>
+                      <ChevronRight />
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* PANEL DE DETALLE */}
+              <div
+                className={`absolute  top-0 left-0 w-full bg-white transition-transform duration-300 ease-in-out ${
+                  selectedBarber ? "translate-x-0" : "translate-x-full"
+                }`}
+              >
+                {selectedBarber && (
+                  <div className="p-4">
+                    <div
+                      className="flex items-center gap-2 mb-4 cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors "
+                      onClick={() => setSelectedBarber(null)}
+                    >
+                      <ChevronLeft />
+                      <h2 className="font-semibold">
+                        {selectedBarber.barberName}{" "}
+                        {selectedBarber.barberLastName}
+                      </h2>
+                    </div>
+
+                    <Separator className="my-4 bg-gray-300 h-px" />
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <p className="text-sm text-gray-600">E-mail</p>
+                        <p className="font-medium">
+                          {selectedBarber.barberEmail}
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-sm text-gray-600">Teléfono</p>
+                        <p className="font-medium">
+                          {selectedBarber.barberPhone}
+                        </p>
+                      </div>
+                      <div className="md:col-span-2">
+                        <p className="text-sm text-gray-600">
+                          Fecha de registro
+                        </p>
+                        <p className="font-medium">
+                          {new Date(
+                            selectedBarber.createdAt
+                          ).toLocaleDateString("es-AR", {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                          })}
+                        </p>
+                      </div>
+                      <div className="md:col-span-2">
+                        <p className="text-sm text-gray-600">Rol</p>
+                        <p className="font-medium">
+                          {selectedBarber.barberRole}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
 }

@@ -1,4 +1,6 @@
 import { create } from "zustand";
+import { IBarbers } from "@/models/Barbers";
+import axios from "axios";
 
 export type ClientService = {
   clientId: string;
@@ -58,6 +60,16 @@ type ServicesStore = {
   loading: boolean;
   lastUpdated: number | null;
 
+  loadFromCache: () => void;
+  refreshFromAPI: () => Promise<void>;
+  clearCache: () => void;
+};
+
+type BarbersStore = {
+  barbers: IBarbers[]; // 👈 Mantiene solo Pasados/Presentes (comportamiento default)
+
+  loading: boolean;
+  lastUpdated: number | null;
   loadFromCache: () => void;
   refreshFromAPI: () => Promise<void>;
   clearCache: () => void;
@@ -154,3 +166,74 @@ export const useAllServicesStore = () => {
     filteredServices: store.services, // Opcional: acceso a los filtrados si se necesita con otro nombre
   };
 };
+
+/**
+ * 🪝 HOOK HELPER: useBarbers
+ */
+export const useBarbers = create<BarbersStore>((set) => ({
+  barbers: [],
+  loading: false,
+  lastUpdated: null,
+
+  loadFromCache: () => {
+    const cached = localStorage.getItem("barbers");
+    const lastSaved = localStorage.getItem("barbers_last_saved");
+
+    if (!cached) return;
+
+    if (isCacheExpired(lastSaved)) return;
+
+    try {
+      // Ahora asumimos que el cache tiene los Barbers
+      const allBarbers: IBarbers[] = JSON.parse(cached);
+
+      set({
+        barbers: allBarbers, // Guardamos filtrados
+        lastUpdated: Number(lastSaved),
+      });
+    } catch (error) {
+      console.error("❌ Error parseando cache:", error);
+      localStorage.removeItem("barbers");
+      localStorage.removeItem("barbers_last_saved");
+    }
+  },
+
+  refreshFromAPI: async () => {
+    set({ loading: true });
+
+    try {
+      const res = await axios.get("/api/users/barbers");
+
+      if (!res.status || res.status !== 200) {
+        throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+      }
+
+      const json = res.data;
+      const barbers: IBarbers[] = json || [];
+      console.log("Respuesta Barbers:", json);
+
+      // 2. Guardamos TODO en localStorage (para poder usar  offline)
+      localStorage.setItem("barbers", JSON.stringify(barbers));
+      localStorage.setItem("barbers_last_saved", String(Date.now()));
+
+      set({
+        barbers: barbers, // 👈 Estado completo
+        lastUpdated: Date.now(),
+        loading: false,
+      });
+    } catch (error) {
+      console.error("❌ Error refrescando barbers:", error);
+      set({ loading: false });
+    }
+  },
+
+  clearCache: () => {
+    localStorage.removeItem("barbers");
+    localStorage.removeItem("barbers_last_saved");
+    set({
+      barbers: [],
+      lastUpdated: null,
+    });
+    /* console.log("🗑️ Cache limpiado"); */
+  },
+}));

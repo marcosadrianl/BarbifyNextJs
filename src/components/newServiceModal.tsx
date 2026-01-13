@@ -32,15 +32,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
-interface BarberWithId extends IBarbers {
-  _id: string;
-}
+import { useBarbers } from "@/lib/store/services.store";
 
 export default function NewServiceModal({ client }: { client: IClient }) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [barberList, setBarberList] = useState<BarberWithId[]>([]);
+  const [barberList, setBarberList] = useState<IBarbers[]>([]);
   const router = useRouter();
 
   // Estados del formulario
@@ -53,14 +50,14 @@ export default function NewServiceModal({ client }: { client: IClient }) {
     barberId: "",
   });
 
+  const { barbers, refreshFromAPI } = useBarbers();
   useEffect(() => {
-    if (open) {
-      fetch("/api/users/barbers")
-        .then((res) => res.json())
-        .then((data) => setBarberList(data))
-        .catch((err) => console.error("Error al obtener barberos:", err));
-    }
-  }, [open]);
+    refreshFromAPI();
+  }, [refreshFromAPI]);
+
+  useEffect(() => {
+    setBarberList(barbers);
+  }, [barbers]);
 
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -71,12 +68,28 @@ export default function NewServiceModal({ client }: { client: IClient }) {
       localDate.getTime() - localDate.getTimezoneOffset()
     );
 
+    // Buscar el nombre del barbero seleccionado
+    const selectedBarber = barberList.find(
+      (b) => b._id.toString() === formData.barberId
+    );
+    const barberName = selectedBarber
+      ? `${selectedBarber.barberName} ${
+          selectedBarber.barberLastName || ""
+        }`.trim()
+      : "No especificado";
+
+    // Agregar automáticamente la información del barbero a las notas
+    const notesWithBarber = formData.serviceNotes
+      ? `${formData.serviceNotes}\n\nAtendió: ${barberName}`
+      : `Atendió: ${barberName}`;
+
     const serviceData = {
       ...formData,
       servicePrice: Number(formData.servicePrice) * 100,
       serviceDate: utcDate,
       fromBarberId: formData.barberId,
       serviceDuration: Number(formData.serviceDuration),
+      serviceNotes: notesWithBarber, // Notas con información del barbero
     };
 
     try {
@@ -223,8 +236,11 @@ export default function NewServiceModal({ client }: { client: IClient }) {
               </SelectTrigger>
               <SelectContent className="rounded-xl">
                 {barberList.map((barber) => (
-                  <SelectItem key={barber._id} value={barber._id}>
-                    {barber.barberName}
+                  <SelectItem
+                    key={barber._id.toString()}
+                    value={barber._id.toString()}
+                  >
+                    {barber.barberName} {barber.barberLastName || ""}
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -249,6 +265,9 @@ export default function NewServiceModal({ client }: { client: IClient }) {
                 setFormData({ ...formData, serviceNotes: e.target.value })
               }
             />
+            <p className="text-xs text-slate-500">
+              * Se agregará automáticamente el nombre del barbero al guardar
+            </p>
           </div>
 
           <DialogFooter className="pt-4">

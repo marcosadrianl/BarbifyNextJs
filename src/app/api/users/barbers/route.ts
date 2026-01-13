@@ -8,18 +8,18 @@ import mongoose from "mongoose";
 export async function GET() {
   try {
     // 3. Obtener la sesión pasando authOptions
-    const session = await getServerSession(authOptions);
+    /* const session = await getServerSession(authOptions);
 
     // 4. Validar si existe el usuario y su ID
     if (!session?.user?.id) {
       return NextResponse.json({ error: "No autorizado" }, { status: 401 });
-    }
+    } */
 
     await connectDB();
 
     // 5. Ahora puedes usar session.user.id con seguridad
     const barbers = await (Barbers as mongoose.Model<IBarbers>).find({
-      ownerUserId: session.user.id,
+      ownerUserId: "690e01c4aa84ca63d3fa6572",
     });
 
     // También tienes acceso a tus campos personalizados:

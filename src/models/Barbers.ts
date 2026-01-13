@@ -14,22 +14,26 @@ export type BarbersData = {
 
 // 1. Interface Definition
 export interface IBarbers {
+  _id: mongoose.Types.ObjectId | Document;
   barberName: string;
   barberLastName: string;
   barberEmail: string;
   barberPhone: string;
   barberActive: boolean;
   barberRole: string;
-  barberLocation?: {
-    city: string; //Buenos Aires
-    state?: string; //La Plata
-    address?: string;
-    postalCode?: string;
-  };
+
+  city: string; //Buenos Aires
+  state?: string; //La Plata
+  address?: string;
+  postalCode?: string;
+
   barberLevel?: 0 | 1 | 2; // 0 = Admin, 1 = Barber, 2 = etc
   barberBirthDate?: Date;
   barberImageURL?: string;
   ownerUserId?: mongoose.Types.ObjectId | Document;
+  createdAt?: Date;
+  updatedAt?: Date;
+  __v?: number;
 }
 
 //schema mongoDB
@@ -40,13 +44,13 @@ const BarbersSchema = new Schema(
     barberEmail: { type: String, unique: true, maxlength: 100, trim: true },
     barberPhone: { type: String, unique: true, maxlength: 20, trim: true },
     barberActive: { type: Boolean, default: true },
-    barberRole: { type: String, default: "admin", maxlength: 20, trim: true },
-    barberLocation: {
-      city: { type: String, maxlength: 50, trim: true },
-      state: { type: String, maxlength: 50, trim: true },
-      address: { type: String, maxlength: 100, trim: true },
-      postalCode: { type: String, maxlength: 10, trim: true },
-    },
+    barberRole: { type: String, default: "", maxlength: 20, trim: true },
+
+    city: { type: String, maxlength: 50, trim: true },
+    state: { type: String, maxlength: 50, trim: true },
+    address: { type: String, maxlength: 100, trim: true },
+    postalCode: { type: String, maxlength: 10, trim: true },
+
     barberLevel: { type: Number, required: true, default: 0, enum: [0, 1, 2] },
     barberBirthDate: { type: Date },
     barberImageURL: { type: String },
@@ -69,14 +73,12 @@ export const BarberSchemaZod = z.object({
   barberPhone: z.string().max(20),
   barberActive: z.boolean().default(true),
   barberRole: z.string().max(20),
-  barberLocation: z
-    .object({
-      city: z.string().max(50),
-      state: z.string().max(50),
-      address: z.string().max(100),
-      postalCode: z.string().max(10),
-    })
-    .optional(),
+
+  city: z.string().max(50),
+  state: z.string().max(50),
+  address: z.string().max(100),
+  postalCode: z.string().max(10),
+
   barberLevel: z.number().min(0).max(2),
   barberBirthDate: z.date().optional(),
   barberImageURL: z.string().optional(),
