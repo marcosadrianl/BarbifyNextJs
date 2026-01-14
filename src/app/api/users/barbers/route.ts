@@ -34,3 +34,72 @@ export async function GET() {
     );
   }
 }
+
+export async function POST(req: Request) {
+  try {
+    const body = await req.json();
+    const {
+      barberName,
+      barberLastName,
+      barberEmail,
+      barberPhone,
+      barberActive,
+      barberRole,
+
+      city,
+      state,
+      address,
+      postalCode,
+
+      barberLevel,
+      barberBirthDate,
+      barberImageURL,
+      ownerUserId,
+    } = body;
+
+    await connectDB();
+
+    const existingBarber = await (Barbers as mongoose.Model<IBarbers>).findOne({
+      barberEmail,
+    });
+
+    if (existingBarber) {
+      return NextResponse.json(
+        { error: "Ya existe un barber con este email" },
+        { status: 400 }
+      );
+    }
+
+    const newBarber = new (Barbers as mongoose.Model<IBarbers>)({
+      barberName,
+      barberLastName,
+      barberEmail,
+      barberPhone,
+      barberActive,
+      barberRole,
+
+      city,
+      state,
+      address,
+      postalCode,
+
+      barberLevel,
+      barberBirthDate,
+      barberImageURL,
+      ownerUserId,
+    });
+
+    await newBarber.save();
+
+    return NextResponse.json(
+      { message: "Barber creado correctamente" },
+      { status: 201 }
+    );
+  } catch (error) {
+    console.error("Error creando barber:", error);
+    return NextResponse.json(
+      { error: "Error interno del servidor" },
+      { status: 500 }
+    );
+  }
+}

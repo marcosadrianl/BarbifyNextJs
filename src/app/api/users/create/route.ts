@@ -20,6 +20,7 @@ type CreateUserBody = {
   userLevel?: 0 | 1;
   userActive: boolean;
   userCity?: string;
+  userState?: string;
   userAddress?: string;
   userPostalCode?: string;
   userBirthdate?: string | Date;
@@ -36,6 +37,7 @@ export async function POST(req: Request) {
       userName,
       userLastName,
       userPhone,
+      userState,
       userRole,
       userLevel,
       userCity,
@@ -70,13 +72,16 @@ export async function POST(req: Request) {
         : undefined;
 
     const userPayload: IUser = {
-      userName: userName ?? "",
+      userName: userName,
       userLastName,
       userEmail,
       userRole,
+      userCity,
+      userState,
+      userAddress,
+      userPostalCode,
       userSex,
       userPassword: hashedPassword,
-      userLocation,
       userPhone: userPhone,
       userActive: true,
       userLevel: (userLevel ?? 0) as 0 | 1,

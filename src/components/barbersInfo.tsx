@@ -1,10 +1,12 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import { ChevronRight, ChevronLeft } from "lucide-react";
 import { Separator } from "@radix-ui/react-separator";
 import { useBarbers } from "@/lib/store/services.store";
 import { IBarbers } from "@/models/Barbers";
 
-export default function BarbersSettings() {
+export default function BarbersInfo() {
   const [openSection, setOpenSection] = useState<"create" | null>(null);
   const [selectedBarber, setSelectedBarber] = useState<IBarbers | null>(null);
 
@@ -15,7 +17,7 @@ export default function BarbersSettings() {
   }, [refreshFromAPI]);
 
   return (
-    <div className="flex flex-col h-[300px] overflow-hidden">
+    <div className="flex flex-col h-75 overflow-hidden">
       {openSection !== "create" ? (
         <div
           className="cursor-pointer hover:bg-gray-100 p-4"
