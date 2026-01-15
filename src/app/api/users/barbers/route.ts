@@ -103,3 +103,38 @@ export async function POST(req: Request) {
     );
   }
 }
+
+export async function DELETE(req: Request) {
+  try {
+    const { searchParams } = new URL(req.url);
+    const barberId = searchParams.get("id");
+    console.log("Barber ID to delete:", barberId);
+    if (!barberId) {
+      return NextResponse.json(
+        { error: "ID de barber es requerido" },
+        { status: 400 }
+      );
+    }
+    await connectDB();
+
+    const deletedBarber = await (
+      Barbers as mongoose.Model<IBarbers>
+    ).findByIdAndDelete(barberId);
+    if (!deletedBarber) {
+      return NextResponse.json(
+        { error: "Barber no encontrado" },
+        { status: 404 }
+      );
+    }
+    return NextResponse.json(
+      { message: "Barber eliminado correctamente" },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("Error eliminando barber:", error);
+    return NextResponse.json(
+      { error: "Error interno del servidor" },
+      { status: 500 }
+    );
+  }
+}

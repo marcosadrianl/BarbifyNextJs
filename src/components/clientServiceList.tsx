@@ -35,7 +35,7 @@ export default function ClientServicesList({
 
   if (services.length === 0) {
     return (
-      <div className="text-center p-8 border-2 border-dashed rounded-2xl text-muted-foreground">
+      <div className="text-center p-8 border-2 border-dashed rounded-2xl text-gray-400">
         No hay servicios registrados en el historial.
       </div>
     );

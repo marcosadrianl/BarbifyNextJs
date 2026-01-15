@@ -75,7 +75,7 @@ export function FinancialSummaryCard() {
   if (loading) {
     return (
       <div className="rounded-md border bg-white p-4 flex items-center justify-center min-h-35">
-        <p className="text-sm text-muted-foreground">Cargando ingresos...</p>
+        <p className="text-sm text-gray-400">Cargando ingresos...</p>
       </div>
     );
   }
@@ -115,14 +115,14 @@ export function FinancialSummaryCard() {
       <p className="text-3xl font-bold">{formatter.format(currentTotal)}</p>
 
       {/* Descripción */}
-      <p className="text-sm text-muted-foreground">
+      <p className="text-sm text-gray-400">
         {trend === "up" && "📈 Mejor que el mes anterior"}
         {trend === "down" && "📉 Menor que el mes anterior"}
         {trend === "equal" && "➡️ Igual que el mes anterior"}
       </p>
 
       {previousTotal > 0 && (
-        <p className="text-xs text-muted-foreground border-t pt-2">
+        <p className="text-xs text-gray-400 border-t pt-2">
           Mes anterior: {formatter.format(previousTotal)}
         </p>
       )}

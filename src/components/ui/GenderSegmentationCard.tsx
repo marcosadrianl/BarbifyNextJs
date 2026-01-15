@@ -126,14 +126,12 @@ export function GenderSegmentationCard() {
                   maximumFractionDigits: 0,
                 })}
               </p>
-              <p className="text-[10px] text-muted-foreground uppercase tracking-wider font-medium">
+              <p className="text-[10px] text-gray-400 uppercase tracking-wider font-medium">
                 Ticket Promedio
               </p>
 
               <div className="mt-3 pt-3 border-t border-border/50">
-                <p className="text-xs text-muted-foreground mb-1">
-                  Servicio Top:
-                </p>
+                <p className="text-xs text-gray-400 mb-1">Servicio Top:</p>
                 <p className="text-xs font-medium truncate">
                   {group.topService}
                 </p>
@@ -152,12 +150,12 @@ export function GenderSegmentationCard() {
               <p className="text-sm font-bold text-primary mb-1">
                 Insight Clave
               </p>
-              <p className="text-sm text-muted-foreground mb-3 italic">
+              <p className="text-sm text-gray-400 mb-3 italic">
                 "{stats.insight}"
               </p>
 
               <div className="space-y-2">
-                <p className="text-[11px] font-bold uppercase text-muted-foreground tracking-widest">
+                <p className="text-[11px] font-bold uppercase text-gray-400 tracking-widest">
                   Acciones Sugeridas
                 </p>
                 <div className="flex items-center gap-2 text-xs text-foreground/80">

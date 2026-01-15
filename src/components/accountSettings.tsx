@@ -79,7 +79,7 @@ export default function AccountSettings({
       // detecta ISO date-like strings
       const d = Date.parse(val);
       if (!isNaN(d) && /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/.test(val)) {
-        return new Date(val).toLocaleString();
+        return new Date(val).toLocaleString("es-AR");
       }
       return val;
     }

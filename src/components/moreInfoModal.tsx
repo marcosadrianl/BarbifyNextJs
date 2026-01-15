@@ -58,7 +58,7 @@ export default function MoreInfoModal({ client }: { client: IClient }) {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <button className="text-md text-muted-foreground hover:text-foreground transition-colors">
+        <button className="text-md text-gray-400 hover:text-foreground transition-colors">
           Más información sobre el cliente{" "}
           <span className="hover:underline font-semibold text-primary">
             ...más
@@ -93,7 +93,7 @@ export default function MoreInfoModal({ client }: { client: IClient }) {
                 <FileText className="w-5 h-5 text-primary" />
                 <h3 className="text-lg font-semibold">Notas</h3>
               </div>
-              <p className="text-sm text-muted-foreground leading-relaxed">
+              <p className="text-sm text-gray-400 leading-relaxed">
                 {client.clientNotes || "Sin notas registradas"}
               </p>
             </CardContent>
@@ -110,24 +110,24 @@ export default function MoreInfoModal({ client }: { client: IClient }) {
 
             <div className="grid gap-3">
               <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50 hover:bg-muted transition-colors">
-                <Calendar className="w-4 h-4 text-muted-foreground" />
+                <Calendar className="w-4 h-4 text-gray-400" />
                 <div className="flex-1">
                   <p className="text-sm font-medium">Fecha de Nacimiento</p>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-sm text-gray-400">
                     {client.clientBirthdate
-                      ? validateDate(client.clientBirthdate.toLocaleString())
+                      ? validateDate(
+                          client.clientBirthdate.toLocaleString("es-AR")
+                        )
                       : "Sin detalle"}
                   </p>
                 </div>
               </div>
 
               <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50 hover:bg-muted transition-colors">
-                <User className="w-4 h-4 text-muted-foreground" />
+                <User className="w-4 h-4 text-gray-400" />
                 <div className="flex-1">
                   <p className="text-sm font-medium">Sexo</p>
-                  <p className="text-sm text-muted-foreground">
-                    {defineClientSex()}
-                  </p>
+                  <p className="text-sm text-gray-400">{defineClientSex()}</p>
                 </div>
               </div>
             </div>
@@ -147,27 +147,27 @@ export default function MoreInfoModal({ client }: { client: IClient }) {
                 <div className="w-4 h-4 rounded-full bg-gradient-to-br from-gray-200 to-gray-400" />
                 <div className="flex-1">
                   <p className="text-sm font-medium">Pelo Blanco</p>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-sm text-gray-400">
                     {client.clientWhiteHairs || 0}%
                   </p>
                 </div>
               </div>
 
               <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50 hover:bg-muted transition-colors">
-                <Palette className="w-4 h-4 text-muted-foreground" />
+                <Palette className="w-4 h-4 text-gray-400" />
                 <div className="flex-1">
                   <p className="text-sm font-medium">Tono Base</p>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-sm text-gray-400">
                     {client.clientBaseColor || "Sin detalle"}
                   </p>
                 </div>
               </div>
 
               <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50 hover:bg-muted transition-colors">
-                <Scissors className="w-4 h-4 text-muted-foreground" />
+                <Scissors className="w-4 h-4 text-gray-400" />
                 <div className="flex-1">
                   <p className="text-sm font-medium">Tipo de Pelo</p>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-sm text-gray-400">
                     {client.clientHairType || "Sin detalle"}
                   </p>
                 </div>

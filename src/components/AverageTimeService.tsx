@@ -15,7 +15,7 @@ export function AverageDurationCard() {
   if (!services.length) {
     return (
       <div className="rounded-xl border bg-background p-4">
-        <p className="text-sm text-muted-foreground">Calculando duraciones…</p>
+        <p className="text-sm text-gray-400">Calculando duraciones…</p>
       </div>
     );
   }
@@ -46,7 +46,7 @@ export function AverageDurationCard() {
     <div className="rounded-xl border bg-white p-4 flex flex-col gap-4 w-1/4">
       {/* Header */}
       <div className="flex items-center gap-2">
-        <Timer className="h-4 w-4 text-muted-foreground" />
+        <Timer className="h-4 w-4 text-gray-400" />
         <h3 className="text-sm font-medium">Duración promedio por servicio</h3>
       </div>
 
@@ -57,7 +57,7 @@ export function AverageDurationCard() {
             <span className="font-medium">
               {i + 1}. {s.name}
             </span>
-            <span className="text-muted-foreground">
+            <span className="text-gray-400">
               {Math.round(s.avgDuration)} min
             </span>
           </li>
@@ -65,8 +65,8 @@ export function AverageDurationCard() {
       </ul>
 
       {/* Insight */}
-      <div className="flex items-start gap-2 text-sm text-muted-foreground border-t pt-2 mt-auto">
-        <Info className="h-6 w-6 text-muted-foreground" />
+      <div className="flex items-start gap-2 text-sm text-gray-400 border-t pt-2 mt-auto">
+        <Info className="h-6 w-6 text-gray-400" />
         <p>
           Los servicios más rápidos son ideales para ofrecer como{" "}
           <span className="font-medium text-foreground">extra</span>

@@ -162,7 +162,7 @@ export function ClientRecurrenceCard() {
   if (loading) {
     return (
       <div className="rounded-md text-black border bg-white p-4 flex items-center justify-center w-1/3 min-h-35">
-        <p className="text-sm text-muted-foreground">Cargando...</p>
+        <p className="text-sm text-gray-400">Cargando...</p>
       </div>
     );
   }
@@ -193,13 +193,13 @@ export function ClientRecurrenceCard() {
       <p className="text-3xl font-bold">{currentPercentage.toFixed(0)}%</p>
 
       <div className="flex flex-col gap-1">
-        <p className="text-sm text-muted-foreground">
+        <p className="text-sm text-gray-400">
           {trend === "up" && "📈 Más recurrencia que el mes anterior"}
           {trend === "down" && "📉 Menos recurrencia que el mes anterior"}
           {trend === "equal" && "➡️ Sin cambios significativos"}
         </p>
         {previousPercentage > 0 && (
-          <p className="text-xs text-muted-foreground border-t pt-1 mt-3">
+          <p className="text-xs text-gray-400 border-t pt-1 mt-3">
             Mes anterior: {previousPercentage.toFixed(0)}%
           </p>
         )}

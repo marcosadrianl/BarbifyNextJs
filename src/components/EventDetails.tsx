@@ -36,8 +36,8 @@ export default function EventDetails({ selectedEvents }: EventDetailsProps) {
     return (
       <Card className="h-full rounded-none border-r-accent border-t-0 border-b-0 border-l-0">
         <CardContent className="flex flex-col items-center justify-center h-full min-h-100">
-          <Calendar className="h-16 w-16 text-muted-foreground mb-4" />
-          <CardTitle className="text-center text-muted-foreground">
+          <Calendar className="h-16 w-16 text-gray-400 mb-4" />
+          <CardTitle className="text-center text-gray-400">
             Selecciona una fecha
           </CardTitle>
           <CardDescription className="text-center mt-2">
@@ -120,10 +120,10 @@ export default function EventDetails({ selectedEvents }: EventDetailsProps) {
                 <CardContent className="pt-4 space-y-3 ">
                   {/* Servicio */}
                   <div className="flex items-start gap-2">
-                    <StickyNote className="h-4 w-4 mt-0.5 text-muted-foreground" />
+                    <StickyNote className="h-4 w-4 mt-0.5 text-gray-400" />
                     <div className="flex-1">
                       <p className="text-sm font-medium">Servicio</p>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-sm text-gray-400">
                         {event.clientServices.serviceName}
                       </p>
                     </div>
@@ -131,10 +131,10 @@ export default function EventDetails({ selectedEvents }: EventDetailsProps) {
 
                   {/* Hora */}
                   <div className="flex items-start gap-2">
-                    <Clock className="h-4 w-4 mt-0.5 text-muted-foreground" />
+                    <Clock className="h-4 w-4 mt-0.5 text-gray-400" />
                     <div className="flex-1">
                       <p className="text-sm font-medium">Hora</p>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-sm text-gray-400">
                         {new Date(
                           event.clientServices.serviceDate
                         ).toLocaleTimeString("es-AR", {
@@ -149,10 +149,10 @@ export default function EventDetails({ selectedEvents }: EventDetailsProps) {
 
                   {/* Duración */}
                   <div className="flex items-start gap-2">
-                    <Timer className="h-4 w-4 mt-0.5 text-muted-foreground" />
+                    <Timer className="h-4 w-4 mt-0.5 text-gray-400" />
                     <div className="flex-1">
                       <p className="text-sm font-medium">Duración</p>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-sm text-gray-400">
                         {event.clientServices.serviceDuration} minutos
                       </p>
                     </div>
@@ -160,10 +160,10 @@ export default function EventDetails({ selectedEvents }: EventDetailsProps) {
 
                   {/* Precio */}
                   <div className="flex items-start gap-2">
-                    <DollarSign className="h-4 w-4 mt-0.5 text-muted-foreground" />
+                    <DollarSign className="h-4 w-4 mt-0.5 text-gray-400" />
                     <div className="flex-1">
                       <p className="text-sm font-medium">Precio</p>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-sm text-gray-400">
                         $
                         {(
                           event.clientServices.servicePrice / 100
@@ -177,10 +177,10 @@ export default function EventDetails({ selectedEvents }: EventDetailsProps) {
                   {/* Notas */}
                   {event.clientServices.serviceNotes && (
                     <div className="flex items-start gap-2">
-                      <StickyNote className="h-4 w-4 mt-0.5 text-muted-foreground" />
+                      <StickyNote className="h-4 w-4 mt-0.5 text-gray-400" />
                       <div className="flex-1">
                         <p className="text-sm font-medium">Notas</p>
-                        <p className="text-sm text-muted-foreground italic">
+                        <p className="text-sm text-gray-400 italic">
                           {event.clientServices.serviceNotes}
                         </p>
                       </div>

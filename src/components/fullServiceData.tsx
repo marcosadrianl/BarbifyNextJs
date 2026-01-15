@@ -31,7 +31,7 @@ const Stat = ({
   emphasize?: boolean;
 }) => (
   <div className="flex items-center justify-between">
-    <p className="text-sm text-muted-foreground">{label}</p>
+    <p className="text-sm text-gray-400">{label}</p>
     <p
       className={`font-semibold ${
         highlight ? "text-3xl" : emphasize ? "text-xl text-primary" : "text-lg"

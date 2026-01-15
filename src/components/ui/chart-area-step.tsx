@@ -105,7 +105,7 @@ export function IncomePerHourByHourChart() {
   if (!chartData.length) {
     return (
       <Card>
-        <CardContent className="p-4 text-sm text-muted-foreground">
+        <CardContent className="p-4 text-sm text-gray-400">
           No hay datos suficientes para los últimos tres meses.
         </CardContent>
       </Card>
@@ -117,7 +117,7 @@ export function IncomePerHourByHourChart() {
       <CardHeader>
         <CardTitle title="Ingresos por hora">
           <h3 className="text-sm font-medium flex items-center gap-2">
-            <BanknoteArrowUp className="h-4 w-4 text-muted-foreground" />
+            <BanknoteArrowUp className="h-4 w-4 text-gray-400" />
             Ingresos por hora
           </h3>
         </CardTitle>
@@ -175,7 +175,7 @@ export function IncomePerHourByHourChart() {
       </CardContent>
 
       <CardFooter>
-        <div className="text-xs text-muted-foreground border-t pt-2 flex items-center justify-between">
+        <div className="text-xs text-gray-400 border-t pt-2 flex items-center justify-between">
           Facturación media: ${avg.toLocaleString("es-AR")} / h
           <TrendingUp className="h-4 w-4" />
         </div>

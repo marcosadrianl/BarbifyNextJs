@@ -88,7 +88,7 @@ export function TotalRevenue() {
   if (loading) {
     return (
       <div className="rounded-md border text-black bg-white p-4 w-1/3 flex items-center justify-center">
-        <p className="text-sm text-muted-foreground">Cargando ingresos...</p>
+        <p className="text-sm text-gray-400">Cargando ingresos...</p>
       </div>
     );
   }
@@ -120,7 +120,7 @@ export function TotalRevenue() {
       <p className="text-3xl font-bold">${totalRevenue}</p>
 
       {/* Trend Description */}
-      <p className="text-sm text-muted-foreground">
+      <p className="text-sm text-gray-400">
         {trendDirection === "up" && "📈 Crecimiento respecto al mes anterior"}
         {trendDirection === "down" && "📉 Disminución respecto al mes anterior"}
         {trendDirection === "equal" &&
@@ -128,7 +128,7 @@ export function TotalRevenue() {
       </p>
 
       {/* Period */}
-      <p className="text-xs text-muted-foreground border-t pt-2">
+      <p className="text-xs text-gray-400 border-t pt-2">
         Ingresos de los últimos 6 meses
         {periodDescription && ` (${periodDescription})`}
       </p>

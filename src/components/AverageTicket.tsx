@@ -9,9 +9,7 @@ export function AverageTicketCard() {
   if (!services.length) {
     return (
       <div className="rounded-xl border bg-background p-4">
-        <p className="text-sm text-muted-foreground">
-          Cargando ticket promedio…
-        </p>
+        <p className="text-sm text-gray-400">Cargando ticket promedio…</p>
       </div>
     );
   }
@@ -65,7 +63,7 @@ export function AverageTicketCard() {
     <div className="rounded-xl border bg-white p-4 flex flex-col gap-4 w-1/4">
       {/* Header */}
       <div className="flex items-center gap-2">
-        <Receipt className="h-4 w-4 text-muted-foreground" />
+        <Receipt className="h-4 w-4 text-gray-400" />
         <h3 className="text-sm font-medium">Ticket promedio</h3>
       </div>
 
@@ -73,7 +71,7 @@ export function AverageTicketCard() {
       <p className="text-2xl font-bold">{formatter.format(averageTicket)}</p>
 
       {/* Insight */}
-      <div className="flex items-start gap-2 text-sm text-muted-foreground mt-auto border-t pt-2">
+      <div className="flex items-start gap-2 text-sm text-gray-400 mt-auto border-t pt-2">
         <TrendingUp className="h-4 w-4 mt-0.5" />
         <p>
           Los clientes que hacen{" "}

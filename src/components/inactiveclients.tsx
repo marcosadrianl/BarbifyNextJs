@@ -95,7 +95,7 @@ export default function InactiveClientsCard() {
   if (loading) {
     return (
       <div className="rounded-md border text-black bg-white p-4 w-1/4 flex items-center justify-center min-h-50">
-        <p className="text-sm text-muted-foreground">Calculando...</p>
+        <p className="text-sm text-gray-400">Calculando...</p>
       </div>
     );
   }
@@ -105,13 +105,11 @@ export default function InactiveClientsCard() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <h3 className="text-sm font-medium flex items-center gap-2">
-          <Info className="h-4 w-4 text-muted-foreground" />
+          <Info className="h-4 w-4 text-gray-400" />
           Clientes inactivos
         </h3>
 
-        <span className="text-xs text-muted-foreground">
-          ≥ {DAYS_LIMIT} días
-        </span>
+        <span className="text-xs text-gray-400">≥ {DAYS_LIMIT} días</span>
       </div>
 
       {/* Metric */}
@@ -124,7 +122,7 @@ export default function InactiveClientsCard() {
         <p className="text-2xl font-bold">{inactiveClients.length}</p>
       </div>
 
-      <p className="text-sm text-muted-foreground">
+      <p className="text-sm text-gray-400">
         {inactiveClients.length === 0 ? (
           <>
             ✅ Todos tus clientes han regresado en los últimos {DAYS_LIMIT} días
@@ -155,13 +153,13 @@ export default function InactiveClientsCard() {
                 >
                   {client.clientName} {client.clientLastName}
                 </Link>
-                <span className="text-xs text-muted-foreground whitespace-nowrap">
+                <span className="text-xs text-gray-400 whitespace-nowrap">
                   {client.daysSinceLastService}d
                 </span>
               </li>
             ))}
             {inactiveClients.length > 5 && (
-              <li className="text-xs text-muted-foreground text-center pt-2 border-t">
+              <li className="text-xs text-gray-400 text-center pt-2 border-t">
                 + {inactiveClients.length - 5} más
               </li>
             )}
@@ -172,7 +170,7 @@ export default function InactiveClientsCard() {
       {/* Actions */}
       <div className="border-t pt-3 mt-auto">
         <p className="text-xs font-medium mb-1">Acciones sugeridas</p>
-        <ul className="text-xs text-muted-foreground list-disc pl-4 space-y-1">
+        <ul className="text-xs text-gray-400 list-disc pl-4 space-y-1">
           <li>Contactar vía WhatsApp o correo</li>
           <li>Ofrecer promoción de retorno</li>
         </ul>

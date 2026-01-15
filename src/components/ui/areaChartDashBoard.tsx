@@ -1,13 +1,15 @@
 "use client";
+
 import * as React from "react";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
-import { useServicesStore } from "@/lib/store/services.store";
-
+import { useAllServices } from "@/components/getAllClientServicesForShowing";
 import type { IService } from "@/models/Clients";
 import type { IClient } from "@/models/Clients";
+
 type ClientWithServices = Pick<IClient, "clientSex"> & {
   clientServices: IService;
 };
+
 import {
   Card,
   CardContent,
@@ -51,16 +53,10 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-// Función para obtener la fecha local en formato YYYY-MM-DD
-function toLocalDateString(date) {
-  const d = new Date(date);
-  d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
-  return d.toISOString().split("T")[0];
-}
-
-function getStartDate(range) {
+function getStartDate(range: string) {
   const now = new Date();
   const start = new Date(now);
+
   switch (range) {
     case "7d":
       start.setDate(now.getDate() - 7);
@@ -73,25 +69,19 @@ function getStartDate(range) {
       start.setDate(now.getDate() - 90);
       break;
   }
+
   start.setHours(0, 0, 0, 0);
   return start;
 }
 
 export function ChartAreaInteractive() {
   const [timeRange, setTimeRange] = React.useState("90d");
+  const { services, loading } = useAllServices(5, false) as unknown as {
+    services: ClientWithServices[];
+    loading: boolean;
+  };
 
-  const [loading, setLoading] = React.useState(true);
-
-  const services = useServicesStore((s) => s.services);
-  React.useEffect(() => {
-    if (services && services.length > 0) {
-      setLoading(false);
-    }
-  }, [services]);
-
-  // Aquí se agrupan los datos usando la fecha local
   const chartData = React.useMemo(() => {
-    if (!services.length) return [];
     const startDate = getStartDate(timeRange);
     return Object.values(
       services
@@ -105,7 +95,9 @@ export function ChartAreaInteractive() {
             { date: string; Hombre: number; Mujer: number; Otro: number }
           >
         >((acc, client) => {
-          const date = toLocalDateString(client.clientServices.serviceDate);
+          const date = new Date(client.clientServices.serviceDate)
+            .toISOString()
+            .split("T")[0];
           if (!acc[date]) {
             acc[date] = { date, Hombre: 0, Mujer: 0, Otro: 0 };
           }
@@ -117,64 +109,66 @@ export function ChartAreaInteractive() {
     ).sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
   }, [services, timeRange]);
 
-  function LoadingSpinner() {
-    return (
-      <svg
-        className="animate-spin h-5 w-5"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-      >
-        <circle
-          className="opacity-25"
-          cx="12"
-          cy="12"
-          r="10"
-          stroke="currentColor"
-          strokeWidth="4"
-        />
-        <path
-          className="opacity-75"
-          fill="currentColor"
-          d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
-        />
-      </svg>
-    );
+  function Loading() {
+    if (loading)
+      return (
+        <svg
+          className="animate-spin h-5 w-5 "
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <circle
+            className="opacity-25"
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="currentColor"
+            strokeWidth="4"
+          />
+          <path
+            className="opacity-75"
+            fill="currentColor"
+            d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+          />
+        </svg>
+      );
   }
 
   return (
-    <Card className="pt-0 rounded-md w-full">
+    <Card className="pt-0 rounded-md">
       <CardHeader className="flex items-center gap-2 space-y-0 border-b py-5 sm:flex-row">
         <div className="grid flex-1 gap-1">
           <CardTitle className="text-2xl font-semibold tracking-tight flex flex-row items-center gap-2">
             Servicios realizados
-            {loading && <LoadingSpinner />}
+            <Loading />
           </CardTitle>
+
           <CardDescription>
             Se muestran los servicios de los últimos{" "}
             {timeRange === "90d"
               ? "3 meses"
               : timeRange === "30d"
-              ? "30 días"
-              : "7 días"}
+              ? "30 dias"
+              : "7 dias"}
           </CardDescription>
         </div>
         <Select value={timeRange} onValueChange={setTimeRange}>
           <SelectTrigger
             className="hidden w-40 rounded-lg sm:ml-auto sm:flex"
-            aria-label="Selecciona un valor"
+            aria-label="Select a value"
           >
-            <SelectValue placeholder="Últimos 3 meses" />
+            <SelectValue placeholder="Last 3 months" />
           </SelectTrigger>
           <SelectContent className="rounded-xl">
             <SelectItem value="90d" className="rounded-lg">
-              Últimos 3 meses
+              Last 3 months
             </SelectItem>
             <SelectItem value="30d" className="rounded-lg">
-              Últimos 30 días
+              Last 30 days
             </SelectItem>
             <SelectItem value="7d" className="rounded-lg">
-              Últimos 7 días
+              Last 7 days
             </SelectItem>
           </SelectContent>
         </Select>
@@ -234,13 +228,8 @@ export function ChartAreaInteractive() {
               tickMargin={8}
               minTickGap={32}
               tickFormatter={(value) => {
-                const [year, month, day] = value.split("-");
-                const date = new Date(
-                  Number(year),
-                  Number(month) - 1,
-                  Number(day)
-                );
-                return date.toLocaleDateString("es-MX", {
+                const date = new Date(value);
+                return date.toLocaleDateString("es-AR", {
                   month: "short",
                   day: "numeric",
                 });
@@ -251,13 +240,7 @@ export function ChartAreaInteractive() {
               content={
                 <ChartTooltipContent
                   labelFormatter={(value) => {
-                    const [year, month, day] = value.split("-");
-                    const date = new Date(
-                      Number(year),
-                      Number(month) - 1,
-                      Number(day)
-                    );
-                    return date.toLocaleDateString("es-MX", {
+                    return new Date(value).toLocaleDateString("es-AR", {
                       month: "short",
                       day: "numeric",
                     });

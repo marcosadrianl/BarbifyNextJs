@@ -30,7 +30,7 @@ export default function SingleClientCard({ client }: { client: IClient }) {
               {client.clientName} {client.clientLastName}
             </h1>
 
-            <div className="mt-4 flex flex-col gap-2 text-base text-muted-foreground">
+            <div className="mt-4 flex flex-col gap-2 text-base text-gray-400">
               {client.clientEmail && (
                 <Link
                   href={`mailto:${client.clientEmail}`}

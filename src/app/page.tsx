@@ -166,7 +166,7 @@ export default function BarbifyLanding() {
             viewport={{ once: true }}
             className={`${titles.className} text-4xl mb-8`}
           >
-            Diseñada para peluqueros, por peluqueros.
+            Diseñada por peluqueros, para peluqueros.
           </motion.h2>
           <p className="text-lg text-black/70 leading-relaxed">
             Barbify nace del día a día real de una peluquería: clientes que

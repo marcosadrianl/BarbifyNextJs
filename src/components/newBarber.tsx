@@ -1,15 +1,10 @@
 "use client";
 
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 //import { IBarbers } from "@/models/Barbers";
-import mongoose from "mongoose";
-import {
-  ChevronLeft,
-  ChevronRight,
-  SquareArrowUpRight,
-  UserPlus,
-} from "lucide-react";
+import mongoose, { set } from "mongoose";
+import { SquareArrowUpRight, UserPlus } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -17,12 +12,13 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
+import { useBarbers } from "@/lib/store/services.store";
 
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { se } from "date-fns/locale";
+import { useSession } from "next-auth/react";
 
 interface IBarbers {
   _id: mongoose.Types.ObjectId | Document;
@@ -47,7 +43,8 @@ interface IBarbers {
   __v?: number;
 }
 
-export default function NewBarber({ ownerUserId }: { ownerUserId: string }) {
+export default function NewBarber() {
+  const { data: session } = useSession();
   const [barberName, setBarberName] = useState("");
   const [barberLastName, setBarberLastName] = useState("");
   const [barberEmail, setBarberEmail] = useState("");
@@ -57,15 +54,23 @@ export default function NewBarber({ ownerUserId }: { ownerUserId: string }) {
   const [state, setState] = useState("");
   const [address, setAddress] = useState("");
   const [postalCode, setPostalCode] = useState("");
+  const [ownerUserId, setOwnerUserId] = useState("");
   const [barberLevel, setBarberLevel] = useState<0 | 1 | 2>(1);
   const [barberBirthDate, setBarberBirthDate] = useState("");
   const [barberImageURL, setBarberImageURL] = useState("");
-  const [ownerUserIdState] = useState(ownerUserId);
+  const { refreshFromAPI } = useBarbers();
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [openSection, setOpenSection] = useState<"create" | null>(null);
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    if (session?.user?.id) {
+      setOwnerUserId(session.user.id);
+    }
+  }, [session]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -73,21 +78,28 @@ export default function NewBarber({ ownerUserId }: { ownerUserId: string }) {
     setError(null);
     setSuccess(null);
     try {
-      await axios.post("/api/users/barbers", {
-        barberName,
-        barberLastName,
-        barberEmail,
-        barberPhone,
-        barberRole,
-        city,
-        state,
-        address,
-        postalCode,
-        barberLevel,
-        barberBirthDate,
-        barberImageURL,
-        ownerUserId: ownerUserIdState,
-      });
+      await axios
+        .post("/api/users/barbers", {
+          barberName,
+          barberLastName,
+          barberEmail,
+          barberPhone,
+          barberRole,
+          city,
+          state,
+          address,
+          postalCode,
+          barberLevel,
+          barberBirthDate,
+          barberImageURL,
+          ownerUserId: ownerUserId,
+        })
+        .then(() => {
+          refreshFromAPI();
+          setTimeout(() => {
+            setOpen(false);
+          }, 2000);
+        });
       setSuccess("Barber creado correctamente");
       setBarberName("");
       setBarberLastName("");
@@ -119,7 +131,7 @@ export default function NewBarber({ ownerUserId }: { ownerUserId: string }) {
       >
         <span className="flex flex-row w-full justify-between items-center">
           <span>
-            <h2 className="font-semibold text-lg">Crear Nuevo Barber</h2>
+            <h2 className="">Crear Nuevo Barber</h2>
             <p className="text-xs text-gray-600">
               Registrá un nuevo barber en tu cuenta. Los Barbers son tus
               compañeros de trabajo.
@@ -269,7 +281,9 @@ export default function NewBarber({ ownerUserId }: { ownerUserId: string }) {
                 <Button
                   type="button"
                   variant="ghost"
-                  onClick={() => setOpen(false)}
+                  onClick={() => {
+                    setOpen(false);
+                  }}
                 >
                   Cancelar
                 </Button>

@@ -28,7 +28,7 @@ export default async function ServiceList({
 
     if (!clientData) {
       return (
-        <div className="p-4 text-center text-muted-foreground">
+        <div className="p-4 text-center text-gray-400">
           Cliente no encontrado
         </div>
       );

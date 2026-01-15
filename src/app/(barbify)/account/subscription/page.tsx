@@ -5,7 +5,7 @@ export default function Page() {
   return (
     <div className="">
       <h1 className="text-xl font-bold mb-4 p-4">Suscripción</h1>
-      <p className="text-muted-foreground mb-6 px-4">
+      <p className="text-gray-400 mb-6 px-4">
         Ve las opciones de configuración para la suscripción de tu cuenta.
       </p>
 
@@ -26,6 +26,15 @@ export default function Page() {
           </span>
         </div>
       </Link>
+      <div className="p-4 border-t border-[#cebaa1] mt-4">
+        <p className="text-xs">
+          Barbify no gestiona las suscripciones de los usuarios. Para
+          administrar o cancelar tu suscripción, por favor visita MercadoPago.
+          Recuerda que tienes 3 meses de uso gratuito si cancelas la
+          suscripción, luego no podrás acceder a los beneficios que ofrece
+          Barbify.
+        </p>
+      </div>
     </div>
   );
 }

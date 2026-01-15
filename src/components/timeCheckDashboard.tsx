@@ -21,7 +21,7 @@ export function TimeCheckDashboard() {
   const readLastUpdated = React.useCallback(() => {
     const lastSaved = localStorage.getItem("services_last_saved");
     if (lastSaved) {
-      setLastUpdated(new Date(Number(lastSaved)).toLocaleString());
+      setLastUpdated(new Date(Number(lastSaved)).toLocaleString("es-AR"));
     }
   }, []);
 

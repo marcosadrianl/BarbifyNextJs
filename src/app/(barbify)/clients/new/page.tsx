@@ -369,7 +369,7 @@ export default function CreateClientForm() {
                               field.onChange(parseInt(e.target.value) || 0)
                             }
                           />
-                          <span className="text-muted-foreground">%</span>
+                          <span className="text-gray-400">%</span>
                         </div>
                       </FormControl>
                       <FormMessage />
