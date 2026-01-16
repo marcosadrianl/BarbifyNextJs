@@ -61,7 +61,7 @@ export function YearlyServicesChart() {
   const availableYears = useMemo(() => {
     const years = services
       .map((s) => {
-        const date = new Date(s.clientServices?.serviceDate);
+        const date = new Date(s?.serviceDate);
         return isNaN(date.getTime()) ? null : date.getFullYear().toString();
       })
       .filter(Boolean) as string[];
@@ -89,7 +89,7 @@ export function YearlyServicesChart() {
     const dataModel = monthNames.map((name) => ({ month: name, total: 0 }));
 
     services.forEach((service) => {
-      const dateStr = service.clientServices?.serviceDate;
+      const dateStr = service?.serviceDate;
       if (!dateStr) return;
 
       const date = new Date(dateStr);

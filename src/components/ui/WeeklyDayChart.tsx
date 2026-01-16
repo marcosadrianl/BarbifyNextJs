@@ -55,13 +55,18 @@ export function WeeklyDayChart() {
   }, []);
 
   const availableYears = useMemo(() => {
-    const years = services.map((s) =>
-      new Date(s.clientServices?.serviceDate).getFullYear().toString()
-    );
-    return Array.from(new Set([currentYear, ...years]))
-      .filter((y) => y !== "NaN")
-      .sort((a, b) => b.localeCompare(a));
-  }, [services, currentYear]);
+    const years = services
+      .map((s) => {
+        const year = new Date(s?.serviceDate).getFullYear();
+        return isNaN(year) ? null : year;
+      })
+      .filter((y): y is number => y !== null);
+
+    // Convertimos a Set para evitar duplicados y ordenamos numéricamente
+    return Array.from(new Set(years))
+      .sort((a, b) => b - a) // orden descendente
+      .map((y) => y.toString());
+  }, [services]);
 
   const chartData = useMemo(() => {
     const daysMap = [
@@ -75,7 +80,7 @@ export function WeeklyDayChart() {
     ];
 
     services.forEach((service) => {
-      const date = new Date(service.clientServices?.serviceDate);
+      const date = new Date(service?.serviceDate);
       if (date.getFullYear().toString() === selectedYear) {
         const dayIndex = date.getDay();
         const dayEntry = daysMap.find((d) => d.index === dayIndex);

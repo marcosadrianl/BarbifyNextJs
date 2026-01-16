@@ -20,7 +20,7 @@ export function GenderSegmentationCard() {
 
     // 1. Definir rango de 2 meses (igual que el gráfico de horas)
     const validDates = services
-      .map((s: any) => new Date(s.clientServices?.serviceDate).getTime())
+      .map((s: any) => new Date(s?.serviceDate).getTime())
       .filter((t) => !isNaN(t));
     const latestDate = new Date(Math.max(...validDates));
     const filterStartDate = new Date(
@@ -43,7 +43,7 @@ export function GenderSegmentationCard() {
     };
 
     services.forEach((s: any) => {
-      const sDate = new Date(s.clientServices?.serviceDate);
+      const sDate = new Date(s?.serviceDate);
       if (sDate < filterStartDate) return;
 
       // Asumimos que el género viene en s.clientGender
@@ -51,8 +51,8 @@ export function GenderSegmentationCard() {
 
       if (s.clientSex === "F") gender = "Femenino";
       else if (s.clientSex === "M") gender = "Masculino";
-      const price = (s.clientServices?.servicePrice || 0) / 100;
-      const serviceName = s.clientServices?.serviceName || "General";
+      const price = (s?.servicePrice || 0) / 100;
+      const serviceName = s?.serviceName || "General";
 
       groups[gender].revenue += price;
       groups[gender].count += 1;
@@ -132,7 +132,7 @@ export function GenderSegmentationCard() {
 
               <div className="mt-3 pt-3 border-t border-border/50">
                 <p className="text-xs text-gray-400 mb-1">Servicio Top:</p>
-                <p className="text-xs font-medium truncate">
+                <p className="text-xs font-medium truncate capitalize">
                   {group.topService}
                 </p>
               </div>
@@ -160,11 +160,13 @@ export function GenderSegmentationCard() {
                 </p>
                 <div className="flex items-center gap-2 text-xs text-foreground/80">
                   <ArrowRight className="w-3 h-3 text-primary" />
-                  Promos cruzadas en {stats.groups[0].topService}
+                  Promos cruzadas en {stats.groups[0].topService}: combina{" "}
+                  {stats.groups[0].topService} con otros servicios populares.
                 </div>
                 <div className="flex items-center gap-2 text-xs text-foreground/80">
                   <ArrowRight className="w-3 h-3 text-primary" />
-                  Ajuste de precios en servicios premium
+                  Ajuste de precios en servicios premium: considera un
+                  incremento leve en servicios con alta demanda.
                 </div>
               </div>
             </div>
