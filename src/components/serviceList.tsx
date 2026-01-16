@@ -1,42 +1,33 @@
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
-import { IService } from "@/models/Clients";
-import { connectDB } from "@/utils/mongoose";
-import Clients, { IClient } from "@/models/Clients";
-import mongoose from "mongoose";
+import Services, { IService } from "@/models/Service";
 import { History, ChevronRight, NotebookPen } from "lucide-react";
 import Link from "next/link";
+import { connectDB } from "@/utils/mongoose";
+import mongoose from "mongoose";
 
-async function getClient(id: string) {
-  await connectDB();
-  // lean() es excelente para performance en Server Components
-  const client = await (Clients as mongoose.Model<IClient>).findById(id).lean();
-  return client;
+function getDateClass(serviceDate: Date): string {
+  const now = new Date();
+  const date = new Date(serviceDate);
+
+  // Si la fecha es futura → naranja, si es pasada → gris (estilo actual)
+  return date > now
+    ? "text-[10px] font-medium bg-green-100 px-2 py-1 rounded-full shadow-sm text-green-700"
+    : "text-[10px] font-medium bg-white px-2 py-1 rounded-full shadow-sm text-slate-500";
 }
 
 export default async function ServiceList({
   params,
 }: {
-  params: Promise<{ id: string }> | { id: string };
+  params: { id: string };
 }) {
   try {
-    // Manejo correcto de params asíncronos en Next.js 15
-    const resolvedParams = await params;
-    const { id } = resolvedParams;
+    const { id } = await params; // En Next.js 15, params es una Promise
 
-    const clientData = await getClient(id);
-
-    if (!clientData) {
-      return (
-        <div className="p-4 text-center text-gray-400">
-          Cliente no encontrado
-        </div>
-      );
-    }
-
-    // Convertimos a objeto plano de forma segura
-    const client = JSON.parse(JSON.stringify(clientData));
-    const services = client.clientServices || [];
+    await connectDB();
+    const services = await (Services as mongoose.Model<IService>)
+      .find({ toClientId: id })
+      .lean();
 
     return (
       <div className="bg-white border border-slate-200 shadow-sm h-fit p-5 rounded-3xl">
@@ -67,18 +58,19 @@ export default async function ServiceList({
             </div>
           ) : (
             services
+              .reverse()
               .slice(0, 5) // Limitamos a los últimos 5
 
-              .map((service: IService) => (
+              .map((service: IService, index) => (
                 <div
-                  key={service._id.toString()}
+                  key={index}
                   className="group p-3 bg-slate-50 hover:bg-orange-50 transition-colors rounded-2xl border border-slate-100"
                 >
                   <div className="flex flex-row justify-between items-start mb-1">
                     <p className="text-sm font-bold text-slate-800 capitalize">
                       {service.serviceName}
                     </p>
-                    <p className="text-[10px] font-medium bg-white px-2 py-1 rounded-full shadow-sm text-slate-500">
+                    <p className={getDateClass(service.serviceDate)}>
                       {format(new Date(service.serviceDate), "dd/MM/yyyy", {
                         locale: es,
                       })}

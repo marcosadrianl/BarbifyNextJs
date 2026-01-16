@@ -2,6 +2,20 @@
 quiero llorar
 
 --------------------------------------------------------------------------------------------------
+AVANCE 15/01/2026:
+Importante: 
+	- Se creo la coleccion BarbifyServices. 
+	La misma contendra TODOS los servicios de todos los usuarios, contiene info del Usuario, el Barber que lo atendio y el Cliente que se aplico.
+TODO:
+- service.store debe traer la info desde la coleccion BarbifyServices.
+- La agenda ahora debe traer la info desde la coleccion BarbifyServices y combinarle los datos del cliente.
+- Dashboard: Modificar todas las cards para que lean la nueva estructura de service.store.ts
+
+EXISTE:
+- un endpoint que trae todos los servicios correspondiente a un usuario.
+- un endpoint que permite editar los servicios (no esta probado)
+- 
+
 AVANCE 06/01/2026: 
 Cambio de anio y sigo aca ! 
 - DASHBOARD todo: 

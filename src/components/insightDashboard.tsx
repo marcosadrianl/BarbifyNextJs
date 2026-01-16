@@ -68,31 +68,31 @@ export default function ServicesDashboard() {
     if (period === "month") start.setMonth(now.getMonth() - 1);
 
     return services
-      .filter((s) => new Date(s.clientServices.serviceDate) >= start)
+      .filter((s) => new Date(s.serviceDate) >= start)
       .sort((a, b) => {
         let aVal: any;
         let bVal: any;
 
         switch (sortField) {
           case "date":
-            aVal = new Date(a.clientServices.serviceDate).getTime();
-            bVal = new Date(b.clientServices.serviceDate).getTime();
+            aVal = new Date(a.serviceDate).getTime();
+            bVal = new Date(b.serviceDate).getTime();
             break;
           case "client":
             aVal = a.clientName;
             bVal = b.clientName;
             break;
           case "service":
-            aVal = a.clientServices.serviceName;
-            bVal = b.clientServices.serviceName;
+            aVal = a.serviceName;
+            bVal = b.serviceName;
             break;
           case "price":
-            aVal = a.clientServices.servicePrice;
-            bVal = b.clientServices.servicePrice;
+            aVal = a.servicePrice;
+            bVal = b.servicePrice;
             break;
           case "barber":
-            aVal = a.clientServices.fromBarberId;
-            bVal = b.clientServices.fromBarberId;
+            aVal = a.fromBarberId;
+            bVal = b.fromBarberId;
             break;
         }
 
@@ -170,30 +170,26 @@ export default function ServicesDashboard() {
           <TableBody>
             {filteredAndSorted.length > 0 ? (
               filteredAndSorted.map((s) => (
-                <TableRow key={s.clientServices._id}>
+                <TableRow key={s._id.toString() + s.serviceDate.toString()}>
                   <TableCell>
-                    {new Date(
-                      s.clientServices.serviceDate
-                    ).toLocaleDateString()}
+                    {new Date(s.serviceDate).toLocaleDateString()}
                   </TableCell>
                   <TableCell>
-                    <Link href={`/clients/${s.clientId}`}>
+                    <Link
+                      href={`/clients/${s._id.toString()}`}
+                      className="hover:underline"
+                    >
                       {s.clientName.toLocaleUpperCase().toWellFormed()}{" "}
                       {s.clientLastName.toLocaleUpperCase().toWellFormed()}
                     </Link>
                   </TableCell>
                   <TableCell>
-                    {s.clientServices.serviceName
-                      .toLocaleUpperCase()
-                      .toWellFormed()}
+                    {s.serviceName.toLocaleUpperCase().toWellFormed()}
                   </TableCell>
                   <TableCell className="text-right font-medium px-4">
-                    $
-                    {(s.clientServices.servicePrice / 100).toLocaleString(
-                      "es-AR"
-                    )}
+                    ${(s.servicePrice / 100).toLocaleString("es-AR")}
                   </TableCell>
-                  {/* <TableCell>{s.clientServices.fromBarberId}</TableCell> */}
+                  {/* <TableCell>{s.fromBarberId}</TableCell> */}
                 </TableRow>
               ))
             ) : (

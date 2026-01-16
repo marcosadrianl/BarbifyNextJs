@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { IClient } from "@/models/Clients";
+import { useParams, useRouter } from "next/navigation";
 import { IBarbers } from "@/models/Barbers";
 import {
   Plus,
@@ -33,24 +32,47 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useBarbers } from "@/lib/store/services.store";
+import { useSession } from "next-auth/react";
 
-export default function NewServiceModal({ client }: { client: IClient }) {
+interface IServiceFormData {
+  serviceName: string;
+  serviceDate: string;
+  servicePrice: string | number;
+  serviceDuration: string | number;
+  serviceNotes: string;
+  fromBarberId: string;
+  forUserId?: string;
+  toClientId?: string;
+}
+
+export default function NewServiceModal() {
+  const { data: session } = useSession();
+
+  useEffect(() => {
+    console.log("Session in NewServiceModal:", session);
+  }, [session]);
+
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [barberList, setBarberList] = useState<IBarbers[]>([]);
   const router = useRouter();
 
+  // Corrección: useParams solo devuelve los parámetros de la URL
+  const params = useParams();
+  const clientId = params.id as string; // Asumiendo que el parámetro se llama 'id'
+
   // Estados del formulario
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<IServiceFormData>({
     serviceName: "",
-    servicePrice: "",
     serviceDate: "",
-    serviceNotes: "",
+    servicePrice: "",
     serviceDuration: "30",
-    barberId: "",
+    serviceNotes: "",
+    fromBarberId: "",
   });
 
   const { barbers, refreshFromAPI } = useBarbers();
+
   useEffect(() => {
     refreshFromAPI();
   }, [refreshFromAPI]);
@@ -63,37 +85,41 @@ export default function NewServiceModal({ client }: { client: IClient }) {
     e.preventDefault();
     setLoading(true);
 
-    const localDate = new Date(formData.serviceDate);
-    const utcDate = new Date(
-      localDate.getTime() - localDate.getTimezoneOffset()
-    );
-
-    // Buscar el nombre del barbero seleccionado
-    const selectedBarber = barberList.find(
-      (b) => b._id.toString() === formData.barberId
-    );
-    const barberName = selectedBarber
-      ? `${selectedBarber.barberName} ${
-          selectedBarber.barberLastName || ""
-        }`.trim()
-      : "No especificado";
-
-    // Agregar automáticamente la información del barbero a las notas
-    const notesWithBarber = formData.serviceNotes
-      ? `${formData.serviceNotes}\n\nAtendió: ${barberName}`
-      : `Atendió: ${barberName}`;
-
-    const serviceData = {
-      ...formData,
-      servicePrice: Number(formData.servicePrice) * 100,
-      serviceDate: utcDate,
-      fromBarberId: formData.barberId,
-      serviceDuration: Number(formData.serviceDuration),
-      serviceNotes: notesWithBarber, // Notas con información del barbero
-    };
-
     try {
-      const res = await fetch(`/api/services/${client._id}`, {
+      // Convertir la fecha local a UTC
+      const localDate = new Date(formData.serviceDate);
+      const utcDate = new Date(
+        localDate.getTime() - localDate.getTimezoneOffset() * 60000
+      );
+
+      // Buscar el nombre del barbero seleccionado
+      const selectedBarber = barberList.find(
+        (b) => b._id.toString() === formData.fromBarberId
+      );
+      const barberName = selectedBarber
+        ? `${selectedBarber.barberName} ${
+            selectedBarber.barberLastName || ""
+          }`.trim()
+        : "No especificado";
+
+      // Agregar automáticamente la información del barbero a las notas
+      const notesWithBarber = formData.serviceNotes
+        ? `${formData.serviceNotes}\n - Atendió: ${barberName}`
+        : `Atendió: ${barberName}`;
+
+      const serviceData = {
+        serviceName: formData.serviceName.toLocaleLowerCase(),
+        servicePrice: Number(formData.servicePrice) * 100, // Convertir a centavos
+        serviceDate: utcDate.toISOString(),
+        fromBarberId: formData.fromBarberId,
+        serviceDuration: Number(formData.serviceDuration),
+        serviceNotes: notesWithBarber,
+        toClientId: clientId,
+        forUserId: session?.user.id,
+      };
+
+      // Corrección: endpoint correcto usando axios
+      const res = await fetch(`/api/clients/${clientId}/services`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(serviceData),
@@ -109,13 +135,22 @@ export default function NewServiceModal({ client }: { client: IClient }) {
           serviceDate: "",
           serviceNotes: "",
           serviceDuration: "30",
-          barberId: "",
+          fromBarberId: "",
         });
       } else {
-        alert("Error al guardar el servicio");
+        const errorData = await res.json();
+        alert(
+          `Error al guardar el servicio: ${
+            errorData.message || "Error desconocido"
+          }`
+        );
       }
     } catch (err) {
-      alert("Error de red: " + err);
+      console.error("Error de red:", err);
+      alert(
+        "Error de red: " +
+          (err instanceof Error ? err.message : "Error desconocido")
+      );
     } finally {
       setLoading(false);
     }
@@ -126,11 +161,11 @@ export default function NewServiceModal({ client }: { client: IClient }) {
       <DialogTrigger asChild>
         <Button className="flex flex-row w-36 rounded-full bg-[#cdaa7e] hover:bg-amber-100 cursor-pointer text-[#43553b] gap-1">
           <Plus className="w-6 h-6" />
-          <span className="">Nuevo Servicio</span>
+          <span>Nuevo Servicio</span>
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="sm:max-w-125 bg-white rounded-3xl border-none shadow-2xl">
+      <DialogContent className="sm:max-w-131.25 bg-white rounded-3xl border-none shadow-2xl">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold text-slate-800 flex items-center gap-2">
             Registrar Servicio
@@ -170,6 +205,7 @@ export default function NewServiceModal({ client }: { client: IClient }) {
               <Input
                 id="price"
                 type="number"
+                step="0.01"
                 required
                 placeholder="0.00"
                 className="rounded-xl border-slate-200"
@@ -190,6 +226,7 @@ export default function NewServiceModal({ client }: { client: IClient }) {
               <Input
                 id="duration"
                 type="number"
+                min="1"
                 required
                 className="rounded-xl border-slate-200"
                 value={formData.serviceDuration}
@@ -226,8 +263,9 @@ export default function NewServiceModal({ client }: { client: IClient }) {
               <User className="w-4 h-4 text-orange-500" /> Atendido por:
             </Label>
             <Select
+              value={formData.fromBarberId}
               onValueChange={(val) =>
-                setFormData({ ...formData, barberId: val })
+                setFormData({ ...formData, fromBarberId: val })
               }
               required
             >

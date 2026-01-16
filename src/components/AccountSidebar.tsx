@@ -48,7 +48,7 @@ export function AccountSidebar() {
         </span>
       </Link>
 
-      <Link
+      {/* <Link
         href="/account/dashboard"
         className={linkClass("/account/dashboard")}
       >
@@ -56,7 +56,7 @@ export function AccountSidebar() {
           <p>Dashboard</p>
           <ChevronRight className="w-6 h-6" />
         </span>
-      </Link>
+      </Link> */}
 
       <Link href="/account/logout" className={linkClass("/account/logout")}>
         <span className="flex flex-row w-full justify-between px-2">

@@ -42,7 +42,7 @@ function buildHourlyIncomeChartData(services: any[]) {
     {};
 
   services.forEach((service) => {
-    const date = new Date(service.clientServices?.serviceDate);
+    const date = new Date(service?.serviceDate);
     if (isNaN(date.getTime())) return;
 
     // Formato HH:00 (ej: "09:00")
@@ -52,9 +52,8 @@ function buildHourlyIncomeChartData(services: any[]) {
       buckets[hour] = { totalIncome: 0, totalMinutes: 0 };
     }
 
-    buckets[hour].totalIncome +=
-      (service.clientServices?.servicePrice || 0) / 100;
-    buckets[hour].totalMinutes += service.clientServices?.serviceDuration || 0;
+    buckets[hour].totalIncome += (service?.servicePrice || 0) / 100;
+    buckets[hour].totalMinutes += service?.serviceDuration || 0;
   });
 
   return Object.entries(buckets)
@@ -75,7 +74,7 @@ export function IncomePerHourByHourChart() {
     if (!services || services.length === 0) return [];
 
     const validDates = services
-      .map((s: any) => new Date(s.clientServices?.serviceDate).getTime())
+      .map((s: any) => new Date(s?.serviceDate).getTime())
       .filter((t) => !isNaN(t));
 
     if (validDates.length === 0) return [];
@@ -88,7 +87,7 @@ export function IncomePerHourByHourChart() {
     );
 
     const filteredServices = services.filter((s: any) => {
-      const sDate = new Date(s.clientServices?.serviceDate);
+      const sDate = new Date(s?.serviceDate);
       return sDate >= filterStartDate;
     });
 
@@ -175,8 +174,8 @@ export function IncomePerHourByHourChart() {
       </CardContent>
 
       <CardFooter>
-        <div className="text-xs text-gray-400 border-t pt-2 flex items-center justify-between">
-          Facturación media: ${avg.toLocaleString("es-AR")} / h
+        <div className="text-xs text-gray-400 border-t pt-2 flex items-center justify-between w-full">
+          Facturación media: ${avg.toLocaleString("es-AR")} / h{" "}
           <TrendingUp className="h-4 w-4" />
         </div>
       </CardFooter>

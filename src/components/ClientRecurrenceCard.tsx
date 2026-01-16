@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { TrendingUp, TrendingDown, Equal } from "lucide-react";
 import { useServicesStore } from "@/lib/store/services.store";
+import { IServiceCombined } from "@/models/models";
 
 type ClientGroup = {
   count: number;
@@ -22,7 +23,7 @@ type RecurrenceResult = {
  * Analiza la recurrencia de clientes en un período específico
  */
 export function analyzeClientRecurrence(
-  services: any[],
+  services: IServiceCombined[],
   startDate?: Date,
   endDate?: Date
 ): RecurrenceResult {
@@ -30,9 +31,9 @@ export function analyzeClientRecurrence(
 
   services.forEach((item) => {
     // ✅ CORRECCIÓN: Acceso correcto a los datos
-    const serviceDate = item.clientServices?.serviceDate;
-    const clientId = item.clientId;
-    const priceRaw = item.clientServices?.servicePrice;
+    const serviceDate = item?.serviceDate;
+    const clientId = item?._id.toString();
+    const priceRaw = item?.servicePrice;
 
     if (!serviceDate || !clientId || typeof priceRaw !== "number") {
       console.warn("Servicio con datos faltantes:", item);
@@ -92,10 +93,12 @@ export function ClientRecurrenceCard() {
       return;
     }
 
+    console.log("Servicios para análisis de recurrencia:", services);
+
     // 1. DETECCIÓN DINÁMICA DE LA FECHA MÁS RECIENTE
     // En lugar de hardcodear 2025 u Octubre, buscamos el servicio más nuevo
     const validDates = services
-      .map((s: any) => new Date(s.clientServices?.serviceDate))
+      .map((s: any) => new Date(s?.serviceDate))
       .filter((d: Date) => !isNaN(d.getTime()));
 
     if (validDates.length === 0) {

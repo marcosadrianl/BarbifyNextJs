@@ -1,30 +1,36 @@
 import { create } from "zustand";
 import { IBarbers } from "@/models/Barbers";
+import { IService } from "@/models/Service";
+import { IClient } from "@/models/Clients";
+import { IServiceCombined } from "@/models/models";
 import axios from "axios";
-
-export type ClientService = {
-  clientId: string;
-  clientName: string;
-  clientLastName: string;
-  clientPhone: string;
-  clientSex: "M" | "F" | "O";
-  clientActive: boolean;
-  createdAt: string;
-
-  clientServices: {
-    _id: string;
-    serviceName: string;
-    servicePrice: number;
-    serviceDate: string;
-    serviceDuration: number;
-    serviceNotes: string;
-    fromBarberId?: string;
-  };
-};
 
 const TTL_MINUTES = 30;
 
 // --- Funciones de Ayuda (Sin cambios en lógica, solo uso) ---
+
+export function combineClientService(
+  client: IClient,
+  service: IService
+): IServiceCombined {
+  return {
+    // Cliente
+    _id: client._id,
+    clientName: client.clientName,
+    clientLastName: client.clientLastName,
+    clientSex: client.clientSex,
+
+    // Servicio
+    serviceDate: service.serviceDate,
+    serviceName: service.serviceName,
+    servicePrice: service.servicePrice,
+    serviceDuration: service.serviceDuration,
+    serviceNotes: service.serviceNotes,
+    status: service.status,
+    paymentMethod: service.paymentMethod,
+    fromBarberId: service.fromBarberId,
+  };
+}
 
 function getCurrentDateInArgentina(): Date {
   const now = new Date();
@@ -35,13 +41,14 @@ function getCurrentDateInArgentina(): Date {
 }
 
 function filterPastOrPresentServices(
-  services: ClientService[]
-): ClientService[] {
+  services: IServiceCombined[]
+): IServiceCombined[] {
   const now = getCurrentDateInArgentina();
   return services.filter((service) => {
     // Validación de seguridad por si serviceDate es null/undefined
-    if (!service.clientServices?.serviceDate) return false;
-    const serviceDate = new Date(service.clientServices.serviceDate);
+    if (!service?.serviceDate) return false;
+    const serviceDate = new Date(service.serviceDate);
+    console.log(serviceDate <= now);
     return serviceDate <= now;
   });
 }
@@ -55,8 +62,8 @@ function isCacheExpired(lastSaved: string | null): boolean {
 // --- Definición del Store ---
 
 type ServicesStore = {
-  services: ClientService[]; // 👈 Mantiene solo Pasados/Presentes (comportamiento default)
-  allServices: ClientService[]; // 👈 NUEVO: Contiene TODOS los servicios (Futuros incluidos)
+  services: IServiceCombined[]; // 👈 Mantiene solo Pasados/Presentes (comportamiento default)
+  allServices: IServiceCombined[]; // 👈 NUEVO: Contiene TODOS los servicios (Futuros incluidos)
   loading: boolean;
   lastUpdated: number | null;
 
@@ -91,10 +98,11 @@ export const useServicesStore = create<ServicesStore>((set) => ({
 
     try {
       // Ahora asumimos que el cache tiene TODOS los servicios
-      const allServices: ClientService[] = JSON.parse(cached);
+      const allServices: IServiceCombined[] = JSON.parse(cached);
 
       // Calculamos la vista filtrada
       const filteredServices = filterPastOrPresentServices(allServices);
+      console.log("Servicios cargados desde cache:", filteredServices);
 
       set({
         allServices: allServices, // Guardamos crudos
@@ -112,24 +120,39 @@ export const useServicesStore = create<ServicesStore>((set) => ({
     set({ loading: true });
 
     try {
-      const res = await fetch("/api/diary");
+      const [res, resClients] = await Promise.all([
+        axios.get<IService[]>("/api/services"),
+        axios.get<{
+          data: IClient[];
+        }>("/api/clients"),
+      ]);
 
-      if (!res.ok) {
-        throw new Error(`HTTP ${res.status}: ${res.statusText}`);
-      }
+      const allServices = res.data || [];
+      const allClients = resClients.data.data || []; // 👈 importante
 
-      const json = await res.json();
-      const allServices: ClientService[] = json.data || [];
+      const servicesWithClients: IServiceCombined[] = allServices
+        .map((service) => {
+          if (!service.toClientId) return null;
+
+          const client = allClients.find(
+            (c) => c._id.toString() === service.toClientId?.toString()
+          );
+
+          return client ? combineClientService(client, service) : null;
+        })
+        .filter((item): item is IServiceCombined => item !== null);
+
+      console.log("Servicios combinados:", servicesWithClients);
 
       // 1. Filtramos para la vista principal
-      const filteredServices = filterPastOrPresentServices(allServices);
+      const filteredServices = filterPastOrPresentServices(servicesWithClients);
 
       // 2. Guardamos TODO en localStorage (para poder usar allServices offline)
-      localStorage.setItem("services", JSON.stringify(allServices));
+      localStorage.setItem("services", JSON.stringify(servicesWithClients));
       localStorage.setItem("services_last_saved", String(Date.now()));
 
       set({
-        allServices: allServices, // 👈 Estado completo
+        allServices: servicesWithClients, // 👈 Estado completo
         services: filteredServices, // 👈 Estado filtrado
         lastUpdated: Date.now(),
         loading: false,

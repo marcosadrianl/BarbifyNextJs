@@ -36,11 +36,11 @@ export function TotalRevenue() {
       let last6MonthsTotal = 0;
 
       services.forEach((service) => {
-        const serviceDate = service.clientServices.serviceDate;
+        const serviceDate = service.serviceDate;
         if (!serviceDate) return;
 
         const date = new Date(serviceDate);
-        const price = (service.clientServices.servicePrice ?? 0) / 100;
+        const price = (service.servicePrice ?? 0) / 100;
 
         if (
           date.getMonth() === currentMonth &&

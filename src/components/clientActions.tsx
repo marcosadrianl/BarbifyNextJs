@@ -15,7 +15,7 @@ export default function ClientActions({ client }: { client: IClient }) {
     <div className="flex justify-between bg-white p-4 rounded-2xl">
       {/* Acciones principales */}
       <div className="flex  gap-3">
-        <NewServiceModal client={client} />
+        <NewServiceModal />
 
         <EditClientButton clientId={client._id} />
 

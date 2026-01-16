@@ -6,7 +6,7 @@ import { authOptions } from "@/utils/auth";
 import { Types } from "mongoose";
 import mongoose from "mongoose";
 import type { IClient } from "@/models/Clients";
-import type { IService } from "@/models/Clients";
+import type { IService } from "@/models/Service";
 
 // --- Helper: Validar sesión ---
 async function requireSession() {
@@ -60,28 +60,7 @@ export async function GET(
     if (!client)
       return NextResponse.json({ error: "Client not found" }, { status: 404 });
 
-    // Normalizar ObjectId/Date a tipos serializables por JSON
-    const normalizeService = (s: IService) => ({
-      ...s,
-      _id: s._id?.toString ? s._id.toString() : s._id,
-      serviceDate:
-        s.serviceDate instanceof Date
-          ? s.serviceDate.toISOString()
-          : s.serviceDate,
-    });
-
-    const serialized = {
-      ...client,
-      _id: client._id?.toString ? client._id.toString() : client._id,
-      clientFromUserId: client.clientFromUserId?.toString
-        ? client.clientFromUserId.toString()
-        : client.clientFromUserId,
-      clientServices: Array.isArray(client.clientServices)
-        ? client.clientServices.map(normalizeService)
-        : client.clientServices,
-    };
-
-    return NextResponse.json(serialized);
+    return NextResponse.json(client);
   } catch (error) {
     console.error("GET Client error:", error);
     return NextResponse.json({ error: "Server error" }, { status: 500 });

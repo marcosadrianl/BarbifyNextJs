@@ -22,13 +22,13 @@ import { Trash2, Loader2 } from "lucide-react"; // Añadí Loader2 para mejor UX
 
 interface DeleteServiceProps {
   serviceId: string;
-  clientId: string;
+  Id: string;
   trigger?: React.ReactNode; // Agregado porque lo usas en el render
 }
 
 export default function DeleteService({
   serviceId,
-  clientId,
+  Id,
   trigger,
 }: DeleteServiceProps) {
   const [open, setOpen] = useState(false); // Controla la visibilidad del modal
@@ -42,7 +42,7 @@ export default function DeleteService({
     setLoading(true);
 
     try {
-      await axios.delete(`/api/clients/${clientId}/services/${serviceId}`);
+      await axios.delete(`/api/clients/${Id}/services/${serviceId}`);
 
       setOpen(false); // Cerramos el modal solo si la petición fue exitosa
       router.refresh();

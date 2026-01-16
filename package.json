@@ -41,6 +41,7 @@
     "next": "16.1.1",
     "next-auth": "4.24.13",
     "path": "^0.12.7",
+    "postcss": "^8.5.6",
     "react": "19.2.3",
     "react-day-picker": "^9.13.0",
     "react-dom": "19.2.3",

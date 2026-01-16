@@ -5,10 +5,11 @@ import { connectDB } from "@/utils/mongoose";
 import Clients, { IClient } from "@/models/Clients";
 import mongoose, { Types } from "mongoose";
 import SingleClientCard from "@/components/singleClientCard";
-import SingleClientMetrics from "@/components/singleClientMetrics";
 import ClientHealthCard from "@/components/clientHealthCard";
 import ServiceList from "@/components/serviceList";
 import ClientActions from "@/components/clientActions";
+import Services, { IService, serializeService } from "@/models/Service";
+import TotalServices from "@/components/fullServiceData";
 
 export default async function ClientsPage({
   params,
@@ -41,10 +42,9 @@ export default async function ClientsPage({
         <SingleClientCard client={result as IClient} />
         <ClientActions client={result as IClient} />
         <ClientHealthCard client={result as IClient} />
-        <SingleClientMetrics client={result as IClient} />
       </div>
       <div className="flex flex-col gap-4 rounded-2xl w-2/5 ">
-        <ServiceList params={params} />
+        <ServiceList params={{ id }} />
       </div>
     </div>
   );

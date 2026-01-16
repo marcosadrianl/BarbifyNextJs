@@ -1,14 +1,9 @@
 "use client";
 
 import * as React from "react";
-import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
-import { useAllServices } from "@/components/getAllClientServicesForShowing";
-import type { IService } from "@/models/Clients";
-import type { IClient } from "@/models/Clients";
-
-type ClientWithServices = Pick<IClient, "clientSex"> & {
-  clientServices: IService;
-};
+import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
+import { useServicesStore } from "@/lib/store/services.store";
+import { IService } from "@/models/Service";
 
 import {
   Card,
@@ -36,20 +31,9 @@ import {
 export const description = "An interactive area chart";
 
 const chartConfig = {
-  visitors: {
-    label: "Visitors",
-  },
-  Hombre: {
-    label: "Hombre",
-    color: "var(--chart-1)",
-  },
-  Mujer: {
-    label: "Mujer",
+  servicios: {
+    label: "Servicios",
     color: "var(--chart-2)",
-  },
-  Otro: {
-    label: "Otro",
-    color: "var(--chart-3)",
   },
 } satisfies ChartConfig;
 
@@ -76,36 +60,29 @@ function getStartDate(range: string) {
 
 export function ChartAreaInteractive() {
   const [timeRange, setTimeRange] = React.useState("90d");
-  const { services, loading } = useAllServices(5, false) as unknown as {
-    services: ClientWithServices[];
-    loading: boolean;
-  };
+  const { services, loading } = useServicesStore();
 
   const chartData = React.useMemo(() => {
     const startDate = getStartDate(timeRange);
     return Object.values(
       services
         .filter((client) => {
-          const serviceDate = new Date(client.clientServices.serviceDate);
+          const serviceDate = new Date(client.serviceDate);
           return serviceDate >= startDate;
         })
-        .reduce<
-          Record<
-            string,
-            { date: string; Hombre: number; Mujer: number; Otro: number }
-          >
-        >((acc, client) => {
-          const date = new Date(client.clientServices.serviceDate)
-            .toISOString()
-            .split("T")[0];
-          if (!acc[date]) {
-            acc[date] = { date, Hombre: 0, Mujer: 0, Otro: 0 };
-          }
-          if (client.clientSex === "M") acc[date].Hombre++;
-          if (client.clientSex === "F") acc[date].Mujer++;
-          if (client.clientSex === "O") acc[date].Otro++;
-          return acc;
-        }, {})
+        .reduce<Record<string, { date: string; servicios: number }>>(
+          (acc, client) => {
+            const date = new Date(client.serviceDate)
+              .toISOString()
+              .split("T")[0];
+            if (!acc[date]) {
+              acc[date] = { date, servicios: 0 };
+            }
+            acc[date].servicios++;
+            return acc;
+          },
+          {}
+        )
     ).sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
   }, [services, timeRange]);
 
@@ -176,46 +153,22 @@ export function ChartAreaInteractive() {
       <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
         <ChartContainer
           config={chartConfig}
-          className="aspect-auto h-62.5 w-full"
+          className="aspect-auto h-[200px] w-full"
         >
           <AreaChart
             data={chartData}
-            margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
+            margin={{ top: 10, right: 20, left: 12, bottom: 5 }}
           >
             <defs>
-              <linearGradient id="fillHombre" x1="0" y1="0" x2="0" y2="1">
+              <linearGradient id="fillServicios" x1="0" y1="0" x2="0" y2="1">
                 <stop
                   offset="5%"
-                  stopColor="var(--color-Hombre)"
+                  stopColor="var(--color-servicios)"
                   stopOpacity={0.8}
                 />
                 <stop
                   offset="95%"
-                  stopColor="var(--color-Hombre)"
-                  stopOpacity={0.1}
-                />
-              </linearGradient>
-              <linearGradient id="fillMujer" x1="0" y1="0" x2="0" y2="1">
-                <stop
-                  offset="5%"
-                  stopColor="var(--color-Mujer)"
-                  stopOpacity={0.8}
-                />
-                <stop
-                  offset="95%"
-                  stopColor="var(--color-Mujer)"
-                  stopOpacity={0.1}
-                />
-              </linearGradient>
-              <linearGradient id="fillOtro" x1="0" y1="0" x2="0" y2="1">
-                <stop
-                  offset="5%"
-                  stopColor="var(--color-Otro)"
-                  stopOpacity={0.8}
-                />
-                <stop
-                  offset="95%"
-                  stopColor="var(--color-Otro)"
+                  stopColor="var(--color-servicios)"
                   stopOpacity={0.1}
                 />
               </linearGradient>
@@ -235,6 +188,10 @@ export function ChartAreaInteractive() {
                 });
               }}
             />
+            <YAxis
+              hide
+              domain={[0, (dataMax: number) => Math.ceil(dataMax * 1.2)]}
+            />
             <ChartTooltip
               cursor={false}
               content={
@@ -250,25 +207,10 @@ export function ChartAreaInteractive() {
               }
             />
             <Area
-              dataKey="Mujer"
+              dataKey="servicios"
               type="natural"
-              fill="url(#fillMujer)"
-              stroke="var(--color-Mujer)"
-              stackId="a"
-            />
-            <Area
-              dataKey="Hombre"
-              type="natural"
-              fill="url(#fillHombre)"
-              stroke="var(--color-Hombre)"
-              stackId="a"
-            />
-            <Area
-              dataKey="Otro"
-              type="natural"
-              fill="url(#fillOtro)"
-              stroke="var(--color-Otro)"
-              stackId="a"
+              fill="url(#fillServicios)"
+              stroke="var(--color-servicios)"
             />
             <ChartLegend content={<ChartLegendContent />} />
           </AreaChart>

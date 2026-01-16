@@ -46,7 +46,6 @@ export async function POST(request: Request) {
       userPhone: body.userPhone,
       userSex: body.userSex,
       userBirthDate: body.userBirthDate,
-      userHasThisBarbers: body.userHasThisBarbers,
     });
 
     const savedUser = await newUser.save();

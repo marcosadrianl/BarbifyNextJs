@@ -21,7 +21,6 @@ export interface IUser {
   userRole?: string;
   userSex?: string;
   userBirthDate?: Date; // ✅ Mayúscula D
-  userHasThisBarbers?: IBarbers[];
 }
 
 const UsersSchema = new Schema(
@@ -57,12 +56,6 @@ const UsersSchema = new Schema(
     },
     userBirthDate: { type: Date }, // ✅ Cambiado a mayúscula D
     userSex: { type: String, enum: ["M", "F", "O"], default: "O" },
-    userHasThisBarbers: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Barbers",
-      },
-    ],
   },
   {
     timestamps: true,

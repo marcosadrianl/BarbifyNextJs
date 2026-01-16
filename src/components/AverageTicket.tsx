@@ -18,7 +18,7 @@ export function AverageTicketCard() {
   let totalServices = services.length;
 
   services.forEach((s) => {
-    totalRevenue += s.clientServices.servicePrice / 100;
+    totalRevenue += s.servicePrice / 100;
   });
 
   const averageTicket = totalRevenue / totalServices;
@@ -30,20 +30,16 @@ export function AverageTicketCard() {
   > = {};
 
   services.forEach((s) => {
-    const day = new Date(s.clientServices.serviceDate)
-      .toISOString()
-      .split("T")[0];
+    const day = new Date(s.serviceDate).toISOString().split("T")[0];
 
-    const key = `${s.clientId}-${day}`;
+    const key = `${s.forClientId}-${day}`;
 
     if (!groupedByClientDay[key]) {
       groupedByClientDay[key] = { total: 0, services: [] };
     }
 
-    groupedByClientDay[key].total += s.clientServices.servicePrice / 100;
-    groupedByClientDay[key].services.push(
-      s.clientServices.serviceName.toLowerCase()
-    );
+    groupedByClientDay[key].total += s.servicePrice / 100;
+    groupedByClientDay[key].services.push(s.serviceName.toLowerCase());
   });
 
   const comboTickets = Object.values(groupedByClientDay).filter(

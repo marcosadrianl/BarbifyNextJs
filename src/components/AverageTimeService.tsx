@@ -23,13 +23,13 @@ export function AverageDurationCard() {
   const grouped: Record<string, { totalDuration: number; count: number }> = {};
 
   services.forEach((s) => {
-    const name = s.clientServices.serviceName.trim();
+    const name = s.serviceName.trim();
 
     if (!grouped[name]) {
       grouped[name] = { totalDuration: 0, count: 0 };
     }
 
-    grouped[name].totalDuration += s.clientServices.serviceDuration;
+    grouped[name].totalDuration += s.serviceDuration;
     grouped[name].count += 1;
   });
 
@@ -54,7 +54,7 @@ export function AverageDurationCard() {
       <ul className="space-y-2">
         {averages.map((s, i) => (
           <li key={s.name} className="flex justify-between text-sm">
-            <span className="font-medium">
+            <span className="font-medium capitalize">
               {i + 1}. {s.name}
             </span>
             <span className="text-gray-400">

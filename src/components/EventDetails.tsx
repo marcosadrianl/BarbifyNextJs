@@ -25,12 +25,13 @@ import {
   Timer,
   StickyNote,
 } from "lucide-react";
+import { IServiceCombined } from "@/models/models";
 
-interface EventDetailsProps {
-  selectedEvents: ServiceEvent[] | null;
-}
-
-export default function EventDetails({ selectedEvents }: EventDetailsProps) {
+export default function EventDetails({
+  selectedEvents,
+}: {
+  selectedEvents: IServiceCombined[] | null;
+}) {
   // Estado vacío
   if (!selectedEvents || selectedEvents.length === 0) {
     return (
@@ -49,7 +50,7 @@ export default function EventDetails({ selectedEvents }: EventDetailsProps) {
   }
 
   // Procesar fecha
-  const serviceDate = new Date(selectedEvents[0].clientServices.serviceDate);
+  const serviceDate = new Date(selectedEvents[0].serviceDate);
   const formattedDate = format(serviceDate, "EEEE, dd 'de' MMMM 'de' yyyy", {
     locale: es,
   });
@@ -97,12 +98,15 @@ export default function EventDetails({ selectedEvents }: EventDetailsProps) {
         <ScrollArea className="h-[calc(100vh-13rem)] pr-4">
           <div className="space-y-4 mb-8">
             {selectedEvents.map((event, index) => (
-              <Card key={event.clientServices._id} className="overflow-hidden ">
+              <Card
+                key={event._id.toString() + index}
+                className="overflow-hidden "
+              >
                 <CardHeader className="bg-[#ffd49d]/20 p-4">
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
                       <Link
-                        href={`/clients/${event.clientId}`}
+                        href={`/clients/${event._id}`}
                         className="hover:underline"
                       >
                         <CardTitle className="text-lg flex items-center gap-2">
@@ -124,7 +128,7 @@ export default function EventDetails({ selectedEvents }: EventDetailsProps) {
                     <div className="flex-1">
                       <p className="text-sm font-medium">Servicio</p>
                       <p className="text-sm text-gray-400">
-                        {event.clientServices.serviceName}
+                        {event.serviceName}
                       </p>
                     </div>
                   </div>
@@ -135,13 +139,14 @@ export default function EventDetails({ selectedEvents }: EventDetailsProps) {
                     <div className="flex-1">
                       <p className="text-sm font-medium">Hora</p>
                       <p className="text-sm text-gray-400">
-                        {new Date(
-                          event.clientServices.serviceDate
-                        ).toLocaleTimeString("es-AR", {
-                          hour: "2-digit",
-                          minute: "2-digit",
-                          hour12: false,
-                        })}{" "}
+                        {new Date(event.serviceDate).toLocaleTimeString(
+                          "es-AR",
+                          {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                            hour12: false,
+                          }
+                        )}{" "}
                         hs
                       </p>
                     </div>
@@ -153,7 +158,7 @@ export default function EventDetails({ selectedEvents }: EventDetailsProps) {
                     <div className="flex-1">
                       <p className="text-sm font-medium">Duración</p>
                       <p className="text-sm text-gray-400">
-                        {event.clientServices.serviceDuration} minutos
+                        {event.serviceDuration} minutos
                       </p>
                     </div>
                   </div>
@@ -165,9 +170,7 @@ export default function EventDetails({ selectedEvents }: EventDetailsProps) {
                       <p className="text-sm font-medium">Precio</p>
                       <p className="text-sm text-gray-400">
                         $
-                        {(
-                          event.clientServices.servicePrice / 100
-                        ).toLocaleString("es-AR", {
+                        {(event.servicePrice / 100).toLocaleString("es-AR", {
                           minimumFractionDigits: 2,
                         })}
                       </p>
@@ -175,13 +178,13 @@ export default function EventDetails({ selectedEvents }: EventDetailsProps) {
                   </div>
 
                   {/* Notas */}
-                  {event.clientServices.serviceNotes && (
+                  {event.serviceNotes && (
                     <div className="flex items-start gap-2">
                       <StickyNote className="h-4 w-4 mt-0.5 text-gray-400" />
                       <div className="flex-1">
                         <p className="text-sm font-medium">Notas</p>
                         <p className="text-sm text-gray-400 italic">
-                          {event.clientServices.serviceNotes}
+                          {event.serviceNotes}
                         </p>
                       </div>
                     </div>

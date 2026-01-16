@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Info, AlertTriangle, CheckCheck } from "lucide-react";
+import { IServiceCombined } from "@/models/models";
 import { useServicesStore } from "@/lib/store/services.store";
 
 interface InactiveClient {
@@ -19,7 +20,7 @@ export default function InactiveClientsCard() {
   const DAYS_LIMIT = 90;
 
   // ✅ Usar el store directamente como pediste
-  const services = useServicesStore((s) => s.services);
+  const services = useServicesStore((s) => s.services) as IServiceCombined[];
 
   useEffect(() => {
     if (!services || services.length === 0) {
@@ -36,12 +37,12 @@ export default function InactiveClientsCard() {
           acc: Record<string, { date: Date; name: string; lastName: string }>,
           service
         ) => {
-          const clientId = service.clientId;
+          const clientId = service._id.toString();
 
           // ✅ IMPORTANTE: Usar serviceDate para saber cuándo fue el último servicio REAL
           // updatedAt se actualiza cuando modificas el cliente (nombre, teléfono, etc.)
           // pero eso NO significa que vino a un servicio
-          const serviceDate = new Date(service.clientServices.serviceDate);
+          const serviceDate = new Date(service.serviceDate);
 
           if (!acc[clientId] || serviceDate > acc[clientId].date) {
             acc[clientId] = {
@@ -72,7 +73,7 @@ export default function InactiveClientsCard() {
         .filter((client) => client.daysSinceLastService >= DAYS_LIMIT)
         // Ordenar por más días sin servicio primero
         .sort((a, b) => b.daysSinceLastService - a.daysSinceLastService);
-      /* 
+
       console.log("📊 Clientes inactivos:", {
         totalClientes: Object.keys(lastServiceByClient).length,
         inactivos: inactive.length,
@@ -82,7 +83,7 @@ export default function InactiveClientsCard() {
           ultimoServicio: c.lastServiceDate.toLocaleDateString("es-AR"),
           diasSinVenir: c.daysSinceLastService,
         })),
-      }); */
+      });
 
       setInactiveClients(inactive);
     } catch (error) {
@@ -148,7 +149,7 @@ export default function InactiveClientsCard() {
               >
                 <Link
                   href={`/clients/${client.clientId}`}
-                  className="text-primary hover:underline flex-1 truncate"
+                  className="text-primary hover:underline flex-1 truncate capitalize"
                   title={`${client.clientName} ${client.clientLastName}`}
                 >
                   {client.clientName} {client.clientLastName}

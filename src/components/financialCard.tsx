@@ -32,9 +32,9 @@ export function FinancialSummaryCard() {
       let previous = 0;
 
       services.forEach((service) => {
-        const serviceDate = service.clientServices?.serviceDate;
+        const serviceDate = service?.serviceDate;
 
-        const servicePrice = service.clientServices?.servicePrice;
+        const servicePrice = service?.servicePrice;
 
         if (!serviceDate || servicePrice == null) return;
 

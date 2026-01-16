@@ -6,24 +6,7 @@ import { parseISO, isWithinInterval, startOfDay, endOfDay } from "date-fns";
 import { useServicesStore } from "@/lib/store/services.store";
 
 // Tipos copiados de tu store
-type ClientService = {
-  clientId: string;
-  clientName: string;
-  clientLastName: string;
-  clientPhone: string;
-  clientSex: "M" | "F" | "O";
-  clientActive: boolean;
-  createdAt: string;
-  clientServices: {
-    _id: string;
-    serviceName: string;
-    servicePrice: number;
-    serviceDate: string;
-    serviceDuration: number;
-    serviceNotes: string;
-    fromBarberId?: string;
-  };
-};
+import { IServiceCombined } from "@/models/models";
 
 const ServicesPDFGenerator = () => {
   const [loading, setLoading] = useState(false);
@@ -53,7 +36,7 @@ const ServicesPDFGenerator = () => {
   };
 
   // Función para obtener y ordenar servicios
-  const getServicesData = (): ClientService[] => {
+  const getServicesData = (): IServiceCombined[] => {
     try {
       if (dateRange.from || dateRange.to) {
         const from = dateRange.from
@@ -63,7 +46,7 @@ const ServicesPDFGenerator = () => {
         const to = dateRange.to ? endOfDay(parseISO(dateRange.to)) : null;
 
         services = services.filter((service) => {
-          const serviceDate = parseISO(service.clientServices.serviceDate);
+          const serviceDate = parseISO(service.serviceDate.toString());
 
           if (from && to) {
             return isWithinInterval(serviceDate, { start: from, end: to });
@@ -77,8 +60,8 @@ const ServicesPDFGenerator = () => {
       }
 
       return services.sort((a, b) => {
-        const aDate = parseISO(a.clientServices.serviceDate).getTime();
-        const bDate = parseISO(b.clientServices.serviceDate).getTime();
+        const aDate = parseISO(a.serviceDate.toString()).getTime();
+        const bDate = parseISO(b.serviceDate.toString()).getTime();
         return aDate - bDate;
       });
     } catch (error) {
@@ -165,8 +148,8 @@ const ServicesPDFGenerator = () => {
           </style>
         </head>
         <body>
-          <h1>Reporte de Servicios</h1>
-          <div class="subtitle">
+          <h1 style="text-align: left;">Reporte de Servicios</h1>
+          <div class="subtitle" style="text-align: left;">
             Generado el ${new Date().toLocaleDateString("es-AR", {
               day: "2-digit",
               month: "2-digit",
@@ -176,7 +159,7 @@ const ServicesPDFGenerator = () => {
             })}
             ${
               dateRange.from || dateRange.to
-                ? `<br>Período: ${
+                ? ` - Período: ${
                     dateRange.from ? formatDate(dateRange.from) : "Inicio"
                   } - ${dateRange.to ? formatDate(dateRange.to) : "Fin"}`
                 : ""
@@ -197,12 +180,10 @@ const ServicesPDFGenerator = () => {
                 .map(
                   (service) => `
                 <tr>
-                  <td>${formatDate(service.clientServices.serviceDate)}</td>
+                  <td>${formatDate(service.serviceDate.toString())}</td>
                   <td>${service.clientName} ${service.clientLastName}</td>
-                  <td>${service.clientServices.serviceName}</td>
-                  <td>${formatPrice(
-                    service.clientServices.servicePrice / 100
-                  )}</td>
+                  <td>${service.serviceName}</td>
+                  <td>${formatPrice(service.servicePrice / 100)}</td>
                 </tr>
               `
                 )
@@ -213,10 +194,7 @@ const ServicesPDFGenerator = () => {
               </td>
                 <td colspan="2" style="text-align: right;">TOTAL:</td>
                 <td>${formatPrice(
-                  services.reduce(
-                    (sum, s) => sum + s.clientServices.servicePrice / 100,
-                    0
-                  )
+                  services.reduce((sum, s) => sum + s.servicePrice / 100, 0)
                 )}</td>
               </tr>
             </tbody>
@@ -376,20 +354,6 @@ const ServicesPDFGenerator = () => {
             )}
           </button>
         </div>
-
-        {/* <div className="mt-6 p-4 bg-blue-50 rounded-lg">
-          <p className="text-sm text-gray-700">
-            <strong>Nota:</strong> El PDF incluirá todos los servicios ordenados
-            por fecha (más reciente primero) con:
-          </p>
-          <ul className="text-sm text-gray-600 mt-2 space-y-1 ml-4">
-            <li>• Fecha del servicio</li>
-            <li>• Nombre completo del cliente</li>
-            <li>• Tipo de servicio</li>
-            <li>• Precio individual</li>
-            <li>• Total general al final</li>
-          </ul>
-        </div> */}
       </div>
     </div>
   );

@@ -38,10 +38,6 @@ export type CalendarEvent = {
 interface CalendarProps {
   eventsData: CalendarEvent[];
   onEventClick: (events: ServiceEvent[]) => void;
-  views: {
-    timeGridWeek: { buttonText: "Week" };
-  };
-  firstDay: 1;
 }
 
 export default function Calendar({ eventsData, onEventClick }: CalendarProps) {
@@ -57,6 +53,7 @@ export default function Calendar({ eventsData, onEventClick }: CalendarProps) {
       locale={esLocale}
       events={eventsData}
       eventClick={handleEventClick}
+      firstDay={0}
       height="650px"
       aspectRatio={1.4}
       eventColor="#ffd49d"

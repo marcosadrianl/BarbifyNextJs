@@ -8,6 +8,7 @@ import {
   useAllServicesStore,
 } from "@/lib/store/services.store"; // 👈 Ajusta la ruta según tu estructura
 import FullCalendar from "@fullcalendar/react";
+import { IServiceCombined } from "@/models/models";
 
 type ClientService = {
   clientId: string;
@@ -24,16 +25,16 @@ type ClientService = {
 };
 
 // 1. Actualizamos el parser para usar el tipo del Store (ClientService)
-const parseEventsData = (events: ClientService[]): CalendarEvent[] => {
-  const eventsByDate: Record<string, ClientService[]> = {};
+const parseEventsData = (events: IServiceCombined[]): CalendarEvent[] => {
+  const eventsByDate: Record<string, IServiceCombined[]> = {};
 
-  events.forEach((event: ClientService) => {
+  events.forEach((event: IServiceCombined) => {
     // Validación de seguridad
-    if (!event.clientServices?.serviceDate) {
+    if (!event?.serviceDate) {
       return;
     }
 
-    const date = new Date(event.clientServices.serviceDate);
+    const date = new Date(event.serviceDate);
 
     if (isNaN(date.getTime())) {
       console.warn("Fecha inválida para evento:", event);
@@ -60,19 +61,18 @@ const parseEventsData = (events: ClientService[]): CalendarEvent[] => {
         count,
         events: eventsOnDate,
       },
-    } as CalendarEvent;
+    } as unknown as CalendarEvent;
   });
 };
 
 export default function Dashboard() {
   // 2. Usamos el Store
   const { services, refreshFromAPI, loadFromCache } = useAllServicesStore();
-  const loading = useServicesStore((state) => state.loading);
 
   // Mantenemos el estado de selección local, ya que es UI efímera
-  const [selectedEvents, setSelectedEvents] = useState<ClientService[] | null>(
-    null
-  );
+  const [selectedEvents, setSelectedEvents] = useState<
+    IServiceCombined[] | null
+  >(null);
 
   // 3. Efecto de Carga Inteligente
   useEffect(() => {
@@ -96,7 +96,7 @@ export default function Dashboard() {
   // Callback ajustado al nuevo tipo
   const handleCalendarEventClick = useCallback((events: any[]) => {
     // Casteamos a ClientService[] para mantener tipado estricto si es necesario
-    setSelectedEvents(events as ClientService[]);
+    setSelectedEvents(events as IServiceCombined[]);
   }, []);
 
   return (

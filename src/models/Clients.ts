@@ -1,10 +1,11 @@
 import { Schema, model, models, Document, Types } from "mongoose";
 import { z } from "zod";
+import Services, { IService } from "@/models/Service";
 
 /* ───────────────────────────────
    1. INTERFACES TYPESCRIPT
 ───────────────────────────────── */
-export interface IService {
+/* export interface IService {
   _id: Types.ObjectId;
   serviceDate: Date;
   serviceName: string;
@@ -12,7 +13,7 @@ export interface IService {
   servicePrice: number;
   serviceDuration: number;
   fromBarberId?: Types.ObjectId;
-}
+} */
 
 export interface IClient extends Document {
   clientName: string;
@@ -29,7 +30,6 @@ export interface IClient extends Document {
   clientDiseases?: string;
   clientMedications?: string;
   clientNotes?: string;
-  clientServices: IService[];
   clientWhiteHairs: number;
   clientFromUserId?: Types.ObjectId;
   ClientPassword?: string;
@@ -40,17 +40,6 @@ export interface IClient extends Document {
 /* ───────────────────────────────
    2. ESQUEMAS MONGOOSE
 ───────────────────────────────── */
-const ServicesSchema = new Schema<IService>(
-  {
-    serviceDate: { type: Date, required: true },
-    serviceName: { type: String, required: true, maxlength: 50, trim: true },
-    serviceNotes: { type: String, maxlength: 500 },
-    servicePrice: { type: Number, min: 0, default: 0, required: true },
-    serviceDuration: { type: Number, required: true },
-    fromBarberId: { type: Schema.Types.ObjectId, ref: "Barbers" },
-  },
-  { _id: true }
-);
 
 const ClientsSchema = new Schema<IClient>(
   {
@@ -71,12 +60,12 @@ const ClientsSchema = new Schema<IClient>(
     clientDiseases: { type: String, maxlength: 200 },
     clientMedications: { type: String, maxlength: 200 },
     clientNotes: { type: String, maxlength: 500 },
-    clientServices: [ServicesSchema],
     clientWhiteHairs: { type: Number, default: 0, min: 0, max: 100 },
     clientFromUserId: { type: Schema.Types.ObjectId, ref: "BarbifyUsers" },
     ClientPassword: { type: String, maxlength: 100 },
   },
   {
+    _id: true,
     timestamps: true,
     collection: "BarbifyClients",
   }
@@ -108,16 +97,6 @@ export const serializeClient = (
     clientMedications: doc.clientMedications,
     clientNotes: doc.clientNotes,
     clientWhiteHairs: doc.clientWhiteHairs,
-    clientServices:
-      doc.clientServices?.map((s: IService) => ({
-        _id: s._id.toString(),
-        serviceDate: s.serviceDate.toISOString(),
-        serviceName: s.serviceName,
-        serviceNotes: s.serviceNotes,
-        servicePrice: s.servicePrice,
-        serviceDuration: s.serviceDuration,
-        fromBarberId: s.fromBarberId?.toString?.() ?? null,
-      })) ?? [],
     clientFromUserId: doc.clientFromUserId?.toString?.() ?? null,
     createdAt: doc.createdAt?.toISOString?.() ?? null,
     updatedAt: doc.updatedAt?.toISOString?.() ?? null,
@@ -152,7 +131,6 @@ export const ClientSchemaZod = z
     clientDiseases: z.string().max(200).optional(),
     clientMedications: z.string().max(200).optional(),
     clientNotes: z.string().max(500).optional(),
-    clientServices: z.array(ServiceSchemaZod).default([]),
     clientWhiteHairs: z.number().min(0).max(100).default(0),
     clientFromUserId: z.string().optional(), // Cambiado de UUID a string para ObjectId
     ClientPassword: z.string().max(100).optional(),

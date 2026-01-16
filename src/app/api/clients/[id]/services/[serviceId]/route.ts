@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server";
 import { connectDB } from "@/utils/mongoose";
-import Clients, { IClient, IService } from "@/models/Clients";
+import Clients, { IClient } from "@/models/Clients";
 import mongoose from "mongoose";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/utils/auth";
+import Services, { IService } from "@/models/Service";
 
 /**
  * DELETE /api/clients/[id]/services/[serviceId]
@@ -16,88 +17,62 @@ export async function DELETE(
   try {
     await connectDB();
 
-    // Verificar autenticación
-    const session = await getServerSession(authOptions);
-    if (!session || !session.user) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
-
-    // ✅ CORRECCIÓN: Obtener parámetros correctamente
     const { id, serviceId } = await params;
 
-    /* console.log("🗑️ Eliminando servicio:", { clientId: id, serviceId }); */
+    const deletedService = await (
+      Services as mongoose.Model<IService>
+    ).findOneAndDelete({
+      _id: serviceId,
+      toClientId: id,
+    });
 
-    // Buscar el cliente
-    const client = await (Clients as mongoose.Model<IClient>).findById(id);
-
-    if (!client) {
-      /* console.log("❌ Cliente no encontrado:", id); */
+    if (!deletedService) {
       return NextResponse.json(
-        { message: "Client not found" },
+        { message: "Service not found for this client" },
         { status: 404 }
       );
     }
 
-    /* console.log("✅ Cliente encontrado:", {
-      clientId: client._id,
-      totalServicios: client.clientServices.length,
-    }); */
-
-    // Verificar que el servicio existe
-    const serviceExists = client.clientServices.some(
-      (service: IService) => service._id.toString() === serviceId
+    return NextResponse.json(
+      { message: "Service deleted successfully" },
+      { status: 200 }
     );
+  } catch (error) {
+    console.error("Error deleting service:", error);
+    return NextResponse.json(
+      { error: "Failed to delete service" },
+      { status: 500 }
+    );
+  }
+}
 
-    if (!serviceExists) {
-      /* console.log("❌ Servicio no encontrado:", serviceId); */
-      /*  console.log(
-        "Servicios disponibles:",
-        client.clientServices.map((s: IService) => s._id.toString())
-      ); */
+export async function PATCH(
+  request: Request,
+  { params }: { params: { id: string; serviceId: string } }
+) {
+  try {
+    await connectDB();
+
+    const { id, serviceId } = await params;
+
+    const data: Partial<IService> = await request.json();
+
+    const updatedService = await (
+      Services as mongoose.Model<IService>
+    ).findOneAndUpdate({ _id: serviceId, toClientId: id }, data, { new: true });
+
+    if (!updatedService) {
       return NextResponse.json(
         { message: "Service not found" },
         { status: 404 }
       );
     }
 
-    // Filtrar el servicio a eliminar
-    const originalLength = client.clientServices.length;
-    client.clientServices = client.clientServices.filter(
-      (service: IService) => service._id.toString() !== serviceId
-    );
-
-    /* console.log("📊 Cambios:", {
-      antes: originalLength,
-      después: client.clientServices.length,
-      eliminados: originalLength - client.clientServices.length,
-    }); */
-
-    // Guardar cambios
-    await client.save();
-
-    /* console.log("✅ Servicio eliminado exitosamente"); */
-
-    return NextResponse.json({
-      success: true,
-      message: "Service deleted successfully",
-      clientId: id,
-      serviceId,
-      remainingServices: client.clientServices.length,
-    });
+    return NextResponse.json(updatedService);
   } catch (error) {
-    console.error("❌ Error deleting service:", error);
-
-    // Log detallado del error
-    if (error instanceof Error) {
-      console.error("Error message:", error.message);
-      console.error("Error stack:", error.stack);
-    }
-
+    console.error("Error updating service:", error);
     return NextResponse.json(
-      {
-        error: "Failed to delete service",
-        details: error instanceof Error ? error.message : "Unknown error",
-      },
+      { error: "Failed to update service" },
       { status: 500 }
     );
   }

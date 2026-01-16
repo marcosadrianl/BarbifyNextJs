@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 
 interface Service {
-  _id: string;
+  id: string;
   serviceName: string;
   servicePrice: number;
   serviceDate: string | Date;
@@ -54,10 +54,11 @@ export default function ClientServicesList({
           hour: "2-digit",
           minute: "2-digit",
         });
+        console.log("Renderizando servicio:", service.id);
 
         return (
           <Card
-            key={service._id}
+            key={service.id.toString()}
             className="overflow-hidden border-none shadow-sm hover:shadow-md transition-shadow bg-white"
           >
             <CardContent className="p-0">
@@ -78,10 +79,7 @@ export default function ClientServicesList({
                     </div>
                     {/* Botón eliminar para móviles (se oculta en desktop) */}
                     <div className="sm:hidden">
-                      <DeleteService
-                        serviceId={service._id}
-                        clientId={clientId}
-                      />
+                      <DeleteService serviceId={service.id} Id={clientId} />
                     </div>
                   </div>
 
@@ -128,7 +126,7 @@ export default function ClientServicesList({
 
                 {/* Acción Eliminar (Desktop) */}
                 <div className="hidden sm:block">
-                  <DeleteService serviceId={service._id} clientId={clientId} />
+                  <DeleteService serviceId={service.id} Id={clientId} />
                 </div>
               </div>
             </CardContent>
