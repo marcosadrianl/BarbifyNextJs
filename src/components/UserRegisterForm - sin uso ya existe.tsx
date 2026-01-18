@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { UserSchemaZod } from "@/models/Users";
+import { UserSchemaZod } from "@/models/Users.schema";
 
 /**
  * Formulario de registro que valida con Zod (UserSchemaZod) antes de enviar.
@@ -47,7 +47,7 @@ export default function UserRegisterForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const onChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     const { name, value } = e.target;
     setForm((prev) => ({
@@ -107,7 +107,7 @@ export default function UserRegisterForm() {
       } else {
         showToast(
           res.data?.error || "Respuesta inesperada del servidor",
-          "Error"
+          "Error",
         );
       }
     } catch (error: any) {

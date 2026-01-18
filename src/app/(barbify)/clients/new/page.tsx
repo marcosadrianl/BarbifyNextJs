@@ -42,32 +42,9 @@ import {
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
+import { ClientSchemaZod } from "@/models/Clients.schema";
 
-const ClientSchema = z.object({
-  clientName: z.string().min(1, "Nombre requerido"),
-  clientLastName: z.string().min(1, "Apellido requerido"),
-  clientSex: z.enum(["M", "F", "O"]).refine((value) => value !== undefined, {
-    message: "Selecciona un género",
-  }),
-  clientBirthdate: z.string(),
-  clientEmail: z.string().email("Email inválido"),
-  clientPhone: z
-    .string()
-    .max(20, "El teléfono no puede tener más de 20 caracteres"),
-  clientImage: z.string().optional(),
-  clientActive: z.boolean().default(true).optional(),
-  clientBaseColor: z.string().optional(),
-  clientHairType: z.string().optional(),
-  clientWhiteHairs: z.number().min(0).max(100).default(0).optional(),
-  clientAllergies: z.string().optional(),
-  clientDiseases: z.string().optional(),
-  clientMedications: z.string().optional(),
-  clientNotes: z.string().optional(),
-  clientServices: z.array(z.any()).optional(),
-  clientFromUserId: z.string(),
-});
-
-type ClientFormData = z.infer<typeof ClientSchema>;
+type ClientFormData = z.infer<typeof ClientSchemaZod>;
 
 const imageOptions = [
   { src: "/default-client.png", label: "Default" },
@@ -123,17 +100,32 @@ export default function CreateClientForm() {
   const router = useRouter();
 
   const form = useForm<ClientFormData>({
-    resolver: zodResolver(ClientSchema),
+    resolver: zodResolver(ClientSchemaZod),
     defaultValues: {
       clientActive: true,
-      clientServices: [],
       clientWhiteHairs: 0,
-      clientBirthdate: new Date().toISOString().split("T")[0],
-      clientFromUserId: session?.user?.id || "",
-      clientImage: "/default-client.png",
+      clientBirthdate: "",
+      clientFromUserId: "",
+      clientImage: "",
       clientSex: "O",
+      clientName: "",
+      clientLastName: "",
+      clientEmail: "",
+      clientPhone: "",
+      clientBaseColor: "",
+      clientHairType: "",
+      clientAllergies: "",
+      clientDiseases: "",
+      clientMedications: "",
+      clientNotes: "",
     },
   });
+
+  React.useEffect(() => {
+    if (session?.user?.id) {
+      form.setValue("clientFromUserId", session.user.id);
+    }
+  }, [session, form]);
 
   const onSubmit = async (data: ClientFormData) => {
     setIsSubmitting(true);
@@ -207,7 +199,7 @@ export default function CreateClientForm() {
                   />
                 </div>
 
-                <FormField
+                <FormField<ClientFormData>
                   control={form.control}
                   name="clientImage"
                   defaultValue="/default-client.png"

@@ -1,42 +1,16 @@
 import { NextResponse } from "next/server";
 import { connectDB } from "@/utils/mongoose";
-import Clients, { IClient } from "@/models/Clients";
+
 import mongoose, { Types } from "mongoose";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/utils/auth";
 
-import Services from "@/models/Service";
-
-interface IService {
-  _id: Types.ObjectId;
-
-  serviceDate: Date;
-  serviceName: string;
-  serviceTypeId?: Types.ObjectId; // Referencia a un posible catálogo de tipos de servicio
-
-  servicePrice: number;
-  serviceDuration: number;
-  serviceNotes?: string;
-
-  status?: "completed" | "cancelled" | "no_show" | "pending"; // Estado del servicio
-  paymentMethod?: "cash" | "card" | "mp" | "transfer";
-
-  fromBarberId: Types.ObjectId;
-  forUserId: Types.ObjectId;
-  toClientId?: Types.ObjectId;
-
-  createdBy?: Types.ObjectId; // Barber que creó el servicio
-
-  isManual?: boolean; // Indica si el servicio fue agregado manualmente
-  isEdited?: boolean; // Indica si el servicio fue editado después de su creación
-
-  createdAt?: Date;
-  updatedAt?: Date;
-}
+import Services from "@/models/Service.model";
+import { IService } from "@/models/Service.type";
 
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: { id: string } },
 ) {
   const session = await getServerSession(authOptions);
   if (!session || !session.user) {
@@ -54,7 +28,7 @@ export async function GET(
     if (!services || services.length === 0) {
       return NextResponse.json(
         { message: "Service not found" },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
@@ -63,14 +37,14 @@ export async function GET(
     console.error("Error fetching services:", error);
     return NextResponse.json(
       { error: "Failed to fetch services" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
 
 export async function POST(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: { id: string } },
 ) {
   const session = await getServerSession(authOptions);
   if (!session || !session.user) {
@@ -94,7 +68,7 @@ export async function POST(
     console.error("Error creating service:", error);
     return NextResponse.json(
       { error: "Failed to create service" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

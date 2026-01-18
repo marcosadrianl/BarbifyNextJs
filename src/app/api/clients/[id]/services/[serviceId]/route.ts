@@ -1,10 +1,11 @@
 import { NextResponse } from "next/server";
 import { connectDB } from "@/utils/mongoose";
-import Clients, { IClient } from "@/models/Clients";
+
 import mongoose from "mongoose";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/utils/auth";
-import Services, { IService } from "@/models/Service";
+import { IService } from "@/models/Service.type";
+import Services from "@/models/Service.model";
 
 /**
  * DELETE /api/clients/[id]/services/[serviceId]
@@ -12,8 +13,13 @@ import Services, { IService } from "@/models/Service";
  */
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string; serviceId: string } }
+  { params }: { params: { id: string; serviceId: string } },
 ) {
+  const session = await getServerSession(authOptions);
+
+  if (!session || !session.user?.id) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
   try {
     await connectDB();
 
@@ -29,27 +35,32 @@ export async function DELETE(
     if (!deletedService) {
       return NextResponse.json(
         { message: "Service not found for this client" },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
     return NextResponse.json(
       { message: "Service deleted successfully" },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (error) {
     console.error("Error deleting service:", error);
     return NextResponse.json(
       { error: "Failed to delete service" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
 
 export async function PATCH(
   request: Request,
-  { params }: { params: { id: string; serviceId: string } }
+  { params }: { params: { id: string; serviceId: string } },
 ) {
+  const session = await getServerSession(authOptions);
+
+  if (!session || !session.user?.id) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
   try {
     await connectDB();
 
@@ -57,14 +68,14 @@ export async function PATCH(
 
     const data: Partial<IService> = await request.json();
 
-    const updatedService = await (
-      Services as mongoose.Model<IService>
-    ).findOneAndUpdate({ _id: serviceId, toClientId: id }, data, { new: true });
+    const updatedService = await (Services as mongoose.Model<IService>)
+      .findOneAndUpdate({ _id: serviceId, toClientId: id }, data, { new: true })
+      .lean();
 
     if (!updatedService) {
       return NextResponse.json(
         { message: "Service not found" },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
@@ -73,7 +84,7 @@ export async function PATCH(
     console.error("Error updating service:", error);
     return NextResponse.json(
       { error: "Failed to update service" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

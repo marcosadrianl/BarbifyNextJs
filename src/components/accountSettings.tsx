@@ -54,13 +54,16 @@ export default function AccountSettings({
       setError(null);
       try {
         const res = await axios.get(endpoint);
+        console.log("Respuesta del endpoint:", res);
         // Intenta normalizar distintas formas de respuesta
         const raw = res.data;
         const data = normalizeData(raw);
         if (mounted) setUsers(data);
       } catch (err: any) {
         setError(
-          err?.response?.data?.error || err?.message || "Error al obtener datos"
+          err?.response?.data?.error ||
+            err?.message ||
+            "Error al obtener datos",
         );
       } finally {
         if (mounted) setLoading(false);
@@ -203,7 +206,7 @@ export default function AccountSettings({
 
             <div className="mb-2 px-4">
               <h2>Nombre de usuario</h2>
-              <p className="foreground text-sm">
+              <p className="foreground text-sm capitalize">
                 {users[0].userName ?? "Sin nombre"}{" "}
                 {users[0].userLastName ?? "Sin apellido"}
               </p>
@@ -212,7 +215,7 @@ export default function AccountSettings({
             <div className="mb-2 px-4">
               {" "}
               <h2>Ubicación</h2>
-              <p className="foreground text-sm">
+              <p className="foreground text-sm capitalize">
                 {users[0].userState ?? "-"}, {users[0].userCity},{" "}
                 {users[0].userAddress}, {users[0].userPostalCode}
               </p>
@@ -225,8 +228,8 @@ export default function AccountSettings({
                 {users[0].userSex === "M"
                   ? "Hombre"
                   : users[0].userSex === "F"
-                  ? "Mujer"
-                  : "Sin especificar"}
+                    ? "Mujer"
+                    : "Sin especificar"}
               </p>
             </div>
 
@@ -235,12 +238,14 @@ export default function AccountSettings({
               <h2>Nacimiento</h2>
               <p className="foreground text-sm">
                 {users[0].userBirthDate
-                  .toString()
-                  .slice(0, 10)
-                  .replaceAll("-", "/")
-                  .split("/")
-                  .reverse()
-                  .join("/") ?? "Error al mostrar fecha"}
+                  ? (users[0].userBirthDate
+                      .toString()
+                      .slice(0, 10)
+                      .replaceAll("-", "/")
+                      .split("/")
+                      .reverse()
+                      .join("/") ?? "Error al mostrar fecha")
+                  : "Sin fecha de nacimiento registrada"}
               </p>
             </div>
           </div>

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { IClient } from "@/models/Clients";
+import { IClient } from "@/models/Clients.schema";
 
 /**
  * Hook que devuelve los clientes paginados.

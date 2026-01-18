@@ -14,16 +14,22 @@ export function AverageDurationCard() {
 
   if (!services.length) {
     return (
-      <div className="rounded-xl border bg-background p-4">
-        <p className="text-sm text-gray-400">Calculando duraciones…</p>
+      <div className="rounded-xl border bg-background p-4 w-1/4">
+        <p className="text-sm text-gray-400 animate-pulse">
+          Calculando duraciones…
+        </p>
       </div>
     );
   }
 
+  /**
+   * Agrupa los servicios por nombre y calcula la duración promedio de cada uno
+   */
+
   const grouped: Record<string, { totalDuration: number; count: number }> = {};
 
   services.forEach((s) => {
-    const name = s.serviceName.trim();
+    const name = s.serviceName.trim().toLocaleLowerCase();
 
     if (!grouped[name]) {
       grouped[name] = { totalDuration: 0, count: 0 };

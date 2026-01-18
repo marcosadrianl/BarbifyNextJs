@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { IClient } from "@/models/Clients";
+import { IClient } from "@/models/Clients.schema";
 
 import {
   Table,

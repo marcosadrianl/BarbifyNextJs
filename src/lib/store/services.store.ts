@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { IBarbers } from "@/models/Barbers";
-import { IService } from "@/models/Service";
-import { IClient } from "@/models/Clients";
+import { IService } from "@/models/Service.schema";
+import { IClient } from "@/models/Clients.types";
 import { IServiceCombined } from "@/models/models";
 import axios from "axios";
 
@@ -11,7 +11,7 @@ const TTL_MINUTES = 30;
 
 export function combineClientService(
   client: IClient,
-  service: IService
+  service: IService,
 ): IServiceCombined {
   return {
     // Cliente
@@ -41,7 +41,7 @@ function getCurrentDateInArgentina(): Date {
 }
 
 function filterPastOrPresentServices(
-  services: IServiceCombined[]
+  services: IServiceCombined[],
 ): IServiceCombined[] {
   const now = getCurrentDateInArgentina();
   return services.filter((service) => {
@@ -127,6 +127,11 @@ export const useServicesStore = create<ServicesStore>((set) => ({
         }>("/api/clients"),
       ]);
 
+      //si responde con un 404 entonces poner todos los campos en empty array
+      if (!res.status || res.status !== 200) {
+        throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+      }
+
       const allServices = res.data || [];
       const allClients = resClients.data.data || []; // 👈 importante
 
@@ -135,7 +140,7 @@ export const useServicesStore = create<ServicesStore>((set) => ({
           if (!service.toClientId) return null;
 
           const client = allClients.find(
-            (c) => c._id.toString() === service.toClientId?.toString()
+            (c) => c._id === service.toClientId?.toString(),
           );
 
           return client ? combineClientService(client, service) : null;
@@ -152,8 +157,8 @@ export const useServicesStore = create<ServicesStore>((set) => ({
       localStorage.setItem("services_last_saved", String(Date.now()));
 
       set({
-        allServices: servicesWithClients, // 👈 Estado completo
-        services: filteredServices, // 👈 Estado filtrado
+        allServices: servicesWithClients || [], // 👈 Estado completo
+        services: filteredServices || [], // 👈 Estado filtrado
         lastUpdated: Date.now(),
         loading: false,
       });

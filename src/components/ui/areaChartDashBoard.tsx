@@ -3,7 +3,7 @@
 import * as React from "react";
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
 import { useServicesStore } from "@/lib/store/services.store";
-import { IService } from "@/models/Service";
+import { IService } from "@/models/Service.schema";
 
 import {
   Card,
@@ -81,8 +81,8 @@ export function ChartAreaInteractive() {
             acc[date].servicios++;
             return acc;
           },
-          {}
-        )
+          {},
+        ),
     ).sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
   }, [services, timeRange]);
 
@@ -126,8 +126,8 @@ export function ChartAreaInteractive() {
             {timeRange === "90d"
               ? "3 meses"
               : timeRange === "30d"
-              ? "30 dias"
-              : "7 dias"}
+                ? "30 días"
+                : "7 días"}
           </CardDescription>
         </div>
         <Select value={timeRange} onValueChange={setTimeRange}>
@@ -135,17 +135,17 @@ export function ChartAreaInteractive() {
             className="hidden w-40 rounded-lg sm:ml-auto sm:flex"
             aria-label="Select a value"
           >
-            <SelectValue placeholder="Last 3 months" />
+            <SelectValue placeholder="Últimos 3 meses" />
           </SelectTrigger>
           <SelectContent className="rounded-xl">
             <SelectItem value="90d" className="rounded-lg">
-              Last 3 months
+              Últimos 3 meses
             </SelectItem>
             <SelectItem value="30d" className="rounded-lg">
-              Last 30 days
+              Últimos 30 días
             </SelectItem>
             <SelectItem value="7d" className="rounded-lg">
-              Last 7 days
+              Últimos 7 días
             </SelectItem>
           </SelectContent>
         </Select>

@@ -8,8 +8,10 @@ export function AverageTicketCard() {
 
   if (!services.length) {
     return (
-      <div className="rounded-xl border bg-background p-4">
-        <p className="text-sm text-gray-400">Cargando ticket promedio…</p>
+      <div className="rounded-xl border bg-background p-4 w-1/4">
+        <p className="text-sm text-gray-400 animate-pulse">
+          Cargando ticket promedio…
+        </p>
       </div>
     );
   }
@@ -32,7 +34,7 @@ export function AverageTicketCard() {
   services.forEach((s) => {
     const day = new Date(s.serviceDate).toISOString().split("T")[0];
 
-    const key = `${s.forClientId}-${day}`;
+    const key = `${s._id.toString()}-${day}`;
 
     if (!groupedByClientDay[key]) {
       groupedByClientDay[key] = { total: 0, services: [] };
@@ -43,7 +45,7 @@ export function AverageTicketCard() {
   });
 
   const comboTickets = Object.values(groupedByClientDay).filter(
-    (g) => g.services.includes("corte") && g.services.includes("peinado")
+    (g) => g.services.includes("corte") && g.services.includes("peinado"),
   );
 
   const comboAverage =
@@ -67,16 +69,28 @@ export function AverageTicketCard() {
       <p className="text-2xl font-bold">{formatter.format(averageTicket)}</p>
 
       {/* Insight */}
-      <div className="flex items-start gap-2 text-sm text-gray-400 mt-auto border-t pt-2">
+      <div className="flex items-start gap-2 text-sm text-gray-400">
         <TrendingUp className="h-4 w-4 mt-0.5" />
-        <p>
-          Los clientes que hacen{" "}
-          <span className="font-medium text-foreground">Corte + Peinado</span>{" "}
-          gastan{" "}
-          <span className="font-medium text-foreground">
-            {formatter.format(comboAverage)}
-          </span>
-        </p>
+        {comboAverage ? (
+          <p>
+            Los clientes que hacen{" "}
+            <span className="font-medium text-foreground/80">
+              Corte + Peinado
+            </span>{" "}
+            gastan{" "}
+            <span className="font-medium text-foreground/80">
+              {formatter.format(comboAverage)}
+            </span>
+          </p>
+        ) : (
+          <p>
+            No hay combos de{" "}
+            <span className="font-medium text-foreground/80">
+              Corte + Peinado
+            </span>{" "}
+            registrados aún.
+          </p>
+        )}
       </div>
     </div>
   );

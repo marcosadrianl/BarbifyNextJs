@@ -5,16 +5,17 @@ import mongoose from "mongoose";
 
 import { authOptions } from "@/utils/auth";
 import { connectDB } from "@/utils/mongoose";
-import User, { IUser } from "@/models/Users";
+import { IUser } from "@/models/Users.type";
+import User from "@/models/Users.model";
 
 export async function PATCH(req: Request) {
   try {
-    // 1️⃣ Sesión
     const session = await getServerSession(authOptions);
 
     if (!session || !session.user?.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
+    // 1️⃣ Sesión
 
     // 2️⃣ Body
     const { currentPassword, newPassword } = await req.json();
@@ -34,7 +35,7 @@ export async function PATCH(req: Request) {
           error:
             "Password must be at least 8 characters long and include uppercase, lowercase and number",
         },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -42,7 +43,7 @@ export async function PATCH(req: Request) {
     await connectDB();
 
     const user = await (User as mongoose.Model<IUser>).findById(
-      session.user.id
+      session.user.id,
     );
 
     if (!user) {
@@ -55,7 +56,7 @@ export async function PATCH(req: Request) {
     if (!isValid) {
       return NextResponse.json(
         { error: "Current password is incorrect" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -73,13 +74,13 @@ export async function PATCH(req: Request) {
         message: "Password updated successfully. Please login again.",
         logout: true,
       },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (error: any) {
     console.error("PATCH password error:", error);
     return NextResponse.json(
       { error: "Internal Server Error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import Bullet from "@/components/bullet";
-import { IClient } from "@/models/Clients";
+import { IClient } from "@/models/Clients.schema";
 import {
   Dialog,
   DialogContent,
@@ -116,7 +116,7 @@ export default function MoreInfoModal({ client }: { client: IClient }) {
                   <p className="text-sm text-gray-400">
                     {client.clientBirthdate
                       ? validateDate(
-                          client.clientBirthdate.toLocaleString("es-AR")
+                          client.clientBirthdate.toLocaleString("es-AR"),
                         )
                       : "Sin detalle"}
                   </p>

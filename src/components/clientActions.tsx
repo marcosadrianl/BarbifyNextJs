@@ -8,7 +8,7 @@ import { Plus, Pencil, History, Trash2 } from "lucide-react";
 import NewServiceModal from "@/components/newServiceModal";
 import DeleteClient from "@/components/deleteClient";
 import EditClientButton from "@/components/editClientButton";
-import { IClient } from "@/models/Clients";
+import { IClient } from "@/models/Clients.schema";
 
 export default function ClientActions({ client }: { client: IClient }) {
   return (

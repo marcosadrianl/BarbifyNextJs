@@ -35,7 +35,7 @@ export default function InactiveClientsCard() {
       const lastServiceByClient = services.reduce(
         (
           acc: Record<string, { date: Date; name: string; lastName: string }>,
-          service
+          service,
         ) => {
           const clientId = service._id.toString();
 
@@ -53,7 +53,7 @@ export default function InactiveClientsCard() {
           }
           return acc;
         },
-        {}
+        {},
       );
 
       // ✅ Filtrar clientes inactivos y calcular días

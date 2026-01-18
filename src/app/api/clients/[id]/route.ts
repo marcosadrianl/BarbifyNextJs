@@ -1,12 +1,11 @@
 import { NextResponse } from "next/server";
 import { connectDB } from "@/utils/mongoose";
-import Clients from "@/models/Clients";
+import Clients from "@/models/Clients.model";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/utils/auth";
 import { Types } from "mongoose";
 import mongoose from "mongoose";
-import type { IClient } from "@/models/Clients";
-import type { IService } from "@/models/Service";
+import type { IClient } from "@/models/Clients.types";
 
 // --- Helper: Validar sesión ---
 async function requireSession() {
@@ -29,7 +28,7 @@ function validateId(id: string) {
  */
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: { id: string } },
 ) {
   try {
     await connectDB();
@@ -72,7 +71,7 @@ export async function GET(
  */
 export async function PUT(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: { id: string } },
 ) {
   try {
     await connectDB();
@@ -90,7 +89,7 @@ export async function PUT(
     const updated = await (Clients as mongoose.Model<IClient>).findOneAndUpdate(
       { _id: params.id, clientFromUserId: userId },
       body,
-      { new: true, runValidators: true }
+      { new: true, runValidators: true },
     );
 
     if (!updated)
@@ -108,7 +107,7 @@ export async function PUT(
  */
 export async function PATCH(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: { id: string } },
 ) {
   try {
     await connectDB();
@@ -128,7 +127,7 @@ export async function PATCH(
     const updated = await (Clients as mongoose.Model<IClient>).findOneAndUpdate(
       { _id: id, clientFromUserId: userId },
       data,
-      { new: true, runValidators: true }
+      { new: true, runValidators: true },
     );
 
     if (!updated)
@@ -146,7 +145,7 @@ export async function PATCH(
  */
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: { id: string } },
 ) {
   try {
     await connectDB();
@@ -164,7 +163,7 @@ export async function DELETE(
       {
         _id: params.id,
         clientFromUserId: userId,
-      }
+      },
     );
 
     if (!deleted)

@@ -3,14 +3,14 @@
  * Luego los muestra con toda la información aplicando un map a la info traída del servidor
  * Usa IClient como client schema
  */
-import { IClient } from "@/models/Clients";
-import Clients from "@/models/Clients";
+
 import mongoose from "mongoose";
 import { connectDB } from "@/utils/mongoose";
-import { notFound } from "next/navigation";
+
 import ClientServiceList from "@/components/clientServiceList";
 import TotalServices from "@/components/fullServiceData";
-import Services, { IService, serializeService } from "@/models/Service";
+import { IService } from "@/models/Service.type";
+import Services from "@/models/Service.model";
 
 // Página principal
 export default async function ClientHistory({
@@ -40,16 +40,10 @@ export default async function ClientHistory({
   return (
     <div className="flex flex-row w-full gap-4 px-4 pt-4 overflow-auto">
       <div className="w-2/4">
-        <TotalServices
-          services={serviceList.map(serializeService)}
-          defautlState={true}
-        />
+        <TotalServices services={serviceList} defautlState={true} />
       </div>
       <div className="w-2/4 overflow-auto no-scrollbar">
-        <ClientServiceList
-          services={serviceList.map(serializeService)}
-          clientId={id}
-        />
+        <ClientServiceList services={serviceList} clientId={id} />
       </div>
     </div>
   );

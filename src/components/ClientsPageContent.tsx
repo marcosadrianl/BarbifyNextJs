@@ -23,6 +23,7 @@ function CheckAuth() {
 }
 
 export default function ClientsPageContent() {
+  console.log("Rendering ClientsPageContent", useSession());
   const router = useRouter();
   const searchParams = useSearchParams();
 

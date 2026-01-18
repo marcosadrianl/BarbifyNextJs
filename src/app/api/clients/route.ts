@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
 import { connectDB } from "@/utils/mongoose";
-import Clients from "@/models/Clients";
+import Clients from "@/models/Clients.model";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/utils/auth";
 import mongoose from "mongoose";
-import type { IClient } from "@/models/Clients";
+import type { IClient } from "@/models/Clients.types";
 
 import { Types } from "mongoose";
 /**
@@ -79,7 +79,7 @@ export async function GET(request: Request) {
     console.error("GET Clients Error:", error);
     return NextResponse.json(
       { error: "Error fetching clients: " + (error as Error).message },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -106,7 +106,6 @@ export async function GET(request: Request) {
  *   clientDiseases: string,
  *   clientMedications: string,
  *   clientNotes: string,
- *   clientServices: Service[]
  * clientFromUserId : ObjectId
  * }
  * @description This endpoint creates a new client based on the request body.
@@ -138,13 +137,13 @@ export async function POST(request: Request) {
           error: `Duplicated value for ${duplicateKey}: ${duplicateValue}`,
           field: duplicateKey,
         },
-        { status: 409 }
+        { status: 409 },
       );
     }
 
     return NextResponse.json(
       { error: "Unknown error occurred" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

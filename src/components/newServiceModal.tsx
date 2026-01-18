@@ -89,12 +89,12 @@ export default function NewServiceModal() {
       // Convertir la fecha local a UTC
       const localDate = new Date(formData.serviceDate);
       const utcDate = new Date(
-        localDate.getTime() - localDate.getTimezoneOffset() * 60000
+        localDate.getTime() - localDate.getTimezoneOffset() * 60000,
       );
 
       // Buscar el nombre del barbero seleccionado
       const selectedBarber = barberList.find(
-        (b) => b._id.toString() === formData.fromBarberId
+        (b) => b._id.toString() === formData.fromBarberId,
       );
       const barberName = selectedBarber
         ? `${selectedBarber.barberName} ${
@@ -142,14 +142,14 @@ export default function NewServiceModal() {
         alert(
           `Error al guardar el servicio: ${
             errorData.message || "Error desconocido"
-          }`
+          }`,
         );
       }
     } catch (err) {
       console.error("Error de red:", err);
       alert(
         "Error de red: " +
-          (err instanceof Error ? err.message : "Error desconocido")
+          (err instanceof Error ? err.message : "Error desconocido"),
       );
     } finally {
       setLoading(false);
@@ -267,7 +267,6 @@ export default function NewServiceModal() {
               onValueChange={(val) =>
                 setFormData({ ...formData, fromBarberId: val })
               }
-              required
             >
               <SelectTrigger className="rounded-xl border-slate-200">
                 <SelectValue placeholder="Selecciona un barbero" />

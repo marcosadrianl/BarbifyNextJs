@@ -83,7 +83,7 @@ export function IncomePerHourByHourChart() {
     const filterStartDate = new Date(
       latestDate.getFullYear(),
       latestDate.getMonth() - 3,
-      1
+      1,
     );
 
     const filteredServices = services.filter((s: any) => {
@@ -97,14 +97,14 @@ export function IncomePerHourByHourChart() {
   const avg = useMemo(() => {
     if (chartData.length === 0) return 0;
     return Math.round(
-      chartData.reduce((acc, h) => acc + h.incomePerHour, 0) / chartData.length
+      chartData.reduce((acc, h) => acc + h.incomePerHour, 0) / chartData.length,
     );
   }, [chartData]);
 
   if (!chartData.length) {
     return (
-      <Card>
-        <CardContent className="p-4 text-sm text-gray-400">
+      <Card className="w-1/4">
+        <CardContent className=" text-sm text-gray-400 animate-pulse">
           No hay datos suficientes para los últimos tres meses.
         </CardContent>
       </Card>

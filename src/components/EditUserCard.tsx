@@ -35,7 +35,7 @@ type Props = {
     userPhone?: string;
     userEmail?: string;
     userSex?: "M" | "F" | "O";
-    userBirthDate?: Date | string;
+    userBirthDate?: string;
     userCity?: string;
     userState?: string;
     userAddress?: string;
@@ -78,7 +78,7 @@ export default function EditUserCard({ open, onClose, user }: Props) {
       userPhone: user.userPhone ?? "",
       userEmail: user.userEmail ?? "",
       userSex: user.userSex,
-      userBirthDate: new Date(user.userBirthDate),
+      userBirthDate: user.userBirthDate ?? "",
 
       userCity: user.userCity ?? "",
       userState: user.userState ?? "",

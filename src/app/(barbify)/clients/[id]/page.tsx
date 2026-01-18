@@ -2,13 +2,14 @@ import { notFound } from "next/navigation";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/utils/auth";
 import { connectDB } from "@/utils/mongoose";
-import Clients, { IClient } from "@/models/Clients";
+import { IClient } from "@/models/Clients.types";
+import Clients from "@/models/Clients.model";
 import mongoose, { Types } from "mongoose";
 import SingleClientCard from "@/components/singleClientCard";
 import ClientHealthCard from "@/components/clientHealthCard";
 import ServiceList from "@/components/serviceList";
 import ClientActions from "@/components/clientActions";
-import Services, { IService, serializeService } from "@/models/Service";
+import Services, { IService, serializeService } from "@/models/Service.schema";
 import TotalServices from "@/components/fullServiceData";
 
 export default async function ClientsPage({
@@ -16,10 +17,11 @@ export default async function ClientsPage({
 }: {
   params: { id: string };
 }) {
-  await connectDB();
   const session = await getServerSession(authOptions);
 
   if (!session?.user?.id) return notFound();
+
+  await connectDB();
 
   const { id } = await params;
 

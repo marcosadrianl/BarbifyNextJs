@@ -33,7 +33,7 @@ export default async function Page() {
         <FinancialSummaryCard />
         <ClientRecurrenceCard />
       </div>
-      <div className="flex flex-row gap-4">
+      <div className="flex flex-row justify-between gap-4 ">
         <InactiveClientsCard />
         <AverageTicketCard />
         <AverageDurationCard />

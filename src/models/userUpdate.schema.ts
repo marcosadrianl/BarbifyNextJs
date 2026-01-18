@@ -7,7 +7,7 @@ export const UserUpdateZod = z
     userLastName: z.string().max(50).optional(),
     userPhone: z.string().max(20).optional(),
     userSex: z.enum(["M", "F", "O"]).optional(),
-    userBirthDate: z.date().optional(),
+    userBirthDate: z.string().optional(),
     userEmail: z.string().email().max(100).optional(),
 
     userCity: z.string().max(50).optional(),

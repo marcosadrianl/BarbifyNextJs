@@ -8,14 +8,14 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { useAllServices } from "@/components/getAllClientServicesForShowing";
+import { useServicesStore } from "@/lib/store/services.store";
 
 export function TimeCheckDashboard() {
   const [lastUpdated, setLastUpdated] = React.useState<string | null>(null);
   const [refresh, setRefresh] = React.useState(false);
 
   // 🔁 Hook con refresh manual
-  const { loading } = useAllServices(30, refresh);
+  const loading = useServicesStore((state) => state.loading);
 
   // 📅 Leer timestamp del cache
   const readLastUpdated = React.useCallback(() => {

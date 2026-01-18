@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { connectDB } from "@/utils/mongoose";
-import { IService } from "@/models/Service";
+import { IService } from "@/models/Service.schema";
 import mongoose from "mongoose";
 
 /**
@@ -9,7 +9,7 @@ import mongoose from "mongoose";
  */
 export async function PATCH(
   request: Request,
-  { params }: { params: { serviceId: string } }
+  { params }: { params: { serviceId: string } },
 ) {
   try {
     await connectDB();
@@ -25,7 +25,7 @@ export async function PATCH(
     if (!updatedService) {
       return NextResponse.json(
         { message: "Service not found" },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
@@ -34,7 +34,7 @@ export async function PATCH(
     console.error("Error updating service:", error);
     return NextResponse.json(
       { error: "Failed to update service" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

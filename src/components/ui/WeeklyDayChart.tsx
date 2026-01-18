@@ -99,16 +99,15 @@ export function WeeklyDayChart() {
 
   return (
     <Card className="w-full min-w-0 overflow-hidden border-none shadow-none sm:border sm:shadow-sm">
-      <CardHeader className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-4 sm:space-y-0 pb-7">
-        <div className="space-y-1">
-          <CardTitle className="text-xl flex flex-row items-center gap-2">
-            <CalendarArrowUp />
-            Servicios por día de la semana
-          </CardTitle>
-          <CardDescription>
-            Total acumulado por día en {selectedYear}
-          </CardDescription>
-        </div>
+      <CardHeader className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-4 sm:space-y-0">
+        <CardTitle className="text-xl flex flex-row items-center gap-2">
+          <CalendarArrowUp className="h-6 w-6" />
+          Servicios por día de la semana
+        </CardTitle>
+        <CardDescription>
+          Total acumulado por día en {selectedYear}
+        </CardDescription>
+
         <Select value={selectedYear} onValueChange={setSelectedYear}>
           <SelectTrigger className="w-full sm:w-30">
             <SelectValue placeholder="Año" />
@@ -123,42 +122,40 @@ export function WeeklyDayChart() {
         </Select>
       </CardHeader>
       <CardContent className="px-2 sm:px-6">
-        <div className="h-50 w-full min-w-0">
-          <ChartContainer config={chartConfig} className="h-full w-full">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart
-                data={chartData}
-                margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
-              >
-                <CartesianGrid
-                  vertical={false}
-                  strokeDasharray="3 3"
-                  opacity={0.3}
-                />
-                <XAxis
-                  dataKey="name"
-                  tickLine={false}
-                  tickMargin={10}
-                  axisLine={false}
-                  fontSize={12}
-                />
-                <YAxis
-                  tickLine={false}
-                  axisLine={false}
-                  allowDecimals={false}
-                  fontSize={12}
-                />
-                <ChartTooltip content={<ChartTooltipContent />} />
-                <Bar
-                  dataKey="total"
-                  fill="var(--color-total)"
-                  radius={[4, 4, 0, 0]}
-                  barSize={isMobile ? 25 : 45}
-                />
-              </BarChart>
-            </ResponsiveContainer>
-          </ChartContainer>
-        </div>
+        <ChartContainer config={chartConfig}>
+          <ResponsiveContainer>
+            <BarChart
+              data={chartData}
+              margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
+            >
+              <CartesianGrid
+                vertical={false}
+                strokeDasharray="3 3"
+                opacity={0.3}
+              />
+              <XAxis
+                dataKey="name"
+                tickLine={false}
+                tickMargin={10}
+                axisLine={false}
+                fontSize={12}
+              />
+              <YAxis
+                tickLine={false}
+                axisLine={false}
+                allowDecimals={false}
+                fontSize={12}
+              />
+              <ChartTooltip content={<ChartTooltipContent />} />
+              <Bar
+                dataKey="total"
+                fill="var(--color-total)"
+                radius={[4, 4, 0, 0]}
+                barSize={isMobile ? 25 : 45}
+              />
+            </BarChart>
+          </ResponsiveContainer>
+        </ChartContainer>
       </CardContent>
     </Card>
   );

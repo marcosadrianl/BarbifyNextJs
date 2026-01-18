@@ -7,7 +7,7 @@ import { Mail, Phone } from "lucide-react";
 
 import MoreInfoModal from "./moreInfoModal";
 
-import { IClient } from "@/models/Clients";
+import { IClient } from "@/models/Clients.schema";
 
 export default function SingleClientCard({ client }: { client: IClient }) {
   return (

@@ -1,4 +1,4 @@
-import { IClient } from "@/models/Clients";
+import { IClient } from "@/models/Clients.schema";
 
 export default function ClientCards({
   props,

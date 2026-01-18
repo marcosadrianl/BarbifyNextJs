@@ -55,7 +55,7 @@ export default function BarbersInfo() {
               {loading ? (
                 <p className="p-4 text-center">Cargando...</p>
               ) : barbers.length === 0 ? (
-                <p className="p-4 text-center">No hay barbers.</p>
+                <p className="p-4 text-left">No hay Barbers registrados.</p>
               ) : (
                 barbers.map((barber) => (
                   <div

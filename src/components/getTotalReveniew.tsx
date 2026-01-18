@@ -129,7 +129,7 @@ export function TotalRevenue() {
 
       {/* Period */}
       <p className="text-xs text-gray-400 border-t pt-2">
-        Ingresos de los últimos 6 meses
+        * Ingresos de los últimos 6 meses
         {periodDescription && ` (${periodDescription})`}
       </p>
     </div>

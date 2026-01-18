@@ -6,20 +6,19 @@ import { connectDB } from "@/utils/mongoose";
 import mongoose from "mongoose";
 
 export async function GET() {
+  // 3. Obtener la sesión pasando authOptions
+  const session = await getServerSession(authOptions);
+
+  // 4. Validar si existe el usuario y su ID
+  if (!session?.user?.id) {
+    return NextResponse.json({ error: "No autorizado" }, { status: 401 });
+  }
   try {
-    // 3. Obtener la sesión pasando authOptions
-    /* const session = await getServerSession(authOptions);
-
-    // 4. Validar si existe el usuario y su ID
-    if (!session?.user?.id) {
-      return NextResponse.json({ error: "No autorizado" }, { status: 401 });
-    } */
-
     await connectDB();
 
     // 5. Ahora puedes usar session.user.id con seguridad
     const barbers = await (Barbers as mongoose.Model<IBarbers>).find({
-      ownerUserId: "690e01c4aa84ca63d3fa6572",
+      ownerUserId: session.user.id,
     });
 
     // También tienes acceso a tus campos personalizados:
@@ -30,7 +29,7 @@ export async function GET() {
     console.error("Error en GET Barbers:", error);
     return NextResponse.json(
       { error: "Internal Server Error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -66,7 +65,7 @@ export async function POST(req: Request) {
     if (existingBarber) {
       return NextResponse.json(
         { error: "Ya existe un barber con este email" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -93,13 +92,13 @@ export async function POST(req: Request) {
 
     return NextResponse.json(
       { message: "Barber creado correctamente" },
-      { status: 201 }
+      { status: 201 },
     );
   } catch (error) {
     console.error("Error creando barber:", error);
     return NextResponse.json(
       { error: "Error interno del servidor" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -112,7 +111,7 @@ export async function DELETE(req: Request) {
     if (!barberId) {
       return NextResponse.json(
         { error: "ID de barber es requerido" },
-        { status: 400 }
+        { status: 400 },
       );
     }
     await connectDB();
@@ -123,18 +122,18 @@ export async function DELETE(req: Request) {
     if (!deletedBarber) {
       return NextResponse.json(
         { error: "Barber no encontrado" },
-        { status: 404 }
+        { status: 404 },
       );
     }
     return NextResponse.json(
       { message: "Barber eliminado correctamente" },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (error) {
     console.error("Error eliminando barber:", error);
     return NextResponse.json(
       { error: "Error interno del servidor" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

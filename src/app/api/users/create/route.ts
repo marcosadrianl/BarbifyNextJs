@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { connectDB } from "@/utils/mongoose";
-import User, { IUser } from "@/models/Users";
+import { IUser } from "@/models/Users.type";
+import User from "@/models/Users.model";
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 
@@ -55,7 +56,7 @@ export async function POST(req: Request) {
     if (existingUser) {
       return NextResponse.json(
         { error: "El usuario ya existe" },
-        { status: 409 }
+        { status: 409 },
       );
     }
 
@@ -86,7 +87,7 @@ export async function POST(req: Request) {
       userActive: true,
       userLevel: (userLevel ?? 0) as 0 | 1,
       paymentStatus: false,
-      userBirthDate: userBirthdate ? new Date(userBirthdate) : undefined,
+      userBirthDate: userBirthdate ? String(userBirthdate) : "",
       userHasThisBarbers: [],
     };
 
@@ -96,13 +97,13 @@ export async function POST(req: Request) {
 
     return NextResponse.json(
       { message: "Usuario creado correctamente" },
-      { status: 201 }
+      { status: 201 },
     );
   } catch (error) {
     console.error("Error creando usuario:", error);
     return NextResponse.json(
       { error: "Error interno del servidor" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

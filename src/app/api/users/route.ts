@@ -1,41 +1,20 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next"; // 1. Importar getServerSession
 import { authOptions } from "@/utils/auth"; // 2. Importar tus authOptions
-import User, { IUser } from "@/models/Users";
+import { IUser } from "@/models/Users.type";
+import User from "@/models/Users.model";
 import { connectDB } from "@/utils/mongoose";
 import mongoose from "mongoose";
 
-/* interface IUser {
-  userName: string;
-  userLastName?: string;
-  userEmail: string;
-  userPassword: string;
-  userLocation?: {
-    userCity: string; //Buenos Aires
-    userState?: string; //La Plata
-    userAddress?: string; // 44 y 132
-    userPostalCode?: string; // 1900
-  };
-  userPhone?: string;
-  userActive: boolean;
-  userLevel: 0 | 1;
-  paymentStatus: boolean;
-  userRole?: string;
-  userSex?: string;
-  userBirthDate?: Date;
-  userHasThisBarbers?: IBarbers[];
-} */
-
 export async function GET() {
+  // 3. Obtener la sesión pasando authOptions
+  const session = await getServerSession(authOptions);
+
+  // 4. Validar si existe el usuario y su ID
+  if (!session?.user?.id) {
+    return NextResponse.json({ error: "No autorizado" }, { status: 401 });
+  }
   try {
-    // 3. Obtener la sesión pasando authOptions
-    const session = await getServerSession(authOptions);
-
-    // 4. Validar si existe el usuario y su ID
-    if (!session?.user?.id) {
-      return NextResponse.json({ error: "No autorizado" }, { status: 401 });
-    }
-
     await connectDB();
 
     // 5. Ahora puedes usar session.user.id con seguridad
@@ -51,20 +30,19 @@ export async function GET() {
     console.error("Error en GET Barbers:", error);
     return NextResponse.json(
       { error: "Internal Server Error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
 
 export async function PATCH(req: Request) {
+  // 1️⃣ Sesión
+  const session = await getServerSession(authOptions);
+
+  if (!session || !session.user?.id) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
   try {
-    // 1️⃣ Sesión
-    const session = await getServerSession(authOptions);
-
-    if (!session || !session.user?.id) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
-
     // 2️⃣ Body
     const body = await req.json();
 
@@ -108,7 +86,7 @@ export async function PATCH(req: Request) {
         {
           new: true, // devuelve el doc actualizado
           runValidators: true, // respeta el schema
-        }
+        },
       )
       .select("-userPassword");
 
@@ -124,7 +102,7 @@ export async function PATCH(req: Request) {
     console.error("Error PATCH User:", error);
     return NextResponse.json(
       { error: "Internal Server Error", details: error.message },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

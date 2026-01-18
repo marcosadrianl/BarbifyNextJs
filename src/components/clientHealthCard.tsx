@@ -2,7 +2,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { IClient } from "@/models/Clients";
+import { IClient } from "@/models/Clients.schema";
 
 export default function ClientHealthCard({ client }: { client: IClient }) {
   return (

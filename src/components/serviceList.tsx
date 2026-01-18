@@ -1,10 +1,14 @@
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
-import Services, { IService } from "@/models/Service";
+import { IService } from "@/models/Service.type";
+import Services from "@/models/Service.model";
 import { History, ChevronRight, NotebookPen } from "lucide-react";
 import Link from "next/link";
 import { connectDB } from "@/utils/mongoose";
 import mongoose from "mongoose";
+import { getServerSession } from "next-auth/next";
+import { NextResponse } from "next/server";
+import { authOptions } from "@/utils/auth";
 
 function getDateClass(serviceDate: Date): string {
   const now = new Date();
@@ -21,10 +25,16 @@ export default async function ServiceList({
 }: {
   params: { id: string };
 }) {
+  const session = await getServerSession(authOptions);
+
+  if (!session || !session.user?.id) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
   try {
     const { id } = await params; // En Next.js 15, params es una Promise
 
     await connectDB();
+
     const services = await (Services as mongoose.Model<IService>)
       .find({ toClientId: id })
       .lean();

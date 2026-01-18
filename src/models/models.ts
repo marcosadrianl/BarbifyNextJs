@@ -5,10 +5,11 @@
  * para asegurar que todos los modelos estén registrados
  */
 
-import User, { IUser } from "@/models/Users";
+import User from "@/models/Users.model";
 import Barbers, { IBarbers } from "@/models/Barbers";
-import Clients, { IClient } from "@/models/Clients";
-import Service, { IService } from "@/models/Service";
+import { IClient } from "@/models/Clients.types";
+import Clients from "@/models/Clients.model";
+import { IService } from "@/models/Service.type";
 
 // Re-exportar para conveniencia
 export { User, Barbers, Clients };
