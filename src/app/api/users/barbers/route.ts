@@ -107,7 +107,7 @@ export async function DELETE(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
     const barberId = searchParams.get("id");
-    console.log("Barber ID to delete:", barberId);
+
     if (!barberId) {
       return NextResponse.json(
         { error: "ID de barber es requerido" },

@@ -6,6 +6,7 @@ import ClientsTableSkeleton from "@/skeletons/clientViewSkeleton";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import React from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 function CheckAuth() {
   const { status } = useSession();
@@ -14,7 +15,7 @@ function CheckAuth() {
   React.useEffect(() => {
     if (status === "unauthenticated") {
       router.push(
-        `/login?callbackUrl=${encodeURIComponent(window.location.pathname)}`
+        `/login?callbackUrl=${encodeURIComponent(window.location.pathname)}`,
       );
     }
   }, [status, router]);
@@ -23,7 +24,6 @@ function CheckAuth() {
 }
 
 export default function ClientsPageContent() {
-  console.log("Rendering ClientsPageContent", useSession());
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -61,16 +61,7 @@ export default function ClientsPageContent() {
             onClick={() => goToPage(page - 1)}
             className="p-1 disabled:opacity-50 cursor-pointer"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              height="24px"
-              viewBox="0 -960 960 960"
-              width="24px"
-              fill="#43553b"
-              className="inline-block transition-transform duration-200 hover:-translate-x-1"
-            >
-              <path d="M440-240 200-480l240-240 56 56-183 184 183 184-56 56Zm264 0L464-480l240-240 56 56-183 184 183 184-56 56Z" />
-            </svg>
+            <ChevronLeft size={24} color="#43553b" className="inline-block" />
           </button>
 
           <span className="flex items-center text-nowrap">
@@ -82,16 +73,7 @@ export default function ClientsPageContent() {
             onClick={() => goToPage(page + 1)}
             className="p-1 disabled:opacity-50 cursor-pointer"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              height="24px"
-              viewBox="0 -960 960 960"
-              width="24px"
-              fill="#43553b"
-              className="inline-block transition-transform duration-200 hover:translate-x-1"
-            >
-              <path d="M383-480 200-664l56-56 240 240-240 240-56-56 183-184Zm264 0L464-664l56-56 240 240-240 240-56-56 183-184Z" />
-            </svg>
+            <ChevronRight size={24} color="#43553b" className="inline-block" />
           </button>
         </div>
       </div>

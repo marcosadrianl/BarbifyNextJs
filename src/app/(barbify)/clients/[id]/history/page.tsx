@@ -27,7 +27,6 @@ export default async function ClientHistory({
 
   const serviceList = JSON.parse(JSON.stringify(services));
 
-  console.log("Servicios encontrados:", serviceList);
   // Si no hay servicios
   if (!services?.length) {
     return (

@@ -25,7 +25,6 @@ export default function DeleteBarber({
   title?: string;
   trigger?: React.ReactNode;
 }) {
-  console.log("DeleteBarber component rendered with id:", id);
   const [isDeleting, setIsDeleting] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 

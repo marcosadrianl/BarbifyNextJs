@@ -12,10 +12,6 @@ const ServicesPDFGenerator = () => {
   const [loading, setLoading] = useState(false);
   const [dateRange, setDateRange] = useState({ from: "", to: "" });
   let services = useServicesStore((s) => s.services);
-  console.log(
-    "servicios de insight",
-    useServicesStore((s) => s.services)
-  );
 
   // Función para formatear fecha
   const formatDate = (dateString: string) => {
@@ -185,7 +181,7 @@ const ServicesPDFGenerator = () => {
                   <td>${service.serviceName}</td>
                   <td>${formatPrice(service.servicePrice / 100)}</td>
                 </tr>
-              `
+              `,
                 )
                 .join("")}
               <tr class="total-row">
@@ -194,7 +190,7 @@ const ServicesPDFGenerator = () => {
               </td>
                 <td colspan="2" style="text-align: right;">TOTAL:</td>
                 <td>${formatPrice(
-                  services.reduce((sum, s) => sum + s.servicePrice / 100, 0)
+                  services.reduce((sum, s) => sum + s.servicePrice / 100, 0),
                 )}</td>
               </tr>
             </tbody>
@@ -239,7 +235,7 @@ const ServicesPDFGenerator = () => {
     const today = new Date();
     const firstDay = new Date(today.setDate(today.getDate() - today.getDay()));
     const lastDay = new Date(
-      today.setDate(today.getDate() - today.getDay() + 6)
+      today.setDate(today.getDate() - today.getDay() + 6),
     );
 
     setDateRange({

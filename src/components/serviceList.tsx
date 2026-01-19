@@ -7,14 +7,13 @@ import Link from "next/link";
 import { connectDB } from "@/utils/mongoose";
 import mongoose from "mongoose";
 import { getServerSession } from "next-auth/next";
-import { NextResponse } from "next/server";
+import { redirect } from "next/navigation"; // ← Agregá esto
 import { authOptions } from "@/utils/auth";
 
 function getDateClass(serviceDate: Date): string {
   const now = new Date();
   const date = new Date(serviceDate);
 
-  // Si la fecha es futura → naranja, si es pasada → gris (estilo actual)
   return date > now
     ? "text-[10px] font-medium bg-green-100 px-2 py-1 rounded-full shadow-sm text-green-700"
     : "text-[10px] font-medium bg-white px-2 py-1 rounded-full shadow-sm text-slate-500";
@@ -23,16 +22,17 @@ function getDateClass(serviceDate: Date): string {
 export default async function ServiceList({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
   const session = await getServerSession(authOptions);
 
+  // ✅ Usá redirect en lugar de NextResponse
   if (!session || !session.user?.id) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    redirect("/login"); // O la ruta que uses para login
   }
-  try {
-    const { id } = await params; // En Next.js 15, params es una Promise
 
+  try {
+    const { id } = await params;
     await connectDB();
 
     const services = await (Services as mongoose.Model<IService>)
@@ -41,6 +41,7 @@ export default async function ServiceList({
 
     return (
       <div className="bg-white border border-slate-200 shadow-sm h-fit p-5 rounded-3xl">
+        {/* ... resto del JSX igual ... */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-2">
             <div className="">
@@ -69,8 +70,7 @@ export default async function ServiceList({
           ) : (
             services
               .reverse()
-              .slice(0, 5) // Limitamos a los últimos 5
-
+              .slice(0, 5)
               .map((service: IService, index) => (
                 <div
                   key={index}

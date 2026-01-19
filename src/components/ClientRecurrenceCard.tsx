@@ -25,7 +25,7 @@ type RecurrenceResult = {
 export function analyzeClientRecurrence(
   services: IServiceCombined[],
   startDate?: Date,
-  endDate?: Date
+  endDate?: Date,
 ): RecurrenceResult {
   const clients: Record<string, ClientGroup> = {};
 
@@ -93,8 +93,6 @@ export function ClientRecurrenceCard() {
       return;
     }
 
-    console.log("Servicios para análisis de recurrencia:", services);
-
     // 1. DETECCIÓN DINÁMICA DE LA FECHA MÁS RECIENTE
     // En lugar de hardcodear 2025 u Octubre, buscamos el servicio más nuevo
     const validDates = services
@@ -107,7 +105,7 @@ export function ClientRecurrenceCard() {
     }
 
     const latestDate = new Date(
-      Math.max(...validDates.map((d: Date) => d.getTime()))
+      Math.max(...validDates.map((d: Date) => d.getTime())),
     );
 
     // 2. DEFINIR MES ACTUAL (basado en el dato más reciente)
@@ -121,7 +119,7 @@ export function ClientRecurrenceCard() {
       0,
       23,
       59,
-      59
+      59,
     );
 
     // 3. DEFINIR MES ANTERIOR (Manejo automático de cambio de año)
@@ -139,12 +137,12 @@ export function ClientRecurrenceCard() {
     const currentResult = analyzeClientRecurrence(
       services,
       currentMonthStart,
-      currentMonthEnd
+      currentMonthEnd,
     );
     const previousResult = analyzeClientRecurrence(
       services,
       prevMonthStart,
-      prevMonthEnd
+      prevMonthEnd,
     );
 
     // Calcular variación (puntos porcentuales)
@@ -179,8 +177,8 @@ export function ClientRecurrenceCard() {
             trend === "up"
               ? "bg-green-100 text-green-700"
               : trend === "down"
-              ? "bg-red-100 text-red-700"
-              : "bg-gray-100 text-gray-700"
+                ? "bg-red-100 text-red-700"
+                : "bg-gray-100 text-gray-700"
           }`}
         >
           {trend === "up" && <TrendingUp className="w-4" />}

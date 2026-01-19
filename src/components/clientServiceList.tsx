@@ -4,18 +4,12 @@ import { Calendar, Clock, DollarSign, StickyNote } from "lucide-react";
 import DeleteService from "./deleteService"; // Ajusta la ruta según tu carpeta
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import { IService } from "@/models/Service.type";
 
-interface Service {
-  id: string;
-  serviceName: string;
-  servicePrice: number;
-  serviceDate: string | Date;
-  serviceDuration: number;
-  serviceNotes?: string;
-}
+type Service = IService;
 
 interface ClientServicesListProps {
-  services: Service[];
+  services: IService[];
   clientId: string;
 }
 
@@ -54,11 +48,10 @@ export default function ClientServicesList({
           hour: "2-digit",
           minute: "2-digit",
         });
-        console.log("Renderizando servicio:", service.id);
 
         return (
           <Card
-            key={service.id.toString()}
+            key={service._id.toString()}
             className="overflow-hidden border-none shadow-sm hover:shadow-md transition-shadow bg-white"
           >
             <CardContent className="p-0">
@@ -79,7 +72,7 @@ export default function ClientServicesList({
                     </div>
                     {/* Botón eliminar para móviles (se oculta en desktop) */}
                     <div className="sm:hidden">
-                      <DeleteService serviceId={service.id} Id={clientId} />
+                      <DeleteService serviceId={service._id} Id={clientId} />
                     </div>
                   </div>
 
@@ -126,7 +119,7 @@ export default function ClientServicesList({
 
                 {/* Acción Eliminar (Desktop) */}
                 <div className="hidden sm:block">
-                  <DeleteService serviceId={service.id} Id={clientId} />
+                  <DeleteService serviceId={service._id} Id={clientId} />
                 </div>
               </div>
             </CardContent>

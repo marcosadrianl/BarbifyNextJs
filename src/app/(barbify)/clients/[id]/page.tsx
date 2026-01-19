@@ -9,8 +9,6 @@ import SingleClientCard from "@/components/singleClientCard";
 import ClientHealthCard from "@/components/clientHealthCard";
 import ServiceList from "@/components/serviceList";
 import ClientActions from "@/components/clientActions";
-import Services, { IService, serializeService } from "@/models/Service.schema";
-import TotalServices from "@/components/fullServiceData";
 
 export default async function ClientsPage({
   params,
@@ -46,7 +44,7 @@ export default async function ClientsPage({
         <ClientHealthCard client={result as IClient} />
       </div>
       <div className="flex flex-col gap-4 rounded-2xl w-2/5 ">
-        <ServiceList params={{ id }} />
+        <ServiceList params={Promise.resolve({ id })} />
       </div>
     </div>
   );

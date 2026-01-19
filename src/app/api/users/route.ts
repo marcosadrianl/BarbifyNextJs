@@ -51,8 +51,6 @@ export async function PATCH(req: Request) {
       return NextResponse.json({ error: "No data provided" }, { status: 400 });
     }
 
-    console.log("Received body:", body);
-
     // 3️⃣ DB
     await connectDB();
 
@@ -74,8 +72,6 @@ export async function PATCH(req: Request) {
       }
     }
 
-    console.log("Flattened update:", flattenedUpdate);
-
     // 5️⃣ Update
     const updatedUser = await (User as mongoose.Model<IUser>)
       .findByIdAndUpdate(
@@ -93,8 +89,6 @@ export async function PATCH(req: Request) {
     if (!updatedUser) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
-
-    console.log("Updated user:", updatedUser);
 
     // 6️⃣ OK
     return NextResponse.json(updatedUser, { status: 200 });

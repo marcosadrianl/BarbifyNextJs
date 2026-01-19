@@ -2,7 +2,7 @@
    1. INTERFACES TYPESCRIPT
 ───────────────────────────────── */
 export interface IService {
-  _id?: string;
+  _id: string;
   serviceDate: Date;
   serviceName: string;
   serviceTypeId?: string; // Referencia a un posible catálogo de tipos de servicio

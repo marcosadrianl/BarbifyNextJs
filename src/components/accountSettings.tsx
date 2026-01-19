@@ -54,7 +54,7 @@ export default function AccountSettings({
       setError(null);
       try {
         const res = await axios.get(endpoint);
-        console.log("Respuesta del endpoint:", res);
+
         // Intenta normalizar distintas formas de respuesta
         const raw = res.data;
         const data = normalizeData(raw);

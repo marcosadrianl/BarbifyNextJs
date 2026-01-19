@@ -48,10 +48,6 @@ interface IServiceFormData {
 export default function NewServiceModal() {
   const { data: session } = useSession();
 
-  useEffect(() => {
-    console.log("Session in NewServiceModal:", session);
-  }, [session]);
-
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [barberList, setBarberList] = useState<IBarbers[]>([]);

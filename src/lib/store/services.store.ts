@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { IBarbers } from "@/models/Barbers";
-import { IService } from "@/models/Service.schema";
+import { IService } from "@/models/Service.type";
 import { IClient } from "@/models/Clients.types";
 import { IServiceCombined } from "@/models/models";
 import axios from "axios";
@@ -48,7 +48,7 @@ function filterPastOrPresentServices(
     // Validación de seguridad por si serviceDate es null/undefined
     if (!service?.serviceDate) return false;
     const serviceDate = new Date(service.serviceDate);
-    console.log(serviceDate <= now);
+
     return serviceDate <= now;
   });
 }
@@ -102,7 +102,6 @@ export const useServicesStore = create<ServicesStore>((set) => ({
 
       // Calculamos la vista filtrada
       const filteredServices = filterPastOrPresentServices(allServices);
-      console.log("Servicios cargados desde cache:", filteredServices);
 
       set({
         allServices: allServices, // Guardamos crudos
@@ -146,8 +145,6 @@ export const useServicesStore = create<ServicesStore>((set) => ({
           return client ? combineClientService(client, service) : null;
         })
         .filter((item): item is IServiceCombined => item !== null);
-
-      console.log("Servicios combinados:", servicesWithClients);
 
       // 1. Filtramos para la vista principal
       const filteredServices = filterPastOrPresentServices(servicesWithClients);
@@ -238,7 +235,6 @@ export const useBarbers = create<BarbersStore>((set) => ({
 
       const json = res.data;
       const barbers: IBarbers[] = json || [];
-      console.log("Respuesta Barbers:", json);
 
       // 2. Guardamos TODO en localStorage (para poder usar  offline)
       localStorage.setItem("barbers", JSON.stringify(barbers));
