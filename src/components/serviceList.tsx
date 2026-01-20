@@ -10,15 +10,6 @@ import { getServerSession } from "next-auth/next";
 import { redirect } from "next/navigation"; // ← Agregá esto
 import { authOptions } from "@/utils/auth";
 
-function getDateClass(serviceDate: Date): string {
-  const now = new Date();
-  const date = new Date(serviceDate);
-
-  return date > now
-    ? "text-[10px] font-medium bg-green-100 px-2 py-1 rounded-full shadow-sm text-green-700"
-    : "text-[10px] font-medium bg-white px-2 py-1 rounded-full shadow-sm text-slate-500";
-}
-
 export default async function ServiceList({
   params,
 }: {
@@ -29,6 +20,15 @@ export default async function ServiceList({
   // ✅ Usá redirect en lugar de NextResponse
   if (!session || !session.user?.id) {
     redirect("/login"); // O la ruta que uses para login
+  }
+
+  function getDateClass(serviceDate: Date): string {
+    const now = new Date();
+    const date = new Date(serviceDate);
+
+    return date > now
+      ? "text-[10px] font-medium bg-green-100 px-2 py-1 rounded-full shadow-sm text-green-700"
+      : "text-[10px] font-medium bg-white px-2 py-1 rounded-full shadow-sm text-slate-500";
   }
 
   try {
@@ -80,7 +80,14 @@ export default async function ServiceList({
                     <p className="text-sm font-bold text-slate-800 capitalize">
                       {service.serviceName}
                     </p>
-                    <p className={getDateClass(service.serviceDate)}>
+                    <p
+                      className={getDateClass(service.serviceDate)}
+                      title={
+                        new Date(service.serviceDate) > new Date()
+                          ? "Próxima cita"
+                          : ""
+                      }
+                    >
                       {format(new Date(service.serviceDate), "dd/MM/yyyy", {
                         locale: es,
                       })}

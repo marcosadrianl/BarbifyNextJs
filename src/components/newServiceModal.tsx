@@ -265,17 +265,23 @@ export default function NewServiceModal() {
               }
             >
               <SelectTrigger className="rounded-xl border-slate-200">
-                <SelectValue placeholder="Selecciona un barbero" />
+                <SelectValue placeholder="Selecciona un Barber" />
               </SelectTrigger>
               <SelectContent className="rounded-xl">
-                {barberList.map((barber) => (
-                  <SelectItem
-                    key={barber._id.toString()}
-                    value={barber._id.toString()}
-                  >
-                    {barber.barberName} {barber.barberLastName || ""}
+                {barberList.length > 0 ? (
+                  barberList.map((barber) => (
+                    <SelectItem
+                      key={barber._id.toString()}
+                      value={barber._id.toString()}
+                    >
+                      {barber.barberName} {barber.barberLastName || ""}
+                    </SelectItem>
+                  ))
+                ) : (
+                  <SelectItem value="no-barber" disabled>
+                    No hay Barbers disponibles
                   </SelectItem>
-                ))}
+                )}
               </SelectContent>
             </Select>
           </div>
@@ -298,9 +304,6 @@ export default function NewServiceModal() {
                 setFormData({ ...formData, serviceNotes: e.target.value })
               }
             />
-            <p className="text-xs text-slate-500">
-              * Se agregará automáticamente el nombre del barbero al guardar
-            </p>
           </div>
 
           <DialogFooter className="pt-4">

@@ -3,7 +3,17 @@
 import * as React from "react";
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
 import { useServicesStore } from "@/lib/store/services.store";
-import { IService } from "@/models/Service.schema";
+import { IService } from "@/models/Service.type";
+import {
+  subDays,
+  startOfDay,
+  format,
+  isAfter,
+  parseISO,
+  isEqual,
+  compareAsc,
+} from "date-fns";
+import { es } from "date-fns/locale";
 
 import {
   Card,
@@ -39,23 +49,22 @@ const chartConfig = {
 
 function getStartDate(range: string) {
   const now = new Date();
-  const start = new Date(now);
+  let daysToSubtract = 90;
 
   switch (range) {
     case "7d":
-      start.setDate(now.getDate() - 7);
+      daysToSubtract = 7;
       break;
     case "30d":
-      start.setDate(now.getDate() - 30);
+      daysToSubtract = 30;
       break;
     case "90d":
     default:
-      start.setDate(now.getDate() - 90);
+      daysToSubtract = 90;
       break;
   }
 
-  start.setHours(0, 0, 0, 0);
-  return start;
+  return startOfDay(subDays(now, daysToSubtract));
 }
 
 export function ChartAreaInteractive() {
@@ -64,26 +73,30 @@ export function ChartAreaInteractive() {
 
   const chartData = React.useMemo(() => {
     const startDate = getStartDate(timeRange);
-    return Object.values(
-      services
-        .filter((client) => {
-          const serviceDate = new Date(client.serviceDate);
-          return serviceDate >= startDate;
-        })
-        .reduce<Record<string, { date: string; servicios: number }>>(
-          (acc, client) => {
-            const date = new Date(client.serviceDate)
-              .toISOString()
-              .split("T")[0];
-            if (!acc[date]) {
-              acc[date] = { date, servicios: 0 };
-            }
-            acc[date].servicios++;
-            return acc;
-          },
-          {},
-        ),
-    ).sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+
+    // 1. Agrupar y filtrar en un solo paso (reduce)
+    const grouped = services.reduce<
+      Record<string, { date: string; servicios: number }>
+    >((acc, s) => {
+      const sDate = parseISO(s.serviceDate as unknown as string); // Asumiendo que tipamos bien 's'
+
+      // Filtro: Solo procesar si es igual o posterior a startDate
+      if (isAfter(sDate, startDate) || isEqual(sDate, startDate)) {
+        const dateKey = format(sDate, "yyyy-MM-dd");
+
+        if (!acc[dateKey]) {
+          acc[dateKey] = { date: dateKey, servicios: 0 };
+        }
+        acc[dateKey].servicios++;
+      }
+
+      return acc;
+    }, {});
+
+    // 2. Convertir a array y ordenar
+    return Object.values(grouped).sort((a, b) =>
+      compareAsc(parseISO(a.date), parseISO(b.date)),
+    );
   }, [services, timeRange]);
 
   function Loading() {
@@ -153,7 +166,7 @@ export function ChartAreaInteractive() {
       <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
         <ChartContainer
           config={chartConfig}
-          className="aspect-auto h-[200px] w-full"
+          className="aspect-auto h-50 w-full"
         >
           <AreaChart
             data={chartData}
@@ -181,11 +194,7 @@ export function ChartAreaInteractive() {
               tickMargin={8}
               minTickGap={32}
               tickFormatter={(value) => {
-                const date = new Date(value);
-                return date.toLocaleDateString("es-AR", {
-                  month: "short",
-                  day: "numeric",
-                });
+                return format(parseISO(value), "d MMM", { locale: es });
               }}
             />
             <YAxis
@@ -197,9 +206,8 @@ export function ChartAreaInteractive() {
               content={
                 <ChartTooltipContent
                   labelFormatter={(value) => {
-                    return new Date(value).toLocaleDateString("es-AR", {
-                      month: "short",
-                      day: "numeric",
+                    return format(parseISO(value), "d 'de' MMMM", {
+                      locale: es,
                     });
                   }}
                   indicator="dot"

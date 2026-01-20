@@ -46,6 +46,43 @@ export default function LoginFormPremium() {
     }
   };
 
+  const words = [
+    "claridad",
+    "organización",
+    "eficiencia",
+    "crecimiento",
+    "éxito",
+    "control",
+    "productividad",
+    "satisfacción",
+    "rentabilidad",
+    "innovación",
+    "Barbify",
+    "inteligencia",
+    "visión",
+    "estrategia",
+    "facilidad",
+    "optimización",
+    "buena gestión",
+  ];
+
+  const SelectedWordComponent = () => {
+    // Obtenemos el día del mes (1 - 31)
+    // Usamos un valor fijo basado en la fecha para que el SSR y el Cliente coincidan
+    const date = new Date();
+    const index = date.getDate() + date.getMonth(); // Mezclamos día y mes para más variedad
+
+    // Usamos el operador % (módulo) para que si el resultado es 35
+    // y tenés 17 palabras, vuelva a empezar desde el principio sin romperse.
+    const selectedWord = words[index % words.length];
+
+    return (
+      <p className="text-sm text-black/60 mt-1">
+        Gestioná tu peluquería con {selectedWord}
+      </p>
+    );
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center text-black bg-linear-to-br from-[#fff7ec] to-[#f3eadb] px-4 w-full">
       <motion.div
@@ -63,9 +100,7 @@ export default function LoginFormPremium() {
               <Scissors size={28} />
             </div>
             <h1 className="text-2xl font-semibold">Bienvenido a Barbify</h1>
-            <p className="text-sm text-black/60 mt-1">
-              Gestioná tu peluquería con claridad
-            </p>
+            <SelectedWordComponent />
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-5">

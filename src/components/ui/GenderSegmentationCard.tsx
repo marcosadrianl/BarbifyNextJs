@@ -26,7 +26,7 @@ export function GenderSegmentationCard() {
     const filterStartDate = new Date(
       latestDate.getFullYear(),
       latestDate.getMonth() - 3,
-      1
+      1,
     );
 
     const groups: Record<
@@ -66,7 +66,7 @@ export function GenderSegmentationCard() {
       const topService =
         Object.entries(data.services).sort((a, b) => b[1] - a[1])[0]?.[0] ||
         "N/A";
-
+      console.log(topService);
       return { name, avgTicket, topService, count: data.count };
     });
 
@@ -75,12 +75,21 @@ export function GenderSegmentationCard() {
     const male = finalData.find((d) => d.name === "Masculino");
 
     let insight = "";
-    if (female && male && female.avgTicket > male.avgTicket) {
-      const diff = ((female.avgTicket / male.avgTicket - 1) * 100).toFixed(0);
-      insight = `Clientes femeninos gastan un ${diff}% más por visita.`;
-    } else if (female && male) {
-      const diff = ((male.avgTicket / female.avgTicket - 1) * 100).toFixed(0);
-      insight = `Clientes masculinos gastan un ${diff}% más por visita.`;
+
+    // 1. Verificamos que existan ambos objetos y que tengan tickets válidos (mayores a 0)
+    if (female && male && female.avgTicket > 0 && male.avgTicket > 0) {
+      if (female.avgTicket > male.avgTicket) {
+        const diff = ((female.avgTicket / male.avgTicket - 1) * 100).toFixed(0);
+        insight = `Clientes femeninos gastan un ${diff}% más por visita.`;
+      } else if (male.avgTicket > female.avgTicket) {
+        const diff = ((male.avgTicket / female.avgTicket - 1) * 100).toFixed(0);
+        insight = `Clientes masculinos gastan un ${diff}% más por visita.`;
+      } else {
+        insight = "El gasto promedio es igual para ambos géneros.";
+      }
+    } else {
+      // 2. Manejo de caso: cuando uno de los dos no tiene datos aún
+      insight = "Datos insuficientes para comparar gasto por género.";
     }
 
     return { groups: finalData, insight };
@@ -151,18 +160,20 @@ export function GenderSegmentationCard() {
                 Insight Clave
               </p>
               <p className="text-sm text-gray-400 mb-3 italic">
-                "{stats.insight}"
+                {stats.insight}
               </p>
 
               <div className="space-y-2">
                 <p className="text-[11px] font-bold uppercase text-gray-400 tracking-widest">
                   Acciones Sugeridas
                 </p>
-                <div className="flex items-center gap-2 text-xs text-foreground/80">
-                  <ArrowRight className="w-3 h-3 text-primary" />
-                  Promos cruzadas en {stats.groups[0].topService}: combina{" "}
-                  {stats.groups[0].topService} con otros servicios populares.
-                </div>
+                {stats.groups[0].topService != "N/A" && (
+                  <div className="flex items-center gap-2 text-xs text-foreground/80">
+                    <ArrowRight className="w-3 h-3 text-primary" />
+                    Promos cruzadas en {stats.groups[0].topService}: combina{" "}
+                    {stats.groups[0].topService} con otros servicios populares.
+                  </div>
+                )}
                 <div className="flex items-center gap-2 text-xs text-foreground/80">
                   <ArrowRight className="w-3 h-3 text-primary" />
                   Ajuste de precios en servicios premium: considera un

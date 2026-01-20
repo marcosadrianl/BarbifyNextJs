@@ -157,7 +157,7 @@ const ServicesPDFGenerator = () => {
               dateRange.from || dateRange.to
                 ? ` - Período: ${
                     dateRange.from ? formatDate(dateRange.from) : "Inicio"
-                  } - ${dateRange.to ? formatDate(dateRange.to) : "Fin"}`
+                  } al ${dateRange.to ? formatDate(dateRange.to) : "Fin"}`
                 : ""
             }
           </div>
