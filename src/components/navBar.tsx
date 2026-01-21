@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink"; // importa tu nuevo componente
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 const Titles = Alice({
   subsets: ["latin"],
@@ -17,6 +18,15 @@ const Titles = Alice({
 });
 
 export default function NavBar() {
+  const { data: session } = useSession();
+  console.log("🛡️ Session en NavBar:", session?.user);
+
+  function isActiveAndIsLeveled(): boolean {
+    return session?.user?.userActive && session?.user?.userLevel! == 1
+      ? true
+      : false;
+  }
+
   return (
     <div className="flex flex-col w-fit justify-between pr-4 bg-[#ffe7c7] text-[#2f3e2f] border-r border-[#cebaa1]">
       <Link href="/">
@@ -29,9 +39,11 @@ export default function NavBar() {
         <NavLink href="/clients" icon={UserRound}>
           Clientes
         </NavLink>
-        <NavLink href="/dashboard" icon={LayoutDashboard}>
-          Dashboard
-        </NavLink>
+        {isActiveAndIsLeveled() && (
+          <NavLink href="/dashboard" icon={LayoutDashboard}>
+            Dashboard
+          </NavLink>
+        )}
         <NavLink href="/diary" icon={CalendarDays}>
           Agenda
         </NavLink>

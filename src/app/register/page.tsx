@@ -34,7 +34,7 @@ export default function RegisterPagePremium() {
         userPostalCode: "",
 
         userPhone: "",
-        userActive: true,
+        userActive: false, // Cambiado: Usuario inactivo hasta que pague
         userLevel: 0,
         paymentStatus: false,
         userRole: "",
@@ -42,7 +42,7 @@ export default function RegisterPagePremium() {
         userBirthDate: "",
         userHasThisBarbers: [],
       });
-      router.push("/login");
+      router.push("/login?registered=true");
     } catch (err) {
       setError("No se pudo crear la cuenta. Intenta nuevamente.");
       setLoading(false);

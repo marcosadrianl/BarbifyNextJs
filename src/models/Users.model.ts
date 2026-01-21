@@ -11,7 +11,7 @@ const UsersSchema = new Schema(
       trim: true,
     },
     userLevel: { type: Number, required: true, default: 0, enum: [0, 1, 2] },
-    userActive: { type: Boolean, default: true },
+    userActive: { type: Boolean, default: false }, // Default false: requiere pago para activarse
     paymentStatus: {
       type: Boolean,
       default: false,
@@ -26,6 +26,26 @@ const UsersSchema = new Schema(
     userState: { type: String, maxlength: 50, trim: true },
     userAddress: { type: String, maxlength: 100, trim: true },
     userPostalCode: { type: String, maxlength: 10, trim: true },
+
+    subscription: {
+      plan: {
+        type: String,
+        enum: ["free", "standard", "premium"],
+        default: "free",
+      },
+      status: {
+        type: String,
+        enum: ["active", "pending", "cancelled", "expired", "paused"],
+        default: "pending",
+      },
+      startDate: { type: Date, default: Date.now },
+      endDate: { type: Date },
+      mercadoPagoSubscriptionId: { type: String },
+      mercadoPagoPreapprovalId: { type: String },
+      lastPaymentDate: { type: Date },
+      nextPaymentDate: { type: Date },
+      cancelledAt: { type: Date },
+    },
 
     userPhone: {
       type: String,

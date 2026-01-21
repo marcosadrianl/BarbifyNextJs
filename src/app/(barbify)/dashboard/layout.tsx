@@ -16,22 +16,22 @@ export default function RootLayout({
 }>) {
   ServicesBootstrap();
   return (
-    <div className="bg-[#ffe7c7] h-screen flex flex-row text-[#43553b]">
-      {/* Barra lateral */}
-      <NavBar />
+    <SessionProvider>
+      <div className="bg-[#ffe7c7] h-screen flex flex-row text-[#43553b]">
+        {/* Barra lateral */}
+        <NavBar />
 
-      {/* Contenedor principal con scroll */}
-      <div className="flex flex-col grow h-full overflow-hidden">
-        {/* TaskBar fija arriba */}
-        <div className="sticky top-0 z-10">
-          <TaskBar />
-        </div>
+        {/* Contenedor principal con scroll */}
+        <div className="flex flex-col grow h-full overflow-hidden">
+          {/* TaskBar fija arriba */}
+          <div className="sticky top-0 z-10">
+            <TaskBar />
+          </div>
 
-        {/* Contenido con scroll */}
-        <div className="flex-1 overflow-auto">
-          <SessionProvider>{children}</SessionProvider>
+          {/* Contenido con scroll */}
+          <div className="flex-1 overflow-auto">{children}</div>
         </div>
       </div>
-    </div>
+    </SessionProvider>
   );
 }

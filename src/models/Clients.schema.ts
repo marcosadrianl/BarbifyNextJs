@@ -39,12 +39,15 @@ export const ClientSchemaZod = z
   .object({
     clientName: z.string().min(1).max(50),
     clientLastName: z.string().min(1).max(50),
-    clientSex: z.enum(["M", "F", "O"]).default("O"),
+
     clientBirthdate: z.string().optional(),
     clientEmail: z.email().optional(),
     clientPhone: z.string().min(1).max(20).optional(),
-    clientImage: z.string().optional(),
+    clientSex: z.enum(["M", "F", "O"]).default("O"),
     clientActive: z.boolean().default(true),
+
+    clientImage: z.string().optional(),
+
     clientBaseColor: z.string().max(30).optional(),
     clientHairType: z.string().max(30).optional(),
     clientAllergies: z.string().max(200).optional(),

@@ -84,7 +84,7 @@ export async function POST(req: Request) {
       userSex,
       userPassword: hashedPassword,
       userPhone: userPhone,
-      userActive: true,
+      userActive: false, // Requiere pago para activarse
       userLevel: (userLevel ?? 0) as 0 | 1,
       paymentStatus: false,
       userBirthDate: userBirthdate ? String(userBirthdate) : "",

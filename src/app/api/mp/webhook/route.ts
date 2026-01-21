@@ -69,11 +69,13 @@ async function handlePaymentNotification(paymentId: string) {
       if (email && plan) {
         await connectDB();
 
-        // Actualizar usuario con la suscripción
+        // Actualizar usuario con la suscripción y activar cuenta
         await (User as mongoose.Model<IUser>).findOneAndUpdate(
-          { email },
+          { userEmail: email },
           {
             $set: {
+              userActive: true, // Activar cuenta al confirmar pago
+              paymentStatus: true,
               "subscription.plan": plan,
               "subscription.status": "active",
               "subscription.startDate": new Date(),

@@ -100,7 +100,7 @@ export default function CreateClientForm() {
   const router = useRouter();
 
   const form = useForm<ClientFormData>({
-    resolver: zodResolver(ClientSchemaZod),
+    resolver: zodResolver(ClientSchemaZod) as any,
     defaultValues: {
       clientActive: true,
       clientWhiteHairs: 0,
@@ -208,7 +208,9 @@ export default function CreateClientForm() {
                       <FormLabel>Foto de Perfil</FormLabel>
                       <FormControl>
                         <ImageSelector
-                          value={field.value || "/default-client.png"}
+                          value={
+                            field.value.toString() || "/default-client.png"
+                          }
                           onChange={field.onChange}
                         />
                       </FormControl>

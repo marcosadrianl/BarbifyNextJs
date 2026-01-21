@@ -12,6 +12,8 @@ const ClientsSchema = new Schema<IClient>(
     clientSex: {
       type: String,
       enum: ["M", "F", "O"],
+      default: "O",
+      required: true,
     },
     clientBirthdate: { type: Date },
     clientEmail: { type: String, unique: true, maxlength: 100, trim: true },
@@ -26,7 +28,6 @@ const ClientsSchema = new Schema<IClient>(
     clientNotes: { type: String, maxlength: 500 },
     clientWhiteHairs: { type: Number, default: 0, min: 0, max: 100 },
     clientFromUserId: { type: String, ref: "BarbifyUsers" },
-    ClientPassword: { type: String, maxlength: 100 },
   },
   {
     _id: true,

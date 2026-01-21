@@ -31,7 +31,14 @@ export default withAuth(
         /* console.log("🔍 Authorized callback:", { path, hasToken: !!token }); */
 
         // ✅ RUTAS PÚBLICAS (no requieren autenticación)
-        const publicPaths = ["/", "/login", "/register", "/about", "/contact"];
+        const publicPaths = [
+          "/",
+          "/login",
+          "/register",
+          "/about",
+          "/contact",
+          "/subscription",
+        ];
 
         // ✅ PREFIJOS PÚBLICOS
         const publicPrefixes = [
@@ -81,7 +88,7 @@ export default withAuth(
     pages: {
       signIn: "/login",
     },
-  }
+  },
 );
 
 // ✅ Configuración del matcher

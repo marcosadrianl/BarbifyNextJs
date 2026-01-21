@@ -26,12 +26,27 @@ export function SubscriptionPlans({
   const [loading, setLoading] = useState<string | null>(null);
 
   const handleSubscribe = async (plan: SubscriptionPlan) => {
-    if (plan === "free") {
-      return;
-    }
-
     setLoading(plan);
     try {
+      // Si es plan gratuito, activar directamente sin pago
+      if (plan === "free") {
+        const response = await fetch("/api/mp/activate-free", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error("Error al activar plan gratuito");
+        }
+
+        // Recargar la página para actualizar el estado
+        window.location.reload();
+        return;
+      }
+
+      // Para planes de pago, crear preferencia de Mercado Pago
       const response = await fetch("/api/mp/subscriptions", {
         method: "POST",
         headers: {
@@ -111,7 +126,7 @@ export function SubscriptionPlans({
                       ? "default"
                       : "secondary"
                 }
-                disabled={isCurrentPlan || loading === plan.id || isFree}
+                disabled={isCurrentPlan || loading === plan.id}
                 onClick={() => handleSubscribe(plan.id)}
               >
                 {loading === plan.id
@@ -119,7 +134,7 @@ export function SubscriptionPlans({
                   : isCurrentPlan
                     ? "Plan Actual"
                     : isFree
-                      ? "Plan Gratuito"
+                      ? "Activar Plan Gratuito"
                       : "Suscribirse"}
               </Button>
             </CardFooter>

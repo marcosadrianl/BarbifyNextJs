@@ -10,9 +10,9 @@ export async function POST(req: NextRequest) {
   try {
     const session = await getServerSession();
 
-    if (!session?.user?.userEmail) {
+    /* if (!session?.user?.userEmail) {
       return NextResponse.json({ error: "No autorizado" }, { status: 401 });
-    }
+    } */
 
     const { plan } = (await req.json()) as { plan: SubscriptionPlan };
 

@@ -22,7 +22,7 @@ export const UserSchemaZod = z
     userLastName: z.string().max(50).default(""),
     userEmail: z.email().max(100).default(""),
     userPassword: z.string().max(100),
-    userActive: z.boolean().optional().default(true),
+    userActive: z.boolean().optional().default(false), // Requiere pago para activarse
     userHasThisBarbers: z.array(z.string()).default([]),
 
     userCity: z.string().max(50).default(""),

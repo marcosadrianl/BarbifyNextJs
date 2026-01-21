@@ -9,11 +9,7 @@ export default function Page() {
         Ve las opciones de configuración para la suscripción de tu cuenta.
       </p>
 
-      <Link
-        href="https://www.mercadopago.com.ar/subscriptions"
-        target="_blank"
-        className="w-full"
-      >
+      <Link href="/subscription" target="_blank" className="w-full">
         <div className="cursor-pointer hover:bg-gray-100 p-4">
           <span className="flex flex-row w-full justify-between items-center">
             <span>
