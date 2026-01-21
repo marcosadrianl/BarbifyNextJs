@@ -28,13 +28,18 @@ export default function SubscriptionSuccessContent() {
           </CardHeader>
           <CardContent className="space-y-4">
             <p className="text-muted-foreground">
-              Tu suscripción al plan <strong>{plan}</strong> ha sido procesada correctamente.
+              Tu suscripción al plan <strong>{plan}</strong> ha sido procesada
+              correctamente.
             </p>
             <p className="text-sm text-muted-foreground">
-              Recibirás un correo de confirmación con los detalles de tu suscripción.
+              Recibirás un correo de confirmación con los detalles de tu
+              suscripción.
             </p>
             <div className="pt-4">
-              <Button onClick={() => router.push("/dashboard")} className="w-full">
+              <Button
+                onClick={() => router.push("/dashboard")}
+                className="w-full"
+              >
                 Ir al Dashboard
               </Button>
             </div>
