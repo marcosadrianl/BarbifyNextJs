@@ -100,7 +100,7 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <div className="flex flex-row p-0 bg-[#cebaa1] w-full h-full overflow-hidden">
+    <div className="flex flex-row bg-[#cebaa1] w-full h-full overflow-hidden p-0">
       {/* El contenedor padre debe tener overflow-hidden para evitar el scroll general de la página */}
 
       {/* Detalles del Evento: scroll independiente */}

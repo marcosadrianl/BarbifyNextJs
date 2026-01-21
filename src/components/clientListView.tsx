@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { IClient } from "@/models/Clients.schema";
+import { IClient } from "@/models/Clients.types";
 
 import {
   Table,
@@ -52,54 +52,52 @@ export default function ClientListView({ clients }: { clients: IClient[] }) {
           <TableBody>
             {clients.length > 0 ? (
               clients.map((client) => (
-                <TableRow key={client._id!.toString()}>
-                  <TableCell className="flex items-center gap-3">
-                    <Avatar className="h-8 w-8">
-                      <AvatarImage
-                        src={
-                          client.clientImage == "/default-client.png"
-                            ? undefined
-                            : client.clientImage
-                        }
-                      />
-                      <AvatarFallback>
-                        {client.clientName?.[0]}
-                        {client.clientLastName?.[0]}
-                      </AvatarFallback>
-                    </Avatar>
+                <DropdownMenu
+                  key={client._id!.toString() + Math.random().toString()}
+                >
+                  <DropdownMenuTrigger asChild>
+                    <TableRow
+                      key={client._id!.toString() + Math.random().toString()}
+                      className="cursor-pointer hover:bg-slate-50"
+                    >
+                      <TableCell className="flex items-center gap-3">
+                        <Avatar className="h-8 w-8">
+                          <AvatarImage
+                            src={
+                              client.clientImage == "/default-client.png"
+                                ? undefined
+                                : client.clientImage
+                            }
+                          />
+                          <AvatarFallback>
+                            {client.clientName?.[0]}
+                            {client.clientLastName?.[0]}
+                          </AvatarFallback>
+                        </Avatar>
 
-                    <span className="font-medium">
-                      {client.clientName} {client.clientLastName}
-                    </span>
-                  </TableCell>
+                        <span className="font-medium">
+                          {client.clientName} {client.clientLastName}
+                        </span>
+                      </TableCell>
 
-                  <TableCell>{client.clientEmail}</TableCell>
-                  <TableCell>{client.clientPhone}</TableCell>
+                      <TableCell>{client.clientEmail}</TableCell>
+                      <TableCell>{client.clientPhone}</TableCell>
 
-                  <TableCell className="text-right">
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="icon">
-                          <MoreHorizontal className="h-4 w-4" />
-                        </Button>
-                      </DropdownMenuTrigger>
+                      <TableCell className="">
+                        <MoreHorizontal className="h-4 w-4 opacity-50 ml-auto mr-4" />
+                      </TableCell>
+                    </TableRow>
+                  </DropdownMenuTrigger>
 
-                      <DropdownMenuContent align="end">
-                        <DropdownMenuItem asChild>
-                          <Link href={`/clients/${client._id}`}>
-                            Ver cliente
-                          </Link>
-                        </DropdownMenuItem>
-
-                        <DropdownMenuItem asChild>
-                          <Link href={`/clients/${client._id}/edit`}>
-                            Editar
-                          </Link>
-                        </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </TableCell>
-                </TableRow>
+                  <DropdownMenuContent align="end">
+                    <DropdownMenuItem asChild className="hover:bg-slate-200">
+                      <Link href={`/clients/${client._id}`}>Ver cliente</Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild className="hover:bg-slate-200">
+                      <Link href={`/clients/${client._id}/edit`}>Editar</Link>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               ))
             ) : (
               <TableRow>
