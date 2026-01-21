@@ -1,5 +1,21 @@
 import { z } from "zod";
 
+const SubscriptionSchemaZod = z
+  .object({
+    plan: z.enum(["free", "standard", "premium"]).default("free"),
+    status: z
+      .enum(["active", "pending", "cancelled", "expired", "paused"])
+      .default("active"),
+    startDate: z.date().default(() => new Date()),
+    endDate: z.date().optional(),
+    mercadoPagoSubscriptionId: z.string().optional(),
+    mercadoPagoPreapprovalId: z.string().optional(),
+    lastPaymentDate: z.date().optional(),
+    nextPaymentDate: z.date().optional(),
+    cancelledAt: z.date().optional(),
+  })
+  .optional();
+
 export const UserSchemaZod = z
   .object({
     userName: z.string().max(50).default(""),
@@ -19,6 +35,12 @@ export const UserSchemaZod = z
     userBirthDate: z.string().optional().default(""),
     userSex: z.enum(["M", "F", "O"]).optional().default("O"),
     paymentStatus: z.boolean().default(false),
+
+    subscription: SubscriptionSchemaZod.default({
+      plan: "free",
+      status: "active",
+      startDate: new Date(),
+    }),
   })
   .strict();
 

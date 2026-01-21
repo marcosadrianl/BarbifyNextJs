@@ -1,3 +1,8 @@
+import {
+  SubscriptionPlan,
+  SubscriptionStatus,
+} from "@/types/subscription.types";
+
 export interface IUser {
   _id?: string;
   userName: string;
@@ -18,6 +23,18 @@ export interface IUser {
   userRole?: string;
   userSex?: string;
   userBirthDate?: string; // ✅ Mayúscula D
+
+  subscription?: {
+    plan: SubscriptionPlan;
+    status: SubscriptionStatus;
+    startDate: Date;
+    endDate?: Date;
+    mercadoPagoSubscriptionId?: string;
+    mercadoPagoPreapprovalId?: string;
+    lastPaymentDate?: Date;
+    nextPaymentDate?: Date;
+    cancelledAt?: Date;
+  };
 
   createdAt?: Date;
   updatedAt?: Date;
