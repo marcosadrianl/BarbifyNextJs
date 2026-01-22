@@ -37,10 +37,10 @@ export default function SubscriptionSuccessContent() {
             </p>
             <div className="pt-4">
               <Button
-                onClick={() => router.push("/dashboard")}
+                onClick={() => router.push("/clients")}
                 className="w-full"
               >
-                Ir al Dashboard
+                Ir a Clientes
               </Button>
             </div>
           </CardContent>

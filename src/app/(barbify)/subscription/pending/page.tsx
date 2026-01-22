@@ -28,10 +28,10 @@ export default function SubscriptionPendingPage() {
             </p>
             <div className="pt-4">
               <Button
-                onClick={() => router.push("/dashboard")}
+                onClick={() => router.push("/clients")}
                 className="w-full"
               >
-                Ir al Dashboard
+                Ir Clientes
               </Button>
             </div>
           </CardContent>

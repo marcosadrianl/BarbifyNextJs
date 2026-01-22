@@ -31,11 +31,11 @@ export default function SubscriptionFailurePage() {
                 Intentar de nuevo
               </Button>
               <Button
-                onClick={() => router.push("/dashboard")}
+                onClick={() => router.push("/clients")}
                 variant="outline"
                 className="w-full"
               >
-                Volver al Dashboard
+                Volver a Clientes
               </Button>
             </div>
           </CardContent>
