@@ -28,11 +28,11 @@ export default async function SubscriptionPage() {
     new Date(trialEndDate) > new Date();
 
   return (
-    <div className="container mx-auto py-10 px-4">
+    <div className="container mx-auto py-10 px-4 bg-[#fff7ec] min-h-screen">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold mb-4">
-            Elige el plan perfecto para tu barbería
+          <h1 className="text-4xl font-bold mb-4 text-[#2f3e2f]">
+            Elige el plan perfecto para tu peluquería
           </h1>
           <p className="text-xl text-muted-foreground">
             {isTrialActive
@@ -49,7 +49,7 @@ export default async function SubscriptionPage() {
               ? "Disfruta de 14 días gratuitos del plan Standard. No se requiere tarjeta de crédito."
               : "Todos los planes incluyen acceso completo a la plataforma."}
           </p>
-          <p className="mt-2">
+          <p className="py-4">
             Los pagos se procesan de forma segura a través de Mercado Pago.
           </p>
         </div>

@@ -1,7 +1,7 @@
 {
   "servers": {
     "mp-MCP-server": {
-      "url": "https://mcp.mercadopago.com/mcp",
+      "url": "\"https://mcp.mercadopago.com/mcp\"",
       "type": "http"
     }
   },

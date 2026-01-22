@@ -80,7 +80,11 @@ export function SubscriptionPlans({
               <CardDescription>{plan.description}</CardDescription>
               <div className="mt-4">
                 <span className="text-4xl font-bold">
-                  ${(plan.price / 100).toFixed(2)}
+                  $
+                  {(plan.price / 100).toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}
                 </span>
                 <span className="text-muted-foreground">/mes</span>
               </div>
@@ -97,7 +101,7 @@ export function SubscriptionPlans({
               </ul>
             </CardContent>
 
-            <CardFooter>
+            <CardFooter className="mt-auto">
               <Button
                 className="w-full"
                 variant={
