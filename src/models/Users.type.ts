@@ -29,6 +29,7 @@ export interface IUser {
     status: SubscriptionStatus;
     startDate: Date;
     endDate?: Date;
+    trialEndDate?: Date;
     mercadoPagoSubscriptionId?: string;
     mercadoPagoPreapprovalId?: string;
     lastPaymentDate?: Date;

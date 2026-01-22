@@ -2,12 +2,13 @@ import { z } from "zod";
 
 const SubscriptionSchemaZod = z
   .object({
-    plan: z.enum(["free", "standard", "premium"]).default("free"),
+    plan: z.enum(["standard", "premium"]).default("standard"),
     status: z
-      .enum(["active", "pending", "cancelled", "expired", "paused"])
-      .default("active"),
+      .enum(["active", "pending", "cancelled", "expired", "paused", "trial"])
+      .default("trial"),
     startDate: z.date().default(() => new Date()),
     endDate: z.date().optional(),
+    trialEndDate: z.date().optional(),
     mercadoPagoSubscriptionId: z.string().optional(),
     mercadoPagoPreapprovalId: z.string().optional(),
     lastPaymentDate: z.date().optional(),
@@ -37,9 +38,10 @@ export const UserSchemaZod = z
     paymentStatus: z.boolean().default(false),
 
     subscription: SubscriptionSchemaZod.default({
-      plan: "free",
-      status: "active",
+      plan: "standard",
+      status: "trial",
       startDate: new Date(),
+      trialEndDate: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000), // 14 días desde ahora
     }),
   })
   .strict();

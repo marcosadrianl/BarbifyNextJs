@@ -30,16 +30,17 @@ const UsersSchema = new Schema(
     subscription: {
       plan: {
         type: String,
-        enum: ["free", "standard", "premium"],
-        default: "free",
+        enum: ["standard", "premium"],
+        default: "standard",
       },
       status: {
         type: String,
-        enum: ["active", "pending", "cancelled", "expired", "paused"],
-        default: "pending",
+        enum: ["active", "pending", "cancelled", "expired", "paused", "trial"],
+        default: "trial",
       },
       startDate: { type: Date, default: Date.now },
       endDate: { type: Date },
+      trialEndDate: { type: Date },
       mercadoPagoSubscriptionId: { type: String },
       mercadoPagoPreapprovalId: { type: String },
       lastPaymentDate: { type: Date },

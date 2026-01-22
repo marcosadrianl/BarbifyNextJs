@@ -4,6 +4,7 @@ import "../../globals.css";
 import { SessionProvider } from "next-auth/react";
 import React from "react";
 import { ServicesBootstrap } from "@/components/ServicesBootstrap";
+import { TrialBanner } from "@/components/TrialBanner";
 
 import NavBar from "@/components/navBar";
 
@@ -29,7 +30,10 @@ export default function RootLayout({
           </div>
 
           {/* Contenido con scroll */}
-          <div className="flex-1 overflow-auto">{children}</div>
+          <div className="flex-1 overflow-auto p-4">
+            <TrialBanner />
+            {children}
+          </div>
         </div>
       </div>
     </SessionProvider>

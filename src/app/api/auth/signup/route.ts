@@ -28,24 +28,36 @@ export async function POST(request: Request) {
 
     const hashedPassword = await bcrypt.hash(userPassword, 10);
 
+    // Calcular fecha de fin del período de prueba (14 días desde hoy)
+    const trialEndDate = new Date();
+    trialEndDate.setDate(trialEndDate.getDate() + 14);
+
     const newUser = new User({
       userEmail,
       userPassword: hashedPassword,
       userName,
       userLastName,
-      userActive: body.userActive,
-      userLevel: body.userLevel,
-      paymentStatus: body.paymentStatus,
+      userActive: true, // Activado durante el período de prueba
+      userLevel: body.userLevel || 0,
+      paymentStatus: false,
       userRole: body.userRole,
 
-      userCity: body.userCity,
-      userState: body.userState,
-      userAddress: body.userAddress,
-      userPostalCode: body.userPostalCode,
+      userCity: body.userCity || "",
+      userState: body.userState || "",
+      userAddress: body.userAddress || "",
+      userPostalCode: body.userPostalCode || "",
 
-      userPhone: body.userPhone,
+      userPhone: body.userPhone || "",
       userSex: body.userSex,
       userBirthDate: body.userBirthDate,
+
+      // Configurar suscripción de prueba
+      subscription: {
+        plan: "standard",
+        status: "trial",
+        startDate: new Date(),
+        trialEndDate: trialEndDate,
+      },
     });
 
     const savedUser = await newUser.save();

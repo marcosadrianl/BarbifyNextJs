@@ -21,31 +21,13 @@ interface SubscriptionPlansProps {
 }
 
 export function SubscriptionPlans({
-  currentPlan = "free",
+  currentPlan = "standard",
 }: SubscriptionPlansProps) {
   const [loading, setLoading] = useState<string | null>(null);
 
   const handleSubscribe = async (plan: SubscriptionPlan) => {
     setLoading(plan);
     try {
-      // Si es plan gratuito, activar directamente sin pago
-      if (plan === "free") {
-        const response = await fetch("/api/mp/activate-free", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-
-        if (!response.ok) {
-          throw new Error("Error al activar plan gratuito");
-        }
-
-        // Recargar la página para actualizar el estado
-        window.location.reload();
-        return;
-      }
-
       // Para planes de pago, crear preferencia de Mercado Pago
       const response = await fetch("/api/mp/subscriptions", {
         method: "POST",
@@ -76,10 +58,9 @@ export function SubscriptionPlans({
   };
 
   return (
-    <div className="grid gap-6 md:grid-cols-3">
+    <div className="grid gap-6 md:grid-cols-2">
       {Object.values(SUBSCRIPTION_PLANS).map((plan) => {
         const isCurrentPlan = currentPlan === plan.id;
-        const isFree = plan.id === "free";
 
         return (
           <Card
@@ -88,7 +69,7 @@ export function SubscriptionPlans({
               plan.id === "premium" ? "border-primary shadow-lg" : ""
             } ${isCurrentPlan ? "ring-2 ring-primary" : ""}`}
           >
-            {plan.id === "premium" && (
+            {plan.id === "standard" && (
               <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground px-4 py-1 rounded-full text-sm font-semibold">
                 Más Popular
               </div>
@@ -101,7 +82,7 @@ export function SubscriptionPlans({
                 <span className="text-4xl font-bold">
                   ${(plan.price / 100).toFixed(2)}
                 </span>
-                {!isFree && <span className="text-muted-foreground">/mes</span>}
+                <span className="text-muted-foreground">/mes</span>
               </div>
             </CardHeader>
 
@@ -133,9 +114,7 @@ export function SubscriptionPlans({
                   ? "Procesando..."
                   : isCurrentPlan
                     ? "Plan Actual"
-                    : isFree
-                      ? "Activar Plan Gratuito"
-                      : "Suscribirse"}
+                    : "Suscribirse"}
               </Button>
             </CardFooter>
           </Card>

@@ -19,38 +19,36 @@ export default async function SubscriptionPage() {
   const user = await (User as mongoose.Model<IUser>)
     .findOne({ userEmail: session.user.userEmail })
     .lean();
-  const currentPlan = user?.subscription?.plan || "free";
+  const currentPlan = user?.subscription?.plan || "standard";
   const isActive = user?.userActive ?? false;
+  const trialEndDate = user?.subscription?.trialEndDate;
+  const isTrialActive =
+    user?.subscription?.status === "trial" &&
+    trialEndDate &&
+    new Date(trialEndDate) > new Date();
 
   return (
     <div className="container mx-auto py-10 px-4">
       <div className="max-w-6xl mx-auto">
-        {!isActive && (
-          <div className="mb-8 p-6 bg-yellow-50 border-2 border-yellow-400 rounded-lg">
-            <h2 className="text-2xl font-bold text-yellow-900 mb-2">
-              ¡Bienvenido a Barbify! 🎉
-            </h2>
-            <p className="text-yellow-800 text-lg">
-              Para comenzar a usar la plataforma, por favor selecciona un plan.
-              Puedes empezar con el plan <strong>Gratuito</strong> o elegir un
-              plan premium con más funcionalidades.
-            </p>
-          </div>
-        )}
-
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold mb-4">
             Elige el plan perfecto para tu barbería
           </h1>
           <p className="text-xl text-muted-foreground">
-            Comienza gratis y actualiza cuando estés listo para crecer
+            {isTrialActive
+              ? `Período de prueba gratuito hasta ${new Date(trialEndDate!).toLocaleDateString()}`
+              : "Actualiza tu plan para seguir disfrutando de todas las funcionalidades"}
           </p>
         </div>
 
         <SubscriptionPlans currentPlan={currentPlan} />
 
         <div className="mt-12 text-center text-sm text-muted-foreground">
-          <p>Todos los planes incluyen acceso a la plataforma básica.</p>
+          <p>
+            {isTrialActive
+              ? "Disfruta de 14 días gratuitos del plan Standard. No se requiere tarjeta de crédito."
+              : "Todos los planes incluyen acceso completo a la plataforma."}
+          </p>
           <p className="mt-2">
             Los pagos se procesan de forma segura a través de Mercado Pago.
           </p>

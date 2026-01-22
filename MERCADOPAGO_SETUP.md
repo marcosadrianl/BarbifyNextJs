@@ -94,7 +94,7 @@ ngrok http 3000
 
 ### Premium ($199.99/mes)
 
-- Barberos ilimitados
+- Barbers ilimitados
 - Clientes ilimitados
 - Analytics avanzados
 - Reportes personalizados

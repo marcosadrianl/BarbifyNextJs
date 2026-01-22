@@ -22,13 +22,6 @@ export async function POST(req: NextRequest) {
 
     const planDetails = SUBSCRIPTION_PLANS[plan];
 
-    if (plan === "free") {
-      return NextResponse.json(
-        { error: "El plan gratuito no requiere pago" },
-        { status: 400 },
-      );
-    }
-
     // Crear preferencia de pago recurrente
     const preference = {
       body: {
