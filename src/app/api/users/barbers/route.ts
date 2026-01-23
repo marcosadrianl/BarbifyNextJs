@@ -22,7 +22,6 @@ export async function GET() {
     });
 
     // También tienes acceso a tus campos personalizados:
-    /* console.log("Nivel del usuario:", session.user.userLevel); */
 
     return NextResponse.json(barbers);
   } catch (error) {

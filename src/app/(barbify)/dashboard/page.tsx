@@ -20,7 +20,6 @@ import { WeeklyDayChart } from "@/components/ui/WeeklyDayChart";
 
 export default async function Page() {
   const session = await getServerSession(authOptions);
-  /* console.log("🛡️ Session en dashboard:", session); */
 
   if (!session?.user?.id) {
     return <p>No autorizado</p>;

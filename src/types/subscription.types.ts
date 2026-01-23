@@ -38,23 +38,6 @@ export const SUBSCRIPTION_PLANS: Record<
   SubscriptionPlan,
   SubscriptionPlanDetails
 > = {
-  /* free: {
-    id: "free",
-    name: "Gratuito",
-    price: 0,
-    description: "Plan básico para comenzar",
-    features: [
-      "1 barbero",
-      "Hasta 50 clientes",
-      "Gestión básica de citas",
-      "Historial básico",
-    ],
-    maxBarbers: 1,
-    maxClients: 50,
-    maxAppointmentsPerMonth: 100,
-    analytics: false,
-    priority_support: false,
-  }, */
   standard: {
     id: "standard",
     name: "Standard",

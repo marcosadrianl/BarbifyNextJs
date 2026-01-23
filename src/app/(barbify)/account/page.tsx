@@ -13,8 +13,8 @@ export default async function Page() {
   if (!session?.user?.id) {
     redirect("/login");
   }
-
-  // Verificar si el usuario está activo
+  //Permitir que solo usuarios con cuenta activa accedan a la pagina de cuenta
+  /*   // Verificar si el usuario está activo
   await connectDB();
   const user = await (User as mongoose.Model<IUser>)
     .findOne({ userEmail: session.user.userEmail })
@@ -22,7 +22,7 @@ export default async function Page() {
 
   if (!user?.userActive) {
     redirect("/subscription");
-  }
+  } */
 
   return (
     <div className="">

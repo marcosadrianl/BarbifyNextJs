@@ -69,27 +69,51 @@ async function handlePaymentNotification(paymentId: string) {
       if (email && plan) {
         await connectDB();
 
-        // Actualizar usuario con la suscripción y activar cuenta
+        const nextPaymentDate = new Date();
+        nextPaymentDate.setMonth(nextPaymentDate.getMonth() + 1);
+
+        // Actualizar usuario con el pago recurrente
         await (User as mongoose.Model<IUser>).findOneAndUpdate(
           { userEmail: email },
           {
             $set: {
-              userActive: true, // Activar cuenta al confirmar pago
+              userActive: true,
               paymentStatus: true,
               "subscription.plan": plan,
               "subscription.status": "active",
-              "subscription.startDate": new Date(),
               "subscription.lastPaymentDate": new Date(),
-              "subscription.nextPaymentDate": new Date(
-                Date.now() + 30 * 24 * 60 * 60 * 1000, // 30 días
-              ),
-              "subscription.mercadoPagoSubscriptionId": payment.id,
+              "subscription.nextPaymentDate": nextPaymentDate,
             },
           },
           { new: true },
         );
 
-        console.log(`Suscripción activada para ${email} con plan ${plan}`);
+        console.log(
+          `💳 Pago recurrente procesado para ${email} - Plan ${plan}`,
+        );
+      }
+    } else if (
+      payment.status === "rejected" ||
+      payment.status === "cancelled"
+    ) {
+      // Pago rechazado - desactivar usuario
+      const externalRef = payment.external_reference || "";
+      const [email] = externalRef.split("-");
+
+      if (email) {
+        await connectDB();
+        await (User as mongoose.Model<IUser>).findOneAndUpdate(
+          { userEmail: email },
+          {
+            $set: {
+              userActive: false,
+              paymentStatus: false,
+              "subscription.status": "cancelled",
+            },
+          },
+        );
+
+        console.log(`❌ Pago rechazado para ${email} - Cuenta desactivada`);
       }
     }
   } catch (error) {
@@ -108,8 +132,86 @@ async function handleMerchantOrderNotification(orderId: string) {
 
 async function handlePreapprovalNotification(preapprovalId: string) {
   try {
-    // Implementar lógica para preapprovals (suscripciones recurrentes)
-    console.log("Preapproval recibido:", preapprovalId);
+    const { PreApproval } = await import("mercadopago");
+    const preapprovalClient = new PreApproval(mp);
+
+    // Obtener detalles de la suscripción
+    const preapproval = await preapprovalClient.get({ id: preapprovalId });
+
+    console.log("Preapproval recibido:", preapproval);
+
+    // Procesar según el estado de la suscripción
+    if (preapproval.status === "authorized") {
+      // Suscripción autorizada - activar usuario
+      const externalRef = preapproval.external_reference || "";
+      const [email, plan] = externalRef.split("-");
+
+      if (email && plan) {
+        await connectDB();
+
+        const nextPaymentDate = new Date();
+        nextPaymentDate.setMonth(nextPaymentDate.getMonth() + 1);
+
+        await (User as mongoose.Model<IUser>).findOneAndUpdate(
+          { userEmail: email },
+          {
+            $set: {
+              userActive: true, // Activar cuenta
+              paymentStatus: true,
+              "subscription.plan": plan,
+              "subscription.status": "active",
+              "subscription.startDate": new Date(),
+              "subscription.lastPaymentDate": new Date(),
+              "subscription.nextPaymentDate": nextPaymentDate,
+              "subscription.mercadoPagoPreapprovalId": preapprovalId,
+            },
+          },
+          { new: true },
+        );
+
+        console.log(`✅ Suscripción activada para ${email} con plan ${plan}`);
+      }
+    } else if (preapproval.status === "paused") {
+      // Suscripción pausada
+      const externalRef = preapproval.external_reference || "";
+      const [email] = externalRef.split("-");
+
+      if (email) {
+        await connectDB();
+        await (User as mongoose.Model<IUser>).findOneAndUpdate(
+          { userEmail: email },
+          {
+            $set: {
+              "subscription.status": "paused",
+            },
+          },
+        );
+
+        console.log(`⏸️ Suscripción pausada para ${email}`);
+      }
+    } else if (preapproval.status === "cancelled") {
+      // Suscripción cancelada
+      const externalRef = preapproval.external_reference || "";
+      const [email] = externalRef.split("-");
+
+      if (email) {
+        await connectDB();
+        await (User as mongoose.Model<IUser>).findOneAndUpdate(
+          { userEmail: email },
+          {
+            $set: {
+              userActive: false,
+              paymentStatus: false,
+              "subscription.status": "cancelled",
+              "subscription.cancelledAt": new Date(),
+              "subscription.endDate": new Date(),
+            },
+          },
+        );
+
+        console.log(`❌ Suscripción cancelada para ${email}`);
+      }
+    }
   } catch (error) {
     console.error("Error manejando preapproval:", error);
   }

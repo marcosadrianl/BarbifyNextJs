@@ -19,7 +19,6 @@ const Titles = Alice({
 
 export default function NavBar() {
   const { data: session } = useSession();
-  console.log("🛡️ Session en NavBar:", session?.user);
 
   function isActiveAndIsLeveled(): boolean {
     return session?.user?.userActive && session?.user?.userLevel! == 1

@@ -2,6 +2,17 @@
 quiero llorar
 
 --------------------------------------------------------------------------------------------------
+AVANCE 23/01/2026:
+- integracion de mercadopago al flujo de registro de usuarios
+- se esta avanzando en la logica que limita las funcionalidades. ver en /utils los hooks creados
+	- uno para bloquear por falta de pago
+	- uno para bloquear segun tipo de plan.
+
+TODO: definir esquema de funciones que estaran en cada plan.
+Checkear toda la ruta de registro, pago y uso dentro de la app. 
+
+Como seria una cuenta obsequio? Que campos debo modificar yo para que la misma funcione ignorando a MP? 
+
 AVANCE 15/01/2026:
 Importante: 
 	- Se creo la coleccion BarbifyServices. 

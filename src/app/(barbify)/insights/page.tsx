@@ -11,7 +11,6 @@ import { IUser } from "@/models/Users.type";
 
 export default async function Insights() {
   const session = await getServerSession(authOptions);
-  /* console.log("🛡️ Session en dashboard:", session); */
 
   if (!session?.user?.id) {
     return <p>No autorizado</p>;

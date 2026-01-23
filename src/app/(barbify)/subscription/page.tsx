@@ -6,6 +6,8 @@ import User from "@/models/Users.model";
 import mongoose from "mongoose";
 import { IUser } from "@/models/Users.type";
 import { authOptions } from "@/utils/auth";
+import Link from "next/link";
+import { CheckCircle, AlertCircle, ChevronLeft } from "lucide-react";
 
 export default async function SubscriptionPage() {
   const session = await getServerSession(authOptions);
@@ -20,7 +22,6 @@ export default async function SubscriptionPage() {
     .findOne({ userEmail: session.user.userEmail })
     .lean();
   const currentPlan = user?.subscription?.plan || "standard";
-  const isActive = user?.userActive ?? false;
   const trialEndDate = user?.subscription?.trialEndDate;
   const isTrialActive =
     user?.subscription?.status === "trial" &&
@@ -28,10 +29,10 @@ export default async function SubscriptionPage() {
     new Date(trialEndDate) > new Date();
 
   return (
-    <div className="container mx-auto py-10 px-4 bg-[#fff7ec] min-h-screen">
+    <div className="container mx-auto py-10 px-4 min-h-screen">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold mb-4 text-[#2f3e2f]">
+          <h1 className="text-4xl font-bold mb-4">
             Elige el plan perfecto para tu peluquería
           </h1>
           <p className="text-xl text-muted-foreground">
@@ -42,6 +43,13 @@ export default async function SubscriptionPage() {
         </div>
 
         <SubscriptionPlans currentPlan={currentPlan} />
+        <Link
+          href="/account"
+          className="text-sm text-white hover:underline flex flex-row items-center pt-4"
+        >
+          <ChevronLeft className="h-4 w-4 text-gray-500" />
+          Ir a tu cuenta
+        </Link>
 
         <div className="mt-12 text-center text-sm text-muted-foreground">
           <p>

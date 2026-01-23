@@ -128,11 +128,6 @@ export function ClientRecurrenceCard() {
     const prevMonthStart = new Date(currentYear, currentMonth - 1, 1);
     const prevMonthEnd = new Date(currentYear, currentMonth, 0, 23, 59, 59);
 
-    /* console.log("📅 Periodos Calculados:", {
-      actual: `${currentMonthStart.toLocaleDateString()} al ${currentMonthEnd.toLocaleDateString()}`,
-      anterior: `${prevMonthStart.toLocaleDateString()} al ${prevMonthEnd.toLocaleDateString()}`,
-    }); */
-
     // 4. ANÁLISIS
     const currentResult = analyzeClientRecurrence(
       services,
