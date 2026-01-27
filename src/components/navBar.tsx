@@ -38,11 +38,11 @@ export default function NavBar() {
         <NavLink href="/clients" icon={UserRound}>
           Clientes
         </NavLink>
-        {isActiveAndIsLeveled() && (
-          <NavLink href="/dashboard" icon={LayoutDashboard}>
-            Dashboard
-          </NavLink>
-        )}
+
+        <NavLink href="/dashboard" icon={LayoutDashboard}>
+          Dashboard
+        </NavLink>
+
         <NavLink href="/diary" icon={CalendarDays}>
           Agenda
         </NavLink>

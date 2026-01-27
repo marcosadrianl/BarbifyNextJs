@@ -105,12 +105,10 @@ export default function CreateClientForm() {
       clientActive: true,
       clientWhiteHairs: 0,
       clientBirthdate: "",
-      clientFromUserId: "",
       clientImage: "",
       clientSex: "O",
       clientName: "",
       clientLastName: "",
-      clientEmail: "",
       clientPhone: "",
       clientBaseColor: "",
       clientHairType: "",
@@ -234,7 +232,7 @@ export default function CreateClientForm() {
                     name="clientSex"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Género *</FormLabel>
+                        <FormLabel>Género</FormLabel>
                         <Select
                           onValueChange={field.onChange}
                           defaultValue={field.value}
@@ -282,7 +280,7 @@ export default function CreateClientForm() {
                     name="clientEmail"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Email *</FormLabel>
+                        <FormLabel>Email</FormLabel>
                         <FormControl>
                           <Input
                             type="email"

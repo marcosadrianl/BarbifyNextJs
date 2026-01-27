@@ -13,6 +13,14 @@ const ServicesPDFGenerator = () => {
   const [dateRange, setDateRange] = useState({ from: "", to: "" });
   let services = useServicesStore((s) => s.services);
 
+  // Fecha en formato yyyy-mm-dd respetando la zona horaria local
+  const formatDateForInput = (date: Date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
   // Función para formatear fecha
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -227,7 +235,7 @@ const ServicesPDFGenerator = () => {
   };
 
   const setToday = () => {
-    const today = new Date().toISOString().split("T")[0];
+    const today = formatDateForInput(new Date());
     setDateRange({ from: today, to: today });
   };
 
@@ -239,8 +247,8 @@ const ServicesPDFGenerator = () => {
     );
 
     setDateRange({
-      from: firstDay.toISOString().split("T")[0],
-      to: lastDay.toISOString().split("T")[0],
+      from: formatDateForInput(firstDay),
+      to: formatDateForInput(lastDay),
     });
   };
 
@@ -250,8 +258,8 @@ const ServicesPDFGenerator = () => {
     const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);
 
     setDateRange({
-      from: firstDay.toISOString().split("T")[0],
-      to: lastDay.toISOString().split("T")[0],
+      from: formatDateForInput(firstDay),
+      to: formatDateForInput(lastDay),
     });
   };
 
