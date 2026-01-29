@@ -10,7 +10,7 @@ export default function ClientCards({
       {props.clients.map((client: IClient) => (
         <div key={client._id!.toString()}>
           <h2>{client.clientName}</h2>
-          <p>{client.clientEmail}</p>
+          <p>{client.clientPhone}</p>
         </div>
       )) || <p>No hay clientes registrados</p>}
     </div>

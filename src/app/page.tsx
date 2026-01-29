@@ -53,7 +53,7 @@ export default function BarbifyLanding() {
 
       {/* HERO */}
       <section className="pt-32 pb-28 px-6">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+        <div className="max-w-7xl mx-auto grid md:grid-cols-1 gap-16 items-center">
           <motion.div
             variants={fadeUp}
             initial="hidden"
@@ -84,25 +84,6 @@ export default function BarbifyLanding() {
               >
                 Ver más
               </Link>
-            </div>
-          </motion.div>
-
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="relative"
-          >
-            <Image
-              src="/DashboarView demo.png"
-              alt="Dashboard Barbify"
-              width={1200}
-              height={800}
-              className="rounded-[48px] shadow-2xl"
-            />
-            <div className="absolute -bottom-6 -left-6 bg-white rounded-3xl px-6 py-4 shadow-lg text-sm font-medium">
-              + Control
             </div>
           </motion.div>
         </div>
@@ -166,9 +147,9 @@ export default function BarbifyLanding() {
             viewport={{ once: true }}
             className={`${titles.className} text-4xl mb-8`}
           >
-            Diseñada por peluqueros, para peluqueros.
+            Pensada por peluqueros, para peluqueros.
           </motion.h2>
-          <p className="text-lg text-black/70 leading-relaxed">
+          <p className="text-lg text-black/70 leading-relaxed max-w-xl mx-auto text-justify [text-align-last:center]">
             Barbify nace del día a día real de una peluquería: clientes que
             vuelven, servicios que se repiten, turnos que se mezclan y números
             que hay que entender. Todo fue diseñado para ayudarte a crecer con
@@ -260,7 +241,7 @@ function Plan({ title, price, features, highlight = false }: any) {
     >
       <h3 className="text-2xl font-semibold mb-2">{title}</h3>
       <p className="mb-6 opacity-80">{price}</p>
-      <ul className="space-y-3 mb-8 text-sm">
+      <ul className="space-y-3 mb-8 text-sm ">
         {features.map((f: string) => (
           <li key={f}>• {f}</li>
         ))}

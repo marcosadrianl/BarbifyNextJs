@@ -13,7 +13,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { Trash2 } from "lucide-react";
+import { Loader2, Trash2 } from "lucide-react"; // Importa los iconos
 
 export default function DeleteClient({
   id,
@@ -25,6 +25,7 @@ export default function DeleteClient({
   trigger?: React.ReactNode;
 }) {
   const [isDeleting, setIsDeleting] = useState(false);
+  const [open, setOpen] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
@@ -32,6 +33,15 @@ export default function DeleteClient({
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
   }, []);
+
+  function handleCancel() {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+    setIsDeleting(false);
+    setOpen(false);
+  }
 
   async function handleDelete() {
     setIsDeleting(true);
@@ -52,7 +62,7 @@ export default function DeleteClient({
   }
 
   return (
-    <AlertDialog>
+    <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
         {trigger ?? (
           <Button variant="destructive" className="flex items-center gap-2">
@@ -74,17 +84,27 @@ export default function DeleteClient({
         </AlertDialogHeader>
 
         <AlertDialogFooter>
-          <AlertDialogCancel disabled={isDeleting} className="text-black">
+          <AlertDialogCancel onClick={handleCancel} className="text-black">
             Cancelar
           </AlertDialogCancel>
 
-          <AlertDialogAction
+          <Button
             onClick={handleDelete}
             disabled={isDeleting}
-            className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            className="bg-destructive text-destructive-foreground hover:bg-destructive/90 flex items-center gap-2"
           >
-            {isDeleting ? "Eliminando..." : "Sí, eliminar"}
-          </AlertDialogAction>
+            {isDeleting ? (
+              <>
+                <Loader2 className="h-4 w-4 animate-spin" />
+                <span>Eliminando...</span>
+              </>
+            ) : (
+              <>
+                <Trash2 className="h-4 w-4" />
+                <span>Sí, eliminar</span>
+              </>
+            )}
+          </Button>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

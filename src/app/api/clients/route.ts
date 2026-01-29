@@ -96,7 +96,6 @@ export async function GET(request: Request) {
  *   clientLastName: string,
  *   clientSex: string,
  *   clientBirthdate: string,
- *   clientEmail: string,
  *   clientPhone: string,
  *   clientImage: string,
  *   clientActive: boolean,

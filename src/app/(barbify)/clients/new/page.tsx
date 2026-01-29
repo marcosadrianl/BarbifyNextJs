@@ -110,6 +110,7 @@ export default function CreateClientForm() {
       clientName: "",
       clientLastName: "",
       clientPhone: "",
+      clientAddress: "",
       clientBaseColor: "",
       clientHairType: "",
       clientAllergies: "",
@@ -232,7 +233,7 @@ export default function CreateClientForm() {
                     name="clientSex"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Género</FormLabel>
+                        <FormLabel>Género *</FormLabel>
                         <Select
                           onValueChange={field.onChange}
                           defaultValue={field.value}
@@ -277,16 +278,12 @@ export default function CreateClientForm() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <FormField
                     control={form.control}
-                    name="clientEmail"
+                    name="clientPhone"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Email</FormLabel>
+                        <FormLabel>Teléfono *</FormLabel>
                         <FormControl>
-                          <Input
-                            type="email"
-                            placeholder="cliente@ejemplo.com"
-                            {...field}
-                          />
+                          <Input placeholder="221 456 7890" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -295,12 +292,12 @@ export default function CreateClientForm() {
 
                   <FormField
                     control={form.control}
-                    name="clientPhone"
+                    name="clientAddress"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Teléfono *</FormLabel>
+                        <FormLabel>Dirección</FormLabel>
                         <FormControl>
-                          <Input placeholder="221 456 7890" {...field} />
+                          <Input placeholder="Calle 123, Ciudad" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -322,7 +319,10 @@ export default function CreateClientForm() {
                       <FormItem>
                         <FormLabel>Color Base</FormLabel>
                         <FormControl>
-                          <Input placeholder="Castaño oscuro" {...field} />
+                          <Input
+                            placeholder="Castaño oscuro, rubio, 01, etc"
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -336,7 +336,10 @@ export default function CreateClientForm() {
                       <FormItem>
                         <FormLabel>Tipo de Cabello</FormLabel>
                         <FormControl>
-                          <Input placeholder="Liso, ondulado..." {...field} />
+                          <Input
+                            placeholder="Liso, ondulado, rizado, etc"
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>

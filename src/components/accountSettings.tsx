@@ -28,7 +28,7 @@ export default function AccountSettings({
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [openSection, setOpenSection] = useState<
-    "account" | "user" | "edit" | null
+    "account" | "subscription" | "user" | "edit" | null
   >(null);
 
   const normalizeData = (resData: any): any[] => {
@@ -58,6 +58,7 @@ export default function AccountSettings({
         // Intenta normalizar distintas formas de respuesta
         const raw = res.data;
         const data = normalizeData(raw);
+        console.log("Datos obtenidos del endpoint:", data);
         if (mounted) setUsers(data);
       } catch (err: any) {
         setError(
@@ -97,9 +98,42 @@ export default function AccountSettings({
     return String(val);
   };
 
+  const getStatusLabel = (status: string) => {
+    const statusMap: { [key: string]: string } = {
+      active: "Activa",
+      inactive: "Inactiva",
+      cancelled: "Cancelada",
+      paused: "Pausada",
+    };
+    return statusMap[status] || status;
+  };
+
+  const getPlanLabel = (plan: string) => {
+    const planMap: { [key: string]: string } = {
+      premium: "Premium",
+      basic: "Básico",
+      free: "Gratuito",
+    };
+    return planMap[plan] || plan;
+  };
+
+  if (loading) {
+    return <div className="p-4">Cargando...</div>;
+  }
+
+  if (error) {
+    return <div className="p-4 text-red-500">Error: {error}</div>;
+  }
+
+  if (!users || users.length === 0) {
+    return <div className="p-4">No hay datos disponibles</div>;
+  }
+
   return (
     <div className="flex flex-col">
-      {openSection !== "user" &&
+      {/* SECCIÓN: Información de la cuenta */}
+      {openSection !== "subscription" &&
+        openSection !== "user" &&
         openSection !== "edit" &&
         (openSection !== "account" ? (
           <div
@@ -128,13 +162,11 @@ export default function AccountSettings({
             </div>
 
             <div className="mb-2 px-4">
-              {" "}
               <h2>Email de la cuenta</h2>
               <p className="foreground text-sm">{users[0].userEmail ?? "-"}</p>
             </div>
 
             <div className="mb-2 px-4">
-              {" "}
               <h2>Teléfono</h2>
               <p className="foreground text-sm">
                 {users[0].userPhone ?? "Sin teléfono registrado"}
@@ -142,7 +174,6 @@ export default function AccountSettings({
             </div>
 
             <div className="mb-2 px-4">
-              {" "}
               <h2>Cuenta Activa</h2>
               <span className="flex flex-col">
                 <p
@@ -155,20 +186,11 @@ export default function AccountSettings({
                 >
                   {users[0].userActive ? "Sí" : "No"}{" "}
                   <Info className="inline-block w-4 h-4 ml-1" />
-                </p>{" "}
-                <Link
-                  href="https://www.mercadopago.com.ar/subscriptions"
-                  target="_blank"
-                  className="flex items-center text-blue-500 hover:underline text-sm w-fit"
-                >
-                  Gestionar suscripción
-                  <ArrowUpRight className="inline-block w-4 h-4 ml-1" />
-                </Link>
+                </p>
               </span>
             </div>
 
             <div className="mb-2 px-4">
-              {" "}
               <h2>Creación de la cuenta</h2>
               <p className="foreground text-sm">
                 {formatValue(users[0].createdAt) ?? "Error al mostrar fecha"}
@@ -177,7 +199,101 @@ export default function AccountSettings({
           </div>
         ))}
 
+      {/* SECCIÓN: Información de Suscripción */}
       {openSection !== "account" &&
+        openSection !== "user" &&
+        openSection !== "edit" &&
+        (openSection !== "subscription" ? (
+          <div
+            className="cursor-pointer hover:bg-gray-100 p-4"
+            onClick={() => setOpenSection("subscription")}
+          >
+            <span className="flex flex-row w-full justify-between items-center">
+              <span>
+                <h2>Información de Suscripción</h2>
+                <p className="text-xs foreground">
+                  Ve detalles de tu plan, estado y fechas importantes.
+                </p>
+              </span>
+              <ChevronRight className="w-6 h-6" />
+            </span>
+          </div>
+        ) : (
+          <div className="">
+            <div
+              className="flex flex-row gap-4 mb-4 cursor-pointer hover:bg-gray-100 py-4"
+              onClick={() => setOpenSection(null)}
+            >
+              <ChevronLeft />
+              <h2>Información de Suscripción</h2>
+            </div>
+
+            <div className="mb-2 px-4">
+              <h2>Plan</h2>
+              <p className="foreground text-sm capitalize">
+                {users[0].subscription?.plan
+                  ? getPlanLabel(users[0].subscription.plan)
+                  : "Sin plan"}
+              </p>
+            </div>
+
+            <div className="mb-2 px-4">
+              <h2>Estado de la suscripción</h2>
+              <span className="flex flex-col">
+                <p className="foreground text-sm">
+                  {users[0].subscription?.status
+                    ? getStatusLabel(users[0].subscription.status)
+                    : "Sin información"}
+                </p>
+                <Link
+                  href="https://www.mercadopago.com.ar/subscriptions"
+                  target="_blank"
+                  className="flex items-center text-blue-500 hover:underline text-sm w-fit mt-1"
+                >
+                  Gestionar suscripción
+                  <ArrowUpRight className="inline-block w-4 h-4 ml-1" />
+                </Link>
+              </span>
+            </div>
+
+            <div className="mb-2 px-4">
+              <h2>Fecha de inicio</h2>
+              <p className="foreground text-sm">
+                {users[0].subscription?.startDate
+                  ? formatValue(users[0].subscription.startDate)
+                  : "Sin fecha"}
+              </p>
+            </div>
+
+            <div className="mb-2 px-4">
+              <h2>Fin del período de prueba</h2>
+              <p className="foreground text-sm">
+                {users[0].subscription?.trialEndDate
+                  ? formatValue(users[0].subscription.trialEndDate)
+                  : "Sin período de prueba"}
+              </p>
+            </div>
+
+            <div className="mb-2 px-4">
+              <h2>Estado de pago</h2>
+              <p
+                className="foreground text-sm flex items-center w-fit"
+                title={`${
+                  users[0].paymentStatus
+                    ? "Tu pago está al día"
+                    : "Hay un pago pendiente"
+                }`}
+              >
+                {users[0].paymentStatus ? "Al día" : "Pendiente"}{" "}
+                <Info className="inline-block w-4 h-4 ml-1" />
+              </p>
+            </div>
+          </div>
+        ))}
+
+      {/* SECCIÓN: Información de Usuario */}
+      {openSection !== "account" &&
+        openSection !== "subscription" &&
         openSection !== "edit" &&
         (openSection !== "user" ? (
           <div
@@ -213,7 +329,6 @@ export default function AccountSettings({
             </div>
 
             <div className="mb-2 px-4">
-              {" "}
               <h2>Ubicación</h2>
               <p className="foreground text-sm capitalize">
                 {users[0].userState ?? "-"}, {users[0].userCity},{" "}
@@ -222,7 +337,6 @@ export default function AccountSettings({
             </div>
 
             <div className="mb-2 px-4">
-              {" "}
               <h2>Género</h2>
               <p className="foreground text-sm">
                 {users[0].userSex === "M"
@@ -234,7 +348,6 @@ export default function AccountSettings({
             </div>
 
             <div className="mb-2 px-4">
-              {" "}
               <h2>Nacimiento</h2>
               <p className="foreground text-sm">
                 {users[0].userBirthDate
@@ -251,7 +364,9 @@ export default function AccountSettings({
           </div>
         ))}
 
+      {/* SECCIÓN: Editar Información */}
       {openSection !== "account" &&
+        openSection !== "subscription" &&
         openSection !== "user" &&
         (openSection !== "edit" ? (
           <div
@@ -278,6 +393,7 @@ export default function AccountSettings({
           </div>
         ))}
 
+      {/* Footer de privacidad */}
       {openSection === null && (
         <div className="p-4 border-t border-[#cebaa1] mt-4">
           <p className="text-xs">

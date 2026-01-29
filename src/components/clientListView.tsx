@@ -35,7 +35,6 @@ export default function ClientListView({ clients }: { clients: IClient[] }) {
           <TableHeader>
             <TableRow>
               <TableHead>Cliente</TableHead>
-              <TableHead>Email</TableHead>
               <TableHead>Teléfono</TableHead>
               <TableHead className="text-right">
                 <Button
@@ -80,7 +79,6 @@ export default function ClientListView({ clients }: { clients: IClient[] }) {
                         </span>
                       </TableCell>
 
-                      <TableCell>{client.clientEmail}</TableCell>
                       <TableCell>{client.clientPhone}</TableCell>
 
                       <TableCell className="">

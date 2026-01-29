@@ -4,13 +4,14 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Plus, Pencil, History, Trash2 } from "lucide-react";
-
+import { useFeatureAccess } from "@/hooks/usePermissions";
 import NewServiceModal from "@/components/newServiceModal";
 import DeleteClient from "@/components/deleteClient";
 import EditClientButton from "@/components/editClientButton";
-import { IClient } from "@/models/Clients.schema";
+import { IClient } from "@/models/Clients.types";
 
 export default function ClientActions({ client }: { client: IClient }) {
+  const clientHistory = useFeatureAccess("clientHistory");
   return (
     <div className="flex justify-between bg-white p-4 rounded-2xl">
       {/* Acciones principales */}
@@ -19,7 +20,10 @@ export default function ClientActions({ client }: { client: IClient }) {
 
         <EditClientButton clientId={client._id} />
 
-        <Button className="flex flex-row w-36 rounded-full bg-[#cdaa7e] hover:bg-amber-100 cursor-pointer text-[#43553b] gap-1">
+        <Button
+          disabled={clientHistory}
+          className="flex flex-row w-36 rounded-full bg-[#cdaa7e] hover:bg-amber-100 cursor-pointer text-[#43553b] gap-1"
+        >
           <History className="h-6 w-6" />
           <Link href={`/clients/${client._id}/history`}>Ver historial</Link>
         </Button>

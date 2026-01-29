@@ -6,6 +6,7 @@
 
 import mongoose from "mongoose";
 import { connectDB } from "@/utils/mongoose";
+import { PageGuard } from "@/components/PageGuard";
 
 import ClientServiceList from "@/components/clientServiceList";
 import TotalServices from "@/components/fullServiceData";
@@ -37,13 +38,15 @@ export default async function ClientHistory({
   }
 
   return (
-    <div className="flex flex-row w-full gap-4 px-4 pt-4 overflow-auto">
-      <div className="w-2/4 overflow-auto no-scrollbar">
-        <ClientServiceList services={serviceList} clientId={id} />
+    <PageGuard page="clientHistory">
+      <div className="flex flex-row w-full gap-4 px-4 pt-4 overflow-auto">
+        <div className="w-2/4 overflow-auto no-scrollbar">
+          <ClientServiceList services={serviceList} clientId={id} />
+        </div>
+        <div className="w-2/4">
+          <TotalServices services={serviceList} defautlState={true} />
+        </div>
       </div>
-      <div className="w-2/4">
-        <TotalServices services={serviceList} defautlState={true} />
-      </div>
-    </div>
+    </PageGuard>
   );
 }

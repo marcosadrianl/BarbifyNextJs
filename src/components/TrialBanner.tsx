@@ -44,6 +44,7 @@ export function TrialBanner() {
 
   // No mostrar banner si tiene suscripción activa pagada
   if (!status.isTrial && status.isActive) return null;
+  console.log("Subscription Status:", status);
 
   // Trial expirado
   if (status.isTrialExpired) {

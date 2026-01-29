@@ -1,11 +1,13 @@
 import { NextResponse } from "next/server";
 import { connectDB } from "@/utils/mongoose";
 import Clients from "@/models/Clients.model";
+import Services from "@/models/Service.model";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/utils/auth";
 import { Types } from "mongoose";
 import mongoose from "mongoose";
 import type { IClient } from "@/models/Clients.types";
+import type { IService } from "@/models/Service.type";
 
 // --- Helper: Validar sesión ---
 async function requireSession() {
@@ -80,14 +82,16 @@ export async function PUT(
     if (!session)
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-    if (!validateId(params.id))
+    const { id } = await params;
+
+    if (!validateId(id))
       return NextResponse.json({ error: "Invalid ID" }, { status: 400 });
 
     const userId = new Types.ObjectId(session.user.id);
     const body = await request.json();
 
     const updated = await (Clients as mongoose.Model<IClient>).findOneAndUpdate(
-      { _id: params.id, clientFromUserId: userId },
+      { _id: id, clientFromUserId: userId },
       body,
       { new: true, runValidators: true },
     );
@@ -154,22 +158,39 @@ export async function DELETE(
     if (!session)
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-    if (!validateId(params.id))
+    const { id } = await params;
+
+    if (!validateId(id))
       return NextResponse.json({ error: "Invalid ID" }, { status: 400 });
 
     const userId = new Types.ObjectId(session.user.id);
 
+    // Primero verificar que el cliente existe y pertenece al usuario
+    const clientExists = await (Clients as mongoose.Model<IClient>).findOne({
+      _id: id,
+      clientFromUserId: userId,
+    });
+
+    if (!clientExists)
+      return NextResponse.json({ error: "Client not found" }, { status: 404 });
+
+    // Eliminar TODOS los servicios asociados al cliente
+    await (Services as mongoose.Model<IService>).deleteMany({
+      toClientId: id,
+      forUserId: userId.toString(),
+    });
+
+    // Ahora eliminar el cliente
     const deleted = await (Clients as mongoose.Model<IClient>).findOneAndDelete(
       {
-        _id: params.id,
+        _id: id,
         clientFromUserId: userId,
       },
     );
 
-    if (!deleted)
-      return NextResponse.json({ error: "Client not found" }, { status: 404 });
-
-    return NextResponse.json({ message: "Client deleted successfully" });
+    return NextResponse.json({
+      message: "Client and associated services deleted successfully",
+    });
   } catch (error) {
     console.error("DELETE client error:", error);
     return NextResponse.json({ error: "Server error" }, { status: 500 });

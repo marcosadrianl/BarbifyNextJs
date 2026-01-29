@@ -4,8 +4,8 @@ export interface IClient {
   clientLastName: string;
   clientSex: "M" | "F" | "O"; //male, female, other
   clientBirthdate?: Date;
-  clientEmail?: string;
   clientPhone?: string;
+  clientAddress?: string;
   clientImage?: string;
   clientActive: boolean;
   clientBaseColor?: string;

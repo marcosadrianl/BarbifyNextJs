@@ -2,6 +2,33 @@
 quiero llorar
 
 --------------------------------------------------------------------------------------------------
+
+AVANCE 28/01/2026: 
+TO FIX:
+	- estoy trabajando en las cuentas standard y premium, estoy intentando separar funcionalidades ssegun nivel. 
+	- actualemtne historial de clientes no se muestra para ningun plan
+	- dhasboard funciona bien pero no muestra fecha de ultima actualizacion
+	- hay helpers por todos lados revisar el estado de la sesion antes de cerrar pestanias
+	- quedan limitar insights	
+		- standard: impresion del dia actual, 
+			- revisar error de no se encuentran servicios para el dia si el dia no es seleccionado
+		- premium: todo habilitado
+	- cuenta/barbers: 
+		- standard: limitado a 1
+		- premium: infinity
+	
+	- MAJOR: Que pasa con mercadopago? ver de nuevo documentacion, payment cicle no funciona. no funciona no hay plata no sirve de nada todo esto! 
+
+	
+	
+
+
+
+
+
+
+
+
 AVANCE 23/01/2026:
 - integracion de mercadopago al flujo de registro de usuarios
 - se esta avanzando en la logica que limita las funcionalidades. ver en /utils los hooks creados

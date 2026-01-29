@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Card, CardHeader } from "@/components/ui/card";
-import { Mail, Phone } from "lucide-react";
+import { Phone, MapPin } from "lucide-react";
 
 import MoreInfoModal from "./moreInfoModal";
 
@@ -31,20 +31,16 @@ export default function SingleClientCard({ client }: { client: IClient }) {
             </h1>
 
             <div className="mt-4 flex flex-col gap-2 text-base text-gray-400">
-              {client.clientEmail && (
-                <Link
-                  href={`mailto:${client.clientEmail}`}
-                  className="flex items-center gap-3 hover:text-foreground transition"
-                >
-                  <Mail className="h-5 w-5" />
-                  {client.clientEmail}
-                </Link>
-              )}
-
               {client.clientPhone && (
                 <div className="flex items-center gap-3">
                   <Phone className="h-5 w-5" />
                   {client.clientPhone}
+                </div>
+              )}
+              {client.clientAddress && (
+                <div className="flex items-center gap-3">
+                  <MapPin className="h-5 w-5" />
+                  {client.clientAddress}
                 </div>
               )}
             </div>

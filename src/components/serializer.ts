@@ -11,7 +11,6 @@ export type SerializedClient = {
   clientLastName: string;
   clientSex: "M" | "F" | "O";
   clientBirthdate?: Date; // Será un string ISO 8601
-  clientEmail?: string;
   clientPhone?: string;
   clientImage?: string;
   clientActive: boolean;
@@ -61,7 +60,6 @@ export function serializeClient(client: IClient): SerializedClient {
     clientLastName,
     clientSex,
     clientBirthdate,
-    clientEmail,
     clientPhone,
     clientImage,
     clientActive,
@@ -84,7 +82,6 @@ export function serializeClient(client: IClient): SerializedClient {
     clientLastName,
     clientSex,
     clientBirthdate: clientBirthdate, // Convertir Date a string ISO 8601
-    clientEmail,
     clientPhone,
     clientImage,
     clientActive,

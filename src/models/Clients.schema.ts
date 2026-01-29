@@ -15,8 +15,8 @@ export const serializeClient = (
     clientLastName: doc.clientLastName,
     clientSex: doc.clientSex,
     clientBirthdate: doc.clientBirthdate?.toISOString?.() ?? null,
-    clientEmail: doc.clientEmail,
     clientPhone: doc.clientPhone,
+    clientAddress: doc.clientAddress,
     clientImage: doc.clientImage,
     clientActive: doc.clientActive,
     clientBaseColor: doc.clientBaseColor,
@@ -41,8 +41,8 @@ export const ClientSchemaZod = z
     clientLastName: z.string().min(1).max(50),
 
     clientBirthdate: z.string().optional(),
-    clientEmail: z.string().optional(),
     clientPhone: z.string().min(1).max(20).optional(),
+    clientAddress: z.string().max(200).optional(),
     clientSex: z.enum(["M", "F", "O"]).default("O"),
     clientActive: z.boolean().default(true),
 

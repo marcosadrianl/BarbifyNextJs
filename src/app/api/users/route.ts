@@ -17,10 +17,12 @@ export async function GET() {
   try {
     await connectDB();
 
-    // 5. Ahora puedes usar session.user.id con seguridad
-    const Users = await (User as mongoose.Model<IUser>).findOne({
-      _id: session.user.id,
-    });
+    // 5. Ahora puedes usar session.user.id con seguridad y excluimos userPassword
+    const Users = await (User as mongoose.Model<IUser>)
+      .findOne({
+        _id: session.user.id,
+      })
+      .select("-userPassword");
 
     // También tienes acceso a tus campos personalizados:
 

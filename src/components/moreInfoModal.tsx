@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
 import Bullet from "@/components/bullet";
-import { IClient } from "@/models/Clients.schema";
+import { IClient } from "@/models/Clients.types";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -19,6 +18,7 @@ import {
   Scissors,
   FileText,
   Info,
+  MapPin,
 } from "lucide-react";
 
 export default function MoreInfoModal({ client }: { client: IClient }) {
@@ -144,7 +144,7 @@ export default function MoreInfoModal({ client }: { client: IClient }) {
 
             <div className="grid gap-3">
               <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50 hover:bg-muted transition-colors">
-                <div className="w-4 h-4 rounded-full bg-gradient-to-br from-gray-200 to-gray-400" />
+                <div className="w-4 h-4 rounded-full bg-linear-to-br from-gray-200 to-gray-400" />
                 <div className="flex-1">
                   <p className="text-sm font-medium">Pelo Blanco</p>
                   <p className="text-sm text-gray-400">

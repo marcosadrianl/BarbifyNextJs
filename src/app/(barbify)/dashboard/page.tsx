@@ -17,6 +17,7 @@ import { IncomePerHourByHourChart } from "@/components/ui/chart-area-step";
 import { GenderSegmentationCard } from "@/components/ui/GenderSegmentationCard";
 import { YearlyServicesChart } from "@/components/ui/YearlyServicesChart";
 import { WeeklyDayChart } from "@/components/ui/WeeklyDayChart";
+import { hasFeature } from "@/lib/permissions";
 
 export default async function Page() {
   const session = await getServerSession(authOptions);
@@ -37,28 +38,36 @@ export default async function Page() {
 
   return (
     <div className="flex flex-col gap-4 p-4 bg-[#cebaa1]">
-      <TimeCheckDashboard />
+      {hasFeature(user, "timeCheck") && <TimeCheckDashboard />}
 
       <div className="">
-        <ChartAreaInteractive />
+        {hasFeature(user, "servicesPerformed") && <ChartAreaInteractive />}
       </div>
-      <div className="flex flex-row gap-4">
-        <TotalRevenue />
-        <FinancialSummaryCard />
-        <ClientRecurrenceCard />
-      </div>
+
+      {hasFeature(user, "totalRevenue") && (
+        <div className="flex flex-row gap-4">
+          <TotalRevenue />
+          <FinancialSummaryCard />
+          <ClientRecurrenceCard />
+        </div>
+      )}
+
       <div className="flex flex-row justify-between gap-4 ">
-        <InactiveClientsCard />
-        <AverageTicketCard />
-        <AverageDurationCard />
-        <IncomePerHourByHourChart />
+        {hasFeature(user, "inactiveClients") && <InactiveClientsCard />}
+        {hasFeature(user, "averageTicket") && <AverageTicketCard />}
+        {hasFeature(user, "averageDuration") && <AverageDurationCard />}
+        {hasFeature(user, "incomePerHour") && <IncomePerHourByHourChart />}
       </div>
+
+      {hasFeature(user, "genderSegmentation") && (
+        <div className="flex flex-row gap-4">
+          <GenderSegmentationCard />
+        </div>
+      )}
+
       <div className="flex flex-row gap-4">
-        <GenderSegmentationCard />
-      </div>
-      <div className="flex flex-row gap-4">
-        <YearlyServicesChart />
-        <WeeklyDayChart />
+        {hasFeature(user, "yearlyServices") && <YearlyServicesChart />}
+        {hasFeature(user, "weeklyServices") && <WeeklyDayChart />}
       </div>
     </div>
   );

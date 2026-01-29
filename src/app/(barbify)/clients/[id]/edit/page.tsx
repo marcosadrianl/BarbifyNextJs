@@ -48,10 +48,10 @@ const ClientSchema = z.object({
   clientLastName: z.string().min(1, "Apellido requerido"),
   clientSex: z.enum(["M", "F", "O"]),
   clientBirthdate: z.string(),
-  clientEmail: z.string().email("Email inválido"),
   clientPhone: z
     .string()
     .max(20, "El teléfono no puede tener más de 20 caracteres"),
+  clientAddress: z.string().optional(),
   clientImage: z.string().optional(),
   clientActive: z.boolean().optional(),
   clientBaseColor: z.string().optional(),
@@ -148,7 +148,7 @@ export default function EditClientFormPage() {
           Object.entries(client).map(([key, value]) => [
             key,
             value === null ? "" : value,
-          ])
+          ]),
         );
 
         // 3. Cargar los datos sanitizados en el formulario
@@ -324,16 +324,12 @@ export default function EditClientFormPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <FormField
                     control={form.control}
-                    name="clientEmail"
+                    name="clientPhone"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Email *</FormLabel>
+                        <FormLabel>Teléfono *</FormLabel>
                         <FormControl>
-                          <Input
-                            type="email"
-                            placeholder="email@ejemplo.com"
-                            {...field}
-                          />
+                          <Input placeholder="Teléfono" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -342,12 +338,12 @@ export default function EditClientFormPage() {
 
                   <FormField
                     control={form.control}
-                    name="clientPhone"
+                    name="clientAddress"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Teléfono *</FormLabel>
+                        <FormLabel>Dirección</FormLabel>
                         <FormControl>
-                          <Input placeholder="Teléfono" {...field} />
+                          <Input placeholder="Calle 123, Ciudad" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -369,7 +365,10 @@ export default function EditClientFormPage() {
                       <FormItem>
                         <FormLabel>Color Base</FormLabel>
                         <FormControl>
-                          <Input placeholder="Castaño, rubio..." {...field} />
+                          <Input
+                            placeholder="Castaño, rubio, 01, etc"
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -383,7 +382,10 @@ export default function EditClientFormPage() {
                       <FormItem>
                         <FormLabel>Tipo de Cabello</FormLabel>
                         <FormControl>
-                          <Input placeholder="Liso, ondulado..." {...field} />
+                          <Input
+                            placeholder="Liso, ondulado, rizado, etc"
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
