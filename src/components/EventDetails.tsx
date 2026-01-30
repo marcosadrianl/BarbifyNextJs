@@ -32,6 +32,7 @@ export default function EventDetails({
 }: {
   selectedEvents: IServiceCombined[] | null;
 }) {
+  console.log("selectedEvents en EventDetails:", selectedEvents);
   // Estado vacío
   if (!selectedEvents || selectedEvents.length === 0) {
     return (
@@ -75,8 +76,8 @@ export default function EventDetails({
               {isToday
                 ? "Hoy"
                 : isPast
-                ? "Servicios Pasados"
-                : "Próximos Servicios"}
+                  ? "Servicios Pasados"
+                  : "Próximos Servicios"}
             </CardTitle>
             <CardDescription className="text-base mt-1">
               {formattedDateCapitalized}
@@ -145,7 +146,7 @@ export default function EventDetails({
                             hour: "2-digit",
                             minute: "2-digit",
                             hour12: false,
-                          }
+                          },
                         )}{" "}
                         hs
                       </p>

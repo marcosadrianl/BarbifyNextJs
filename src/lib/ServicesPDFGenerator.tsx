@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FileDown, Calendar, Loader2 } from "lucide-react";
 import { parseISO, isWithinInterval, startOfDay, endOfDay } from "date-fns";
 import { useServicesStore } from "@/lib/store/services.store";
@@ -8,7 +8,11 @@ import { useServicesStore } from "@/lib/store/services.store";
 // Tipos copiados de tu store
 import { IServiceCombined } from "@/models/models";
 
-const ServicesPDFGenerator = () => {
+const ServicesPDFGenerator = ({
+  limitToToday = false,
+}: {
+  limitToToday?: boolean;
+}) => {
   const [loading, setLoading] = useState(false);
   const [dateRange, setDateRange] = useState({ from: "", to: "" });
   let services = useServicesStore((s) => s.services);
@@ -42,12 +46,21 @@ const ServicesPDFGenerator = () => {
   // Función para obtener y ordenar servicios
   const getServicesData = (): IServiceCombined[] => {
     try {
-      if (dateRange.from || dateRange.to) {
-        const from = dateRange.from
-          ? startOfDay(parseISO(dateRange.from))
+      const effectiveRange = limitToToday
+        ? (() => {
+            const today = formatDateForInput(new Date());
+            return { from: today, to: today };
+          })()
+        : dateRange;
+
+      if (effectiveRange.from || effectiveRange.to) {
+        const from = effectiveRange.from
+          ? startOfDay(parseISO(effectiveRange.from))
           : null;
 
-        const to = dateRange.to ? endOfDay(parseISO(dateRange.to)) : null;
+        const to = effectiveRange.to
+          ? endOfDay(parseISO(effectiveRange.to))
+          : null;
 
         services = services.filter((service) => {
           const serviceDate = parseISO(service.serviceDate.toString());
@@ -239,6 +252,12 @@ const ServicesPDFGenerator = () => {
     setDateRange({ from: today, to: today });
   };
 
+  useEffect(() => {
+    if (limitToToday) {
+      setToday();
+    }
+  }, [limitToToday]);
+
   const setThisWeek = () => {
     const today = new Date();
     const firstDay = new Date(today.setDate(today.getDate() - today.getDay()));
@@ -275,7 +294,7 @@ const ServicesPDFGenerator = () => {
           <div>
             <label className="flex flex-row items-center text-sm font-medium text-gray-700 mb-2">
               <Calendar className="w-4 h-4 inline mr-1" />
-              Filtrar por fecha (opcional)
+              Filtrar por fecha {limitToToday ? "(solo hoy)" : "(opcional)"}
             </label>
 
             {/* Botones rápidos */}
@@ -288,13 +307,15 @@ const ServicesPDFGenerator = () => {
               </button>
               <button
                 onClick={setThisWeek}
-                className="px-3 py-1 text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-md transition-colors"
+                disabled={limitToToday}
+                className="px-3 py-1 text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Esta semana
               </button>
               <button
                 onClick={setThisMonth}
-                className="px-3 py-1 text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-md transition-colors"
+                disabled={limitToToday}
+                className="px-3 py-1 text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Este mes
               </button>
@@ -311,7 +332,8 @@ const ServicesPDFGenerator = () => {
                   onChange={(e) =>
                     setDateRange((prev) => ({ ...prev, from: e.target.value }))
                   }
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  disabled={limitToToday}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
                 />
               </div>
               <div>
@@ -324,11 +346,12 @@ const ServicesPDFGenerator = () => {
                   onChange={(e) =>
                     setDateRange((prev) => ({ ...prev, to: e.target.value }))
                   }
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  disabled={limitToToday}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
                 />
               </div>
             </div>
-            {(dateRange.from || dateRange.to) && (
+            {(dateRange.from || dateRange.to) && !limitToToday && (
               <button
                 onClick={handleClearDates}
                 className="mt-2 text-sm text-[#43553b] hover:text-[#273023]"

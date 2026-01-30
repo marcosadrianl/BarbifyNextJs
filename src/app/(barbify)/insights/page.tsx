@@ -8,7 +8,7 @@ import { connectDB } from "@/utils/mongoose";
 import User from "@/models/Users.model";
 import mongoose from "mongoose";
 import { IUser } from "@/models/Users.type";
-import { canAccessPage } from "@/lib/permissions";
+import { canAccessPage, hasFeature } from "@/lib/permissions";
 
 export default async function Insights() {
   const session = await getServerSession(authOptions);
@@ -32,10 +32,14 @@ export default async function Insights() {
     redirect("/subscription?feature=insights");
   }
 
+  const canExportPDF = hasFeature(user, "exportPDF");
+  const limitToToday = !hasFeature(user, "customDateRanges");
+  const canSeeServicesDashboard = hasFeature(user, "insightsDashboard");
+
   return (
     <div className="flex flex-col p-4 w-full h-fit gap-4 ">
-      <ServicesPDFGenerator />
-      <ServicesDashboard />
+      {canExportPDF && <ServicesPDFGenerator limitToToday={limitToToday} />}
+      {canSeeServicesDashboard && <ServicesDashboard />}
     </div>
   );
 }

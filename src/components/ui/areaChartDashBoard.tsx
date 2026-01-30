@@ -3,13 +3,12 @@
 import * as React from "react";
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
 import { useServicesStore } from "@/lib/store/services.store";
-import { IService } from "@/models/Service.type";
 import {
   subDays,
   startOfDay,
   format,
   isAfter,
-  parseISO,
+  parse,
   isEqual,
   compareAsc,
 } from "date-fns";
@@ -78,7 +77,7 @@ export function ChartAreaInteractive() {
     const grouped = services.reduce<
       Record<string, { date: string; servicios: number }>
     >((acc, s) => {
-      const sDate = parseISO(s.serviceDate as unknown as string); // Asumiendo que tipamos bien 's'
+      const sDate = new Date(s.serviceDate as unknown as string);
 
       // Filtro: Solo procesar si es igual o posterior a startDate
       if (isAfter(sDate, startDate) || isEqual(sDate, startDate)) {
@@ -95,7 +94,10 @@ export function ChartAreaInteractive() {
 
     // 2. Convertir a array y ordenar
     return Object.values(grouped).sort((a, b) =>
-      compareAsc(parseISO(a.date), parseISO(b.date)),
+      compareAsc(
+        parse(a.date, "yyyy-MM-dd", new Date()),
+        parse(b.date, "yyyy-MM-dd", new Date()),
+      ),
     );
   }, [services, timeRange]);
 
@@ -194,7 +196,9 @@ export function ChartAreaInteractive() {
               tickMargin={8}
               minTickGap={32}
               tickFormatter={(value) => {
-                return format(parseISO(value), "d MMM", { locale: es });
+                return format(parse(value, "yyyy-MM-dd", new Date()), "d MMM", {
+                  locale: es,
+                });
               }}
             />
             <YAxis
@@ -206,9 +210,13 @@ export function ChartAreaInteractive() {
               content={
                 <ChartTooltipContent
                   labelFormatter={(value) => {
-                    return format(parseISO(value), "d 'de' MMMM", {
-                      locale: es,
-                    });
+                    return format(
+                      parse(value, "yyyy-MM-dd", new Date()),
+                      "d 'de' MMMM",
+                      {
+                        locale: es,
+                      },
+                    );
                   }}
                   indicator="dot"
                 />

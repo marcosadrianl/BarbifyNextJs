@@ -82,11 +82,8 @@ export default function NewServiceModal() {
     setLoading(true);
 
     try {
-      // Convertir la fecha local a UTC
-      const localDate = new Date(formData.serviceDate);
-      const utcDate = new Date(
-        localDate.getTime() - localDate.getTimezoneOffset() * 60000,
-      );
+      // Usar la fecha directamente del input datetime-local
+      const serviceDate = new Date(formData.serviceDate).toISOString();
 
       // Buscar el nombre del barbero seleccionado
       const selectedBarber = barberList.find(
@@ -106,7 +103,7 @@ export default function NewServiceModal() {
       const serviceData = {
         serviceName: formData.serviceName.toLocaleLowerCase(),
         servicePrice: Number(formData.servicePrice) * 100, // Convertir a centavos
-        serviceDate: utcDate.toISOString(),
+        serviceDate: serviceDate,
         fromBarberId: formData.fromBarberId,
         serviceDuration: Number(formData.serviceDuration),
         serviceNotes: notesWithBarber,

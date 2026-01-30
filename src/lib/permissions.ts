@@ -13,7 +13,7 @@ export const PLAN_FEATURES = {
       barbers: false, // Solo 1 barbero (el owner)
       appointments: true,
       diary: false, // Agenda solo en premium
-      insights: false, // Insights solo en premium
+      insights: true, // Insights básico en standard
       analytics: false, // Analytics básicos en dashboard solamente
       reports: false, // Reportes limitados
     },
@@ -48,9 +48,12 @@ export const PLAN_FEATURES = {
 
       // Reportes
       basicReports: true,
-      exportPDF: false, // Premium only
+      exportPDF: true, // Standard solo con rango limitado
       exportExcel: false, // Premium only
       customDateRanges: false, // Solo últimos 30 días
+
+      // Insights
+      insightsDashboard: false, // Solo premium
     },
   },
 
@@ -96,6 +99,9 @@ export const PLAN_FEATURES = {
       exportPDF: true,
       exportExcel: true,
       customDateRanges: true,
+
+      // Insights
+      insightsDashboard: true,
     },
   },
 } as const;

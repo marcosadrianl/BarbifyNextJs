@@ -19,6 +19,7 @@ export function combineClientService(
     clientName: client.clientName,
     clientLastName: client.clientLastName,
     clientSex: client.clientSex,
+    clientPhone: client.clientPhone,
 
     // Servicio
     serviceDate: service.serviceDate,

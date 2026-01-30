@@ -35,7 +35,12 @@ type IServiceDashboard = Pick<
 
 type IClientDashboard = Pick<
   IClient,
-  "_id" | "clientName" | "clientLastName" | "clientSex" | "clientPhone"
+  | "_id"
+  | "clientName"
+  | "clientLastName"
+  | "clientSex"
+  | "clientPhone"
+  | "clientImage"
 >;
 
 export type IServiceCombined = IClientDashboard & IServiceDashboard;

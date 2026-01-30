@@ -22,6 +22,8 @@ type ClientService = {
   };
   clientName: string;
   clientLastName: string;
+  clientPhone?: string;
+  clientImage?: string;
 };
 
 // 1. Actualizamos el parser para usar el tipo del Store (ClientService)
