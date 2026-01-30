@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -13,6 +13,8 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import { Montserrat, Alice } from "next/font/google";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -26,6 +28,28 @@ const fadeUp = {
 };
 
 export default function BarbifyLanding() {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    // Si el usuario tiene sesión válida, redirigir a /clients
+    if (status === "authenticated" && session?.user) {
+      router.push("/clients");
+    }
+  }, [status, session, router]);
+
+  // Mostrar loading mientras se verifica la sesión
+  if (status === "loading") {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#fff7ec]">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#2f3e2f] mx-auto mb-4"></div>
+          <p className="text-[#2f3e2f]">Cargando...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div
       className={`${montserrat.className} bg-[#fff7ec] text-[#2f3e2f] overflow-hidden`}

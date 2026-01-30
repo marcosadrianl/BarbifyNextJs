@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Head from "next/head";
 import "./globals.css";
+import Providers from "@/components/providers";
 
 export const metadata: Metadata = {
   title: "Barbify",
@@ -22,7 +23,9 @@ export default function RootLayout({
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }
