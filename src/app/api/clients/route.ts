@@ -118,8 +118,22 @@ export async function POST(request: Request) {
   }
 
   try {
+    // Obtener sesión del usuario
+    const session = await getServerSession(authOptions);
+    if (!session?.user?.id) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const data = await request.json();
-    const BarbifyClients = new Clients(data);
+
+    // Asegurar que clientFromUserId viene de la sesión, no del cliente
+    const clientData = {
+      ...data,
+      clientFromUserId: session.user.id,
+    };
+
+    await connectDB();
+    const BarbifyClients = new Clients(clientData);
     const savedClient = await BarbifyClients.save();
 
     return NextResponse.json(savedClient);

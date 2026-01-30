@@ -69,10 +69,10 @@ export function AverageTicketCard() {
       <p className="text-2xl font-bold">{formatter.format(averageTicket)}</p>
 
       {/* Insight */}
-      <div className="flex items-start gap-2 text-sm text-gray-400">
-        <TrendingUp className="h-4 w-4 mt-0.5" />
+      <div className="flex items-start gap-2 text-sm text-gray-400 h-full">
         {comboAverage ? (
-          <p>
+          <p className="border-t w-full mt-auto">
+            <TrendingUp className="h-4 w-4 mt-0.5" />
             Los clientes que hacen{" "}
             <span className="font-medium text-foreground/80">
               Corte + Peinado
@@ -83,12 +83,11 @@ export function AverageTicketCard() {
             </span>
           </p>
         ) : (
-          <p>
-            No hay combos de{" "}
+          <p className="border-t w-full mt-auto">
+            Ningún cliente ha realizado un combo de{" "}
             <span className="font-medium text-foreground/80">
               Corte + Peinado
-            </span>{" "}
-            registrados aún.
+            </span>
           </p>
         )}
       </div>

@@ -17,6 +17,13 @@ export default function BarbersInfo() {
     refreshFromAPI();
   }, [refreshFromAPI]);
 
+  const formatLocation = (barber: IBarbers) => {
+    if (barber.city === "" && barber.state === "" && barber.address === "") {
+      return "Ubicación no disponible";
+    }
+    return `${barber.city}, ${barber.state}, ${barber.address}`;
+  };
+
   return (
     <div className="flex flex-col h-auto overflow-hidden">
       {/* 1. CABECERA PRINCIPAL / BOTÓN DE APERTURA */}
@@ -105,6 +112,11 @@ export default function BarbersInfo() {
                 <div>
                   <p className="text-gray-500 text-xs mb-1">ROL</p>
                   <p className="">{selectedBarber.barberRole}</p>
+                </div>
+
+                <div>
+                  <p className="text-gray-500 text-xs mb-1">UBICACION</p>
+                  <p className="">{formatLocation(selectedBarber)}</p>
                 </div>
               </div>
             </div>

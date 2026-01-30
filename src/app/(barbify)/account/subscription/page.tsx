@@ -23,6 +23,7 @@ export default async function Page() {
     await connectDB();
     userData = await (User as mongoose.Model<IUser>)
       .findOne({ userEmail: session.user.userEmail })
+      .select("-userPassword -_id")
       .lean();
   }
 

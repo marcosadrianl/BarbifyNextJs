@@ -99,6 +99,7 @@ export const authOptions: NextAuthOptions = {
             userActive: user.userActive,
             paymentStatus: user.paymentStatus,
             userLevel: user.userLevel,
+            subscription: user.subscription,
           };
         } catch (error) {
           console.error("❌ Error en authorize:", error);
@@ -140,6 +141,7 @@ export const authOptions: NextAuthOptions = {
         token.userActive = user.userActive;
         token.paymentStatus = user.paymentStatus;
         token.userLevel = user.userLevel;
+        token.subscription = user.subscription;
 
         /* console.log("✅ JWT creado con campos:", {
           id: token.id,
@@ -164,6 +166,7 @@ export const authOptions: NextAuthOptions = {
         session.user.userActive = token.userActive as boolean;
         session.user.paymentStatus = token.paymentStatus as boolean;
         session.user.userLevel = token.userLevel as number;
+        session.user.subscription = token.subscription as any;
 
         /* console.log("✅ Sesión creada:", {
           id: session.user.id,

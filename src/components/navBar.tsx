@@ -10,6 +10,7 @@ import {
 import { NavLink } from "@/components/NavLink"; // importa tu nuevo componente
 import Link from "next/link";
 import { useSession } from "next-auth/react";
+import { usePermissions } from "@/hooks/usePermissions";
 
 const Titles = Alice({
   subsets: ["latin"],
@@ -19,6 +20,7 @@ const Titles = Alice({
 
 export default function NavBar() {
   const { data: session } = useSession();
+  const { canAccessPage } = usePermissions();
 
   function isActiveAndIsLeveled(): boolean {
     return session?.user?.userActive && session?.user?.userLevel! == 1
@@ -43,12 +45,18 @@ export default function NavBar() {
           Dashboard
         </NavLink>
 
-        <NavLink href="/diary" icon={CalendarDays}>
-          Agenda
-        </NavLink>
-        <NavLink href="/insights" icon={Receipt}>
-          Insights
-        </NavLink>
+        {canAccessPage("diary") && (
+          <NavLink href="/diary" icon={CalendarDays}>
+            Agenda
+          </NavLink>
+        )}
+
+        {canAccessPage("insights") && (
+          <NavLink href="/insights" icon={Receipt}>
+            Insights
+          </NavLink>
+        )}
+
         <NavLink href="/account" icon={CircleUserRound}>
           Cuenta
         </NavLink>

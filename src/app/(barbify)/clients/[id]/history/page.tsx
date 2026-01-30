@@ -11,7 +11,7 @@ import { authOptions } from "@/utils/auth";
 import { redirect } from "next/navigation";
 import User from "@/models/Users.model";
 import { IUser } from "@/models/Users.type";
-import { canAccessPage } from "@/lib/permissions";
+import { hasFeature } from "@/lib/permissions";
 
 import ClientServiceList from "@/components/clientServiceList";
 import TotalServices from "@/components/fullServiceData";
@@ -41,9 +41,9 @@ export default async function ClientHistory({
     redirect("/subscription");
   }
 
-  // Verificar si el usuario tiene acceso a esta página
-  if (!canAccessPage(user, "clients")) {
-    redirect("/subscription");
+  // Verificar si el usuario tiene acceso al historial de clientes (solo premium)
+  if (!hasFeature(user, "clientHistory")) {
+    redirect("/subscription?feature=clientHistory");
   }
 
   const services = await (Services as mongoose.Model<IService>)

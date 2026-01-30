@@ -6,6 +6,7 @@ import User from "@/models/Users.model";
 import mongoose from "mongoose";
 import { IUser } from "@/models/Users.type";
 import DiaryClient from "./DiaryClient";
+import { canAccessPage } from "@/lib/permissions";
 
 export default async function DiaryPage() {
   const session = await getServerSession(authOptions);
@@ -22,6 +23,11 @@ export default async function DiaryPage() {
 
   if (!user?.userActive) {
     redirect("/subscription");
+  }
+
+  // Verificar si el usuario tiene acceso a la página diary según su plan
+  if (!canAccessPage(user, "diary")) {
+    redirect("/subscription?feature=diary");
   }
 
   return <DiaryClient />;

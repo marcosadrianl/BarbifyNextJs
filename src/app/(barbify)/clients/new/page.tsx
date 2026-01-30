@@ -131,10 +131,21 @@ export default function CreateClientForm() {
     setServerError(null);
 
     try {
+      // Crear una copia limpia de los datos sin campos vacíos
+      const cleanData = { ...data };
+
+      // Eliminar clientFromUserId si no tiene valor válido
+      if (
+        !cleanData.clientFromUserId ||
+        cleanData.clientFromUserId.trim() === ""
+      ) {
+        delete cleanData.clientFromUserId;
+      }
+
       const res = await fetch("/api/clients", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify(cleanData),
       });
 
       if (!res.ok) {

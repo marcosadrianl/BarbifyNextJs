@@ -16,7 +16,11 @@ const UsersSchema = new Schema(
       type: Boolean,
       default: false,
     },
-    userPassword: { type: String, required: true, maxlength: 100 },
+    userPassword: {
+      type: String,
+      required: true,
+      maxlength: 100,
+    },
     userName: { type: String, required: true, maxlength: 50, trim: true },
     userLastName: { type: String, required: true, maxlength: 50, trim: true },
     userRole: { type: String, default: "admin", maxlength: 20, trim: true },

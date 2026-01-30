@@ -7,9 +7,23 @@ import mongoose from "mongoose";
 import { IUser } from "@/models/Users.type";
 import { authOptions } from "@/utils/auth";
 import Link from "next/link";
-import { CheckCircle, AlertCircle, ChevronLeft } from "lucide-react";
+import { CheckCircle, AlertCircle, ChevronLeft, Lock } from "lucide-react";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
-export default async function SubscriptionPage() {
+const FEATURE_NAMES: Record<string, string> = {
+  diary: "Agenda",
+  insights: "Insights",
+  analytics: "Analytics",
+  reports: "Reportes",
+  barbers: "Gestión de Barberos",
+  clientHistory: "Historial de Clientes",
+};
+
+export default async function SubscriptionPage({
+  searchParams,
+}: {
+  searchParams: { feature?: string };
+}) {
   const session = await getServerSession(authOptions);
 
   if (!session?.user?.userEmail) {
@@ -28,12 +42,26 @@ export default async function SubscriptionPage() {
     trialEndDate &&
     new Date(trialEndDate) > new Date();
 
+  const blockedFeature = (await searchParams.feature)
+    ? FEATURE_NAMES[searchParams.feature] || searchParams.feature
+    : null;
+
   return (
     <div className="container mx-auto py-10 px-4 min-h-screen">
       <div className="max-w-6xl mx-auto">
+        {blockedFeature && (
+          <Alert className="mb-8 border-orange-500 bg-orange-50">
+            <Lock className="h-4 w-4 text-orange-600" />
+            <AlertDescription className="text-orange-900">
+              <strong>{blockedFeature}</strong> es una funcionalidad exclusiva
+              del plan Premium. Actualiza tu plan para acceder.
+            </AlertDescription>
+          </Alert>
+        )}
+
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold mb-4">
-            Elige el plan perfecto para tu peluquería
+            Eligí el plan perfecto para vos
           </h1>
           <p className="text-xl text-muted-foreground">
             {isTrialActive

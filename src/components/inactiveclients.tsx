@@ -172,8 +172,8 @@ export default function InactiveClientsCard() {
       <div className="border-t pt-3 mt-auto">
         <p className="text-xs font-medium mb-1">Acciones sugeridas</p>
         <ul className="text-xs text-gray-400 list-disc pl-4 space-y-1">
-          <li>Contactar vía WhatsApp o correo</li>
-          <li>Ofrecer promoción de retorno</li>
+          <li>Contacta con los clientes. </li>
+          <li>Ofrecer promoción de retorno.</li>
         </ul>
       </div>
     </div>

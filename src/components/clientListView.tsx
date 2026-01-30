@@ -30,10 +30,10 @@ export default function ClientListView({ clients }: { clients: IClient[] }) {
   return (
     <div className="space-y-4">
       {/* Table */}
-      <div className="rounded-xl border-b bg-card">
-        <Table>
+      <div className="rounded-xl border-b bg-white shadow-md">
+        <Table className="">
           <TableHeader>
-            <TableRow>
+            <TableRow className="bg-[#ffe7c7] ">
               <TableHead>Cliente</TableHead>
               <TableHead>Teléfono</TableHead>
               <TableHead className="text-right">
@@ -53,8 +53,8 @@ export default function ClientListView({ clients }: { clients: IClient[] }) {
               clients.map((client) => (
                 <DropdownMenu key={client._id!.toString()}>
                   <DropdownMenuTrigger asChild>
-                    <TableRow className="cursor-pointer hover:bg-slate-50">
-                      <TableCell className="flex items-center gap-3">
+                    <TableRow className="cursor-pointer hover:bg-slate-50 rounded-b-xl">
+                      <TableCell className="flex items-center gap-3 hover:bg-slate-50 rounded-b-xl">
                         <Avatar className="h-8 w-8">
                           <AvatarImage
                             src={
