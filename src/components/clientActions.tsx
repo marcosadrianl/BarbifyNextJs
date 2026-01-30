@@ -21,7 +21,7 @@ export default function ClientActions({ client }: { client: IClient }) {
         <EditClientButton clientId={client._id} />
 
         <Button
-          disabled={clientHistory}
+          disabled={!clientHistory}
           className="flex flex-row w-36 rounded-full bg-[#cdaa7e] hover:bg-amber-100 cursor-pointer text-[#43553b] gap-1"
         >
           <History className="h-6 w-6" />

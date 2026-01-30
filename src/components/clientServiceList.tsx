@@ -39,6 +39,9 @@ export default function ClientServicesList({
     <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-1">
       {services.map((service) => {
         const localDate = new Date(service.serviceDate);
+        const localEndServiceDate = new Date(
+          localDate.getTime() + service.serviceDuration * 60000,
+        );
         const formattedDate = localDate.toLocaleDateString("es-AR", {
           day: "2-digit",
           month: "2-digit",
@@ -48,6 +51,13 @@ export default function ClientServicesList({
           hour: "2-digit",
           minute: "2-digit",
         });
+        const formattedEndTime = localEndServiceDate.toLocaleTimeString(
+          "es-AR",
+          {
+            hour: "2-digit",
+            minute: "2-digit",
+          },
+        );
 
         return (
           <Card
@@ -78,7 +88,7 @@ export default function ClientServicesList({
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-4 text-sm text-slate-600">
                     <div className="flex items-center gap-2">
-                      <div className="p-1.5   ">
+                      <div className="p-1.5">
                         <Calendar className="h-4 w-4 text-orange-500" />
                       </div>
                       <span>
@@ -90,14 +100,16 @@ export default function ClientServicesList({
                     </div>
 
                     <div className="flex items-center gap-2">
-                      <div className="p-1.5   ">
+                      <div className="p-1.5">
                         <Clock className="h-4 w-4 text-orange-500" />
                       </div>
-                      <span>{formattedTime} hs</span>
+                      <span>
+                        {formattedTime} - {formattedEndTime}
+                      </span>
                     </div>
 
                     <div className="flex items-center gap-2 font-semibold text-slate-900">
-                      <div className="p-1.5    text-green-600">
+                      <div className="p-1.5 text-green-600">
                         <DollarSign className="h-4 w-4" />
                       </div>
                       <span className="text-lg">

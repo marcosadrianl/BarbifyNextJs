@@ -19,14 +19,26 @@ export function useClients(page: number, limit: number, search: string) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let isCancelled = false;
     setLoading(true);
+
     fetch(`/api/clients?page=${page}&limit=${limit}&search=${search}`)
       .then((res) => res.json())
       .then((res) => {
-        setData(res.data);
-        setTotalPages(res.totalPages);
+        if (!isCancelled) {
+          setData(res.data);
+          setTotalPages(res.totalPages);
+        }
       })
-      .finally(() => setLoading(false));
+      .finally(() => {
+        if (!isCancelled) {
+          setLoading(false);
+        }
+      });
+
+    return () => {
+      isCancelled = true;
+    };
   }, [page, limit, search]);
 
   return { data, totalPages, loading };

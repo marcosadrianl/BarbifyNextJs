@@ -6,7 +6,12 @@
 
 import mongoose from "mongoose";
 import { connectDB } from "@/utils/mongoose";
-import { PageGuard } from "@/components/PageGuard";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/utils/auth";
+import { redirect } from "next/navigation";
+import User from "@/models/Users.model";
+import { IUser } from "@/models/Users.type";
+import { canAccessPage } from "@/lib/permissions";
 
 import ClientServiceList from "@/components/clientServiceList";
 import TotalServices from "@/components/fullServiceData";
@@ -21,7 +26,26 @@ export default async function ClientHistory({
 }) {
   const { id } = await params; // En Next.js 15, params es una Promise
 
+  // Verificar permisos en el servidor
+  const session = await getServerSession(authOptions);
+  if (!session?.user?.id) {
+    redirect("/login");
+  }
+
   await connectDB();
+  const user = await (User as mongoose.Model<IUser>)
+    .findOne({ userEmail: session.user.userEmail })
+    .lean();
+
+  if (!user?.userActive) {
+    redirect("/subscription");
+  }
+
+  // Verificar si el usuario tiene acceso a esta página
+  if (!canAccessPage(user, "clients")) {
+    redirect("/subscription");
+  }
+
   const services = await (Services as mongoose.Model<IService>)
     .find({ toClientId: id })
     .lean();
@@ -38,15 +62,13 @@ export default async function ClientHistory({
   }
 
   return (
-    <PageGuard page="clientHistory">
-      <div className="flex flex-row w-full gap-4 px-4 pt-4 overflow-auto">
-        <div className="w-2/4 overflow-auto no-scrollbar">
-          <ClientServiceList services={serviceList} clientId={id} />
-        </div>
-        <div className="w-2/4">
-          <TotalServices services={serviceList} defautlState={true} />
-        </div>
+    <div className="flex flex-row w-full gap-4 px-4 pt-4 overflow-auto">
+      <div className="w-2/4 overflow-auto no-scrollbar">
+        <ClientServiceList services={serviceList} clientId={id} />
       </div>
-    </PageGuard>
+      <div className="w-2/4">
+        <TotalServices services={serviceList} defautlState={true} />
+      </div>
+    </div>
   );
 }

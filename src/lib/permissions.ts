@@ -9,7 +9,6 @@ export const PLAN_FEATURES = {
     // Páginas completas
     pages: {
       dashboard: true,
-      clientHistory: true,
       clients: true,
       barbers: false, // Solo 1 barbero (el owner)
       appointments: true,
@@ -37,7 +36,7 @@ export const PLAN_FEATURES = {
 
       // Clientes
       clientManagement: true,
-      clientHistory: false, // Historial completo Premium only
+      clientHistory: false,
       clientAnalytics: false, // Solo vista básica
       bulkActions: false, // Premium only
 

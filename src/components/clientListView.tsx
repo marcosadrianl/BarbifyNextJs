@@ -51,14 +51,9 @@ export default function ClientListView({ clients }: { clients: IClient[] }) {
           <TableBody>
             {clients.length > 0 ? (
               clients.map((client) => (
-                <DropdownMenu
-                  key={client._id!.toString() + Math.random().toString()}
-                >
+                <DropdownMenu key={client._id!.toString()}>
                   <DropdownMenuTrigger asChild>
-                    <TableRow
-                      key={client._id!.toString() + Math.random().toString()}
-                      className="cursor-pointer hover:bg-slate-50"
-                    >
+                    <TableRow className="cursor-pointer hover:bg-slate-50">
                       <TableCell className="flex items-center gap-3">
                         <Avatar className="h-8 w-8">
                           <AvatarImage
