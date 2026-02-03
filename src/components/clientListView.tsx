@@ -39,7 +39,7 @@ export default function ClientListView({ clients }: { clients: IClient[] }) {
               <TableHead className="text-right">
                 <Button
                   onClick={() => router.push("/clients/new")}
-                  className="hover:cursor-pointer ml-auto m-1 bg-[#55533b] hover:bg-[#837d3d] text-white"
+                  className="flex flex-row items-center cursor-pointer ml-auto bg-[#55533b] hover:bg-[#837d3d] text-white text-sm"
                 >
                   <Plus className=" h-4 w-4" />
                   Nuevo Cliente
@@ -84,10 +84,20 @@ export default function ClientListView({ clients }: { clients: IClient[] }) {
 
                   <DropdownMenuContent align="end">
                     <DropdownMenuItem asChild className="hover:bg-slate-200">
-                      <Link href={`/clients/${client._id}`}>Ver cliente</Link>
+                      <Link
+                        href={`/clients/${client._id}`}
+                        className="block w-full hover:underline cursor-pointer"
+                      >
+                        Ver cliente
+                      </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild className="hover:bg-slate-200">
-                      <Link href={`/clients/${client._id}/edit`}>Editar</Link>
+                      <Link
+                        href={`/clients/${client._id}/edit`}
+                        className="block w-full hover:underline cursor-pointer"
+                      >
+                        Editar
+                      </Link>
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>

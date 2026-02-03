@@ -37,20 +37,23 @@ export function SubscriptionPlans({
         body: JSON.stringify({ plan }),
       });
 
-      if (!response.ok) {
-        throw new Error("Error al crear la suscripción");
-      }
-
       const data = await response.json();
+
+      if (!response.ok) {
+        console.error("Error del servidor:", data);
+        throw new Error(data.error || "Error al crear la suscripción");
+      }
 
       // Redirigir a Mercado Pago
       if (data.init_point) {
         window.location.href = data.init_point;
+      } else {
+        throw new Error("No se recibió URL de pago de Mercado Pago");
       }
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Error completo:", error);
       alert(
-        "Hubo un error al procesar tu solicitud. Por favor, intenta de nuevo.",
+        `Error al procesar suscripción: ${error instanceof Error ? error.message : "Error desconocido"}`,
       );
     } finally {
       setLoading(null);

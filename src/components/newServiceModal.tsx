@@ -62,7 +62,7 @@ export default function NewServiceModal() {
     serviceName: "",
     serviceDate: "",
     servicePrice: "",
-    serviceDuration: "30",
+    serviceDuration: "15",
     serviceNotes: "",
     fromBarberId: "",
   });

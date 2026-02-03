@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Card, CardHeader } from "@/components/ui/card";
-import { Phone, MapPin, Plus } from "lucide-react";
+import { Phone, MapPin, Save } from "lucide-react";
 
 import MoreInfoModal from "./moreInfoModal";
 
@@ -32,11 +32,11 @@ export default function SingleClientCard({ client }: { client: IClient }) {
 
             <div className="mt-4 flex flex-col gap-2 text-base text-gray-400">
               {client.clientPhone && (
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-row justify-between items-center gap-4">
                   {/* Llamar */}
                   <Link
-                    href={`tel:${client.clientPhone}`}
-                    className="flex items-center gap-3"
+                    href={`https://wa.me/${client.clientPhone}`}
+                    className="flex items-center gap-3 hover:underline"
                   >
                     <Phone className="h-5 w-5" />
                     {client.clientPhone}
@@ -45,9 +45,9 @@ export default function SingleClientCard({ client }: { client: IClient }) {
                   {/* Guardar contacto */}
                   <Link
                     href={`/api/clients/${client._id.toString()}/vcard`}
-                    className="flex flex-row items-center gap-3 text-sm text-muted-foreground hover:underline"
+                    className="flex flex-row items-center gap-1 mr-4 text-xs text-muted-foreground hover:underline"
                   >
-                    <Plus className="h-5 w-5" /> Guardar contacto
+                    <Save className="h-4 w-4" /> Guardar contacto
                   </Link>
                 </div>
               )}

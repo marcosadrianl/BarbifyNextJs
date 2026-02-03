@@ -3,12 +3,15 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/utils/auth";
 import { connectDB } from "@/utils/mongoose";
 import { IClient } from "@/models/Clients.types";
+import { IService } from "@/models/Service.type";
 import Clients from "@/models/Clients.model";
+import Services from "@/models/Service.model";
 import mongoose, { Types } from "mongoose";
 import SingleClientCard from "@/components/singleClientCard";
 import ClientHealthCard from "@/components/clientHealthCard";
 import ServiceList from "@/components/serviceList";
 import ClientActions from "@/components/clientActions";
+import ServiceCalendarCard from "@/components/ServiceCalendarCard";
 
 export default async function ClientsPage({
   params,
@@ -36,6 +39,13 @@ export default async function ClientsPage({
 
   const result = JSON.parse(JSON.stringify(client));
 
+  // Obtener servicios del cliente
+  const services = await (Services as mongoose.Model<IService>)
+    .find({ toClientId: id })
+    .lean();
+
+  const servicesResult = JSON.parse(JSON.stringify(services));
+
   return (
     <div className="flex flex-row gap-4 p-4 w-full h-fit">
       <div className="flex flex-col gap-4 w-3/5 mx-auto">
@@ -45,6 +55,7 @@ export default async function ClientsPage({
       </div>
       <div className="flex flex-col gap-4 rounded-2xl w-2/5 ">
         <ServiceList params={Promise.resolve({ id })} />
+        <ServiceCalendarCard services={servicesResult as IService[]} />
       </div>
     </div>
   );
