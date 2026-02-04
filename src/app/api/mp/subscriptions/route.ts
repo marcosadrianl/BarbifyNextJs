@@ -8,7 +8,8 @@ import {
 } from "@/types/subscription.types";
 import { connectDB } from "@/utils/mongoose";
 import MpSubscription from "@/models/MpSubscription.model";
-import { Types } from "mongoose";
+import mongoose, { Types } from "mongoose";
+import { IMpSubscription } from "@/models/MpSubscription.types";
 
 export async function POST(req: NextRequest) {
   try {
@@ -59,11 +60,11 @@ export async function POST(req: NextRequest) {
 
     await connectDB();
     const userObjectId = new Types.ObjectId(session.user.id);
-    const nextPaymentDate = result.auto_recurring?.next_payment_date
-      ? new Date(result.auto_recurring.next_payment_date)
-      : undefined;
+    // Calculate next payment date as 30 days from now
+    const nextPaymentDate = new Date();
+    nextPaymentDate.setDate(nextPaymentDate.getDate() + 30);
 
-    await MpSubscription.findOneAndUpdate(
+    await (MpSubscription as mongoose.Model<IMpSubscription>).findOneAndUpdate(
       { mpSubscriptionId: result.id },
       {
         $set: {

@@ -99,7 +99,10 @@ export function TrialBanner() {
   // Trial activo con información
   if (status.isTrial && status.daysRemaining > 3) {
     return (
-      <Alert variant="default" className="mb-4 border-blue-500 bg-blue-50">
+      <Alert
+        variant="default"
+        className="my-4 px-4  border-blue-500 bg-blue-50"
+      >
         <Clock className="h-4 w-4 text-blue-600" />
         <AlertTitle className="text-blue-800">
           Período de prueba gratuito
