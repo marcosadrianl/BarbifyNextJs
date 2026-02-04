@@ -5,6 +5,7 @@ import User from "@/models/Users.model";
 import mongoose from "mongoose";
 import { IUser } from "@/models/Users.type";
 import MpSubscription from "@/models/MpSubscription.model";
+import { IMpSubscription } from "@/models/MpSubscription.types";
 
 // Webhook para recibir notificaciones de Mercado Pago
 export async function POST(req: NextRequest) {
@@ -75,16 +76,19 @@ async function handlePaymentNotification(paymentId: string) {
           userEmail: email,
         });
 
-        if (user?._id && payment.preapproval_id) {
+        if (user?._id) {
           const nextPaymentDate = new Date();
           nextPaymentDate.setMonth(nextPaymentDate.getMonth() + 1);
 
-          await MpSubscription.findOneAndUpdate(
-            { mpSubscriptionId: payment.preapproval_id },
+          const mpSubscriptionId = payment.id;
+          await (
+            MpSubscription as mongoose.Model<IMpSubscription>
+          ).findOneAndUpdate(
+            { mpSubscriptionId },
             {
               $set: {
                 userId: user._id,
-                mpSubscriptionId: payment.preapproval_id,
+                mpSubscriptionId: payment.id,
                 externalReference: payment.external_reference,
                 payerEmail: payment.payer?.email,
                 status: payment.status,
@@ -202,12 +206,12 @@ async function handlePreapprovalNotification(preapprovalId: string) {
         );
 
         if (user?._id) {
-          const nextPaymentDateFromMp = preapproval.auto_recurring
-            ?.next_payment_date
-            ? new Date(preapproval.auto_recurring.next_payment_date)
-            : undefined;
+          const nextPaymentDate = new Date();
+          nextPaymentDate.setMonth(nextPaymentDate.getMonth() + 1);
 
-          await MpSubscription.findOneAndUpdate(
+          await (
+            MpSubscription as mongoose.Model<IMpSubscription>
+          ).findOneAndUpdate(
             { mpSubscriptionId: preapprovalId },
             {
               $set: {
@@ -221,9 +225,7 @@ async function handlePreapprovalNotification(preapprovalId: string) {
                 currency: preapproval.auto_recurring?.currency_id,
                 frequency: preapproval.auto_recurring?.frequency,
                 frequencyType: preapproval.auto_recurring?.frequency_type,
-                ...(nextPaymentDateFromMp
-                  ? { nextPaymentDate: nextPaymentDateFromMp }
-                  : {}),
+                nextPaymentDate: nextPaymentDate,
               },
             },
             { upsert: true, new: true, setDefaultsOnInsert: true },
@@ -252,7 +254,9 @@ async function handlePreapprovalNotification(preapprovalId: string) {
         );
 
         if (user?._id) {
-          await MpSubscription.findOneAndUpdate(
+          await (
+            MpSubscription as mongoose.Model<IMpSubscription>
+          ).findOneAndUpdate(
             { mpSubscriptionId: preapprovalId },
             {
               $set: {
@@ -294,7 +298,9 @@ async function handlePreapprovalNotification(preapprovalId: string) {
         );
 
         if (user?._id) {
-          await MpSubscription.findOneAndUpdate(
+          await (
+            MpSubscription as mongoose.Model<IMpSubscription>
+          ).findOneAndUpdate(
             { mpSubscriptionId: preapprovalId },
             {
               $set: {

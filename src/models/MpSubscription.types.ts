@@ -1,16 +1,18 @@
+import { Types } from "mongoose";
+
 export interface IMpSubscription {
-  _id?: string;
-  userId: string;
-  mpSubscriptionId: string; // id de MP
+  _id?: Types.ObjectId;
+  userId: Types.ObjectId; // Change from string to Types.ObjectId
+  mpSubscriptionId: string;
   externalReference?: string;
   payerId?: number;
   payerEmail?: string;
-  status?: string; // pending, authorized, cancelled...
-  planReason?: string; // Suscripción Premium - Barbify
+  status?: string;
+  planReason?: string;
   amount?: number;
   currency?: string;
   frequency?: number;
-  frequencyType?: string; // months, days...
+  frequencyType?: string;
   nextPaymentDate?: Date;
   cancelledAt?: Date;
   createdAt?: Date;
