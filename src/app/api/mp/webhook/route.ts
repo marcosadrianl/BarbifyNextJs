@@ -35,6 +35,7 @@ export async function POST(req: NextRequest) {
         break;
 
       case "preapproval":
+      case "subscription_preapproval":
         // Para suscripciones recurrentes
         await handlePreapprovalNotification(id);
         break;
