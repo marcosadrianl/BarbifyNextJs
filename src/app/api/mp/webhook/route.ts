@@ -4,6 +4,7 @@ import { connectDB } from "@/utils/mongoose";
 import User from "@/models/Users.model";
 import mongoose from "mongoose";
 import { IUser } from "@/models/Users.type";
+import MpSubscription from "@/models/MpSubscription.model";
 
 // Webhook para recibir notificaciones de Mercado Pago
 export async function POST(req: NextRequest) {
@@ -68,6 +69,32 @@ async function handlePaymentNotification(paymentId: string) {
 
       if (email && plan) {
         await connectDB();
+
+        const user = await (User as mongoose.Model<IUser>).findOne({
+          userEmail: email,
+        });
+
+        if (user?._id && payment.preapproval_id) {
+          const nextPaymentDate = new Date();
+          nextPaymentDate.setMonth(nextPaymentDate.getMonth() + 1);
+
+          await MpSubscription.findOneAndUpdate(
+            { mpSubscriptionId: payment.preapproval_id },
+            {
+              $set: {
+                userId: user._id,
+                mpSubscriptionId: payment.preapproval_id,
+                externalReference: payment.external_reference,
+                payerEmail: payment.payer?.email,
+                status: payment.status,
+                amount: payment.transaction_amount,
+                currency: payment.currency_id,
+                ...(nextPaymentDate ? { nextPaymentDate } : {}),
+              },
+            },
+            { upsert: true, new: true, setDefaultsOnInsert: true },
+          );
+        }
 
         const nextPaymentDate = new Date();
         nextPaymentDate.setMonth(nextPaymentDate.getMonth() + 1);
@@ -149,6 +176,10 @@ async function handlePreapprovalNotification(preapprovalId: string) {
       if (email && plan) {
         await connectDB();
 
+        const user = await (User as mongoose.Model<IUser>).findOne({
+          userEmail: email,
+        });
+
         const nextPaymentDate = new Date();
         nextPaymentDate.setMonth(nextPaymentDate.getMonth() + 1);
 
@@ -169,6 +200,35 @@ async function handlePreapprovalNotification(preapprovalId: string) {
           { new: true },
         );
 
+        if (user?._id) {
+          const nextPaymentDateFromMp = preapproval.auto_recurring
+            ?.next_payment_date
+            ? new Date(preapproval.auto_recurring.next_payment_date)
+            : undefined;
+
+          await MpSubscription.findOneAndUpdate(
+            { mpSubscriptionId: preapprovalId },
+            {
+              $set: {
+                userId: user._id,
+                mpSubscriptionId: preapprovalId,
+                externalReference: preapproval.external_reference,
+                payerEmail: preapproval.payer_email,
+                status: preapproval.status,
+                planReason: preapproval.reason,
+                amount: preapproval.auto_recurring?.transaction_amount,
+                currency: preapproval.auto_recurring?.currency_id,
+                frequency: preapproval.auto_recurring?.frequency,
+                frequencyType: preapproval.auto_recurring?.frequency_type,
+                ...(nextPaymentDateFromMp
+                  ? { nextPaymentDate: nextPaymentDateFromMp }
+                  : {}),
+              },
+            },
+            { upsert: true, new: true, setDefaultsOnInsert: true },
+          );
+        }
+
         console.log(`✅ Suscripción activada para ${email} con plan ${plan}`);
       }
     } else if (preapproval.status === "paused") {
@@ -178,6 +238,9 @@ async function handlePreapprovalNotification(preapprovalId: string) {
 
       if (email) {
         await connectDB();
+        const user = await (User as mongoose.Model<IUser>).findOne({
+          userEmail: email,
+        });
         await (User as mongoose.Model<IUser>).findOneAndUpdate(
           { userEmail: email },
           {
@@ -186,6 +249,23 @@ async function handlePreapprovalNotification(preapprovalId: string) {
             },
           },
         );
+
+        if (user?._id) {
+          await MpSubscription.findOneAndUpdate(
+            { mpSubscriptionId: preapprovalId },
+            {
+              $set: {
+                userId: user._id,
+                mpSubscriptionId: preapprovalId,
+                externalReference: preapproval.external_reference,
+                payerEmail: preapproval.payer_email,
+                status: preapproval.status,
+                planReason: preapproval.reason,
+              },
+            },
+            { upsert: true, new: true, setDefaultsOnInsert: true },
+          );
+        }
 
         console.log(`⏸️ Suscripción pausada para ${email}`);
       }
@@ -196,6 +276,9 @@ async function handlePreapprovalNotification(preapprovalId: string) {
 
       if (email) {
         await connectDB();
+        const user = await (User as mongoose.Model<IUser>).findOne({
+          userEmail: email,
+        });
         await (User as mongoose.Model<IUser>).findOneAndUpdate(
           { userEmail: email },
           {
@@ -208,6 +291,24 @@ async function handlePreapprovalNotification(preapprovalId: string) {
             },
           },
         );
+
+        if (user?._id) {
+          await MpSubscription.findOneAndUpdate(
+            { mpSubscriptionId: preapprovalId },
+            {
+              $set: {
+                userId: user._id,
+                mpSubscriptionId: preapprovalId,
+                externalReference: preapproval.external_reference,
+                payerEmail: preapproval.payer_email,
+                status: preapproval.status,
+                planReason: preapproval.reason,
+                cancelledAt: new Date(),
+              },
+            },
+            { upsert: true, new: true, setDefaultsOnInsert: true },
+          );
+        }
 
         console.log(`❌ Suscripción cancelada para ${email}`);
       }

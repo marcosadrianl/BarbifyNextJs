@@ -6,6 +6,9 @@ import {
   SUBSCRIPTION_PLANS,
   SubscriptionPlan,
 } from "@/types/subscription.types";
+import { connectDB } from "@/utils/mongoose";
+import MpSubscription from "@/models/MpSubscription.model";
+import { Types } from "mongoose";
 
 export async function POST(req: NextRequest) {
   try {
@@ -34,6 +37,8 @@ export async function POST(req: NextRequest) {
       back_url: `${process.env.NEXT_PUBLIC_APP_URL}/subscription/success?plan=${plan}`,
     });
 
+    const externalReference = `${session.user.userEmail}-${plan}-${Date.now()}`;
+
     const result = await preapprovalClient.create({
       body: {
         reason: `Suscripción ${planDetails.name} - Barbify`,
@@ -45,12 +50,39 @@ export async function POST(req: NextRequest) {
         },
         back_url: `${process.env.NEXT_PUBLIC_APP_URL}/subscription/success?plan=${plan}`,
         payer_email: session.user.userEmail,
-        external_reference: `${session.user.userEmail}-${plan}-${Date.now()}`,
+        external_reference: externalReference,
         status: "pending",
       },
     });
 
     console.log("Suscripción creada exitosamente:", result);
+
+    await connectDB();
+    const userObjectId = new Types.ObjectId(session.user.id);
+    const nextPaymentDate = result.auto_recurring?.next_payment_date
+      ? new Date(result.auto_recurring.next_payment_date)
+      : undefined;
+
+    await MpSubscription.findOneAndUpdate(
+      { mpSubscriptionId: result.id },
+      {
+        $set: {
+          userId: userObjectId,
+          mpSubscriptionId: result.id,
+          externalReference,
+          payerEmail: session.user.userEmail,
+          status: result.status ?? "pending",
+          planReason:
+            result.reason ?? `Suscripción ${planDetails.name} - Barbify`,
+          amount: planDetails.price / 100,
+          currency: "ARS",
+          frequency: 1,
+          frequencyType: "months",
+          ...(nextPaymentDate ? { nextPaymentDate } : {}),
+        },
+      },
+      { upsert: true, new: true, setDefaultsOnInsert: true },
+    );
 
     return NextResponse.json({
       init_point: result.init_point,
