@@ -48,7 +48,7 @@ export async function GET(request: Request) {
     // 🔍 Query base (solo clientes del usuario)
     const baseQuery = { clientFromUserId: userObjectId };
 
-    // 🔎 Si hay búsqueda, agregamos OR por nombre/apellido
+    // 🎯 Si hay búsqueda, agregar lógica mejorada que busque en nombre completo también
     const finalQuery =
       search.length > 0
         ? {
@@ -56,6 +56,30 @@ export async function GET(request: Request) {
             $or: [
               { clientName: { $regex: search, $options: "i" } },
               { clientLastName: { $regex: search, $options: "i" } },
+              // Buscar en el nombre completo concatenado (nombre + espacio + apellido)
+              {
+                $expr: {
+                  $regexMatch: {
+                    input: {
+                      $concat: ["$clientName", " ", "$clientLastName"],
+                    },
+                    regex: search,
+                    options: "i",
+                  },
+                },
+              },
+              // También buscar en apellido + nombre (por si el usuario lo escribe así)
+              {
+                $expr: {
+                  $regexMatch: {
+                    input: {
+                      $concat: ["$clientLastName", " ", "$clientName"],
+                    },
+                    regex: search,
+                    options: "i",
+                  },
+                },
+              },
             ],
           }
         : baseQuery;

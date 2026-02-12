@@ -67,7 +67,11 @@ export function AccountSidebar() {
 
       <Separator className="mt-4 mb-4 w-3/5 mx-auto bg-[#cebaa1]" />
 
-      <Link href="#" className="hover:bg-gray-100 py-4">
+      <Link
+        href="/terminos-y-condiciones"
+        className="hover:bg-gray-100 py-4"
+        target="_blank"
+      >
         <span className="flex flex-row w-full justify-between px-2">
           <p>Términos y Condiciones</p>
           <ArrowUpRight className="w-6 h-6" />
