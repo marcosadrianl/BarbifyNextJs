@@ -49,7 +49,7 @@ export function TrialBanner() {
   // Trial expirado
   if (status.isTrialExpired) {
     return (
-      <Alert variant="destructive" className="mb-4">
+      <Alert variant="destructive" className=" mx-auto w-fit">
         <AlertCircle className="h-4 w-4" />
         <AlertTitle>Período de prueba expirado</AlertTitle>
         <AlertDescription className="flex items-center justify-between">
@@ -73,7 +73,10 @@ export function TrialBanner() {
   // Trial activo con advertencia si quedan pocos días
   if (status.isTrial && status.daysRemaining <= 3) {
     return (
-      <Alert variant="default" className="mb-4 border-yellow-500 bg-yellow-50">
+      <Alert
+        variant="default"
+        className=" mx-auto w-fit border-yellow-500 bg-yellow-50"
+      >
         <Clock className="h-4 w-4 text-yellow-600" />
         <AlertTitle className="text-yellow-800">
           Quedan {status.daysRemaining} días de prueba
@@ -101,7 +104,7 @@ export function TrialBanner() {
     return (
       <Alert
         variant="default"
-        className="my-4 px-4  border-blue-500 bg-blue-50"
+        className=" mx-auto w-fit border-blue-500 bg-blue-50"
       >
         <Clock className="h-4 w-4 text-blue-600" />
         <AlertTitle className="text-blue-800">

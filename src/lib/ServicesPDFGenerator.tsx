@@ -287,7 +287,7 @@ const ServicesPDFGenerator = ({
       <div className="bg-white rounded-2xl p-4">
         <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
           <FileDown className="w-6 h-6" />
-          Exportar Servicios a PDF
+          Exportar Servicios
         </h2>
 
         <div className="space-y-4 mb-6">
@@ -376,7 +376,7 @@ const ServicesPDFGenerator = ({
             ) : (
               <>
                 <FileDown className="w-5 h-5" />
-                Generar PDF
+                Generar Documento
               </>
             )}
           </button>

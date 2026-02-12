@@ -29,8 +29,12 @@ export default function RootLayout({
 
         {/* Contenido con scroll */}
         <div className="flex-1 overflow-auto">
-          <TrialBanner />
-          {children}
+          <div className=" bg-[#cebaa1]">
+            <div className="pt-4">
+              <TrialBanner />
+            </div>
+            {children}
+          </div>
         </div>
       </div>
     </div>
