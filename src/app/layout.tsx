@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import "./globals.css";
 import Providers from "@/components/providers";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata: Metadata = {
   title: "Barbify",
@@ -35,6 +36,7 @@ export default function RootLayout({
         </Script>
 
         <Providers>{children}</Providers>
+        <SpeedInsights />
       </body>
     </html>
   );
