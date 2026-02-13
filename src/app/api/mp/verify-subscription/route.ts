@@ -83,9 +83,14 @@ export async function POST(req: NextRequest) {
         );
       }
 
-      // Calcular fecha de próximo pago (30 días desde ahora)
-      const nextPaymentDate = new Date();
-      nextPaymentDate.setDate(nextPaymentDate.getDate() + 30);
+      // Obtener fecha de próximo pago desde MP (con fallback a +30 días)
+      const nextPaymentDate = preapproval.next_payment_date
+        ? new Date(preapproval.next_payment_date)
+        : (() => {
+            const d = new Date();
+            d.setDate(d.getDate() + 30);
+            return d;
+          })();
 
       // Actualizar usuario con suscripción activa
       await (User as mongoose.Model<IUser>).findOneAndUpdate(

@@ -5,10 +5,10 @@ import { connectDB } from "@/utils/mongoose";
 import User from "@/models/Users.model";
 import mongoose from "mongoose";
 import { IUser } from "@/models/Users.type";
-
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/utils/auth";
 import { redirect } from "next/dist/client/components/navigation";
+import { canAccessPage, hasAppAccess } from "@/lib/permissions";
 
 export default async function ClientsPage() {
   const session = await getServerSession(authOptions);
@@ -17,14 +17,24 @@ export default async function ClientsPage() {
     redirect("/login");
   }
 
-  // Verificar si el usuario está activo
+  // Cargar usuario completo con datos de suscripción
   await connectDB();
   const user = await (User as mongoose.Model<IUser>)
     .findOne({ userEmail: session.user.userEmail })
     .lean();
 
-  if (!user?.userActive) {
+  if (!user) {
+    redirect("/login");
+  }
+
+  // Validar acceso a la aplicación (activo + suscripción válida)
+  if (!hasAppAccess(user)) {
     redirect("/subscription");
+  }
+
+  // Validar acceso a la página específica según el plan
+  if (!canAccessPage(user, "clients")) {
+    redirect("/unauthorized");
   }
 
   return (

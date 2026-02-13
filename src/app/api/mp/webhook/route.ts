@@ -6,6 +6,69 @@ import mongoose from "mongoose";
 import { IUser } from "@/models/Users.type";
 import MpSubscription from "@/models/MpSubscription.model";
 import { IMpSubscription } from "@/models/MpSubscription.types";
+import crypto from "crypto";
+
+/**
+ * Valida la firma x-signature enviada por Mercado Pago en cada webhook.
+ * Docs: https://www.mercadopago.com.ar/developers/es/docs/your-integrations/notifications/webhooks#verificar
+ *
+ * Formato de x-signature: "ts=<timestamp>,v1=<hmac_hash>"
+ * Manifest: "id:<data.id>;request-id:<x-request-id>;ts:<ts>;"
+ */
+function validateWebhookSignature(req: NextRequest, dataId: string): boolean {
+  const secret = process.env.MP_WEBHOOK_SECRET;
+  if (!secret) {
+    console.warn(
+      "⚠️ MP_WEBHOOK_SECRET no configurado — omitiendo validación de firma",
+    );
+    return true; // Si no hay secret configurado, no podemos validar
+  }
+
+  const xSignature = req.headers.get("x-signature");
+  const xRequestId = req.headers.get("x-request-id");
+
+  if (!xSignature || !xRequestId) {
+    console.error("❌ Webhook sin headers x-signature o x-request-id");
+    return false;
+  }
+
+  // Extraer ts y v1 del header x-signature
+  const parts = xSignature.split(",");
+  let ts: string | undefined;
+  let hash: string | undefined;
+
+  for (const part of parts) {
+    const [key, value] = part.split("=", 2);
+    if (key?.trim() === "ts") ts = value?.trim();
+    if (key?.trim() === "v1") hash = value?.trim();
+  }
+
+  if (!ts || !hash) {
+    console.error("❌ x-signature con formato inválido:", xSignature);
+    return false;
+  }
+
+  // Construir el manifest según la documentación de MP
+  const manifest = `id:${dataId};request-id:${xRequestId};ts:${ts};`;
+
+  // Generar HMAC-SHA256 con el secret
+  const hmac = crypto
+    .createHmac("sha256", secret)
+    .update(manifest)
+    .digest("hex");
+
+  if (hmac !== hash) {
+    console.error("❌ Firma de webhook inválida", {
+      expected: hmac,
+      received: hash,
+      manifest,
+    });
+    return false;
+  }
+
+  console.log("✅ Firma de webhook válida");
+  return true;
+}
 
 // Webhook para recibir notificaciones de Mercado Pago
 export async function POST(req: NextRequest) {
@@ -22,6 +85,14 @@ export async function POST(req: NextRequest) {
       return NextResponse.json(
         { error: "Notificación inválida" },
         { status: 400 },
+      );
+    }
+
+    // Validar firma criptográfica (x-signature) contra MP_WEBHOOK_SECRET
+    if (!validateWebhookSignature(req, String(id))) {
+      return NextResponse.json(
+        { error: "Firma inválida — solicitud rechazada" },
+        { status: 401 },
       );
     }
 
@@ -77,6 +148,7 @@ async function handlePaymentNotification(paymentId: string) {
         });
 
         if (user?._id) {
+          // Para pagos individuales no hay next_payment_date, estimamos +1 mes
           const nextPaymentDate = new Date();
           nextPaymentDate.setMonth(nextPaymentDate.getMonth() + 1);
 
@@ -101,8 +173,9 @@ async function handlePaymentNotification(paymentId: string) {
           );
         }
 
-        const nextPaymentDate = new Date();
-        nextPaymentDate.setMonth(nextPaymentDate.getMonth() + 1);
+        // Para pagos individuales estimamos +1 mes como próximo cobro
+        const nextPaymentDateUser = new Date();
+        nextPaymentDateUser.setMonth(nextPaymentDateUser.getMonth() + 1);
 
         // Actualizar usuario con el pago recurrente
         await (User as mongoose.Model<IUser>).findOneAndUpdate(
@@ -114,7 +187,7 @@ async function handlePaymentNotification(paymentId: string) {
               "subscription.plan": plan,
               "subscription.status": "active",
               "subscription.lastPaymentDate": new Date(),
-              "subscription.nextPaymentDate": nextPaymentDate,
+              "subscription.nextPaymentDate": nextPaymentDateUser,
             },
           },
           { new: true },
@@ -185,8 +258,14 @@ async function handlePreapprovalNotification(preapprovalId: string) {
           userEmail: email,
         });
 
-        const nextPaymentDate = new Date();
-        nextPaymentDate.setMonth(nextPaymentDate.getMonth() + 1);
+        // Usar next_payment_date de MP (con fallback a +1 mes)
+        const nextPaymentDate = preapproval.next_payment_date
+          ? new Date(preapproval.next_payment_date)
+          : (() => {
+              const d = new Date();
+              d.setMonth(d.getMonth() + 1);
+              return d;
+            })();
 
         await (User as mongoose.Model<IUser>).findOneAndUpdate(
           { userEmail: email },
@@ -206,9 +285,7 @@ async function handlePreapprovalNotification(preapprovalId: string) {
         );
 
         if (user?._id) {
-          const nextPaymentDate = new Date();
-          nextPaymentDate.setMonth(nextPaymentDate.getMonth() + 1);
-
+          // Reusar nextPaymentDate de preapproval.next_payment_date (ya calculado arriba)
           await (
             MpSubscription as mongoose.Model<IMpSubscription>
           ).findOneAndUpdate(

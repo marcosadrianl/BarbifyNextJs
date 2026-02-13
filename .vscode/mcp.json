@@ -1,9 +1,13 @@
 {
-  "servers": {
-    "mp-MCP-server": {
-      "url": "\"https://mcp.mercadopago.com/mcp\"",
-      "type": "http"
-    }
-  },
-  "inputs": []
+	"servers": {
+		"mp-MCP-server": {
+			"url": "\"https://mcp.mercadopago.com/mcp\"",
+			"type": "http"
+		},
+		"my-mcp-server-f02ce56f": {
+			"url": "https://mcp.mercadopago.com/mcp",
+			"type": "http"
+		}
+	},
+	"inputs": []
 }

@@ -6,6 +6,7 @@ import { connectDB } from "@/utils/mongoose";
 import User from "@/models/Users.model";
 import mongoose from "mongoose";
 import { IUser } from "@/models/Users.type";
+import { hasAppAccess } from "@/lib/permissions";
 
 export default async function Page() {
   const session = await getServerSession(authOptions);
@@ -13,16 +14,21 @@ export default async function Page() {
   if (!session?.user?.id) {
     redirect("/login");
   }
-  //Permitir que solo usuarios con cuenta activa accedan a la pagina de cuenta
-  /*   // Verificar si el usuario está activo
+
+  // Cargar usuario con datos de suscripción
   await connectDB();
   const user = await (User as mongoose.Model<IUser>)
     .findOne({ userEmail: session.user.userEmail })
     .lean();
 
-  if (!user?.userActive) {
+  if (!user) {
+    redirect("/login");
+  }
+
+  // Validar acceso a la aplicación (activo + suscripción válida)
+  if (!hasAppAccess(user)) {
     redirect("/subscription");
-  } */
+  }
 
   return (
     <div className="">

@@ -17,23 +17,33 @@ import { IncomePerHourByHourChart } from "@/components/ui/chart-area-step";
 import { GenderSegmentationCard } from "@/components/ui/GenderSegmentationCard";
 import { YearlyServicesChart } from "@/components/ui/YearlyServicesChart";
 import { WeeklyDayChart } from "@/components/ui/WeeklyDayChart";
-import { hasFeature } from "@/lib/permissions";
+import { hasFeature, hasAppAccess, canAccessPage } from "@/lib/permissions";
 
 export default async function Page() {
   const session = await getServerSession(authOptions);
 
   if (!session?.user?.id) {
-    return <p>No autorizado</p>;
+    redirect("/login");
   }
 
-  // Verificar si el usuario está activo
+  // Cargar usuario con datos de suscripción
   await connectDB();
   const user = await (User as mongoose.Model<IUser>)
     .findOne({ userEmail: session.user.userEmail })
     .lean();
 
-  if (!user?.userActive) {
+  if (!user) {
+    redirect("/login");
+  }
+
+  // Validar acceso a la aplicación (activo + suscripción válida)
+  if (!hasAppAccess(user)) {
     redirect("/subscription");
+  }
+
+  // Validar acceso a la página específica según el plan
+  if (!canAccessPage(user, "dashboard")) {
+    redirect("/unauthorized");
   }
 
   return (

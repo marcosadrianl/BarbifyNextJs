@@ -6,7 +6,7 @@ import User from "@/models/Users.model";
 import mongoose from "mongoose";
 import { IUser } from "@/models/Users.type";
 import DiaryClient from "./DiaryClient";
-import { canAccessPage } from "@/lib/permissions";
+import { canAccessPage, hasAppAccess } from "@/lib/permissions";
 
 export default async function DiaryPage() {
   const session = await getServerSession(authOptions);
@@ -15,19 +15,24 @@ export default async function DiaryPage() {
     redirect("/login");
   }
 
-  // Verificar si el usuario está activo
+  // Cargar usuario con datos de suscripción
   await connectDB();
   const user = await (User as mongoose.Model<IUser>)
     .findOne({ userEmail: session.user.userEmail })
     .lean();
 
-  if (!user?.userActive) {
+  if (!user) {
+    redirect("/login");
+  }
+
+  // Validar acceso a la aplicación (activo + suscripción válida)
+  if (!hasAppAccess(user)) {
     redirect("/subscription");
   }
 
-  // Verificar si el usuario tiene acceso a la página diary según su plan
+  // Validar acceso a la página específica según el plan
   if (!canAccessPage(user, "diary")) {
-    redirect("/subscription?feature=diary");
+    redirect("/unauthorized?feature=diary");
   }
 
   return <DiaryClient />;

@@ -8,7 +8,7 @@ import { connectDB } from "@/utils/mongoose";
 import User from "@/models/Users.model";
 import mongoose from "mongoose";
 import { IUser } from "@/models/Users.type";
-import { canAccessPage, hasFeature } from "@/lib/permissions";
+import { canAccessPage, hasFeature, hasAppAccess } from "@/lib/permissions";
 
 export default async function Insights() {
   const session = await getServerSession(authOptions);
@@ -17,19 +17,24 @@ export default async function Insights() {
     redirect("/login");
   }
 
-  // Verificar si el usuario está activo
+  // Cargar usuario con datos de suscripción
   await connectDB();
   const user = await (User as mongoose.Model<IUser>)
     .findOne({ userEmail: session.user.userEmail })
     .lean();
 
-  if (!user?.userActive) {
+  if (!user) {
+    redirect("/login");
+  }
+
+  // Validar acceso a la aplicación (activo + suscripción válida)
+  if (!hasAppAccess(user)) {
     redirect("/subscription");
   }
 
-  // Verificar si el usuario tiene acceso a insights según su plan
+  // Validar acceso a la página específica según el plan
   if (!canAccessPage(user, "insights")) {
-    redirect("/subscription?feature=insights");
+    redirect("/unauthorized?feature=insights");
   }
 
   const canExportPDF = hasFeature(user, "exportPDF");
