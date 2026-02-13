@@ -54,7 +54,7 @@ export default async function ServiceList({
 
           <Link
             href={`/clients/${id}/history`}
-            className="text-xs font-semibold hover:underline flex items-center gap-1"
+            className={`text-xs font-semibold hover:underline flex items-center gap-1 text-slate-600 ${services.length === 0 ? "pointer-events-none opacity-50" : ""}`}
           >
             Ver todos <ChevronRight className="h-3 w-3" />
           </Link>
