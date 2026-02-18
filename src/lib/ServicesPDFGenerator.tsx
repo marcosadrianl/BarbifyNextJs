@@ -283,7 +283,7 @@ const ServicesPDFGenerator = ({
   };
 
   return (
-    <div className="w-1/2 mr-auto">
+    <div className="w-1/2">
       <div className="bg-white rounded-2xl p-4">
         <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
           <FileDown className="w-6 h-6" />

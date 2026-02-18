@@ -365,7 +365,7 @@ export default function CreateClientForm() {
                     <FormItem>
                       <FormLabel>Porcentaje de Cabello Blanco (%)</FormLabel>
                       <FormControl>
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2 w-1/2">
                           <Input
                             type="number"
                             min={0}

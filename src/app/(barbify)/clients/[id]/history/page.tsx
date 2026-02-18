@@ -55,8 +55,10 @@ export default async function ClientHistory({
   // Si no hay servicios
   if (!services?.length) {
     return (
-      <div className="p-4">
-        <h2 className="text-2xl font-bold">No hay servicios registrados</h2>
+      <div className="p-4 w-full">
+        <h2 className="text-2xl font-semibold text-center">
+          No hay servicios registrados
+        </h2>
       </div>
     );
   }

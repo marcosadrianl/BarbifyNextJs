@@ -200,7 +200,7 @@ export default function EditClientFormPage() {
   }
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto py-2 px-12">
       <Card>
         <CardHeader>
           <CardTitle className="text-3xl">Editar Cliente</CardTitle>
@@ -363,10 +363,10 @@ export default function EditClientFormPage() {
                     name="clientBaseColor"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Color Base</FormLabel>
+                        <FormLabel>Altura de Tono</FormLabel>
                         <FormControl>
                           <Input
-                            placeholder="Castaño, rubio, 01, etc"
+                            placeholder="Castaño, 3-4: Castaño oscuro / medio, etc"
                             {...field}
                           />
                         </FormControl>
@@ -383,7 +383,7 @@ export default function EditClientFormPage() {
                         <FormLabel>Tipo de Cabello</FormLabel>
                         <FormControl>
                           <Input
-                            placeholder="Liso, ondulado, rizado, etc"
+                            placeholder="Liso, ondulado, Tipo 3 (Rizado), etc"
                             {...field}
                           />
                         </FormControl>
@@ -400,7 +400,7 @@ export default function EditClientFormPage() {
                     <FormItem>
                       <FormLabel>Porcentaje de Cabello Blanco (%)</FormLabel>
                       <FormControl>
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2 w-1/2">
                           <Input
                             type="number"
                             min={0}
