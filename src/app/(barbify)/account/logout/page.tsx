@@ -1,24 +1,29 @@
 "use client";
 
 import { signOut } from "next-auth/react";
-import { ArrowUpRight, ChevronRight } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { ArrowUpRight } from "lucide-react";
 
 export default function LogOutPage() {
-  function handleLogout() {
-    signOut({
+  const router = useRouter();
+
+  async function handleLogout() {
+    const data = await signOut({
+      redirect: false,
       callbackUrl: "/",
-      redirect: true,
     });
 
-    // Limpia el historial (best effort)
-    window.history.replaceState(null, "", "/");
+    // Redirect without page reload for smoother UX
+    if (data?.url) {
+      router.push(data.url);
+    }
   }
 
   return (
     <div>
       <h1 className="text-xl font-bold mb-4 p-4">Cerrar Sesi&oacute;n</h1>
       <p className="text-gray-400 mb-6 px-4">
-        Haz clic en el botón a continuación para cerrar sesión de tu cuenta.
+        Haz clic en el botón a continuación para cerrar la sesión de tu cuenta.
       </p>
       <div
         onClick={handleLogout}

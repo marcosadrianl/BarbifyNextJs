@@ -115,13 +115,34 @@ export const authOptions: NextAuthOptions = {
     maxAge: 30 * 24 * 60 * 60, // 30 días
   },
 
+  // Configuración JWT - Seguridad mejorada
+  jwt: {
+    maxAge: 30 * 24 * 60 * 60, // 30 días (debe coincidir con session.maxAge)
+  },
+
+  // Cookies seguras - Mejora seguridad y previene ataques
+  cookies: {
+    sessionToken: {
+      name:
+        process.env.NODE_ENV === "production"
+          ? "__Secure-next-auth.session-token"
+          : "next-auth.session-token",
+      options: {
+        httpOnly: true, // No accesible desde JavaScript (protege contra XSS)
+        sameSite: "lax", // Protege contra CSRF
+        path: "/",
+        secure: process.env.NODE_ENV === "production", // Solo HTTPS en producción
+      },
+    },
+  },
+
   // Páginas personalizadas
   pages: {
     signIn: "/login",
     error: "/login",
   },
 
-  // Secret
+  // Secret - ⚠️ IMPORTANTE: Generar uno nuevo con: openssl rand -base64 64
   secret: process.env.NEXTAUTH_SECRET,
 
   // Debug (desactivar en producción)
