@@ -16,7 +16,6 @@ import { authOptions } from "@/utils/auth";
 
 export default async function Page() {
   const session = await getServerSession(authOptions);
-  console.log("🛡️ Sesión del usuario:", session);
 
   let userData = null;
   if (session?.user?.userEmail) {
@@ -29,9 +28,8 @@ export default async function Page() {
 
   const subscription = userData?.subscription || {};
 
-  console.log("🛡️ Datos de suscripción del usuario:", userData);
-  const plan = subscription.plan || "standard";
-  const status = subscription.status || "trial";
+  const plan = subscription.plan || "Full";
+  const status = subscription.status || "All Access";
   const planDetails =
     SUBSCRIPTION_PLANS[plan as keyof typeof SUBSCRIPTION_PLANS];
 
@@ -77,7 +75,7 @@ export default async function Page() {
         <div className="flex items-center justify-between mb-4">
           <div>
             <h2 className="text-2xl font-bold">
-              {planDetails?.name || "Plan Standard"}
+              {planDetails?.name || "All Access"}
             </h2>
             <div className="flex items-center gap-2 mt-1">
               <StatusIcon className={`w-4 h-4 ${currentStatus.color}`} />
@@ -114,7 +112,7 @@ export default async function Page() {
         </div>
       </div>
 
-      {/* Cambiar Plan */}
+      {/* Cambiar Plan 
       <Link href="/subscription" className="w-full">
         <div className="cursor-pointer hover:bg-gray-100 p-4">
           <span className="flex flex-row w-full justify-between items-center">
@@ -128,6 +126,7 @@ export default async function Page() {
           </span>
         </div>
       </Link>
+      */}
 
       {/* Gestionar en MercadoPago */}
       {subscription.mercadoPagoPreapprovalId && (
@@ -154,17 +153,9 @@ export default async function Page() {
       {/* Información */}
       <div className="p-4 border-t border-[#cebaa1] mt-4">
         <p className="text-xs text-gray-600">
-          {status === "trial" ? (
-            <>
-              Estás en período de prueba gratuito. Al finalizar, se te cobrará
-              automáticamente si no cancelas antes de la fecha límite.
-            </>
-          ) : (
-            <>
-              Los pagos se procesan automáticamente cada mes. Puedes cancelar tu
-              suscripción en cualquier momento desde MercadoPago.
-            </>
-          )}
+          Los pagos se procesan cada mes. Contactanos para cancelar tu
+          suscripción o para cualquier consulta sobre facturación. Si estás en
+          período de prueba, no se te cobrará hasta que finalice el mismo.
         </p>
       </div>
     </div>

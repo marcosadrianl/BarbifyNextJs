@@ -78,14 +78,14 @@ export function AccountSidebar() {
         </span>
       </Link>
 
-      <Link href="/FAQ" className="hover:bg-gray-100 py-4">
+      <Link href="/FAQ" className="hover:bg-gray-100 py-4" target="_blank">
         <span className="flex flex-row w-full justify-between px-2">
           <p>Preguntas Frecuentes</p>
           <ArrowUpRight className="w-6 h-6" />
         </span>
       </Link>
 
-      <Link href="#" className="hover:bg-gray-100 py-4">
+      <Link href="#" className="hover:bg-gray-100 py-4" target="_blank">
         <span className="flex flex-row w-full justify-between px-2">
           <p>Noticias</p>
           <ArrowUpRight className="w-6 h-6" />

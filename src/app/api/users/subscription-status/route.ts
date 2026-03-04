@@ -9,6 +9,7 @@ import {
   checkSubscriptionStatus,
   hasApplicationAccess,
 } from "@/utils/subscriptionCheck";
+import { hasAppAccess } from "@/lib/permissions";
 
 export async function GET(req: NextRequest) {
   try {
@@ -31,8 +32,11 @@ export async function GET(req: NextRequest) {
       );
     }
 
+    // 🆕 Usar la nueva validación basada en subscriptionExpiresAt
+    const hasAccess = hasAppAccess(user);
+
+    // Mantener compatibilidad con sistema anterior
     const subscriptionStatus = checkSubscriptionStatus(user);
-    const hasAccess = hasApplicationAccess(user);
 
     // Si el trial expiró y el usuario aún está activo, desactivarlo
     if (subscriptionStatus.isTrialExpired && user.userActive) {
@@ -47,11 +51,22 @@ export async function GET(req: NextRequest) {
       );
     }
 
+    const expiresAt = user.subscription?.subscriptionExpiresAt;
+    const daysRemaining = expiresAt
+      ? Math.ceil(
+          (new Date(expiresAt).getTime() - new Date().getTime()) /
+            (1000 * 60 * 60 * 24),
+        )
+      : undefined;
+
     return NextResponse.json({
       hasAccess,
       ...subscriptionStatus,
       plan: user.subscription?.plan || "standard",
       userActive: user.userActive,
+      // 🆕 Información del nuevo sistema
+      subscriptionExpiresAt: expiresAt || null,
+      daysRemaining: hasAccess ? daysRemaining : 0,
     });
   } catch (err) {
     console.error("Error verificando suscripción:", err);

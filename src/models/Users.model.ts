@@ -50,6 +50,10 @@ const UsersSchema = new Schema(
       lastPaymentDate: { type: Date },
       nextPaymentDate: { type: Date },
       cancelledAt: { type: Date },
+      // 🆕 NUEVO SISTEMA MANUAL: Fecha de vencimiento único (validado por CRON)
+      subscriptionExpiresAt: { type: Date },
+      lastManualPaymentDate: { type: Date },
+      manualPaymentNotes: { type: String },
     },
 
     userPhone: {

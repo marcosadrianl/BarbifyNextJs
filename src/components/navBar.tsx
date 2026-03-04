@@ -29,7 +29,7 @@ export default function NavBar() {
   }
 
   return (
-    <div className="flex flex-col w-fit justify-between pr-4 bg-[#ffe7c7] text-[#2f3e2f] border-r border-[#cebaa1]">
+    <div className="flex flex-col w-fit justify-between pr-4 text-[#2f3e2f] border-r border-[#cebaa1]">
       <Link href="/">
         <span className={`${Titles.className} text-4xl px-2 select-none`}>
           Barbify

@@ -18,7 +18,7 @@ export interface IUser {
 
   userPhone?: string;
   userActive: boolean;
-  userLevel: 0 | 1;
+  userLevel: 0 | 1 | 2; // 0 = free/trial, 1 = paid user, 2 = admin/super-user
   paymentStatus: boolean;
   userRole?: string;
   userSex?: string;
@@ -35,6 +35,10 @@ export interface IUser {
     lastPaymentDate?: Date;
     nextPaymentDate?: Date;
     cancelledAt?: Date;
+    // 🆕 NUEVO SISTEMA MANUAL: Fecha de vencimiento único (validado por CRON)
+    subscriptionExpiresAt?: Date;
+    lastManualPaymentDate?: Date;
+    manualPaymentNotes?: string;
   };
 
   createdAt?: Date;

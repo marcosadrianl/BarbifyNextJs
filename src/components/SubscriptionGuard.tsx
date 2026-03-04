@@ -9,9 +9,9 @@ interface SubscriptionGuardProps {
 }
 
 /**
- * Componente que protege rutas verificando si el usuario tiene cuenta activa
- * y si su período de prueba no ha expirado.
- * Si userActive es false o el trial expiró, redirige a /subscription
+ * 🆕 Componente que protege rutas verificando subscriptionExpiresAt
+ * Si la fecha pasó, redirige a /subscription
+ * Mantiene compatibilidad con sistema anterior si no hay subscriptionExpiresAt
  */
 export function SubscriptionGuard({ children }: SubscriptionGuardProps) {
   const { data: session, status } = useSession();

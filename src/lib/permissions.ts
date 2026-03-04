@@ -113,7 +113,9 @@ export type PagePermission = keyof typeof PLAN_FEATURES.standard.pages;
 export type FeaturePermission = keyof typeof PLAN_FEATURES.standard.features;
 
 /**
- * Verifica si un usuario tiene acceso completo a la aplicación
+ * 🆕 Verifica si un usuario tiene acceso completo a la aplicación
+ * Basado en subscriptionExpiresAt (sistema manual)
+ * Prioriza validación manual sobre el sistema antiguo
  */
 export function hasAppAccess(user: IUser | null): boolean {
   if (!user) return false;
@@ -121,7 +123,21 @@ export function hasAppAccess(user: IUser | null): boolean {
   // 1. Verificar que la cuenta esté activa
   if (!user.userActive) return false;
 
-  // 2. Verificar estado de suscripción
+  // 🆕 2. Validar por subscriptionExpiresAt (prioridad)
+  if (user.subscription?.subscriptionExpiresAt) {
+    const expiresAt = new Date(user.subscription.subscriptionExpiresAt);
+    const now = new Date();
+
+    // Si la fecha ya pasó, NO tiene acceso
+    if (expiresAt <= now) {
+      return false;
+    }
+
+    // Si aún no pasó, TIENE ACCESO completo
+    return true;
+  }
+
+  // Si no tiene subscriptionExpiresAt, validar con sistema anterior (compatibilidad)
   const subStatus = user.subscription?.status;
   if (!subStatus) return false;
 
@@ -154,7 +170,8 @@ export function getUserPlan(user: IUser | null): SubscriptionPlan {
 }
 
 /**
- * Verifica si el usuario tiene acceso a una página específica
+ * 🆕 En el nuevo sistema manual: si hasAppAccess es true,
+ * el usuario tiene acceso a TODAS las páginas
  */
 export function canAccessPage(
   user: IUser | null,
@@ -162,12 +179,14 @@ export function canAccessPage(
 ): boolean {
   if (!hasAppAccess(user)) return false;
 
-  const plan = getUserPlan(user);
-  return PLAN_FEATURES[plan].pages[page];
+  // 🆕 Nuevo sistema: si tiene acceso a la app, tiene acceso a TODO
+  // El único límite es subscriptionExpiresAt
+  return true;
 }
 
 /**
- * Verifica si el usuario tiene acceso a una funcionalidad específica
+ * 🆕 En el nuevo sistema manual: si hasAppAccess es true,
+ * el usuario tiene acceso a TODAS las funcionalidades
  */
 export function hasFeature(
   user: IUser | null,
@@ -175,19 +194,24 @@ export function hasFeature(
 ): boolean {
   if (!hasAppAccess(user)) return false;
 
-  const plan = getUserPlan(user);
-  return Boolean(PLAN_FEATURES[plan].features[feature]);
+  // 🆕 Nuevo sistema: si tiene acceso a la app, tiene todas las features
+  return true;
 }
 
 /**
- * Obtiene el valor de una característica del plan
+ * 🆕 En el nuevo sistema manual: retorna los límites premium/máximos
  */
 export function getFeatureLimit<T extends FeaturePermission>(
   user: IUser | null,
   feature: T,
 ): (typeof PLAN_FEATURES)[SubscriptionPlan]["features"][T] {
-  const plan = getUserPlan(user);
-  return PLAN_FEATURES[plan].features[feature];
+  // Si no tiene acceso, retornar el valor del plan standard
+  if (!hasAppAccess(user)) {
+    return PLAN_FEATURES["standard"].features[feature];
+  }
+
+  // 🆕 Nuevo sistema: retornar siempre el valor premium (máximo)
+  return PLAN_FEATURES["premium"].features[feature];
 }
 
 /**

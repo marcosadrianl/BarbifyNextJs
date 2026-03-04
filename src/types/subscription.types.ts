@@ -41,7 +41,7 @@ export const SUBSCRIPTION_PLANS: Record<
   standard: {
     id: "standard",
     name: "Standard",
-    price: 9900, // $14,900 en centavos
+    price: 3400000, // $34,000 en centavos
     description: "Plan ideal para peluquerías / barberías pequeñas",
     features: [
       "Hasta 1 Barber",
@@ -55,8 +55,8 @@ export const SUBSCRIPTION_PLANS: Record<
   },
   premium: {
     id: "premium",
-    name: "Premium",
-    price: 10100, // $199.99 en centavos
+    name: "All Access",
+    price: 3400000, // $34,000 en centavos
     description: "Plan completo para peluquerías / barberías profesionales",
     features: [
       "Barbers ilimitados",

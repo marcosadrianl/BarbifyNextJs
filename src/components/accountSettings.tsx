@@ -158,23 +158,25 @@ export default function AccountSettings({
               onClick={() => setOpenSection(null)}
             >
               <ChevronLeft />
-              <h2>Información de la cuenta</h2>
+              <h2 className="font-semibold text-xl">
+                Información de la cuenta
+              </h2>
             </div>
 
             <div className="mb-2 px-4">
-              <h2>Email de la cuenta</h2>
+              <h2 className="font-semibold text-xl">Email de la cuenta</h2>
               <p className="foreground text-sm">{users[0].userEmail ?? "-"}</p>
             </div>
 
             <div className="mb-2 px-4">
-              <h2>Teléfono</h2>
+              <h2 className="font-semibold text-xl">Teléfono</h2>
               <p className="foreground text-sm">
                 {users[0].userPhone ?? "Sin teléfono registrado"}
               </p>
             </div>
 
             <div className="mb-2 px-4">
-              <h2>Cuenta Activa</h2>
+              <h2 className="font-semibold text-xl">Cuenta Activa</h2>
               <span className="flex flex-col">
                 <p
                   className="foreground text-sm flex items-center w-fit"
@@ -191,7 +193,7 @@ export default function AccountSettings({
             </div>
 
             <div className="mb-2 px-4">
-              <h2>Creación de la cuenta</h2>
+              <h2 className="font-semibold text-xl">Creación de la cuenta</h2>
               <p className="foreground text-sm">
                 {formatValue(users[0].createdAt) ?? "Error al mostrar fecha"}
               </p>
@@ -225,11 +227,13 @@ export default function AccountSettings({
               onClick={() => setOpenSection(null)}
             >
               <ChevronLeft />
-              <h2>Información de Suscripción</h2>
+              <h2 className="font-semibold text-xl">
+                Información de Suscripción
+              </h2>
             </div>
 
             <div className="mb-2 px-4">
-              <h2>Plan</h2>
+              <h2 className="font-semibold text-xl">Plan</h2>
               <p className="foreground text-sm capitalize">
                 {users[0].subscription?.plan
                   ? getPlanLabel(users[0].subscription.plan)
@@ -238,26 +242,20 @@ export default function AccountSettings({
             </div>
 
             <div className="mb-2 px-4">
-              <h2>Estado de la suscripción</h2>
+              <h2 className="font-semibold text-xl">
+                Estado de la suscripción
+              </h2>
               <span className="flex flex-col">
                 <p className="foreground text-sm">
                   {users[0].subscription?.status
                     ? getStatusLabel(users[0].subscription.status)
                     : "Sin información"}
                 </p>
-                <Link
-                  href="https://www.mercadopago.com.ar/subscriptions"
-                  target="_blank"
-                  className="flex items-center text-blue-500 hover:underline text-sm w-fit mt-1"
-                >
-                  Gestionar suscripción
-                  <ArrowUpRight className="inline-block w-4 h-4 ml-1" />
-                </Link>
               </span>
             </div>
 
             <div className="mb-2 px-4">
-              <h2>Fecha de inicio</h2>
+              <h2 className="font-semibold text-xl">Fecha de inicio</h2>
               <p className="foreground text-sm">
                 {users[0].subscription?.startDate
                   ? formatValue(users[0].subscription.startDate)
@@ -266,7 +264,9 @@ export default function AccountSettings({
             </div>
 
             <div className="mb-2 px-4">
-              <h2>Fin del período de prueba</h2>
+              <h2 className="font-semibold text-xl">
+                Fin del período de prueba
+              </h2>
               <p className="foreground text-sm">
                 {users[0].subscription?.trialEndDate
                   ? formatValue(users[0].subscription.trialEndDate)
@@ -275,13 +275,13 @@ export default function AccountSettings({
             </div>
 
             <div className="mb-2 px-4">
-              <h2>Estado de pago</h2>
+              <h2 className="font-semibold text-xl">Estado de pago</h2>
               <p
                 className="foreground text-sm flex items-center w-fit"
                 title={`${
                   users[0].paymentStatus
-                    ? "Tu pago está al día"
-                    : "Hay un pago pendiente"
+                    ? "estás al día con tu suscripción, ¡muy bien!"
+                    : "Hay un pago pendiente, apresúrate a completar el pago para no perder acceso"
                 }`}
               >
                 {users[0].paymentStatus ? "Al día" : "Pendiente"}{" "}
@@ -317,11 +317,11 @@ export default function AccountSettings({
               onClick={() => setOpenSection(null)}
             >
               <ChevronLeft className="" onClick={() => setOpenSection(null)} />
-              <h2>Información de Usuario</h2>
+              <h2 className="font-semibold text-xl">Información de Usuario</h2>
             </div>
 
             <div className="mb-2 px-4">
-              <h2>Nombre de usuario</h2>
+              <h2 className="font-semibold text-xl">Nombre de usuario</h2>
               <p className="foreground text-sm capitalize">
                 {users[0].userName ?? "Sin nombre"}{" "}
                 {users[0].userLastName ?? "Sin apellido"}
@@ -329,7 +329,7 @@ export default function AccountSettings({
             </div>
 
             <div className="mb-2 px-4">
-              <h2>Ubicación</h2>
+              <h2 className="font-semibold text-xl">Ubicación</h2>
               <p className="foreground text-sm capitalize">
                 {users[0].userState ?? "-"}, {users[0].userCity},{" "}
                 {users[0].userAddress}, {users[0].userPostalCode}
@@ -337,7 +337,7 @@ export default function AccountSettings({
             </div>
 
             <div className="mb-2 px-4">
-              <h2>Género</h2>
+              <h2 className="font-semibold text-xl">Género</h2>
               <p className="foreground text-sm">
                 {users[0].userSex === "M"
                   ? "Hombre"
@@ -348,7 +348,7 @@ export default function AccountSettings({
             </div>
 
             <div className="mb-2 px-4">
-              <h2>Nacimiento</h2>
+              <h2 className="font-semibold text-xl">Nacimiento</h2>
               <p className="foreground text-sm">
                 {users[0].userBirthDate
                   ? (users[0].userBirthDate

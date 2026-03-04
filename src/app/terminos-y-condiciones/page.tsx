@@ -1,3 +1,5 @@
+import Link from "next/dist/client/link";
+
 export default function Page() {
   return (
     <div>
@@ -8,7 +10,7 @@ export default function Page() {
               TÉRMINOS Y CONDICIONES DE USO
             </h1>
             <p className="text-sm text-gray-500 mb-6">
-              Última actualización: 08/08/2025
+              Última actualización: 4 de Marzo de 2026
             </p>
 
             <p className="mb-4">
@@ -45,30 +47,23 @@ export default function Page() {
               actualizada, veraz y segura.
             </p>
             <p>
-              Recomendamos utilizar la misma cuenta que usas en MercadoPago si
-              deseas realizar pagos dentro de la app usando dinero disponible en
-              MercadoPago, Aunque no es obligatorio que sean la misma cuenta, se
-              pueden realizar los pagos con otros metodos.
+              Recomendamos utilizar una cuenta a la que tengas acceso siempre.
+              Sera nuestro canal de comunicación principal.
             </p>
 
             <h2 className="text-lg font-semibold mt-6 mb-2">
               3. PLANES Y SUSCRIPCIONES
             </h2>
-            <p className="mb-2">Barbify ofrece dos niveles de servicio:</p>
+            <p className="mb-2">Barbify ofrece un unico nivel de servicio:</p>
             <ul className="list-disc list-inside mb-4">
               <li>
-                <strong>Standard</strong> (Con prueba gratuita): incluye
-                funciones básicas de gestión.
-              </li>
-              <li>
-                <strong>Premium</strong> (de pago): acceso a herramientas
-                ampliadas.
+                <strong>All Access</strong> (Con prueba gratuita): incluye
+                acceso a todas las funciones de la app sin limitaciones.
               </li>
             </ul>
             <p>
-              Las suscripciones se procesan exclusivamente a través de
-              <strong> MercadoPago</strong>. No se realizan cobros dentro de la
-              app fuera de estas suscripciones.
+              Las suscripciones se procesan mensualmente. No se realizan cobros
+              dentro de la app fuera de estas suscripciones.
             </p>
           </section>
           <section className="mt-4 p-6 bg-white rounded-xl shadow-md text-gray-800">
@@ -110,7 +105,9 @@ export default function Page() {
               </li>
               <li>
                 Errores o inconsistencias en herramientas informativas, como las
-                funciones de liquidación monetaria o las SmartCards.
+                funciones de resumen de ingresos o las SmartCards. Si encuentras
+                algún error, por favor reportalo a nuestro soporte para que
+                podamos corregirlo.
               </li>
             </ul>
             <p className="mb-4">
@@ -139,9 +136,10 @@ export default function Page() {
             <p className="mb-4">
               Todo el contenido original presente en
               <strong> Barbify</strong>, incluyendo el software, diseño y
-              textos, es propiedad del desarrollador, salvo donde se indique lo
-              contrario. Se utilizan recursos de terceros conforme a sus
-              licencias respectivas.
+              textos, es propiedad de{" "}
+              <span className="text-blue-500">GlowNest</span> , salvo donde se
+              indique lo contrario. Se utilizan recursos de terceros conforme a
+              sus licencias respectivas.
             </p>
 
             <h2 className="text-lg font-semibold mt-6 mb-2">
@@ -163,13 +161,13 @@ export default function Page() {
             <ul className="list-none mb-4">
               <li>
                 🌐
-                <a
+                <Link
                   href="https://barbify.glownest.app/FAQ.html"
                   target="_blank"
                   className="text-blue-600 hover:underline"
                 >
                   barbify.glownest.app/FAQ.html
-                </a>
+                </Link>{" "}
               </li>
               <li>
                 📧
