@@ -342,7 +342,7 @@ export default function BarbifyLanding() {
     }
   }, [status, session, router]);
 
-  if (status === "loading") {
+  /* if (status === "loading") {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[#fff7ec]">
         <div className="text-center">
@@ -351,7 +351,7 @@ export default function BarbifyLanding() {
         </div>
       </div>
     );
-  }
+  } */
 
   return (
     <div
