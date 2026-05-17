@@ -33,6 +33,7 @@ import {
 } from "@/components/ui/select";
 import { useBarbers } from "@/lib/store/services.store";
 import { useSession } from "next-auth/react";
+import useTheme from "@/hooks/useTheme";
 
 interface IServiceFormData {
   serviceName: string;
@@ -47,6 +48,7 @@ interface IServiceFormData {
 
 export default function NewServiceModal() {
   const { data: session } = useSession();
+  const { theme } = useTheme();
 
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -152,33 +154,59 @@ export default function NewServiceModal() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className="flex flex-row w-36 rounded-full bg-slate-200 hover:bg-slate-300 cursor-pointer text-slate-900 gap-1">
-          <Plus className="w-6 h-6" />
+        <Button
+          className="flex flex-row w-36 rounded-full cursor-pointer gap-1"
+          style={{
+            backgroundColor: theme.accentBg,
+            color: theme.textPrimary,
+            borderColor: theme.border,
+          }}
+        >
+          <Plus className="w-6 h-6" style={{ color: theme.primary }} />
           <span>Nuevo Servicio</span>
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="sm:max-w-131.25 bg-white rounded-3xl border-none shadow-2xl">
+      <DialogContent
+        className="sm:max-w-131.25 rounded-3xl border-none shadow-2xl"
+        style={{
+          backgroundColor: theme.bgCard,
+          color: theme.textPrimary,
+          borderColor: theme.border,
+          borderWidth: 1,
+          borderStyle: "solid",
+        }}
+      >
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold text-slate-800 flex items-center gap-2">
+          <DialogTitle
+            className="text-2xl font-bold flex items-center gap-2"
+            style={{ color: theme.textPrimary }}
+          >
             Registrar Servicio
           </DialogTitle>
         </DialogHeader>
 
-        <form onSubmit={handleSave} className="space-y-5 py-4 text-[#43553b]">
+        <form
+          onSubmit={handleSave}
+          className="space-y-5 py-4"
+          style={{ color: theme.textSecondary }}
+        >
           {/* Nombre del Servicio */}
           <div className="space-y-2">
             <Label
               htmlFor="name"
-              className="text-slate-600 flex items-center gap-2"
+              className="flex items-center gap-2"
+              style={{ color: theme.textSecondary }}
             >
-              <Plus className="w-4 h-4 text-orange-500" /> Nombre del Servicio
+              <Plus className="w-4 h-4" style={{ color: theme.primary }} />{" "}
+              Nombre del Servicio
             </Label>
             <Input
               id="name"
               required
               placeholder="Ej: Corte + Barba"
-              className="rounded-xl border-slate-200 focus:ring-orange-500"
+              className="rounded-xl"
+              style={{ borderColor: theme.border }}
               value={formData.serviceName}
               onChange={(e) =>
                 setFormData({ ...formData, serviceName: e.target.value })
@@ -191,9 +219,14 @@ export default function NewServiceModal() {
             <div className="space-y-2">
               <Label
                 htmlFor="price"
-                className="text-slate-600 flex items-center gap-2"
+                className="flex items-center gap-2"
+                style={{ color: theme.textSecondary }}
               >
-                <DollarSign className="w-4 h-4 text-orange-500" /> Precio
+                <DollarSign
+                  className="w-4 h-4"
+                  style={{ color: theme.primary }}
+                />{" "}
+                Precio
               </Label>
               <Input
                 id="price"
@@ -201,7 +234,8 @@ export default function NewServiceModal() {
                 step="0.01"
                 required
                 placeholder="0.00"
-                className="rounded-xl border-slate-200"
+                className="rounded-xl"
+                style={{ borderColor: theme.border }}
                 value={formData.servicePrice}
                 onChange={(e) =>
                   setFormData({ ...formData, servicePrice: e.target.value })
@@ -212,16 +246,19 @@ export default function NewServiceModal() {
             <div className="space-y-2">
               <Label
                 htmlFor="duration"
-                className="text-slate-600 flex items-center gap-2"
+                className="flex items-center gap-2"
+                style={{ color: theme.textSecondary }}
               >
-                <Clock className="w-4 h-4 text-orange-500" /> Minutos
+                <Clock className="w-4 h-4" style={{ color: theme.primary }} />{" "}
+                Minutos
               </Label>
               <Input
                 id="duration"
                 type="number"
                 min="1"
                 required
-                className="rounded-xl border-slate-200"
+                className="rounded-xl"
+                style={{ borderColor: theme.border }}
                 value={formData.serviceDuration}
                 onChange={(e) =>
                   setFormData({ ...formData, serviceDuration: e.target.value })
@@ -234,15 +271,18 @@ export default function NewServiceModal() {
           <div className="space-y-2">
             <Label
               htmlFor="date"
-              className="text-slate-600 flex items-center gap-2"
+              className="flex items-center gap-2"
+              style={{ color: theme.textSecondary }}
             >
-              <Calendar className="w-4 h-4 text-orange-500" /> Fecha y Hora
+              <Calendar className="w-4 h-4" style={{ color: theme.primary }} />{" "}
+              Fecha y Hora
             </Label>
             <Input
               id="date"
               type="datetime-local"
               required
-              className="rounded-xl border-slate-200 shadow-sm"
+              className="rounded-xl shadow-sm"
+              style={{ borderColor: theme.border }}
               value={formData.serviceDate}
               onChange={(e) =>
                 setFormData({ ...formData, serviceDate: e.target.value })
@@ -252,8 +292,12 @@ export default function NewServiceModal() {
 
           {/* Barbero */}
           <div className="space-y-2">
-            <Label className="text-slate-600 flex items-center gap-2">
-              <User className="w-4 h-4 text-orange-500" /> Atendido por:
+            <Label
+              className="flex items-center gap-2"
+              style={{ color: theme.textSecondary }}
+            >
+              <User className="w-4 h-4" style={{ color: theme.primary }} />{" "}
+              Atendido por:
             </Label>
             <Select
               value={formData.fromBarberId}
@@ -261,7 +305,10 @@ export default function NewServiceModal() {
                 setFormData({ ...formData, fromBarberId: val })
               }
             >
-              <SelectTrigger className="rounded-xl border-slate-200">
+              <SelectTrigger
+                className="rounded-xl"
+                style={{ borderColor: theme.border }}
+              >
                 <SelectValue placeholder="Selecciona un Barber" />
               </SelectTrigger>
               <SelectContent className="rounded-xl">
@@ -287,15 +334,17 @@ export default function NewServiceModal() {
           <div className="space-y-2">
             <Label
               htmlFor="notes"
-              className="text-slate-600 flex items-center gap-2"
+              className="flex items-center gap-2"
+              style={{ color: theme.textSecondary }}
             >
-              <FileText className="w-4 h-4 text-orange-500" /> Notas /
-              Observaciones
+              <FileText className="w-4 h-4" style={{ color: theme.primary }} />{" "}
+              Notas / Observaciones
             </Label>
             <Textarea
               id="notes"
               placeholder="Detalles adicionales..."
-              className="rounded-xl border-slate-200 min-h-20"
+              className="rounded-xl min-h-20"
+              style={{ borderColor: theme.border }}
               value={formData.serviceNotes}
               onChange={(e) =>
                 setFormData({ ...formData, serviceNotes: e.target.value })
@@ -316,7 +365,12 @@ export default function NewServiceModal() {
             <Button
               type="submit"
               disabled={loading}
-              className="bg-orange-500 hover:bg-orange-600 text-white rounded-xl px-8 shadow-lg shadow-orange-200"
+              className="rounded-xl px-8"
+              style={{
+                backgroundColor: theme.primary,
+                color: theme.accentText,
+                boxShadow: `0 10px 20px rgba(34, 197, 94, 0.2)`,
+              }}
             >
               {loading ? (
                 <>

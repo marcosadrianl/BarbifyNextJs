@@ -1,8 +1,10 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { IClient } from "@/models/Clients.types";
+import useTheme from "@/hooks/useTheme";
 
 import {
   Table,
@@ -26,24 +28,68 @@ import { MoreHorizontal, Plus } from "lucide-react";
 
 export default function ClientListView({ clients }: { clients: IClient[] }) {
   const router = useRouter();
+  const { theme } = useTheme();
+  const [buttonBg, setButtonBg] = useState(theme.primary);
+
+  useEffect(() => {
+    setButtonBg(theme.primary);
+  }, [theme.primary]);
 
   return (
-    <div className="space-y-4">
+    <div
+      className="space-y-2 border rounded-xl shadow-md py-4"
+      style={{
+        backgroundColor: theme.bg,
+        color: theme.textPrimary,
+        borderColor: theme.border,
+      }}
+    >
+      <Button
+        onClick={() => router.push("/clients/new")}
+        className="flex flex-row items-center cursor-pointer mr-2 ml-auto"
+        onMouseEnter={() => setButtonBg(theme.primaryHover)}
+        onMouseLeave={() => setButtonBg(theme.primary)}
+        style={{
+          backgroundColor: buttonBg,
+          color: theme.accentText,
+          borderColor: theme.border,
+        }}
+      >
+        <Plus className="h-4 w-4" />
+        Nuevo Cliente
+      </Button>
       {/* Table */}
-      <div className="rounded-xl border-b bg-white shadow-md">
-        <Table className="">
+      <div
+        className="shadow-md"
+        style={{
+          backgroundColor: theme.bgCard,
+          borderColor: theme.border,
+        }}
+      >
+        <Table className="" style={{ backgroundColor: theme.bgCard }}>
           <TableHeader>
-            <TableRow className="bg-[#F5FFFF] ">
-              <TableHead>Cliente</TableHead>
-              <TableHead>Teléfono</TableHead>
-              <TableHead className="text-right">
-                <Button
-                  onClick={() => router.push("/clients/new")}
-                  className="flex flex-row items-center cursor-pointer ml-auto bg-[#55533b] hover:bg-[#837d3d] text-white text-sm"
-                >
-                  <Plus className=" h-4 w-4" />
-                  Nuevo Cliente
-                </Button>
+            <TableRow
+              style={{
+                backgroundColor: theme.accentBg,
+              }}
+            >
+              <TableHead style={{ color: theme.textPrimary }}>
+                CLIENTE
+              </TableHead>
+              <TableHead style={{ color: theme.textPrimary }}>
+                TEL&Eacute;FONO
+              </TableHead>
+              <TableHead
+                className="text-right"
+                style={{ color: theme.textPrimary }}
+              >
+                ÚLTIMA VISITA
+              </TableHead>
+              <TableHead
+                className="text-right"
+                style={{ color: theme.textPrimary }}
+              >
+                ACCIONES
               </TableHead>
             </TableRow>
           </TableHeader>
@@ -53,8 +99,14 @@ export default function ClientListView({ clients }: { clients: IClient[] }) {
               clients.map((client) => (
                 <DropdownMenu key={client._id!.toString()}>
                   <DropdownMenuTrigger asChild>
-                    <TableRow className="cursor-pointer hover:bg-[ #F5FFFF ] rounded-b-xl">
-                      <TableCell className="flex items-center gap-3 hover:bg-[ #F5FFFF ] rounded-b-xl">
+                    <TableRow
+                      className=""
+                      style={{ backgroundColor: theme.bgCard }}
+                    >
+                      <TableCell
+                        className="flex items-center gap-3 "
+                        style={{ color: theme.textPrimary }}
+                      >
                         <Avatar className="h-8 w-8">
                           <AvatarImage
                             src={
@@ -69,29 +121,53 @@ export default function ClientListView({ clients }: { clients: IClient[] }) {
                           </AvatarFallback>
                         </Avatar>
 
-                        <span className="font-medium">
+                        <Link
+                          href={`/clients/${client._id}`}
+                          className="font-medium block w-full hover:underline cursor-pointer"
+                        >
                           {client.clientName} {client.clientLastName}
-                        </span>
+                        </Link>
                       </TableCell>
 
                       <TableCell>{client.clientPhone}</TableCell>
 
-                      <TableCell className="">
-                        <MoreHorizontal className="h-4 w-4 opacity-50 ml-auto mr-4" />
+                      <TableCell
+                        className="text-right"
+                        style={{ color: theme.textSecondary }}
+                      >
+                        {client.updatedAt
+                          ? new Date(client.updatedAt).toLocaleDateString(
+                              "es-ES",
+                              {
+                                day: "2-digit",
+                                month: "2-digit",
+                                year: "2-digit",
+                              },
+                            )
+                          : "Sin visitas"}
+                      </TableCell>
+                      <TableCell
+                        className=""
+                        style={{ color: theme.textSecondary }}
+                      >
+                        <MoreHorizontal
+                          className="h-4 w-4 ml-auto mr-4"
+                          style={{ color: theme.textSecondary }}
+                        />
                       </TableCell>
                     </TableRow>
                   </DropdownMenuTrigger>
 
                   <DropdownMenuContent align="end">
-                    <DropdownMenuItem asChild className="hover:bg-slate-200">
+                    <DropdownMenuItem asChild>
                       <Link
                         href={`/clients/${client._id}`}
-                        className="block w-full hover:underline cursor-pointer"
+                        className="block w-full hover:underline  cursor-pointer"
                       >
                         Ver cliente
                       </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem asChild className="hover:bg-slate-200">
+                    <DropdownMenuItem asChild>
                       <Link
                         href={`/clients/${client._id}/edit`}
                         className="block w-full hover:underline cursor-pointer"
@@ -103,8 +179,12 @@ export default function ClientListView({ clients }: { clients: IClient[] }) {
                 </DropdownMenu>
               ))
             ) : (
-              <TableRow>
-                <TableCell colSpan={4} className="text-center py-6">
+              <TableRow style={{ backgroundColor: theme.bgCard }}>
+                <TableCell
+                  colSpan={4}
+                  className="text-center py-6"
+                  style={{ color: theme.textSecondary }}
+                >
                   No hay clientes registrados
                 </TableCell>
               </TableRow>

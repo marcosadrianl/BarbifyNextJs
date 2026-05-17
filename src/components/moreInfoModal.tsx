@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import Bullet from "@/components/bullet";
 import { IClient } from "@/models/Clients.types";
 import {
   Dialog,
@@ -11,6 +10,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Card, CardContent } from "@/components/ui/card";
+import useTheme from "@/hooks/useTheme";
 import {
   User,
   Calendar,
@@ -18,10 +18,10 @@ import {
   Scissors,
   FileText,
   Info,
-  MapPin,
 } from "lucide-react";
 
 export default function MoreInfoModal({ client }: { client: IClient }) {
+  const { theme } = useTheme();
   const [isOpen, setIsOpen] = React.useState(false);
 
   useEffect(() => {
@@ -58,18 +58,36 @@ export default function MoreInfoModal({ client }: { client: IClient }) {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <button className="text-md text-gray-400 hover:text-foreground transition-colors">
+        <button
+          className="text-md transition-colors"
+          style={{ color: theme.textSecondary }}
+        >
           Más información sobre el cliente{" "}
-          <span className="hover:underline font-semibold text-primary">
+          <span
+            className="hover:underline font-semibold"
+            style={{ color: theme.primary }}
+          >
             ...más
           </span>
         </button>
       </DialogTrigger>
-      <DialogContent className="max-h-[90vh] overflow-y-auto bg-white w-[60vw] text-[#43553b] no-scrollbar rounded-2xl">
+      <DialogContent
+        className="max-h-[90vh] overflow-y-auto w-[60vw] no-scrollbar rounded-2xl"
+        style={{
+          backgroundColor: theme.bgCard,
+          color: theme.textPrimary,
+          borderColor: theme.border,
+          borderWidth: 1,
+          borderStyle: "solid",
+        }}
+      >
         <DialogHeader>
           <div className="flex items-center justify-between ">
-            <DialogTitle className="text-2xl flex items-center gap-2">
-              <User className="w-6 h-6" />
+            <DialogTitle
+              className="text-2xl flex items-center gap-2"
+              style={{ color: theme.textPrimary }}
+            >
+              <User className="w-6 h-6" style={{ color: theme.primary }} />
               {client.clientName} {client.clientLastName}
             </DialogTitle>
             <div
@@ -90,10 +108,21 @@ export default function MoreInfoModal({ client }: { client: IClient }) {
           <Card>
             <CardContent className="">
               <div className="flex items-center gap-2 mb-3">
-                <FileText className="w-5 h-5 text-primary" />
-                <h3 className="text-lg font-semibold">Notas</h3>
+                <FileText
+                  className="w-5 h-5"
+                  style={{ color: theme.primary }}
+                />
+                <h3
+                  className="text-lg font-semibold"
+                  style={{ color: theme.textPrimary }}
+                >
+                  Notas
+                </h3>
               </div>
-              <p className="text-sm text-gray-400 leading-relaxed">
+              <p
+                className="text-sm leading-relaxed"
+                style={{ color: theme.textSecondary }}
+              >
                 {client.clientNotes || "Sin notas registradas"}
               </p>
             </CardContent>
@@ -104,16 +133,35 @@ export default function MoreInfoModal({ client }: { client: IClient }) {
           {/* Información Personal */}
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <Info className="w-5 h-5 text-primary" />
-              <h3 className="text-lg font-semibold">Información Personal</h3>
+              <Info className="w-5 h-5" style={{ color: theme.primary }} />
+              <h3
+                className="text-lg font-semibold"
+                style={{ color: theme.textPrimary }}
+              >
+                Información Personal
+              </h3>
             </div>
 
             <div className="grid gap-3">
-              <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50 hover:bg-muted transition-colors">
-                <Calendar className="w-4 h-4 text-gray-400" />
+              <div
+                className="flex items-center gap-3 p-3 rounded-lg transition-colors"
+                style={{
+                  backgroundColor: theme.accentBg,
+                  border: `1px solid ${theme.border}`,
+                }}
+              >
+                <Calendar
+                  className="w-4 h-4"
+                  style={{ color: theme.primary }}
+                />
                 <div className="flex-1">
-                  <p className="text-sm font-medium">Fecha de Nacimiento</p>
-                  <p className="text-sm text-gray-400">
+                  <p
+                    className="text-sm font-medium"
+                    style={{ color: theme.textPrimary }}
+                  >
+                    Fecha de Nacimiento
+                  </p>
+                  <p className="text-sm" style={{ color: theme.textSecondary }}>
                     {client.clientBirthdate
                       ? validateDate(
                           client.clientBirthdate.toLocaleString("es-AR"),
@@ -123,11 +171,24 @@ export default function MoreInfoModal({ client }: { client: IClient }) {
                 </div>
               </div>
 
-              <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50 hover:bg-muted transition-colors">
-                <User className="w-4 h-4 text-gray-400" />
+              <div
+                className="flex items-center gap-3 p-3 rounded-lg transition-colors"
+                style={{
+                  backgroundColor: theme.accentBg,
+                  border: `1px solid ${theme.border}`,
+                }}
+              >
+                <User className="w-4 h-4" style={{ color: theme.primary }} />
                 <div className="flex-1">
-                  <p className="text-sm font-medium">Sexo</p>
-                  <p className="text-sm text-gray-400">{defineClientSex()}</p>
+                  <p
+                    className="text-sm font-medium"
+                    style={{ color: theme.textPrimary }}
+                  >
+                    Sexo
+                  </p>
+                  <p className="text-sm" style={{ color: theme.textSecondary }}>
+                    {defineClientSex()}
+                  </p>
                 </div>
               </div>
             </div>
@@ -138,36 +199,80 @@ export default function MoreInfoModal({ client }: { client: IClient }) {
           {/* Información del Cabello */}
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <Scissors className="w-5 h-5 text-primary" />
-              <h3 className="text-lg font-semibold">Información del Cabello</h3>
+              <Scissors className="w-5 h-5" style={{ color: theme.primary }} />
+              <h3
+                className="text-lg font-semibold"
+                style={{ color: theme.textPrimary }}
+              >
+                Información del Cabello
+              </h3>
             </div>
 
             <div className="grid gap-3">
-              <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50 hover:bg-muted transition-colors">
-                <div className="w-4 h-4 rounded-full bg-linear-to-br from-gray-200 to-gray-400" />
+              <div
+                className="flex items-center gap-3 p-3 rounded-lg transition-colors"
+                style={{
+                  backgroundColor: theme.accentBg,
+                  border: `1px solid ${theme.border}`,
+                }}
+              >
+                <div
+                  className="w-4 h-4 rounded-full"
+                  style={{ backgroundColor: theme.primary }}
+                />
                 <div className="flex-1">
-                  <p className="text-sm font-medium">Pelo Blanco</p>
-                  <p className="text-sm text-gray-400">
+                  <p
+                    className="text-sm font-medium"
+                    style={{ color: theme.textPrimary }}
+                  >
+                    Pelo Blanco
+                  </p>
+                  <p className="text-sm" style={{ color: theme.textSecondary }}>
                     {client.clientWhiteHairs || 0}%
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50 hover:bg-muted transition-colors">
-                <Palette className="w-4 h-4 text-gray-400" />
+              <div
+                className="flex items-center gap-3 p-3 rounded-lg transition-colors"
+                style={{
+                  backgroundColor: theme.accentBg,
+                  border: `1px solid ${theme.border}`,
+                }}
+              >
+                <Palette className="w-4 h-4" style={{ color: theme.primary }} />
                 <div className="flex-1">
-                  <p className="text-sm font-medium">Tono Base</p>
-                  <p className="text-sm text-gray-400">
+                  <p
+                    className="text-sm font-medium"
+                    style={{ color: theme.textPrimary }}
+                  >
+                    Tono Base
+                  </p>
+                  <p className="text-sm" style={{ color: theme.textSecondary }}>
                     {client.clientBaseColor || "Sin detalle"}
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50 hover:bg-muted transition-colors">
-                <Scissors className="w-4 h-4 text-gray-400" />
+              <div
+                className="flex items-center gap-3 p-3 rounded-lg transition-colors"
+                style={{
+                  backgroundColor: theme.accentBg,
+                  border: `1px solid ${theme.border}`,
+                }}
+              >
+                <Scissors
+                  className="w-4 h-4"
+                  style={{ color: theme.primary }}
+                />
                 <div className="flex-1">
-                  <p className="text-sm font-medium">Tipo de Pelo</p>
-                  <p className="text-sm text-gray-400">
+                  <p
+                    className="text-sm font-medium"
+                    style={{ color: theme.textPrimary }}
+                  >
+                    Tipo de Pelo
+                  </p>
+                  <p className="text-sm" style={{ color: theme.textSecondary }}>
                     {client.clientHairType || "Sin detalle"}
                   </p>
                 </div>

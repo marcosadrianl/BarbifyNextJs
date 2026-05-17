@@ -5,6 +5,7 @@ import DeleteService from "./deleteService"; // Ajusta la ruta según tu carpeta
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { IService } from "@/models/Service.type";
+import useTheme from "@/hooks/useTheme";
 
 type Service = IService;
 
@@ -27,9 +28,18 @@ export default function ClientServicesList({
     "Sábado",
   ];
 
+  const { theme } = useTheme();
+
   if (services.length === 0) {
     return (
-      <div className="text-center p-8 border-2 border-dashed rounded-2xl text-gray-400">
+      <div
+        className="text-center p-8 border-2 border-dashed rounded-2xl"
+        style={{
+          color: theme.textSecondary,
+          borderColor: theme.border,
+          backgroundColor: theme.bgCard,
+        }}
+      >
         No hay servicios registrados en el historial.
       </div>
     );
@@ -62,7 +72,8 @@ export default function ClientServicesList({
         return (
           <Card
             key={service._id.toString()}
-            className="overflow-hidden border-none shadow-sm hover:shadow-md transition-shadow bg-white"
+            className="overflow-hidden border-none shadow-sm hover:shadow-md transition-shadow"
+            style={{ backgroundColor: theme.bgCard, borderColor: theme.border }}
           >
             <CardContent className="p-0">
               <div className="flex flex-col sm:flex-row justify-between items-start p-5 gap-4">
@@ -70,12 +81,19 @@ export default function ClientServicesList({
                 <div className="flex-1 space-y-3 w-full">
                   <div className="flex justify-between items-start">
                     <div>
-                      <h2 className="text-3xl font-bold text-slate-800 tracking-tight capitalize">
+                      <h2
+                        className="text-3xl font-bold tracking-tight capitalize"
+                        style={{ color: theme.textPrimary }}
+                      >
                         {service.serviceName}
                       </h2>
                       <Badge
                         variant="secondary"
-                        className="mt-1 bg-orange-200 text-orange-800 hover:bg-orange-200"
+                        className="mt-1"
+                        style={{
+                          backgroundColor: theme.accentBg,
+                          color: theme.textPrimary,
+                        }}
                       >
                         {service.serviceDuration} min
                       </Badge>
@@ -86,13 +104,22 @@ export default function ClientServicesList({
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-4 text-sm text-slate-600">
+                  <div
+                    className="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-4 text-sm"
+                    style={{ color: theme.textSecondary }}
+                  >
                     <div className="flex items-center gap-2">
                       <div className="p-1.5">
-                        <Calendar className="h-4 w-4 text-orange-500" />
+                        <Calendar
+                          className="h-4 w-4"
+                          style={{ color: theme.primary }}
+                        />
                       </div>
                       <span>
-                        <span className="font-medium text-slate-900">
+                        <span
+                          className="font-medium"
+                          style={{ color: theme.textPrimary }}
+                        >
                           {daysOfWeek[localDate.getDay()]}
                         </span>
                         , {formattedDate}
@@ -101,16 +128,25 @@ export default function ClientServicesList({
 
                     <div className="flex items-center gap-2">
                       <div className="p-1.5">
-                        <Clock className="h-4 w-4 text-orange-500" />
+                        <Clock
+                          className="h-4 w-4"
+                          style={{ color: theme.primary }}
+                        />
                       </div>
-                      <span>
+                      <span style={{ color: theme.textSecondary }}>
                         {formattedTime} - {formattedEndTime}
                       </span>
                     </div>
 
-                    <div className="flex items-center gap-2 font-semibold text-slate-900">
-                      <div className="p-1.5 text-green-600">
-                        <DollarSign className="h-4 w-4" />
+                    <div
+                      className="flex items-center gap-2 font-semibold"
+                      style={{ color: theme.textPrimary }}
+                    >
+                      <div className="p-1.5">
+                        <DollarSign
+                          className="h-4 w-4"
+                          style={{ color: theme.primary }}
+                        />
                       </div>
                       <span className="text-lg">
                         {(service.servicePrice / 100).toLocaleString("es-AR", {
@@ -121,9 +157,21 @@ export default function ClientServicesList({
                   </div>
 
                   {/* Notas con estilo de post-it suave */}
-                  <div className="flex items-start gap-2 p-3 bg-[#E1F7F7]/70 rounded-lg border border-slate-200/50">
-                    <StickyNote className="h-4 w-4 text-slate-600 mt-0.5" />
-                    <p className="text-sm text-slate-700 italic leading-snug">
+                  <div
+                    className="flex items-start gap-2 p-3 rounded-lg"
+                    style={{
+                      backgroundColor: theme.accentBg,
+                      border: `1px solid ${theme.border}`,
+                    }}
+                  >
+                    <StickyNote
+                      className="h-4 w-4 mt-0.5"
+                      style={{ color: theme.textSecondary }}
+                    />
+                    <p
+                      className="text-sm italic leading-snug"
+                      style={{ color: theme.textSecondary }}
+                    >
                       {service.serviceNotes || "Sin observaciones adicionales."}
                     </p>
                   </div>

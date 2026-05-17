@@ -1,14 +1,9 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import clsx from "clsx";
 import { useEffect, useState } from "react";
 import { darkTheme, lightTheme } from "@/UI/theme";
 
-export function NavLink({ href, icon: Icon, children }) {
-  const pathname = usePathname();
-  const [hovered, setHovered] = useState(false);
+export default function useTheme() {
   const [themeMode, setThemeMode] = useState<"light" | "dark">("light");
 
   useEffect(() => {
@@ -18,6 +13,7 @@ export function NavLink({ href, icon: Icon, children }) {
     };
 
     updateTheme(mediaQuery);
+
     if (typeof mediaQuery.addEventListener === "function") {
       mediaQuery.addEventListener("change", updateTheme);
     } else {
@@ -34,25 +30,6 @@ export function NavLink({ href, icon: Icon, children }) {
   }, []);
 
   const theme = themeMode === "dark" ? darkTheme : lightTheme;
-  const isActive = pathname?.startsWith?.(href);
-  const bg = isActive
-    ? theme.accentBg
-    : hovered
-      ? theme.accentBg
-      : theme.bgSidebar;
 
-  return (
-    <Link
-      href={href}
-      className={clsx(
-        "flex flex-row items-center rounded-r-2xl px-3 py-1 w-full gap-2",
-      )}
-      style={{ backgroundColor: bg, color: theme.textPrimary }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-    >
-      <Icon className="w-4.5 h-4.5" />
-      {children}
-    </Link>
-  );
+  return { theme, themeMode };
 }

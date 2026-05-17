@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { TrendingUp, TrendingDown, Equal } from "lucide-react";
 import { useServicesStore } from "@/lib/store/services.store";
 import { IServiceCombined } from "@/models/models";
+import useTheme from "@/hooks/useTheme";
 
 type ClientGroup = {
   count: number;
@@ -85,6 +86,7 @@ export function ClientRecurrenceCard() {
   const [variation, setVariation] = useState(0);
   const [trend, setTrend] = useState<"up" | "down" | "equal">("equal");
   const [loading, setLoading] = useState(true);
+  const { theme } = useTheme();
 
   const services = useServicesStore((s) => s.services);
   useEffect(() => {
@@ -157,45 +159,78 @@ export function ClientRecurrenceCard() {
 
   if (loading) {
     return (
-      <div className="rounded-md text-black border bg-white p-4 flex items-center justify-center w-1/3 min-h-35">
-        <p className="text-sm text-gray-400">Cargando...</p>
+      <div
+        className="rounded-md border p-4 flex items-center justify-center w-1/3 min-h-35"
+        style={{
+          backgroundColor: theme.bgCard,
+          borderColor: theme.border,
+          color: theme.textPrimary,
+        }}
+      >
+        <p className="text-sm" style={{ color: theme.textSecondary }}>
+          Cargando...
+        </p>
       </div>
     );
   }
 
   return (
-    <div className="rounded-md border text-black bg-white p-4 w-1/3 flex flex-col gap-4">
+    <div
+      className="rounded-md border p-4 w-1/3 flex flex-col gap-4"
+      style={{
+        backgroundColor: theme.bgCard,
+        borderColor: theme.border,
+        color: theme.textPrimary,
+      }}
+    >
       <div className="flex justify-between items-center">
-        <h2 className="text-sm font-medium">Clientes recurrentes</h2>
-        <div
-          className={`flex items-center gap-1 px-2 py-1 rounded-full text-xs font-semibold ${
-            trend === "up"
-              ? "bg-green-100 text-green-700"
-              : trend === "down"
-                ? "bg-red-100 text-red-700"
-                : "bg-gray-100 text-gray-700"
-          }`}
+        <h2
+          className="text-sm font-medium"
+          style={{ color: theme.textPrimary }}
         >
-          {trend === "up" && <TrendingUp className="w-4" />}
-          {trend === "down" && <TrendingDown className="w-4" />}
+          Clientes recurrentes
+        </h2>
+        <div
+          className="flex items-center gap-1 px-2 py-1 rounded-full text-xs font-semibold"
+          style={{ backgroundColor: theme.accentBg, color: theme.textPrimary }}
+        >
+          {trend === "up" && (
+            <TrendingUp className="w-4" style={{ color: theme.primary }} />
+          )}
+          {trend === "down" && (
+            <TrendingDown className="w-4" style={{ color: theme.primary }} />
+          )}
+          {trend === "equal" && (
+            <Equal className="w-4" style={{ color: theme.textSecondary }} />
+          )}
           {variation !== 0 ? (
             `${variation > 0 ? "+" : ""}${variation.toFixed(1)}%`
           ) : (
-            <Equal className="w-4" />
+            <span style={{ color: theme.textSecondary }}>--</span>
           )}
         </div>
       </div>
 
-      <p className="text-3xl font-bold">{currentPercentage.toFixed(0)}%</p>
+      <p className="text-3xl font-bold" style={{ color: theme.textPrimary }}>
+        {currentPercentage.toFixed(0)}%
+      </p>
 
       <div className="flex flex-col gap-1">
-        <p className="text-sm text-gray-400">
+        <p className="text-sm" style={{ color: theme.textSecondary }}>
           {trend === "up" && "📈 Más recurrencia que el mes anterior"}
           {trend === "down" && "📉 Menos recurrencia que el mes anterior"}
           {trend === "equal" && "➡️ Sin cambios significativos"}
         </p>
         {previousPercentage > 0 && (
-          <p className="text-xs text-gray-400 border-t pt-1 mt-3">
+          <p
+            className="text-xs"
+            style={{
+              color: theme.textSecondary,
+              borderTop: `1px solid ${theme.border}`,
+              paddingTop: 8,
+              marginTop: 12,
+            }}
+          >
             Mes anterior: {previousPercentage.toFixed(0)}%
           </p>
         )}

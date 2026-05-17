@@ -7,10 +7,12 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import React from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import useTheme from "@/hooks/useTheme";
 
 export default function ClientsPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { theme } = useTheme();
 
   const search = searchParams.get("search") || "";
   const page = parseInt(searchParams.get("page") || "1", 10);
@@ -31,7 +33,10 @@ export default function ClientsPageContent() {
   };
 
   return (
-    <div className="relative flex flex-col w-full p-4">
+    <div
+      className="relative flex flex-col w-full p-4"
+      style={{ backgroundColor: theme.bg }}
+    >
       {loading ? (
         <ClientsTableSkeleton />
       ) : (
@@ -43,11 +48,19 @@ export default function ClientsPageContent() {
           disabled={page === 1}
           onClick={() => goToPage(page - 1)}
           className="p-1 disabled:opacity-50 cursor-pointer"
+          style={{ color: theme.textSecondary }}
         >
-          <ChevronLeft size={24} color="#43553b" className="inline-block" />
+          <ChevronLeft
+            size={24}
+            className="inline-block"
+            style={{ color: theme.textSecondary }}
+          />
         </button>
 
-        <span className="flex items-center text-nowrap">
+        <span
+          className="flex items-center text-nowrap"
+          style={{ color: theme.textPrimary }}
+        >
           Página {page} de {totalPages}
         </span>
 
@@ -55,8 +68,13 @@ export default function ClientsPageContent() {
           disabled={page === totalPages}
           onClick={() => goToPage(page + 1)}
           className="p-1 disabled:opacity-50 cursor-pointer"
+          style={{ color: theme.textSecondary }}
         >
-          <ChevronRight size={24} color="#43553b" className="inline-block" />
+          <ChevronRight
+            size={24}
+            className="inline-block"
+            style={{ color: theme.textSecondary }}
+          />
         </button>
       </div>
     </div>

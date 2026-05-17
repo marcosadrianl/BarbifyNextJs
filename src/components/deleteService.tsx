@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Trash2, Loader2 } from "lucide-react"; // Añadí Loader2 para mejor UX
+import useTheme from "@/hooks/useTheme";
 
 interface DeleteServiceProps {
   serviceId: string;
@@ -34,6 +35,7 @@ export default function DeleteService({
   const [open, setOpen] = useState(false); // Controla la visibilidad del modal
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const { theme } = useTheme();
 
   const handleConfirmDelete = async (e: React.MouseEvent) => {
     // Evitamos que el modal se cierre automáticamente antes de terminar la petición
@@ -58,34 +60,54 @@ export default function DeleteService({
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
         {trigger ?? (
-          <Button className="flex flex-row rounded-full bg-slate-200 hover:bg-slate-300 cursor-pointer text-slate-900 gap-1">
-            <Trash2 className="h-4 w-4" />
+          <Button
+            className="flex flex-row rounded-full cursor-pointer gap-1"
+            style={{
+              backgroundColor: theme.accentBg,
+              color: theme.textPrimary,
+              borderColor: theme.border,
+            }}
+          >
+            <Trash2 className="h-4 w-4" style={{ color: theme.danger }} />
             Eliminar Servicio
           </Button>
         )}
       </AlertDialogTrigger>
 
-      <AlertDialogContent>
+      <AlertDialogContent
+        style={{
+          backgroundColor: theme.bgCard,
+          color: theme.textPrimary,
+          borderColor: theme.border,
+        }}
+      >
         <AlertDialogHeader>
-          <AlertDialogTitle className="text-black">
+          <AlertDialogTitle style={{ color: theme.textPrimary }}>
             ¿Seguro que querés eliminar este servicio?
           </AlertDialogTitle>
-          <AlertDialogDescription>
+          <AlertDialogDescription style={{ color: theme.textSecondary }}>
             Esta acción no se puede deshacer. Los datos de este servicio serán
             eliminados permanentemente.
           </AlertDialogDescription>
         </AlertDialogHeader>
 
         <AlertDialogFooter>
-          <AlertDialogCancel disabled={loading} className="text-black">
+          <AlertDialogCancel
+            disabled={loading}
+            style={{ color: theme.textPrimary }}
+          >
             Cancelar
           </AlertDialogCancel>
 
           <Button
             onClick={handleConfirmDelete}
             disabled={loading}
-            variant="destructive"
-            className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            className="flex items-center gap-2"
+            style={{
+              backgroundColor: theme.danger,
+              color: theme.dangerText,
+              borderColor: theme.danger,
+            }}
           >
             {loading ? (
               <>

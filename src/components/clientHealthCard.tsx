@@ -1,14 +1,25 @@
 "use client";
 
+import useTheme from "@/hooks/useTheme";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { IClient } from "@/models/Clients.schema";
 
 export default function ClientHealthCard({ client }: { client: IClient }) {
+  const { theme } = useTheme();
+
   return (
-    <Card className="w-full rounded-2xl shadow-sm">
-      <CardHeader className="">
-        <CardTitle className="text-lg">Información de salud</CardTitle>
+    <Card
+      className="w-full rounded-2xl shadow-sm"
+      style={{ backgroundColor: theme.bgCard, borderColor: theme.border }}
+    >
+      <CardHeader
+        className=""
+        style={{ backgroundColor: theme.accentBg, color: theme.textPrimary }}
+      >
+        <CardTitle className="text-lg" style={{ color: theme.textPrimary }}>
+          Información de salud
+        </CardTitle>
       </CardHeader>
 
       <CardContent>
@@ -37,8 +48,17 @@ export default function ClientHealthCard({ client }: { client: IClient }) {
 }
 
 function HealthItem({ value }: { value?: string }) {
+  const { theme } = useTheme();
+
   return (
-    <div className="rounded-lg border bg-muted/40 p-4 text-sm leading-relaxed">
+    <div
+      className="rounded-lg border p-4 text-sm leading-relaxed"
+      style={{
+        backgroundColor: theme.accentBg,
+        borderColor: theme.border,
+        color: theme.textSecondary,
+      }}
+    >
       {value?.trim() ? value : "Sin información registrada"}
     </div>
   );

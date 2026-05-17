@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Loader2, Trash2 } from "lucide-react"; // Importa los iconos
+import useTheme from "@/hooks/useTheme";
 
 export default function DeleteClient({
   id,
@@ -27,6 +28,7 @@ export default function DeleteClient({
   const [isDeleting, setIsDeleting] = useState(false);
   const [open, setOpen] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const { theme } = useTheme();
 
   useEffect(() => {
     return () => {
@@ -72,26 +74,40 @@ export default function DeleteClient({
         )}
       </AlertDialogTrigger>
 
-      <AlertDialogContent>
+      <AlertDialogContent
+        style={{
+          backgroundColor: theme.bgCard,
+          color: theme.textPrimary,
+          borderColor: theme.border,
+        }}
+      >
         <AlertDialogHeader>
-          <AlertDialogTitle className="text-black">
+          <AlertDialogTitle style={{ color: theme.textPrimary }}>
             ¿Seguro que querés eliminar este cliente?
           </AlertDialogTitle>
-          <AlertDialogDescription>
+          <AlertDialogDescription style={{ color: theme.textSecondary }}>
             Esta acción no se puede deshacer. El cliente y toda su información
             serán eliminados permanentemente.
           </AlertDialogDescription>
         </AlertDialogHeader>
 
         <AlertDialogFooter>
-          <AlertDialogCancel onClick={handleCancel} className="text-black">
+          <AlertDialogCancel
+            onClick={handleCancel}
+            style={{ color: theme.textPrimary }}
+          >
             Cancelar
           </AlertDialogCancel>
 
           <Button
             onClick={handleDelete}
             disabled={isDeleting}
-            className="bg-destructive text-destructive-foreground hover:bg-destructive/90 flex items-center gap-2"
+            className="flex items-center gap-2"
+            style={{
+              backgroundColor: theme.danger,
+              color: theme.dangerText,
+              borderColor: theme.danger,
+            }}
           >
             {isDeleting ? (
               <>
