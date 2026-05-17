@@ -12,7 +12,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="bg-[#ffe7c7] h-screen flex flex-row text-[#43553b]">
+    <div className="bg-[#F5FFFF] h-screen flex flex-row text-[#43553b]">
       {/* Barra lateral */}
       <NavBar />
 

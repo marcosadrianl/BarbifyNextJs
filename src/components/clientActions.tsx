@@ -22,7 +22,7 @@ export default function ClientActions({ client }: { client: IClient }) {
 
         <Button
           disabled={!clientHistory}
-          className="flex flex-row w-36 rounded-full bg-[#cdaa7e] hover:bg-amber-100 cursor-pointer text-[#43553b] gap-1"
+          className="flex flex-row w-36 rounded-full bg-slate-200 hover:bg-slate-300 cursor-pointer text-slate-900 gap-1"
         >
           <History className="h-6 w-6" />
           <Link href={`/clients/${client._id}/history`}>Ver historial</Link>

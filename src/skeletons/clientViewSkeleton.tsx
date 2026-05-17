@@ -14,7 +14,7 @@ import { Plus } from "lucide-react";
 
 export default function ClientsTableSkeleton() {
   return (
-    <div className="rounded-xl border-b bg-card animate-pulse">
+    <div className="rounded-xl border-b bg-[ #F5FFFF ] animate-pulse">
       <Table>
         <TableHeader>
           <TableRow>

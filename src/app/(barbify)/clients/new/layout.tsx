@@ -11,5 +11,5 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <div className="bg-[#cebaa1] w-full overflow-auto">{children}</div>;
+  return <div className="bg-[ #F5FFFF ] w-full overflow-auto">{children}</div>;
 }

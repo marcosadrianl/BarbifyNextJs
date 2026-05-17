@@ -9,8 +9,8 @@ export function NavLink({ href, icon: Icon, children }) {
     <Link
       href={href}
       className={clsx(
-        "flex flex-row items-center hover:bg-[#f8d09b] rounded-r-2xl px-3 py-1 w-full gap-2",
-        pathname.startsWith(href) ? "bg-[#ffd49d]" : "bg-[#cdaa7e]"
+        "flex flex-row items-center hover:bg-[#E1F7F7] rounded-r-2xl px-3 py-1 w-full gap-2",
+        pathname.startsWith(href) ? "bg-slate-200" : "bg-[#E1F7F7]",
       )}
     >
       <Icon className="w-4.5 h-4.5" />

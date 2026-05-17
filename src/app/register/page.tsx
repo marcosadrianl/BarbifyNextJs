@@ -50,7 +50,7 @@ export default function RegisterPagePremium() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-[#fff7ec] to-[#f3eadb] px-4 ">
+    <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-slate-50 to-slate-100 px-4 ">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
@@ -59,10 +59,10 @@ export default function RegisterPagePremium() {
       >
         <div className="bg-white rounded-4xl shadow-2xl p-10 relative overflow-hidden text-black">
           {/* Decorative accent */}
-          <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-[#2f3e2f]/10 rounded-full" />
+          <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-slate-900/10 rounded-full" />
 
           <div className="flex flex-col items-center mb-8">
-            <div className="w-14 h-14 rounded-2xl bg-[#2f3e2f] flex items-center justify-center text-[#fff7ec] mb-4">
+            <div className="w-14 h-14 rounded-2xl bg-slate-900 flex items-center justify-center text-white mb-4">
               <UserPlus size={28} />
             </div>
             <h1 className="text-2xl font-semibold">Crear cuenta en Barbify</h1>
@@ -120,7 +120,7 @@ export default function RegisterPagePremium() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 mt-2 rounded-xl bg-[#2f3e2f] text-[#fff7ec] font-semibold hover:scale-[1.02] transition disabled:opacity-60"
+              className="w-full py-3 mt-2 rounded-xl bg-slate-900 text-white font-semibold hover:scale-[1.02] transition disabled:opacity-60"
             >
               {loading ? "Creando cuenta…" : "Crear cuenta"}
             </button>

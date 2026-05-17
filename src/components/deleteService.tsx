@@ -58,7 +58,7 @@ export default function DeleteService({
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
         {trigger ?? (
-          <Button className="flex flex-row  rounded-full bg-[#cdaa7e] hover:bg-amber-100 cursor-pointer text-[#43553b] gap-1">
+          <Button className="flex flex-row rounded-full bg-slate-200 hover:bg-slate-300 cursor-pointer text-slate-900 gap-1">
             <Trash2 className="h-4 w-4" />
             Eliminar Servicio
           </Button>

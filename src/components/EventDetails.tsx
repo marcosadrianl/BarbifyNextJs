@@ -103,7 +103,7 @@ export default function EventDetails({
                 key={event._id.toString() + index}
                 className="overflow-hidden "
               >
-                <CardHeader className="bg-[#ffd49d]/20 p-4">
+                <CardHeader className="bg-[#E1F7F7] p-4">
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
                       <Link

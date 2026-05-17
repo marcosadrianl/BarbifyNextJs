@@ -44,7 +44,7 @@ export function FeatureGate({
         <div className="absolute inset-0 flex items-center justify-center bg-black/10 backdrop-blur-[1px] rounded-lg opacity-0 group-hover:opacity-100 transition-opacity">
           <Link
             href="/subscription"
-            className="flex items-center gap-2 bg-amber-500 text-white px-4 py-2 rounded-lg font-medium hover:bg-amber-600 transition-colors"
+            className="flex items-center gap-2 bg-slate-900 text-white px-4 py-2 rounded-lg font-medium hover:bg-slate-700 transition-colors"
           >
             <Lock className="h-4 w-4" />
             Upgrade a Premium

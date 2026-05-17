@@ -33,7 +33,7 @@ export default function UserButton() {
         </button>
         <button
           onClick={() => router.push("/signup")}
-          className="px-4 py-2 bg-[#ffd49d] text-black font-semibold rounded-md hover:bg-[#ffc570] transition"
+          className="px-4 py-2 bg-slate-200 text-slate-900 font-semibold rounded-md hover:bg-slate-300 transition"
         >
           Registrarse
         </button>

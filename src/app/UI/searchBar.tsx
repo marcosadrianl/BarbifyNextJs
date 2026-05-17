@@ -10,7 +10,7 @@ export default function SearchBar() {
   const handleSearch = () => {
     if (query.trim()) {
       router.push(
-        `barbify/clients?page=1&limit=10&search=${encodeURIComponent(query)}`
+        `barbify/clients?page=1&limit=10&search=${encodeURIComponent(query)}`,
       );
     }
   };
@@ -28,7 +28,7 @@ export default function SearchBar() {
         onChange={(e) => setQuery(e.target.value)}
         onKeyDown={handleKeyDown}
         placeholder="Buscar cliente..."
-        className="px-2 focus:outline-none focus:bg-amber-50 focus:text-black  rounded-l-3xl w-64"
+        className="px-2 focus:outline-none focus:bg-[#E1F7F7] focus:text-slate-900 rounded-l-3xl w-64"
       />
       <button
         type="button"

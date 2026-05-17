@@ -121,9 +121,9 @@ export default function ClientServicesList({
                   </div>
 
                   {/* Notas con estilo de post-it suave */}
-                  <div className="flex items-start gap-2 p-3 bg-amber-100/50 rounded-lg border border-amber-200/50">
-                    <StickyNote className="h-4 w-4 text-amber-600 mt-0.5" />
-                    <p className="text-sm text-amber-800 italic leading-snug">
+                  <div className="flex items-start gap-2 p-3 bg-[#E1F7F7]/70 rounded-lg border border-slate-200/50">
+                    <StickyNote className="h-4 w-4 text-slate-600 mt-0.5" />
+                    <p className="text-sm text-slate-700 italic leading-snug">
                       {service.serviceNotes || "Sin observaciones adicionales."}
                     </p>
                   </div>

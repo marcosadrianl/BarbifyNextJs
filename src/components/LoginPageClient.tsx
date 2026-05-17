@@ -31,7 +31,7 @@ export default function LoginPageClient() {
         onChange={(e) => setEmail(e.target.value)}
         required
         autoFocus
-        className="px-2 focus:outline-none focus:bg-amber-50 focus:text-black"
+        className="px-2 focus:outline-none focus:bg-[#E1F7F7] focus:text-slate-900"
       />
       <input
         type="password"
@@ -39,11 +39,11 @@ export default function LoginPageClient() {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         required
-        className="px-2 focus:outline-none focus:bg-amber-50 focus:text-black"
+        className="px-2 focus:outline-none focus:bg-[#E1F7F7] focus:text-slate-900"
       />
       <button
         type="submit"
-        className="cursor-pointer p-4 bg-amber-300 hover:bg-amber-800"
+        className="cursor-pointer p-4 bg-slate-900 hover:bg-slate-700 text-white"
       >
         Ingresar
       </button>

@@ -13,7 +13,7 @@ export default function AccountLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="bg-[#ffe7c7] flex flex-row h-screen text-black">
+    <div className="bg-[#F5FFFF] flex flex-row h-screen text-black">
       <NavBar />
       <div className="flex flex-col w-full h-full">
         {/* Barra superior fija */}
@@ -26,7 +26,7 @@ export default function AccountLayout({
           <aside className="w-1/3 overflow-auto no-scrollbar border-r border-[#cebaa1]">
             <AccountSidebar />
           </aside>
-          <div className="flex flex-col h-full bg-[#ffe7c7] w-2/3">
+          <div className="flex flex-col h-full bg-[#F5FFFF] w-2/3">
             {children}
           </div>
         </div>

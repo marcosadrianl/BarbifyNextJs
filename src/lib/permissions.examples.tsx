@@ -216,7 +216,7 @@ export function NavMenu() {
       {canAccessAnalytics && <NavLink href="/analytics">Analytics</NavLink>}
 
       {!canAccessAnalytics && (
-        <NavLink href="/subscription" className="text-amber-500">
+        <NavLink href="/subscription" className="text-slate-700">
           🔒 Upgrade a Premium
         </NavLink>
       )}

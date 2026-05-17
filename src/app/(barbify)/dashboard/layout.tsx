@@ -16,7 +16,7 @@ export default function RootLayout({
 }>) {
   ServicesBootstrap();
   return (
-    <div className="bg-[#ffe7c7] h-screen flex flex-row text-[#43553b]">
+    <div className="bg-[#F5FFFF] h-screen flex flex-row text-[#43553b]">
       {/* Barra lateral */}
       <NavBar />
 
@@ -29,7 +29,7 @@ export default function RootLayout({
 
         {/* Contenido con scroll */}
         <div className="flex-1 overflow-auto">
-          <div className=" bg-[#cebaa1]">
+          <div className=" bg-[ #F5FFFF ]">
             <div className="pt-4">
               <TrialBanner />
             </div>

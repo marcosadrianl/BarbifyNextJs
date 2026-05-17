@@ -106,7 +106,7 @@ function Feature({ icon, title, desc }: any) {
       viewport={{ once: true }}
       className="bg-white rounded-3xl p-8 shadow-md"
     >
-      <div className="w-12 h-12 rounded-2xl bg-[#2f3e2f]/10 flex items-center justify-center mb-4 text-[#2f3e2f]">
+      <div className="w-12 h-12 rounded-2xl bg-slate-900/10 flex items-center justify-center mb-4 text-slate-900">
         {icon}
       </div>
       <h3 className="font-semibold text-lg mb-2">{title}</h3>
@@ -123,7 +123,7 @@ function Plan({ title, price, features, highlight = false }: any) {
       whileInView="visible"
       viewport={{ once: true }}
       className={`rounded-3xl p-10 shadow-lg w-1/2 mx-auto ${
-        highlight ? "bg-[#2f3e2f] text-[#fff7ec]" : "bg-white"
+        highlight ? "bg-slate-900 text-white" : "bg-white"
       }`}
     >
       <h3 className="text-2xl font-semibold mb-2">{title}</h3>
@@ -137,8 +137,8 @@ function Plan({ title, price, features, highlight = false }: any) {
         href="/register"
         className={`px-6 py-3 rounded-full font-semibold inline-block ${
           highlight
-            ? "bg-[#fff7ec] text-[#2f3e2f]"
-            : "bg-[#2f3e2f] text-[#fff7ec]"
+            ? "bg-[ #F5FFFF ] text-slate-900"
+            : "bg-slate-900 text-white"
         }`}
       >
         Comienza hoy por $34.000/mes
@@ -157,7 +157,7 @@ function BarbifyRequirements({ titles }: any) {
 
   return (
     <section id="requisitos" className="py-28">
-      <div className="max-w-5xl mx-auto px-6 text-left text-[#2f3e2f]">
+      <div className="max-w-5xl mx-auto px-6 text-left text-slate-900">
         <motion.h2
           variants={fadeUp}
           initial="hidden"
@@ -192,8 +192,8 @@ function BarbifyRequirements({ titles }: any) {
                     animate={
                       isChecked
                         ? {
-                            backgroundColor: "#f3eadb",
-                            borderColor: "#fff7ec",
+                            backgroundColor: "#e2e8f0",
+                            borderColor: "#e2e8f0",
                             scale: 1.02,
                           }
                         : {
@@ -211,8 +211,8 @@ function BarbifyRequirements({ titles }: any) {
                       animate={
                         isChecked
                           ? {
-                              backgroundColor: "#2f3e2f",
-                              borderColor: "#fff7ec",
+                              backgroundColor: "#0f172a",
+                              borderColor: "#e2e8f0",
                             }
                           : {
                               backgroundColor: "#f9fafb",
@@ -252,18 +252,18 @@ function BarbifyRequirements({ titles }: any) {
                     </motion.span>
 
                     {/* Text */}
-                    <div className="flex flex-col text-[#2f3e2f]">
+                    <div className="flex flex-col text-slate-900">
                       <motion.span
                         animate={
                           isChecked
-                            ? { color: "#2f3e2f" }
-                            : { color: "#2f3e2f" }
+                            ? { color: "#0f172a" }
+                            : { color: "#0f172a" }
                         }
                         className="font-semibold text-base leading-tight"
                       >
                         {req.label}
                       </motion.span>
-                      <span className="text-sm text-[#2f3e2f]/40">
+                      <span className="text-sm text-slate-500">
                         {req.sublabel}
                       </span>
                     </div>
@@ -307,7 +307,7 @@ function BarbifyRequirements({ titles }: any) {
                 className="px-6 py-5 text-center"
                 style={{
                   background:
-                    "linear-gradient(120deg, #fff7ec 0%, #f3eadb 50%, #fff7ec 100%)",
+                    "linear-gradient(120deg, #f8fafc 0%, #e2e8f0 50%, #f8fafc 100%)",
                 }}
               >
                 <motion.div
@@ -317,10 +317,10 @@ function BarbifyRequirements({ titles }: any) {
                 >
                   ¡Genial!
                 </motion.div>
-                <p className="font-bold text-[#2f3e2f] text-xl leading-snug">
+                <p className="font-bold text-slate-900 text-xl leading-snug">
                   Podés usar Barbify
                 </p>
-                <p className="text-[#2f3e2f] text-sm mt-1">
+                <p className="text-slate-600 text-sm mt-1">
                   Tenés todo lo que necesitás para empezar 🚀
                 </p>
               </div>
@@ -344,10 +344,10 @@ export default function BarbifyLanding() {
 
   if (status === "loading") {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#fff7ec]">
+      <div className="min-h-screen flex items-center justify-center bg-[ #F5FFFF ]">
         <div className="text-center">
           {/* <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#2f3e2f] mx-auto mb-4"></div> */}
-          <p className="text-[#2f3e2f]">Cargando...</p>
+          <p className="text-slate-900">Cargando...</p>
         </div>
       </div>
     );
@@ -355,10 +355,10 @@ export default function BarbifyLanding() {
 
   return (
     <div
-      className={`${montserrat.className} bg-[#fff7ec] text-[#2f3e2f] overflow-hidden`}
+      className={`${montserrat.className} bg-[ #F5FFFF ] text-slate-900 overflow-hidden`}
     >
       {/* NAVBAR */}
-      <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur bg-[#fff7ec]/80 border-b border-black/5">
+      <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur bg-[ #F5FFFF ]/80 border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-6 md:px-6 h-16 flex items-center justify-between">
           <span className={`${titles.className} text-3xl select-none`}>
             Barbify
@@ -371,7 +371,7 @@ export default function BarbifyLanding() {
           </nav>
           <Link
             href="/login"
-            className="px-5 py-2 rounded-full bg-[#2f3e2f] text-[#fff7ec] text-sm font-semibold hover:scale-105 transition"
+            className="px-5 py-2 rounded-full bg-slate-900 text-white text-sm font-semibold hover:scale-105 transition"
           >
             Ingresar
           </Link>
@@ -401,13 +401,13 @@ export default function BarbifyLanding() {
             <div className="flex gap-4">
               <Link
                 href="/register"
-                className="px-6 py-3 rounded-full bg-[#2f3e2f] text-[#fff7ec] font-semibold hover:scale-105 transition"
+                className="px-6 py-3 rounded-full bg-slate-900 text-white font-semibold hover:scale-105 transition"
               >
                 Probar Barbify
               </Link>
               <Link
                 href="#why"
-                className="px-6 py-3 rounded-full border border-black/20 font-medium hover:bg-black/5 transition"
+                className="px-6 py-3 rounded-full border border-slate-200 font-medium hover:bg-[#E1F7F7] transition"
               >
                 Ver más
               </Link>
@@ -417,7 +417,7 @@ export default function BarbifyLanding() {
       </section>
 
       {/* FEATURES */}
-      <section id="features" className="py-28 bg-[#f3eadb]">
+      <section id="features" className="py-28 bg-[#E1F7F7]">
         <div className="max-w-7xl mx-auto px-6">
           <motion.h2
             variants={fadeUp}
@@ -486,13 +486,13 @@ export default function BarbifyLanding() {
       </section>
 
       {/* break */}
-      <section className="py-4 bg-[#f3eadb]"></section>
+      <section className="py-4 bg-[#E1F7F7]"></section>
 
       {/* REQUIREMENTS */}
       <BarbifyRequirements titles={titles} />
 
       {/* PRICING */}
-      <section id="pricing" className="py-28 bg-[#f3eadb]">
+      <section id="pricing" className="py-28 bg-[#E1F7F7]">
         <div className="max-w-6xl mx-auto px-6 text-center">
           <h2 className={`${titles.className} text-4xl mb-14`}>
             Un solo plan, acceso total

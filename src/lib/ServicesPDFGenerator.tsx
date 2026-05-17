@@ -366,7 +366,7 @@ const ServicesPDFGenerator = ({
           <button
             onClick={generatePDF}
             disabled={loading}
-            className="flex-1 bg-[#cdaa7e] hover:bg-[#ffd49d] disabled:bg-gray-400 text-[#273023] hover:text-[#43553b] font-semibold py-3 px-6 rounded-lg flex items-center justify-center gap-2 transition-colors"
+            className="flex-1 bg-slate-200 hover:bg-slate-300 disabled:bg-gray-400 text-slate-900 hover:text-slate-900 font-semibold py-3 px-6 rounded-lg flex items-center justify-center gap-2 transition-colors"
           >
             {loading ? (
               <>

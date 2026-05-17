@@ -83,7 +83,7 @@ function ImageSelector({
             className="rounded-lg object-cover"
           />
           {value === img.src && (
-            <Badge className="absolute -top-2 -right-2 bg-[#ffd49d] text-black hover:bg-[#ffc570]">
+            <Badge className="absolute -top-2 -right-2 bg-slate-200 text-slate-900 hover:bg-slate-300">
               ✓
             </Badge>
           )}
@@ -480,7 +480,7 @@ export default function CreateClientForm() {
                 <Button
                   type="submit"
                   disabled={isSubmitting}
-                  className="bg-[#ffd49d] text-black hover:bg-[#ffc570]"
+                  className="bg-slate-900 text-white hover:bg-slate-700"
                 >
                   {isSubmitting ? "Creando..." : "Crear Cliente"}
                 </Button>

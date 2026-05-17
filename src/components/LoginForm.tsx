@@ -84,7 +84,7 @@ export default function LoginFormPremium() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center text-black bg-linear-to-br from-[#fff7ec] to-[#f3eadb] px-4 w-full">
+    <div className="min-h-screen flex items-center justify-center text-slate-900 bg-linear-to-br from-slate-50 to-slate-100 px-4 w-full">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
@@ -93,10 +93,10 @@ export default function LoginFormPremium() {
       >
         <div className="bg-white rounded-4xl shadow-2xl p-10 relative overflow-hidden">
           {/* Decorative accent */}
-          <div className="absolute -top-20 -right-20 w-40 h-40 bg-[#2f3e2f]/10 rounded-full" />
+          <div className="absolute -top-20 -right-20 w-40 h-40 bg-slate-900/10 rounded-full" />
 
           <div className="flex flex-col items-center mb-8">
-            <div className="w-14 h-14 rounded-2xl bg-[#2f3e2f] flex items-center justify-center text-[#fff7ec] mb-4">
+            <div className="w-14 h-14 rounded-2xl bg-slate-900 flex items-center justify-center text-white mb-4">
               <Scissors size={28} />
             </div>
             <h1 className="text-2xl font-semibold">Bienvenido a Barbify</h1>
@@ -113,7 +113,7 @@ export default function LoginFormPremium() {
                 required
                 autoComplete="email"
                 placeholder="tu@email.com"
-                className="w-full px-4 py-3 rounded-xl border border-black/10 focus:outline-none focus:ring-2 focus:ring-[#2f3e2f]/30"
+                className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-900/30"
               />
             </div>
 
@@ -128,7 +128,7 @@ export default function LoginFormPremium() {
                 required
                 autoComplete="current-password"
                 placeholder="••••••••"
-                className="w-full px-4 py-3 rounded-xl border border-black/10 focus:outline-none focus:ring-2 focus:ring-[#2f3e2f]/30"
+                className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-900/30"
               />
             </div>
 
@@ -141,7 +141,7 @@ export default function LoginFormPremium() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 rounded-xl bg-[#2f3e2f] text-[#fff7ec] font-semibold hover:scale-[1.02] transition disabled:opacity-60"
+              className="w-full py-3 rounded-xl bg-slate-900 text-white font-semibold hover:scale-[1.02] transition disabled:opacity-60"
             >
               {loading ? "Ingresando…" : "Ingresar"}
             </button>

@@ -47,7 +47,7 @@ export default async function Page() {
   }
 
   return (
-    <div className="flex flex-col gap-4 p-4 bg-[#cebaa1]">
+    <div className="flex flex-col gap-4 p-4 bg-[ #F5FFFF ]">
       {hasFeature(user, "timeCheck") && <TimeCheckDashboard />}
 
       <div className="">

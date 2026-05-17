@@ -11,7 +11,7 @@ export default function SearchBar() {
   const handleSearch = () => {
     if (query.trim()) {
       router.push(
-        `/clients?page=1&limit=10&search=${encodeURIComponent(query)}`
+        `/clients?page=1&limit=10&search=${encodeURIComponent(query)}`,
       );
     }
   };
@@ -33,7 +33,7 @@ export default function SearchBar() {
           placeholder="Buscar cliente..."
           spellCheck={false}
           autoComplete="off"
-          className="px-2 focus:outline-none focus:bg-amber-50 focus:text-black rounded-l-xl w-64"
+          className="px-2 focus:outline-none focus:bg-[#E1F7F7] focus:text-slate-900 rounded-l-xl w-64"
         />
         <button
           type="submit" // ✅ ahora sí

@@ -52,17 +52,17 @@ export function ManualSubscriptionBanner({
     <Alert
       className={`${
         isWarning
-          ? "bg-amber-50 border-amber-200"
-          : "bg-green-50 border-green-200"
+          ? "bg-[#E1F7F7] border-slate-200"
+          : "bg-emerald-50 border-emerald-200"
       }`}
     >
       {isWarning ? (
-        <Clock className="h-4 w-4 text-amber-600" />
+        <Clock className="h-4 w-4 text-slate-700" />
       ) : (
         <CheckCircle className="h-4 w-4 text-green-600" />
       )}
       <AlertDescription
-        className={isWarning ? "text-amber-800" : "text-green-800"}
+        className={isWarning ? "text-slate-900" : "text-emerald-800"}
       >
         {isWarning ? (
           <>

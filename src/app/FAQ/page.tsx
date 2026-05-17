@@ -457,7 +457,7 @@ const FAQ_SECTIONS: FaqSection[] = [
 export default function FAQ() {
   return (
     <>
-      <section className="flex flex-col bg-[#ffe7c7] text-[#43553b]">
+      <section className="flex flex-col bg-[#F5FFFF] text-[#43553b]">
         <div className="w-full flex flex-col md:flex-row p-4 border-b border-amber-950">
           <p className="mx-auto text-3xl md:text-4xl lg:text-5xl">
             Centro de ayuda y preguntas frecuentes

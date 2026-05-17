@@ -65,7 +65,7 @@ export function AccountSidebar() {
         </span>
       </Link>
 
-      <Separator className="mt-4 mb-4 w-3/5 mx-auto bg-[#cebaa1]" />
+      <Separator className="mt-4 mb-4 w-3/5 mx-auto bg-[ #F5FFFF ]" />
 
       <Link
         href="/terminos-y-condiciones"

@@ -152,7 +152,7 @@ export default function NewServiceModal() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className="flex flex-row w-36 rounded-full bg-[#cdaa7e] hover:bg-amber-100 cursor-pointer text-[#43553b] gap-1">
+        <Button className="flex flex-row w-36 rounded-full bg-slate-200 hover:bg-slate-300 cursor-pointer text-slate-900 gap-1">
           <Plus className="w-6 h-6" />
           <span>Nuevo Servicio</span>
         </Button>

@@ -62,7 +62,7 @@ export default async function ServiceList({
 
         <div className="flex flex-col gap-3">
           {services.length === 0 ? (
-            <div className="py-8 text-center bg-slate-50 rounded-2xl border border-dashed border-slate-300">
+            <div className="py-8 text-center bg-[ #F5FFFF ] rounded-2xl border border-dashed border-slate-300">
               <p className="text-sm text-slate-500">
                 No hay servicios registrados aún
               </p>
@@ -74,7 +74,7 @@ export default async function ServiceList({
               .map((service: IService, index) => (
                 <div
                   key={index}
-                  className="group p-3 bg-slate-50 hover:bg-orange-50 transition-colors rounded-2xl border border-slate-100"
+                  className="group p-3 bg-[ #F5FFFF ] hover:bg-orange-50 transition-colors rounded-2xl border border-slate-100"
                 >
                   <div className="flex flex-row justify-between items-start mb-1">
                     <p className="text-sm font-bold text-slate-800 capitalize">

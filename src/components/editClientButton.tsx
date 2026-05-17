@@ -11,7 +11,7 @@ export default function EditClientButton({
   clientId: string | unknown;
 }) {
   return (
-    <Button className="flex flex-row w-36 rounded-full bg-[#cdaa7e] hover:bg-amber-100 cursor-pointer text-[#43553b] gap-1">
+    <Button className="flex flex-row w-36 rounded-full bg-slate-200 hover:bg-slate-300 cursor-pointer text-slate-900 gap-1">
       <UserRoundPen />
       <Link href={`/clients/${clientId}/edit`}>Editar Cliente</Link>
     </Button>
