@@ -9,6 +9,7 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import { ChevronDown, ChevronUp } from "lucide-react";
+import useTheme from "@/hooks/useTheme";
 
 type LeanService = {
   _id: string;
@@ -29,18 +30,25 @@ const Stat = ({
   value: string;
   highlight?: boolean;
   emphasize?: boolean;
-}) => (
-  <div className="flex items-center justify-between">
-    <p className="text-sm text-gray-400">{label}</p>
-    <p
-      className={`font-semibold ${
-        highlight ? "text-3xl" : emphasize ? "text-xl text-primary" : "text-lg"
-      }`}
-    >
-      {value}
-    </p>
-  </div>
-);
+}) => {
+  const { theme } = useTheme();
+
+  return (
+    <div className="flex items-center justify-between">
+      <p style={{ color: theme.textSecondary }} className="text-sm">
+        {label}
+      </p>
+      <p
+        className={`font-semibold ${
+          highlight ? "text-3xl" : emphasize ? "text-xl" : "text-lg"
+        }`}
+        style={{ color: emphasize ? theme.primary : theme.textPrimary }}
+      >
+        {value}
+      </p>
+    </div>
+  );
+};
 
 const TotalServices = ({
   services,
@@ -49,6 +57,7 @@ const TotalServices = ({
   services: LeanService[];
   defautlState: boolean;
 }) => {
+  const { theme } = useTheme();
   const [totalServices, setTotalServices] = useState(0);
   const [moda, setModa] = useState("");
   const [promedio, setPromedio] = useState("$0.00");
@@ -75,7 +84,7 @@ const TotalServices = ({
 
     const maxFrecuencia = Math.max(...Object.values(frecuencia));
     const candidatos = Object.keys(frecuencia).filter(
-      (name) => frecuencia[name] === maxFrecuencia
+      (name) => frecuencia[name] === maxFrecuencia,
     );
 
     setModa(candidatos.length === 1 ? candidatos[0] : "");
@@ -83,7 +92,7 @@ const TotalServices = ({
     // Promedio
     const suma = services.reduce(
       (acc, { servicePrice }) => acc + (servicePrice / 100 || 0),
-      0
+      0,
     );
 
     const promedioCalculado = suma / total;
@@ -99,32 +108,54 @@ const TotalServices = ({
   }, [services]);
 
   return (
-    <Card className="w-full mb-12 ">
+    <Card
+      className="w-full mb-12"
+      style={{
+        background: theme.bgCard,
+        borderColor: theme.border,
+        color: theme.textPrimary,
+      }}
+    >
       <CardHeader>
         <div className="flex flex-row justify-between">
           <div>
-            <CardTitle className="text-2xl">Resumen de servicios</CardTitle>
-            <CardDescription>
+            <CardTitle
+              className="text-2xl"
+              style={{ color: theme.textPrimary }}
+            >
+              Resumen de servicios
+            </CardTitle>
+            <CardDescription style={{ color: theme.textSecondary }}>
               Estadísticas generales del cliente
             </CardDescription>
           </div>
           {/* Botón para desplegar */}
           <button
             onClick={() => setOpen(!open)}
-            className="p-2 rounded-md hover:bg-accent transition"
+            className="p-2 rounded-md transition"
+            style={{
+              background: open ? theme.accentBg : "transparent",
+              color: theme.textPrimary,
+            }}
           >
             {open ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
           </button>
         </div>
       </CardHeader>
       {open && (
-        <CardContent className="space-y-4 h-44">
+        <CardContent
+          className="space-y-4 h-44"
+          style={{ color: theme.textPrimary }}
+        >
           <Stat
             label="Total de servicios"
             value={totalServices.toString()}
             highlight
           />
-          <div className="border-t my-2" />
+          <div
+            className="border-t my-2"
+            style={{ borderColor: theme.border }}
+          />
           <Stat label="Lo más solicitado" value={moda || "Sin preferencias"} />
           <Stat label="Promedio por servicio" value={promedio} />
           <Stat label="Total gastado" value={totalGastado} emphasize />

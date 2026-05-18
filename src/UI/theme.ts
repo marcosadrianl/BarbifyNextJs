@@ -20,6 +20,9 @@ export const lightTheme = {
 
   // Bordes y separadores
   border: "#e2e8f0", // Líneas divisorias finas y bordes de inputs
+
+  //App Name
+  appName: "#2f3e2f",
 };
 
 export const darkTheme = {
@@ -44,4 +47,7 @@ export const darkTheme = {
 
   // Bordes y separadores
   border: "#334155", // Bordes sutiles para modo oscuro
+
+  //App Name
+  appName: "#a3bffa",
 };

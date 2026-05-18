@@ -5,8 +5,8 @@
 @custom-variant dark (&:is(.dark *));
 
 body {
-  background-color: rgb(248, 250, 252);
-  color: rgb(15, 23, 42);
+  background-color: var(--bg);
+  color: var(--text-primary);
   font-family: var(--font-poppins), sans-serif;
 }
 

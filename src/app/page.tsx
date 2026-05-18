@@ -342,16 +342,16 @@ export default function BarbifyLanding() {
     }
   }, [status, session, router]);
 
-  if (status === "loading") {
+  /*  if (status === "loading") {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[ #F5FFFF ]">
         <div className="text-center">
-          {/* <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#2f3e2f] mx-auto mb-4"></div> */}
+<div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#2f3e2f] mx-auto mb-4"></div>
           <p className="text-slate-900">Cargando...</p>
-        </div>
-      </div>
-    );
-  }
+        //</div>
+     // </div>
+    //);
+  //} */
 
   return (
     <div

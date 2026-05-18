@@ -1,6 +1,8 @@
 "use client";
 
 import { Calendar, Clock, DollarSign, StickyNote } from "lucide-react";
+import { format } from "date-fns";
+import { es } from "date-fns/locale";
 import DeleteService from "./deleteService"; // Ajusta la ruta según tu carpeta
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
@@ -46,28 +48,20 @@ export default function ClientServicesList({
   }
 
   return (
-    <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-1">
+    <div
+      className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-1"
+      style={{ backgroundColor: theme.bg }}
+    >
       {services.map((service) => {
         const localDate = new Date(service.serviceDate);
         const localEndServiceDate = new Date(
           localDate.getTime() + service.serviceDuration * 60000,
         );
-        const formattedDate = localDate.toLocaleDateString("es-AR", {
-          day: "2-digit",
-          month: "2-digit",
-          year: "numeric",
+        const formattedDate = format(localDate, "dd/MM/yyyy", { locale: es });
+        const formattedTime = format(localDate, "hh:mm a", { locale: es });
+        const formattedEndTime = format(localEndServiceDate, "hh:mm a", {
+          locale: es,
         });
-        const formattedTime = localDate.toLocaleTimeString("es-AR", {
-          hour: "2-digit",
-          minute: "2-digit",
-        });
-        const formattedEndTime = localEndServiceDate.toLocaleTimeString(
-          "es-AR",
-          {
-            hour: "2-digit",
-            minute: "2-digit",
-          },
-        );
 
         return (
           <Card

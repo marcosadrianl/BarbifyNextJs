@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import "./globals.css";
 import Providers from "@/components/providers";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -20,21 +19,6 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body className="antialiased">
-        {/* Google Tag */}
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=AW-17942326426"
-          strategy="afterInteractive"
-        />
-
-        <Script id="google-ads" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'AW-17942326426');
-          `}
-        </Script>
-
         <Providers>{children}</Providers>
         <SpeedInsights />
       </body>

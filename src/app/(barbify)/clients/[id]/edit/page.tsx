@@ -10,6 +10,7 @@ import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
+import useTheme from "@/hooks/useTheme";
 
 // Shadcn UI Components
 import { Button } from "@/components/ui/button";
@@ -83,18 +84,22 @@ function ImageSelector({
   value: string;
   onChange: (v: string) => void;
 }) {
+  const { theme } = useTheme();
   return (
     <div className="flex h-24 gap-3 overflow-x-auto p-2">
       {imageOptions.map((img) => (
         <button
           type="button"
           key={img.src}
-          className={`relative shrink-0 aspect-square rounded-lg border-2 transition-all hover:scale-105 ${
-            value === img.src
-              ? "border-[#ffd49d] ring-2 ring-[#ffd49d] ring-offset-2"
-              : "border-gray-200 hover:border-gray-300"
-          }`}
+          className={`relative shrink-0 aspect-square rounded-lg transition-all hover:scale-105`}
           onClick={() => onChange(img.src)}
+          style={{
+            borderStyle: "solid",
+            borderWidth: 2,
+            borderColor: value === img.src ? theme.primary : theme.border,
+            boxShadow:
+              value === img.src ? `0 0 0 3px ${theme.primary}66` : undefined,
+          }}
         >
           <Image
             src={img.src}
@@ -104,7 +109,10 @@ function ImageSelector({
             className="rounded-lg object-cover"
           />
           {value === img.src && (
-            <Badge className="absolute -top-2 -right-2 bg-slate-200 text-slate-900 hover:bg-slate-300">
+            <Badge
+              className="absolute -top-2 -right-2"
+              style={{ background: theme.primary, color: theme.accentText }}
+            >
               ✓
             </Badge>
           )}
@@ -119,9 +127,13 @@ export default function EditClientFormPage() {
   const router = useRouter();
   const clientId = params.id as string;
 
+  const { theme } = useTheme();
+
   const [serverError, setServerError] = useState<string | null>(null);
   const [loadingData, setLoadingData] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [hoverSave, setHoverSave] = useState(false);
+  const [hoverCancel, setHoverCancel] = useState(false);
 
   const form = useForm<ClientFormData>({
     resolver: zodResolver(ClientSchema),
@@ -129,6 +141,16 @@ export default function EditClientFormPage() {
       clientImage: "/default-client.png",
     },
   });
+
+  const inputStyle: React.CSSProperties = {
+    background: theme.bgCard,
+    color: theme.textPrimary,
+    borderColor: theme.border,
+  };
+
+  const headingStyle: React.CSSProperties = { color: theme.textPrimary };
+
+  const separatorStyle: React.CSSProperties = { borderColor: theme.border };
 
   // Carga de datos iniciales
   useEffect(() => {
@@ -190,278 +212,64 @@ export default function EditClientFormPage() {
 
   if (loadingData) {
     return (
-      <div className="h-screen w-full flex items-center justify-center">
+      <div
+        className="h-screen w-full flex items-center justify-center"
+        style={{ background: theme.bg }}
+      >
         <div className="flex flex-col items-center gap-2">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-amber-500"></div>
-          <p className="text-gray-500">Cargando datos del cliente...</p>
+          <div
+            className="animate-spin rounded-full h-8 w-8 border-b-2"
+            style={{ borderColor: theme.primary }}
+          ></div>
+          <p style={{ color: theme.textSecondary }}>
+            Cargando datos del cliente...
+          </p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="container mx-auto py-2 px-12">
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-3xl">Editar Cliente</CardTitle>
-          <CardDescription>
-            Actualiza la información del perfil del cliente
-          </CardDescription>
-        </CardHeader>
+    <div
+      className="w-full py-2"
+      style={{ background: theme.bg, color: theme.textPrimary }}
+    >
+      <CardHeader style={{ color: theme.textPrimary }}>
+        <CardTitle className="text-3xl ">Editar Cliente</CardTitle>
+        <CardDescription>
+          Actualiza la información del perfil del cliente
+        </CardDescription>
+      </CardHeader>
 
-        <CardContent>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-              {/* Información Básica */}
-              <div className="space-y-4">
-                <h3 className="text-lg font-semibold">Información Básica</h3>
-                <Separator />
+      <CardContent
+        className="w-full"
+        style={{
+          background: theme.bgCard,
+          color: theme.textPrimary,
+          borderColor: theme.border,
+        }}
+      >
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            {/* Información Básica */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold" style={headingStyle}>
+                Información Básica
+              </h3>
+              <Separator style={separatorStyle} />
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <FormField
-                    control={form.control}
-                    name="clientName"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Nombre *</FormLabel>
-                        <FormControl>
-                          <Input placeholder="Nombre" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name="clientLastName"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Apellido *</FormLabel>
-                        <FormControl>
-                          <Input placeholder="Apellido" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <FormField
                   control={form.control}
-                  name="clientImage"
+                  name="clientName"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Foto de Perfil</FormLabel>
-                      <FormControl>
-                        <ImageSelector
-                          value={field.value || "/default-client.png"}
-                          onChange={field.onChange}
-                        />
-                      </FormControl>
-                      <FormDescription>
-                        Selecciona una imagen para el cliente
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-
-              {/* Información Personal */}
-              <div className="space-y-4">
-                <h3 className="text-lg font-semibold">Información Personal</h3>
-                <Separator />
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <FormField
-                    control={form.control}
-                    name="clientSex"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Género *</FormLabel>
-                        <Select
-                          onValueChange={field.onChange}
-                          value={field.value}
-                        >
-                          <FormControl>
-                            <SelectTrigger>
-                              <SelectValue placeholder="Selecciona género" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            <SelectItem value="M">Masculino</SelectItem>
-                            <SelectItem value="F">Femenino</SelectItem>
-                            <SelectItem value="O">Otro</SelectItem>
-                          </SelectContent>
-                        </Select>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name="clientBirthdate"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Fecha de Nacimiento</FormLabel>
-                        <FormControl>
-                          <Input type="date" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-              </div>
-
-              {/* Datos de Contacto */}
-              <div className="space-y-4">
-                <h3 className="text-lg font-semibold">Datos de Contacto</h3>
-                <Separator />
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <FormField
-                    control={form.control}
-                    name="clientPhone"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Teléfono *</FormLabel>
-                        <FormControl>
-                          <Input placeholder="Teléfono" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name="clientAddress"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Dirección</FormLabel>
-                        <FormControl>
-                          <Input placeholder="Calle 123, Ciudad" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-              </div>
-
-              {/* Datos de Cabello */}
-              <div className="space-y-4">
-                <h3 className="text-lg font-semibold">Datos de Cabello</h3>
-                <Separator />
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <FormField
-                    control={form.control}
-                    name="clientBaseColor"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Altura de Tono</FormLabel>
-                        <FormControl>
-                          <Input
-                            placeholder="Castaño, 3-4: Castaño oscuro / medio, etc"
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name="clientHairType"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Tipo de Cabello</FormLabel>
-                        <FormControl>
-                          <Input
-                            placeholder="Liso, ondulado, Tipo 3 (Rizado), etc"
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-
-                <FormField
-                  control={form.control}
-                  name="clientWhiteHairs"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Porcentaje de Cabello Blanco (%)</FormLabel>
-                      <FormControl>
-                        <div className="flex items-center gap-2 w-1/2">
-                          <Input
-                            type="number"
-                            min={0}
-                            max={100}
-                            {...field}
-                            onChange={(e) =>
-                              field.onChange(parseInt(e.target.value) || 0)
-                            }
-                          />
-                          <span className="text-gray-400">%</span>
-                        </div>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-
-              {/* Datos de Salud */}
-              <div className="space-y-4">
-                <h3 className="text-lg font-semibold">Datos de Salud</h3>
-                <Separator />
-
-                <FormField
-                  control={form.control}
-                  name="clientAllergies"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Alergias</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Alergias..." {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="clientDiseases"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Enfermedades</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Enfermedades..." {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="clientMedications"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Medicamentos</FormLabel>
+                      <FormLabel>Nombre *</FormLabel>
                       <FormControl>
                         <Input
-                          placeholder="Medicamentos actuales..."
+                          placeholder="Nombre"
                           {...field}
+                          style={inputStyle}
                         />
                       </FormControl>
                       <FormMessage />
@@ -471,16 +279,15 @@ export default function EditClientFormPage() {
 
                 <FormField
                   control={form.control}
-                  name="clientNotes"
+                  name="clientLastName"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Notas Adicionales</FormLabel>
+                      <FormLabel>Apellido *</FormLabel>
                       <FormControl>
-                        <Textarea
-                          placeholder="Notas adicionales..."
-                          className="resize-none"
-                          rows={4}
+                        <Input
+                          placeholder="Apellido"
                           {...field}
+                          style={inputStyle}
                         />
                       </FormControl>
                       <FormMessage />
@@ -489,35 +296,323 @@ export default function EditClientFormPage() {
                 />
               </div>
 
-              {/* Error del servidor */}
-              {serverError && (
-                <Alert variant="destructive">
-                  <AlertDescription>{serverError}</AlertDescription>
-                </Alert>
-              )}
+              <FormField
+                control={form.control}
+                name="clientImage"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Foto de Perfil</FormLabel>
+                    <FormControl>
+                      <ImageSelector
+                        value={field.value || "/default-client.png"}
+                        onChange={field.onChange}
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      Selecciona una imagen para el cliente
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
 
-              {/* Botones de acción */}
-              <div className="flex gap-4 justify-end">
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={() => router.back()}
-                  disabled={isSubmitting}
-                >
-                  Cancelar
-                </Button>
-                <Button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="bg-slate-900 text-white hover:bg-slate-700"
-                >
-                  {isSubmitting ? "Guardando..." : "Guardar Cambios"}
-                </Button>
+            {/* Información Personal */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold" style={headingStyle}>
+                Información Personal
+              </h3>
+              <Separator style={separatorStyle} />
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <FormField
+                  control={form.control}
+                  name="clientSex"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Género *</FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        value={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger style={inputStyle}>
+                            <SelectValue placeholder="Selecciona género" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="M">Masculino</SelectItem>
+                          <SelectItem value="F">Femenino</SelectItem>
+                          <SelectItem value="O">Otro</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="clientBirthdate"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Fecha de Nacimiento</FormLabel>
+                      <FormControl>
+                        <Input type="date" {...field} style={inputStyle} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
               </div>
-            </form>
-          </Form>
-        </CardContent>
-      </Card>
+            </div>
+
+            {/* Datos de Contacto */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold" style={headingStyle}>
+                Datos de Contacto
+              </h3>
+              <Separator style={separatorStyle} />
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <FormField
+                  control={form.control}
+                  name="clientPhone"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Teléfono *</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="Teléfono"
+                          {...field}
+                          style={inputStyle}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="clientAddress"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Dirección</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="Calle 123, Ciudad"
+                          {...field}
+                          style={inputStyle}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+            </div>
+
+            {/* Datos de Cabello */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold" style={headingStyle}>
+                Datos de Cabello
+              </h3>
+              <Separator style={separatorStyle} />
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <FormField
+                  control={form.control}
+                  name="clientBaseColor"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Altura de Tono</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="Castaño, 3-4: Castaño oscuro / medio, etc"
+                          {...field}
+                          style={inputStyle}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="clientHairType"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Tipo de Cabello</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="Liso, ondulado, Tipo 3 (Rizado), etc"
+                          {...field}
+                          style={inputStyle}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+
+              <FormField
+                control={form.control}
+                name="clientWhiteHairs"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Porcentaje de Cabello Blanco (%)</FormLabel>
+                    <FormControl>
+                      <div className="flex items-center gap-2 w-1/2">
+                        <Input
+                          type="number"
+                          min={0}
+                          max={100}
+                          {...field}
+                          onChange={(e) =>
+                            field.onChange(parseInt(e.target.value) || 0)
+                          }
+                        />
+                        <span style={{ color: theme.textSecondary }}>%</span>
+                      </div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            {/* Datos de Salud */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold" style={headingStyle}>
+                Datos de Salud
+              </h3>
+              <Separator style={separatorStyle} />
+
+              <FormField
+                control={form.control}
+                name="clientAllergies"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Alergias</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Alergias..."
+                        {...field}
+                        style={inputStyle}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="clientDiseases"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Enfermedades</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Enfermedades..."
+                        {...field}
+                        style={inputStyle}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="clientMedications"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Medicamentos</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Medicamentos actuales..."
+                        {...field}
+                        style={inputStyle}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="clientNotes"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Notas Adicionales</FormLabel>
+                    <FormControl>
+                      <Textarea
+                        placeholder="Notas adicionales..."
+                        className="resize-none"
+                        rows={4}
+                        {...field}
+                        style={inputStyle}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            {/* Error del servidor */}
+            {serverError && (
+              <Alert variant="destructive">
+                <AlertDescription>{serverError}</AlertDescription>
+              </Alert>
+            )}
+
+            {/* Botones de acción */}
+            <div className="flex gap-4 justify-end p-2">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => router.back()}
+                disabled={isSubmitting}
+                onMouseEnter={() => setHoverCancel(true)}
+                onMouseLeave={() => setHoverCancel(false)}
+                style={{
+                  borderColor: theme.border,
+                  color: theme.textPrimary,
+                  background: hoverCancel ? theme.accentBg : "transparent",
+                  transition: "background-color .15s",
+                  opacity: isSubmitting ? 0.6 : 1,
+                }}
+              >
+                Cancelar
+              </Button>
+              <Button
+                type="submit"
+                disabled={isSubmitting}
+                onMouseEnter={() => setHoverSave(true)}
+                onMouseLeave={() => setHoverSave(false)}
+                style={{
+                  background: hoverSave
+                    ? (theme.primaryHover ?? theme.primary)
+                    : theme.primary,
+                  color: theme.accentText,
+                  borderColor: theme.primary,
+                  transition: "background-color .15s",
+                  opacity: isSubmitting ? 0.6 : 1,
+                }}
+              >
+                {isSubmitting ? "Guardando..." : "Guardar Cambios"}
+              </Button>
+            </div>
+          </form>
+        </Form>
+      </CardContent>
     </div>
   );
 }

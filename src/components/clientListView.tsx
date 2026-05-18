@@ -51,7 +51,7 @@ export default function ClientListView({ clients }: { clients: IClient[] }) {
         onMouseLeave={() => setButtonBg(theme.primary)}
         style={{
           backgroundColor: buttonBg,
-          color: theme.accentText,
+          color: theme.accentBg,
           borderColor: theme.border,
         }}
       >

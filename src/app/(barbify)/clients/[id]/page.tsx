@@ -12,6 +12,7 @@ import ClientHealthCard from "@/components/clientHealthCard";
 import ServiceList from "@/components/serviceList";
 import ClientActions from "@/components/clientActions";
 import ServiceCalendarCard from "@/components/ServiceCalendarCard";
+import { lightTheme, darkTheme } from "@/UI/theme";
 
 export default async function ClientsPage({
   params,
@@ -47,16 +48,28 @@ export default async function ClientsPage({
   const servicesResult = JSON.parse(JSON.stringify(services));
 
   return (
-    <div className="flex flex-row gap-4 p-4 w-full h-fit">
-      <div className="flex flex-col gap-4 w-3/5 mx-auto">
-        <SingleClientCard client={result as IClient} />
-        <ClientActions client={result as IClient} />
-        <ClientHealthCard client={result as IClient} />
+    <>
+      <style>{`
+        :root { --page-bg: ${lightTheme.bg}; }
+        @media (prefers-color-scheme: dark) {
+          :root { --page-bg: ${darkTheme.bg}; }
+        }
+        .page-wrapper { background: var(--page-bg); width: 100%; min-height: 100vh; height: fit-content; }
+      `}</style>
+
+      <div className="page-wrapper">
+        <div className="flex flex-row gap-4 p-4 w-full h-fit">
+          <div className="flex flex-col gap-4 w-3/5 mx-auto">
+            <SingleClientCard client={result as IClient} />
+            <ClientActions client={result as IClient} />
+            <ClientHealthCard client={result as IClient} />
+          </div>
+          <div className="flex flex-col gap-4 rounded-2xl w-2/5 ">
+            <ServiceList params={Promise.resolve({ id })} />
+            <ServiceCalendarCard services={servicesResult as IService[]} />
+          </div>
+        </div>
       </div>
-      <div className="flex flex-col gap-4 rounded-2xl w-2/5 ">
-        <ServiceList params={Promise.resolve({ id })} />
-        <ServiceCalendarCard services={servicesResult as IService[]} />
-      </div>
-    </div>
+    </>
   );
 }

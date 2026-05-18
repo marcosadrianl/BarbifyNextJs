@@ -14,6 +14,7 @@ import { IUser } from "@/models/Users.type";
 import { hasFeature } from "@/lib/permissions";
 
 import ClientServiceList from "@/components/clientServiceList";
+import ThemeBackground from "@/components/ThemeBackground";
 import TotalServices from "@/components/fullServiceData";
 import { IService } from "@/models/Service.type";
 import Services from "@/models/Service.model";
@@ -64,13 +65,13 @@ export default async function ClientHistory({
   }
 
   return (
-    <div className="flex flex-row w-full gap-4 px-4 pt-4 overflow-auto">
+    <ThemeBackground className="flex flex-row w-full gap-4 px-4 pt-4 overflow-auto">
       <div className="w-2/4 overflow-auto no-scrollbar">
         <ClientServiceList services={serviceList} clientId={id} />
       </div>
       <div className="w-2/4">
         <TotalServices services={serviceList} defautlState={true} />
       </div>
-    </div>
+    </ThemeBackground>
   );
 }

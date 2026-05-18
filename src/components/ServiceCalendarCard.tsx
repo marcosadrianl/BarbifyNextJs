@@ -5,6 +5,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { IService } from "@/models/Service.type";
 import { CalendarDays } from "lucide-react";
+import useTheme from "@/hooks/useTheme";
 
 interface ServiceCalendarCardProps {
   services: IService[];
@@ -13,6 +14,7 @@ interface ServiceCalendarCardProps {
 export default function ServiceCalendarCard({
   services,
 }: ServiceCalendarCardProps) {
+  const { theme } = useTheme();
   // Obtener días con servicios
   const serviceDays = useMemo(() => {
     return services.map((service) => new Date(service.serviceDate));
@@ -34,18 +36,29 @@ export default function ServiceCalendarCard({
   };
 
   const modifiersClassNames = {
-    hasService:
-      "bg-green-100 font-bold text-green-800 hover:bg-green-200 rounded-lg",
+    hasService: "font-bold rounded-lg",
   };
 
   return (
-    <Card className="w-full">
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
-        <CardTitle className="flex items-center gap-2 text-lg">
-          <CalendarDays className="h-5 w-5 text-green-600" />
+    <Card
+      className="w-full"
+      style={{ backgroundColor: theme.bgCard, borderColor: theme.border }}
+    >
+      <CardHeader
+        className="flex flex-row items-center justify-between space-y-0 pb-4"
+        style={{ color: theme.textPrimary }}
+      >
+        <CardTitle
+          className="flex items-center gap-2 text-lg"
+          style={{ color: theme.textPrimary }}
+        >
+          <CalendarDays className="h-5 w-5" style={{ color: theme.primary }} />
           Calendario de Servicios
         </CardTitle>
-        <div className="text-sm font-medium text-slate-600">
+        <div
+          className="text-sm font-medium"
+          style={{ color: theme.textSecondary }}
+        >
           {services.length} servicio{services.length !== 1 ? "s" : ""}
         </div>
       </CardHeader>
@@ -54,13 +67,39 @@ export default function ServiceCalendarCard({
           <Calendar
             modifiers={modifiers}
             modifiersClassNames={modifiersClassNames}
+            modifiersStyles={{
+              hasService: {
+                backgroundColor: `${theme.primary}22`,
+                color: theme.primary,
+                borderRadius: "0.75rem",
+              },
+            }}
             disabled={(date) => false}
-            className="rounded-lg border border-slate-200 w-full"
+            className="rounded-lg w-full"
+            style={{
+              border: `1px solid ${theme.border}`,
+              backgroundColor: theme.bg,
+            }}
+            classNames={{
+              weekday: "text-sm text-current",
+              outside: "opacity-50 text-current",
+              disabled: "opacity-50 text-current",
+              today: "font-semibold",
+            }}
           />
         </div>
       </CardContent>
-      <div className="px-6 pb-4 flex items-center gap-3 text-xs rounded-b-lg">
-        <div className="h-3 w-3 rounded-full bg-green-100 border border-green-300"></div>
+      <div
+        className="px-6 pb-4 flex items-center gap-3 text-xs rounded-b-lg"
+        style={{ color: theme.textSecondary }}
+      >
+        <div
+          className="h-3 w-3 rounded-full"
+          style={{
+            backgroundColor: theme.accentBg,
+            border: `1px solid ${theme.border}`,
+          }}
+        ></div>
         <span>Días con servicios registrados</span>
       </div>
     </Card>

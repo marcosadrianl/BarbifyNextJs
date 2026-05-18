@@ -11,6 +11,8 @@ import { NavLink } from "@/components/NavLink"; // importa tu nuevo componente
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { usePermissions } from "@/hooks/usePermissions";
+import { useEffect, useState } from "react";
+import { lightTheme, darkTheme } from "@/UI/theme";
 
 const Titles = Alice({
   subsets: ["latin"],
@@ -22,16 +24,59 @@ export default function NavBar() {
   const { data: session } = useSession();
   const { canAccessPage } = usePermissions();
 
-  function isActiveAndIsLeveled(): boolean {
-    return session?.user?.userActive && session?.user?.userLevel! == 1
-      ? true
-      : false;
-  }
+  const [isDark, setIsDark] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const mq = window.matchMedia("(prefers-color-scheme: dark)");
+    const handle = (e: MediaQueryListEvent | MediaQueryList) => {
+      // older browsers call with MediaQueryList, newer with MediaQueryListEvent
+      // both have a 'matches' property
+      // @ts-ignore
+      setIsDark(Boolean(e.matches));
+    };
+
+    // initial
+    setIsDark(Boolean(mq.matches));
+
+    // attach listener (cross-browser)
+    if (typeof mq.addEventListener === "function") {
+      // modern
+      // @ts-ignore
+      mq.addEventListener("change", handle);
+    } else if (typeof mq.addListener === "function") {
+      // legacy
+      // @ts-ignore
+      mq.addListener(handle);
+    }
+
+    return () => {
+      if (typeof mq.removeEventListener === "function") {
+        // @ts-ignore
+        mq.removeEventListener("change", handle);
+      } else if (typeof mq.removeListener === "function") {
+        // @ts-ignore
+        mq.removeListener(handle);
+      }
+    };
+  }, []);
+
+  const theme = isDark ? darkTheme : lightTheme;
 
   return (
-    <div className="flex flex-col w-fit justify-between pr-4 text-slate-900 border-r border-slate-200">
+    <div
+      className="flex flex-col w-fit justify-between pr-4"
+      style={{
+        color: theme.textPrimary,
+        background: theme.bgSidebar,
+        borderRight: `1px solid ${theme.border}`,
+      }}
+    >
       <Link href="/">
-        <span className={`${Titles.className} text-4xl px-2 select-none`}>
+        <span
+          className={`${Titles.className} text-4xl px-2 select-none`}
+          style={{ color: theme.appName }}
+        >
           Barbify
         </span>
       </Link>
