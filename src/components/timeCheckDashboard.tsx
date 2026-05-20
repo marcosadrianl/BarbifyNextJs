@@ -1,18 +1,13 @@
 "use client";
 
 import * as React from "react";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import useTheme from "@/hooks/useTheme";
 import { useServicesStore } from "@/lib/store/services.store";
 
 export function TimeCheckDashboard() {
   const [lastUpdated, setLastUpdated] = React.useState<string | null>(null);
   const [refresh, setRefresh] = React.useState(false);
+  const { theme } = useTheme();
 
   // 🔁 Hook con refresh manual
   const loading = useServicesStore((state) => state.loading);
@@ -39,7 +34,10 @@ export function TimeCheckDashboard() {
   }, [loading, refresh, readLastUpdated]);
 
   return (
-    <div className="self-end text-xs text-gray-600/80 select-none space-x-4 flex items-center">
+    <div
+      className="self-end text-xs select-none space-x-4 flex items-center"
+      style={{ color: theme.textSecondary }}
+    >
       Ultima actualización: {lastUpdated ?? "Nunca"}
     </div>
   );

@@ -191,7 +191,7 @@ export function ClientRecurrenceCard() {
           Clientes recurrentes
         </h2>
         <div
-          className="flex items-center gap-1 px-2 py-1 rounded-full text-xs font-semibold"
+          className="flex flex-row gap-1 px-2 py-1 rounded-full text-xs font-semibold"
           style={{ backgroundColor: theme.accentBg, color: theme.textPrimary }}
         >
           {trend === "up" && (
@@ -206,7 +206,7 @@ export function ClientRecurrenceCard() {
           {variation !== 0 ? (
             `${variation > 0 ? "+" : ""}${variation.toFixed(1)}%`
           ) : (
-            <span style={{ color: theme.textSecondary }}>--</span>
+            <span style={{ color: theme.textSecondary }}></span>
           )}
         </div>
       </div>

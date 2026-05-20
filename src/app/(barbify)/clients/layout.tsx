@@ -1,6 +1,5 @@
 "use client";
 
-import "../../globals.css";
 import React from "react";
 
 import NavBar from "@/components/navBar";
@@ -12,7 +11,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="bg-[#F5FFFF] flex flex-row h-screen text-[#43553b]">
+    <div className="flex flex-row h-screen">
       <NavBar />
       <div className="flex flex-col w-full h-screen">
         <TaskBar />

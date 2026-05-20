@@ -31,6 +31,7 @@ import {
 } from "@/components/ui/select";
 import { useServicesStore } from "@/lib/store/services.store";
 import { Calendar1 } from "lucide-react";
+import useTheme from "@/hooks/useTheme";
 
 const chartConfig = {
   total: {
@@ -41,7 +42,7 @@ const chartConfig = {
 
 export function YearlyServicesChart() {
   const { services, loading } = useServicesStore();
-
+  const theme = useTheme();
   // Solución para "window is not defined" y responsividad
   const [isMobile, setIsMobile] = useState(false);
   const currentYear = new Date().getFullYear().toString();
@@ -67,7 +68,7 @@ export function YearlyServicesChart() {
       .filter(Boolean) as string[];
 
     return Array.from(new Set([currentYear, ...years])).sort((a, b) =>
-      b.localeCompare(a)
+      b.localeCompare(a),
     );
   }, [services, currentYear]);
 
@@ -107,28 +108,33 @@ export function YearlyServicesChart() {
 
   return (
     // min-w-0 es la clave para que el gráfico no desborde en flex/grid
-    <Card className="w-full min-w-0 overflow-hidden border-none shadow-none sm:border sm:shadow-sm">
-      <CardHeader className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-4 sm:space-y-0">
-        <CardTitle className="text-xl flex flex-row items-center gap-2">
-          <Calendar1 className="h-6 w-6" />
-          Servicios por Año
-        </CardTitle>
-        <CardDescription>
+    <Card className="w-1/2" style={{ backgroundColor: theme.theme.bgCard }}>
+      <CardHeader className="flex flex-row space-y-4 sm:space-y-0">
+        <span className="flex flex-row w-full items-center justify-between gap-2">
+          <CardTitle
+            className="flex flex-row items-center text-xl w-full gap-2"
+            style={{ color: theme.theme.textPrimary }}
+          >
+            <Calendar1 className="h-6 w-6" />
+            Servicios por Año
+          </CardTitle>
+
+          <Select value={selectedYear} onValueChange={setSelectedYear}>
+            <SelectTrigger className="w-40 rounded-lg">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {availableYears.map((year) => (
+                <SelectItem key={year} value={year}>
+                  {year}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </span>
+        <CardDescription style={{ color: theme.theme.textSecondary }}>
           Visualización mensual del año {selectedYear}
         </CardDescription>
-
-        <Select value={selectedYear} onValueChange={setSelectedYear}>
-          <SelectTrigger className="w-full sm:w-30">
-            <SelectValue placeholder="Año" />
-          </SelectTrigger>
-          <SelectContent>
-            {availableYears.map((year) => (
-              <SelectItem key={year} value={year}>
-                {year}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
       </CardHeader>
       <CardContent className="px-2 sm:px-6">
         <ChartContainer config={chartConfig}>
@@ -158,7 +164,7 @@ export function YearlyServicesChart() {
               <ChartTooltip content={<ChartTooltipContent />} />
               <Bar
                 dataKey="total"
-                fill="var(--color-total)"
+                fill={chartConfig.total.color}
                 radius={[4, 4, 0, 0]}
                 barSize={isMobile ? 18 : 32}
               />

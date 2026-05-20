@@ -47,11 +47,11 @@ export default async function Page() {
   }
 
   return (
-    <div className="flex flex-col gap-4 p-4 bg-[ #F5FFFF ]">
-      {hasFeature(user, "timeCheck") && <TimeCheckDashboard />}
+    <div className="flex flex-col gap-4 p-4">
+      <TimeCheckDashboard />
 
       <div className="">
-        {hasFeature(user, "servicesPerformed") && <ChartAreaInteractive />}
+        <ChartAreaInteractive />
       </div>
 
       {hasFeature(user, "totalRevenue") && (
@@ -63,10 +63,10 @@ export default async function Page() {
       )}
 
       <div className="flex flex-row justify-between gap-4 ">
-        {hasFeature(user, "inactiveClients") && <InactiveClientsCard />}
-        {hasFeature(user, "averageTicket") && <AverageTicketCard />}
-        {hasFeature(user, "averageDuration") && <AverageDurationCard />}
-        {hasFeature(user, "incomePerHour") && <IncomePerHourByHourChart />}
+        <InactiveClientsCard />
+        <AverageTicketCard />
+        <AverageDurationCard />
+        <IncomePerHourByHourChart />
       </div>
 
       {hasFeature(user, "genderSegmentation") && (
@@ -75,9 +75,9 @@ export default async function Page() {
         </div>
       )}
 
-      <div className="flex flex-row gap-4">
-        {hasFeature(user, "yearlyServices") && <YearlyServicesChart />}
-        {hasFeature(user, "weeklyServices") && <WeeklyDayChart />}
+      <div className="flex flex-row gap-4 ">
+        <YearlyServicesChart />
+        <WeeklyDayChart />
       </div>
     </div>
   );

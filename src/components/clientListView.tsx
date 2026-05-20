@@ -98,65 +98,61 @@ export default function ClientListView({ clients }: { clients: IClient[] }) {
             {clients.length > 0 ? (
               clients.map((client) => (
                 <DropdownMenu key={client._id!.toString()}>
-                  <DropdownMenuTrigger asChild>
-                    <TableRow
-                      className=""
-                      style={{ backgroundColor: theme.bgCard }}
+                  <TableRow
+                    className=""
+                    style={{ backgroundColor: theme.bgCard }}
+                  >
+                    <TableCell
+                      className="flex items-center gap-3"
+                      style={{ color: theme.textPrimary }}
                     >
-                      <TableCell
-                        className="flex items-center gap-3 "
-                        style={{ color: theme.textPrimary }}
-                      >
-                        <Avatar className="h-8 w-8">
-                          <AvatarImage
-                            src={
-                              client.clientImage == "/default-client.png"
-                                ? undefined
-                                : client.clientImage
-                            }
-                          />
-                          <AvatarFallback>
-                            {client.clientName?.[0]}
-                            {client.clientLastName?.[0]}
-                          </AvatarFallback>
-                        </Avatar>
-
-                        <Link
-                          href={`/clients/${client._id}`}
-                          className="font-medium block w-full hover:underline cursor-pointer"
-                        >
-                          {client.clientName} {client.clientLastName}
-                        </Link>
-                      </TableCell>
-
-                      <TableCell>{client.clientPhone}</TableCell>
-
-                      <TableCell
-                        className="text-right"
-                        style={{ color: theme.textSecondary }}
-                      >
-                        {client.updatedAt
-                          ? new Date(client.updatedAt).toLocaleDateString(
-                              "es-ES",
-                              {
-                                day: "2-digit",
-                                month: "2-digit",
-                                year: "2-digit",
-                              },
-                            )
-                          : "Sin visitas"}
-                      </TableCell>
-                      <TableCell
-                        className=""
-                        style={{ color: theme.textSecondary }}
-                      >
-                        <MoreHorizontal
-                          className="h-4 w-4 ml-auto mr-4"
-                          style={{ color: theme.textSecondary }}
+                      <Avatar className="h-8 w-8">
+                        <AvatarImage
+                          src={
+                            client.clientImage == "/default-client.png"
+                              ? undefined
+                              : client.clientImage
+                          }
                         />
-                      </TableCell>
-                    </TableRow>
-                  </DropdownMenuTrigger>
+                        <AvatarFallback>
+                          {client.clientName?.[0]}
+                          {client.clientLastName?.[0]}
+                        </AvatarFallback>
+                      </Avatar>
+
+                      <Link
+                        href={`/clients/${client._id}`}
+                        className="font-medium block w-fit p-2 hover:underline cursor-pointer"
+                      >
+                        {client.clientName} {client.clientLastName}
+                      </Link>
+                    </TableCell>
+
+                    <TableCell>{client.clientPhone}</TableCell>
+
+                    <TableCell
+                      className="text-right"
+                      style={{ color: theme.textSecondary }}
+                    >
+                      {client.updatedAt
+                        ? new Date(client.updatedAt).toLocaleDateString(
+                            "es-ES",
+                            {
+                              day: "2-digit",
+                              month: "2-digit",
+                              year: "2-digit",
+                            },
+                          )
+                        : "Sin visitas"}
+                    </TableCell>
+                    <TableCell className="text-right">
+                      <DropdownMenuTrigger asChild>
+                        <button type="button" className="ml-auto mr-4 p-2">
+                          <MoreHorizontal className="h-4 w-4" />
+                        </button>
+                      </DropdownMenuTrigger>
+                    </TableCell>
+                  </TableRow>
 
                   <DropdownMenuContent align="end">
                     <DropdownMenuItem asChild>

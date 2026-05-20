@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { TrendingUp, TrendingDown, Equal } from "lucide-react";
 import { useServicesStore } from "@/lib/store/services.store";
+import useTheme from "@/hooks/useTheme";
 
 export function FinancialSummaryCard() {
   // ✅ Hook del store (ARRIBA del componente)
@@ -12,6 +13,7 @@ export function FinancialSummaryCard() {
   const [previousTotal, setPreviousTotal] = useState(0);
   const [variation, setVariation] = useState(0);
   const [loading, setLoading] = useState(true);
+  const theme = useTheme();
 
   useEffect(() => {
     try {
@@ -74,7 +76,13 @@ export function FinancialSummaryCard() {
 
   if (loading) {
     return (
-      <div className="rounded-md border bg-white p-4 flex items-center justify-center min-h-35">
+      <div
+        className="rounded-md border bg-white p-4 flex items-center justify-center min-h-35"
+        style={{
+          backgroundColor: theme.theme.bgCard,
+          borderColor: theme.theme.border,
+        }}
+      >
         <p className="text-sm text-gray-400">Cargando ingresos...</p>
       </div>
     );
@@ -90,19 +98,34 @@ export function FinancialSummaryCard() {
   const trend = variation > 0.1 ? "up" : variation < -0.1 ? "down" : "equal";
 
   return (
-    <div className="rounded-md border text-black bg-white p-4 w-1/3 flex flex-col gap-4">
+    <div
+      className="rounded-md border text-black bg-white p-4 w-1/3 flex flex-col gap-4"
+      style={{
+        backgroundColor: theme.theme.bgCard,
+        borderColor: theme.theme.border,
+      }}
+    >
       {/* Header */}
       <div className="flex justify-between items-center">
-        <h2 className="text-sm font-medium">Ingresos del mes</h2>
+        <h2
+          className="text-sm font-medium"
+          style={{ color: theme.theme.textPrimary }}
+        >
+          Ingresos del mes
+        </h2>
 
         <div
           className={`flex items-center gap-1 px-2 py-1 rounded-full text-xs font-semibold ${
             trend === "up"
               ? "bg-green-100 text-green-700"
               : trend === "down"
-              ? "bg-red-100 text-red-700"
-              : "bg-gray-100 text-gray-700"
+                ? "bg-red-100 text-red-700"
+                : "bg-gray-100 text-gray-700"
           }`}
+          style={{
+            background: theme.theme.bg,
+            color: theme.theme.textSecondary,
+          }}
         >
           {trend === "up" && <TrendingUp className="w-4" />}
           {trend === "down" && <TrendingDown className="w-4" />}
@@ -112,17 +135,28 @@ export function FinancialSummaryCard() {
       </div>
 
       {/* Total */}
-      <p className="text-3xl font-bold">{formatter.format(currentTotal)}</p>
+      <p
+        className="text-3xl font-bold"
+        style={{ color: theme.theme.textPrimary }}
+      >
+        {formatter.format(currentTotal)}
+      </p>
 
       {/* Descripción */}
-      <p className="text-sm text-gray-400">
+      <p
+        className="text-sm text-gray-400"
+        style={{ color: theme.theme.textSecondary }}
+      >
         {trend === "up" && "📈 Mejor que el mes anterior"}
         {trend === "down" && "📉 Menor que el mes anterior"}
         {trend === "equal" && "➡️ Igual que el mes anterior"}
       </p>
 
       {previousTotal > 0 && (
-        <p className="text-xs text-gray-400 border-t pt-2">
+        <p
+          className="text-xs text-gray-400 border-t pt-2"
+          style={{ color: theme.theme.textSecondary }}
+        >
           Mes anterior: {formatter.format(previousTotal)}
         </p>
       )}

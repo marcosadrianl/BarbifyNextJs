@@ -2,14 +2,25 @@
 
 import { useServicesStore } from "@/lib/store/services.store";
 import { Receipt, TrendingUp } from "lucide-react";
+import useTheme from "@/hooks/useTheme";
 
 export function AverageTicketCard() {
   const services = useServicesStore((s) => s.services);
+  const theme = useTheme();
 
   if (!services.length) {
     return (
-      <div className="rounded-xl border bg-background p-4 w-1/4">
-        <p className="text-sm text-gray-400 animate-pulse">
+      <div
+        className="rounded-xl border bg-background p-4 w-1/4"
+        style={{
+          backgroundColor: theme.theme.bgCard,
+          borderColor: theme.theme.border,
+        }}
+      >
+        <p
+          className="text-sm animate-pulse"
+          style={{ color: theme.theme.textSecondary }}
+        >
           Cargando ticket promedio…
         </p>
       </div>
@@ -58,15 +69,30 @@ export function AverageTicketCard() {
   });
 
   return (
-    <div className="rounded-xl border bg-white p-4 flex flex-col gap-4 w-1/4">
+    <div
+      className="rounded-xl border bg-white p-4 flex flex-col gap-4 w-1/4"
+      style={{
+        backgroundColor: theme.theme.bgCard,
+        borderColor: theme.theme.border,
+      }}
+    >
       {/* Header */}
       <div className="flex items-center gap-2">
-        <Receipt className="h-4 w-4 text-gray-400" />
-        <h3 className="text-sm font-medium">Ticket promedio</h3>
+        <h3
+          className="text-sm font-medium"
+          style={{ color: theme.theme.textPrimary }}
+        >
+          Ticket promedio
+        </h3>
       </div>
 
       {/* Main metric */}
-      <p className="text-2xl font-bold">{formatter.format(averageTicket)}</p>
+      <p
+        className="text-2xl font-bold"
+        style={{ color: theme.theme.textPrimary }}
+      >
+        {formatter.format(averageTicket)}
+      </p>
 
       {/* Insight */}
       <div className="flex items-start gap-2 text-sm text-gray-400 h-full">
@@ -83,9 +109,15 @@ export function AverageTicketCard() {
             </span>
           </p>
         ) : (
-          <p className="border-t w-full mt-auto">
+          <p
+            className="border-t w-full mt-auto pt-2 text-xs"
+            style={{ color: theme.theme.textSecondary }}
+          >
             Ningún cliente ha realizado un combo de{" "}
-            <span className="font-medium text-foreground/80">
+            <span
+              className="font-medium"
+              style={{ color: theme.theme.textMuted }}
+            >
               Corte + Peinado
             </span>
           </p>

@@ -1,22 +1,20 @@
 "use client";
 
-import "../../globals.css";
 import React from "react";
 import { ServicesBootstrap } from "@/components/ServicesBootstrap";
-import { TrialBanner } from "@/components/TrialBanner";
-
 import NavBar from "@/components/navBar";
-
 import TaskBar from "@/components/taskBar";
+import useTheme from "@/hooks/useTheme";
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { theme } = useTheme();
   ServicesBootstrap();
   return (
-    <div className="bg-[#F5FFFF] h-screen flex flex-row text-[#43553b]">
+    <div className="h-screen flex flex-row">
       {/* Barra lateral */}
       <NavBar />
 
@@ -28,13 +26,11 @@ export default function RootLayout({
         </div>
 
         {/* Contenido con scroll */}
-        <div className="flex-1 overflow-auto">
-          <div className=" bg-[ #F5FFFF ]">
-            <div className="pt-4">
-              <TrialBanner />
-            </div>
-            {children}
-          </div>
+        <div
+          className="flex-1 overflow-auto"
+          style={{ backgroundColor: theme.bg }}
+        >
+          {children}
         </div>
       </div>
     </div>

@@ -1,9 +1,9 @@
 "use client";
 
-import * as React from "react";
 import { useEffect, useState } from "react";
 import { TrendingUp, TrendingDown, Equal } from "lucide-react";
 import { useServicesStore } from "@/lib/store/services.store";
+import useTheme from "@/hooks/useTheme";
 
 type TrendDirection = "up" | "down" | "equal";
 
@@ -11,7 +11,7 @@ const TTL_MINUTES = 30;
 
 export function TotalRevenue() {
   const services = useServicesStore((s) => s.services); // ✅ ARRIBA
-
+  const theme = useTheme();
   const [totalRevenue, setTotalRevenue] = useState("0");
   const [trendValue, setTrendValue] = useState("0%");
   const [trendDirection, setTrendDirection] = useState<TrendDirection>("equal");
@@ -87,17 +87,34 @@ export function TotalRevenue() {
 
   if (loading) {
     return (
-      <div className="rounded-md border text-black bg-white p-4 w-1/3 flex items-center justify-center">
+      <div
+        className="rounded-md border p-4 w-1/3 flex items-center justify-center"
+        style={{
+          backgroundColor: theme.theme.bgCard,
+          borderColor: theme.theme.border,
+        }}
+      >
         <p className="text-sm text-gray-400">Cargando ingresos...</p>
       </div>
     );
   }
 
   return (
-    <div className="rounded-md border text-black bg-white p-4 w-1/3 flex flex-col gap-4">
+    <div
+      className="rounded-md border p-4 w-1/3 flex flex-col gap-4"
+      style={{
+        backgroundColor: theme.theme.bgCard,
+        borderColor: theme.theme.border,
+      }}
+    >
       {/* Header */}
       <span className="flex flex-row justify-between items-center">
-        <h2 className="text-sm tracking-tight font-medium">Ingresos Totales</h2>
+        <h2
+          className="text-sm tracking-tight font-medium"
+          style={{ color: theme.theme.textPrimary }}
+        >
+          Ingresos Totales
+        </h2>
 
         {/* Trend Badge */}
         <div
@@ -105,9 +122,13 @@ export function TotalRevenue() {
             trendDirection === "up"
               ? "bg-green-100 text-green-700"
               : trendDirection === "down"
-              ? "bg-red-100 text-red-700"
-              : "bg-gray-100 text-gray-700"
+                ? "bg-red-100 text-red-700"
+                : "bg-gray-100 text-gray-700"
           }`}
+          style={{
+            background: theme.theme.bg,
+            color: theme.theme.textSecondary,
+          }}
         >
           {trendDirection === "up" && <TrendingUp className="w-4" />}
           {trendDirection === "down" && <TrendingDown className="w-4" />}
@@ -117,10 +138,18 @@ export function TotalRevenue() {
       </span>
 
       {/* Total */}
-      <p className="text-3xl font-bold">${totalRevenue}</p>
+      <p
+        className="text-3xl font-bold"
+        style={{ color: theme.theme.textPrimary }}
+      >
+        ${totalRevenue}
+      </p>
 
       {/* Trend Description */}
-      <p className="text-sm text-gray-400">
+      <p
+        className="text-sm text-gray-400"
+        style={{ color: theme.theme.textSecondary }}
+      >
         {trendDirection === "up" && "📈 Crecimiento respecto al mes anterior"}
         {trendDirection === "down" && "📉 Disminución respecto al mes anterior"}
         {trendDirection === "equal" &&
@@ -128,7 +157,10 @@ export function TotalRevenue() {
       </p>
 
       {/* Period */}
-      <p className="text-xs text-gray-400 border-t pt-2">
+      <p
+        className="text-xs border-t pt-2"
+        style={{ color: theme.theme.textSecondary }}
+      >
         * Ingresos de los últimos 6 meses
         {periodDescription && ` (${periodDescription})`}
       </p>

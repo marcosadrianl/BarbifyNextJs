@@ -100,7 +100,7 @@ export function TrialBanner() {
   }
 
   // Trial activo con información
-  if (status.isTrial && status.daysRemaining > 3) {
+  if (true) {
     return (
       <Alert
         variant="default"

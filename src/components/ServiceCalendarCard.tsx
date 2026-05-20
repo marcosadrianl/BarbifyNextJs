@@ -96,11 +96,13 @@ export default function ServiceCalendarCard({
         <div
           className="h-3 w-3 rounded-full"
           style={{
-            backgroundColor: theme.accentBg,
+            backgroundColor: theme.primary,
             border: `1px solid ${theme.border}`,
           }}
         ></div>
-        <span>Días con servicios registrados</span>
+        <span style={{ color: theme.textSecondary }}>
+          Días con servicios registrados
+        </span>
       </div>
     </Card>
   );

@@ -31,6 +31,7 @@ import {
 } from "@/components/ui/select";
 import { useServicesStore } from "@/lib/store/services.store";
 import { CalendarArrowUp } from "lucide-react";
+import useTheme from "@/hooks/useTheme";
 
 const chartConfig = {
   total: {
@@ -43,6 +44,7 @@ export function WeeklyDayChart() {
   const { services, loading } = useServicesStore();
   const currentYear = new Date().getFullYear().toString();
   const [selectedYear, setSelectedYear] = useState<string>(currentYear);
+  const theme = useTheme();
 
   // Estado para manejar responsividad de forma segura en Next.js
   const [isMobile, setIsMobile] = useState(false);
@@ -95,32 +97,45 @@ export function WeeklyDayChart() {
   }, [services, selectedYear]);
 
   if (loading)
-    return <div className="p-10 text-center">Cargando gráfico...</div>;
+    return (
+      <div
+        className="p-10 text-center"
+        style={{ color: theme.theme.textPrimary }}
+      >
+        Cargando gráfico...
+      </div>
+    );
 
   return (
-    <Card className="w-full min-w-0 overflow-hidden border-none shadow-none sm:border sm:shadow-sm">
-      <CardHeader className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-4 sm:space-y-0">
-        <CardTitle className="text-xl flex flex-row items-center gap-2">
-          <CalendarArrowUp className="h-6 w-6" />
-          Servicios por día de la semana
-        </CardTitle>
+    <Card className="w-1/2" style={{ backgroundColor: theme.theme.bgCard }}>
+      <CardHeader className="flex w-full">
+        <span className="flex flex-row w-full items-center justify-between gap-2">
+          <CardTitle
+            className="flex flex-row items-center text-xl w-full gap-2"
+            style={{ color: theme.theme.textPrimary }}
+          >
+            <CalendarArrowUp className="h-6 w-6" />
+            Servicios por día de la semana
+          </CardTitle>
+
+          <Select value={selectedYear} onValueChange={setSelectedYear}>
+            <SelectTrigger className="w-40 rounded-lg">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {availableYears.map((year) => (
+                <SelectItem key={year} value={year}>
+                  {year}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </span>
         <CardDescription>
           Total acumulado por día en {selectedYear}
         </CardDescription>
-
-        <Select value={selectedYear} onValueChange={setSelectedYear}>
-          <SelectTrigger className="w-full sm:w-30">
-            <SelectValue placeholder="Año" />
-          </SelectTrigger>
-          <SelectContent>
-            {availableYears.map((year) => (
-              <SelectItem key={year} value={year}>
-                {year}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
       </CardHeader>
+
       <CardContent className="px-2 sm:px-6">
         <ChartContainer config={chartConfig}>
           <ResponsiveContainer>

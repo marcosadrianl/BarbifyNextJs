@@ -28,6 +28,7 @@ import {
 } from "@/components/ui/chart";
 
 import { useServicesStore } from "@/lib/store/services.store";
+import useTheme from "@/hooks/useTheme";
 
 const chartConfig = {
   incomePerHour: {
@@ -69,6 +70,7 @@ function buildHourlyIncomeChartData(services: any[]) {
 
 export function IncomePerHourByHourChart() {
   const services = useServicesStore((s) => s.services);
+  const theme = useTheme();
 
   const chartData = useMemo(() => {
     if (!services || services.length === 0) return [];
@@ -112,15 +114,26 @@ export function IncomePerHourByHourChart() {
   }
 
   return (
-    <Card className="w-1/4 bg-white">
+    <Card
+      className="w-1/4"
+      style={{
+        backgroundColor: theme.theme.bgCard,
+        borderColor: theme.theme.border,
+      }}
+    >
       <CardHeader>
         <CardTitle title="Ingresos por hora">
-          <h3 className="text-sm font-medium flex items-center gap-2">
-            <BanknoteArrowUp className="h-4 w-4 text-gray-400" />
+          <h3
+            className="text-sm font-medium flex items-center gap-2"
+            style={{ color: theme.theme.textPrimary }}
+          >
             Ingresos por hora
           </h3>
         </CardTitle>
-        <CardDescription title="Rentabilidad horaria (Promedio últimos 3 meses)">
+        <CardDescription
+          title="Rentabilidad horaria (Promedio últimos 3 meses)"
+          style={{ color: theme.theme.textSecondary }}
+        >
           Rentabilidad horaria
         </CardDescription>
       </CardHeader>
@@ -149,34 +162,43 @@ export function IncomePerHourByHourChart() {
             {/* LÍNEA DE REFERENCIA: Muestra el promedio general */}
             <ReferenceLine
               y={avg}
-              stroke="red"
+              stroke={theme.theme.primaryHover}
               strokeDasharray="3 3"
               strokeWidth={2}
             >
               <Label
                 value={`Promedio: $${avg}`}
                 position="top"
-                fill="#ef4444"
+                fill={theme.theme.accentText}
                 fontSize={12}
                 fontWeight="bold"
               />
             </ReferenceLine>
 
             <Area
-              type="step"
+              type="monotone"
               dataKey="incomePerHour"
-              fill="var(--color-incomePerHour)"
+              fill="url(#fillServicios)"
               fillOpacity={0.4}
-              stroke="var(--color-incomePerHour)"
+              stroke={theme.theme.accentBg}
             />
           </AreaChart>
         </ChartContainer>
       </CardContent>
 
       <CardFooter>
-        <div className="text-xs text-gray-400 border-t pt-2 flex items-center justify-between w-full">
-          Facturación media: ${avg.toLocaleString("es-AR")} / h{" "}
-          <TrendingUp className="h-4 w-4" />
+        <div
+          className="flex flex-col text-xs  border-t  pt-2 justify-between w-full"
+          style={{ color: theme.theme.textSecondary }}
+        >
+          <span className="flex flex-row justify-between">
+            Facturación media:
+            <TrendingUp
+              className="h-4 w-4"
+              style={{ color: theme.theme.primary }}
+            />
+          </span>
+          ${avg.toLocaleString("es-AR")} / h{" "}
         </div>
       </CardFooter>
     </Card>

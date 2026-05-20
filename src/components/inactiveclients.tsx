@@ -127,7 +127,6 @@ export default function InactiveClientsCard() {
           className="text-sm font-medium flex items-center gap-2"
           style={{ color: theme.textPrimary }}
         >
-          <Info className="h-4 w-4" style={{ color: theme.textSecondary }} />
           Clientes inactivos
         </h3>
 

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import useTheme from "@/hooks/useTheme";
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
 import { useServicesStore } from "@/lib/store/services.store";
 import {
@@ -69,6 +70,7 @@ function getStartDate(range: string) {
 export function ChartAreaInteractive() {
   const [timeRange, setTimeRange] = React.useState("90d");
   const { services, loading } = useServicesStore();
+  const { theme } = useTheme();
 
   const chartData = React.useMemo(() => {
     const startDate = getStartDate(timeRange);
@@ -128,42 +130,59 @@ export function ChartAreaInteractive() {
   }
 
   return (
-    <Card className="pt-0 rounded-md">
-      <CardHeader className="flex items-center gap-2 space-y-0 border-b py-5 sm:flex-row">
-        <div className="grid flex-1 gap-1">
-          <CardTitle className="text-2xl font-semibold tracking-tight flex flex-row items-center gap-2">
+    <Card
+      className="rounded-md"
+      style={{
+        backgroundColor: theme.bgCard,
+        borderColor: theme.border,
+      }}
+    >
+      <CardHeader className="flex items-center gap-2 space-y-0 sm:flex-row">
+        <div className="flex flex-row gap-1">
+          <CardTitle
+            className="text-2xl font-semibold tracking-tight flex flex-col gap-2"
+            style={{ color: theme.textPrimary }}
+          >
             Servicios realizados
             <Loading />
+            <CardDescription style={{ color: theme.textSecondary }}>
+              Se muestran los servicios de los últimos{" "}
+              {timeRange === "90d"
+                ? "3 meses"
+                : timeRange === "30d"
+                  ? "30 días"
+                  : "7 días"}
+            </CardDescription>
           </CardTitle>
 
-          <CardDescription>
-            Se muestran los servicios de los últimos{" "}
-            {timeRange === "90d"
-              ? "3 meses"
-              : timeRange === "30d"
-                ? "30 días"
-                : "7 días"}
-          </CardDescription>
+          <Select value={timeRange} onValueChange={setTimeRange}>
+            <SelectTrigger
+              className="hidden w-40 rounded-lg sm:ml-auto sm:flex"
+              aria-label="Select a value"
+              style={{
+                backgroundColor: theme.bg,
+                borderColor: theme.border,
+                color: theme.textPrimary,
+              }}
+            >
+              <SelectValue placeholder="Últimos 3 meses" />
+            </SelectTrigger>
+            <SelectContent
+              className="rounded-xl"
+              style={{ backgroundColor: theme.bg, color: theme.textPrimary }}
+            >
+              <SelectItem value="90d" className="rounded-lg">
+                Últimos 3 meses
+              </SelectItem>
+              <SelectItem value="30d" className="rounded-lg">
+                Últimos 30 días
+              </SelectItem>
+              <SelectItem value="7d" className="rounded-lg">
+                Últimos 7 días
+              </SelectItem>
+            </SelectContent>
+          </Select>
         </div>
-        <Select value={timeRange} onValueChange={setTimeRange}>
-          <SelectTrigger
-            className="hidden w-40 rounded-lg sm:ml-auto sm:flex"
-            aria-label="Select a value"
-          >
-            <SelectValue placeholder="Últimos 3 meses" />
-          </SelectTrigger>
-          <SelectContent className="rounded-xl">
-            <SelectItem value="90d" className="rounded-lg">
-              Últimos 3 meses
-            </SelectItem>
-            <SelectItem value="30d" className="rounded-lg">
-              Últimos 30 días
-            </SelectItem>
-            <SelectItem value="7d" className="rounded-lg">
-              Últimos 7 días
-            </SelectItem>
-          </SelectContent>
-        </Select>
       </CardHeader>
       <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
         <ChartContainer
@@ -228,7 +247,6 @@ export function ChartAreaInteractive() {
               fill="url(#fillServicios)"
               stroke="var(--color-servicios)"
             />
-            <ChartLegend content={<ChartLegendContent />} />
           </AreaChart>
         </ChartContainer>
       </CardContent>
