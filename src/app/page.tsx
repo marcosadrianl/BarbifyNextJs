@@ -635,7 +635,10 @@ export default function BarbifyLanding() {
       </section>
 
       {/* CTA */}
-      <section className="py-28">
+      <section
+        className="py-28 flex items-center"
+        style={{ backgroundColor: theme.bg }}
+      >
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h2
             className={`${titles.className} text-4xl mb-6`}
