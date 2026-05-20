@@ -14,6 +14,9 @@ import {
 import { Montserrat, Alice } from "next/font/google";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import useTheme from "@/hooks/useTheme";
+import Image from "next/image";
+// background image handled via CSS inline styles to allow dynamic theming
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -97,49 +100,70 @@ function MiniConfetti({ active }: { active: boolean }) {
   );
 }
 
-function Feature({ icon, title, desc }: any) {
+function Feature({ icon, title, desc, theme }: any) {
   return (
     <motion.div
       variants={fadeUp}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true }}
-      className="bg-white rounded-3xl p-8 shadow-md"
+      className="rounded-3xl p-8 shadow-md"
+      style={{
+        backgroundColor: theme.bgCard,
+        border: `1px solid ${theme.border}`,
+        color: theme.appName,
+      }}
     >
-      <div className="w-12 h-12 rounded-2xl bg-slate-900/10 flex items-center justify-center mb-4 text-slate-900">
+      <div
+        className="w-12 h-12 rounded-2xl flex items-center justify-center mb-4"
+        style={{
+          backgroundColor: theme.accentBg,
+          color: theme.primary,
+        }}
+      >
         {icon}
       </div>
       <h3 className="font-semibold text-lg mb-2">{title}</h3>
-      <p className="text-sm text-black/60">{desc}</p>
+      <p className="text-sm" style={{ color: theme.textSecondary }}>
+        {desc}
+      </p>
     </motion.div>
   );
 }
 
-function Plan({ title, price, features, highlight = false }: any) {
+function Plan({ title, price, features, highlight = false, theme }: any) {
+  const cardBg = highlight ? theme.bgSidebar : theme.bgCard;
+  const textColor = highlight ? theme.appName : theme.appName;
+
   return (
     <motion.div
       variants={fadeUp}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true }}
-      className={`rounded-3xl p-10 shadow-lg w-1/2 mx-auto ${
-        highlight ? "bg-slate-900 text-white" : "bg-white"
-      }`}
+      className="rounded-3xl p-10 shadow-lg w-1/2 mx-auto"
+      style={{
+        backgroundColor: cardBg,
+        color: textColor,
+        border: `1px solid ${theme.border}`,
+      }}
     >
       <h3 className="text-2xl font-semibold mb-2">{title}</h3>
       <p className="mb-6 opacity-80">{price}</p>
       <ul className="space-y-3 mb-8 text-sm">
         {features.map((f: string) => (
-          <li key={f}>• {f}</li>
+          <li key={f} style={{ color: theme.textSecondary }}>
+            • {f}
+          </li>
         ))}
       </ul>
       <Link
         href="/register"
-        className={`px-6 py-3 rounded-full font-semibold inline-block ${
-          highlight
-            ? "bg-[ #F5FFFF ] text-slate-900"
-            : "bg-slate-900 text-white"
-        }`}
+        className="px-6 py-3 rounded-full font-semibold inline-block"
+        style={{
+          backgroundColor: theme.primary,
+          color: theme.accentText,
+        }}
       >
         Comienza hoy por $34.000/mes
       </Link>
@@ -147,7 +171,7 @@ function Plan({ title, price, features, highlight = false }: any) {
   );
 }
 
-function BarbifyRequirements({ titles }: any) {
+function BarbifyRequirements({ titles, theme }: any) {
   const [checked, setChecked] = useState<Record<string, boolean>>({});
   const allChecked = requirements.every((r) => checked[r.id]);
 
@@ -157,13 +181,17 @@ function BarbifyRequirements({ titles }: any) {
 
   return (
     <section id="requisitos" className="py-28">
-      <div className="max-w-5xl mx-auto px-6 text-left text-slate-900">
+      <div
+        className="max-w-5xl mx-auto px-6 text-left"
+        style={{ color: theme.appName }}
+      >
         <motion.h2
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
           className={`${titles?.className ?? "font-bold"} text-4xl mb-4 `}
+          style={{ color: theme.appName }}
         >
           Requisitos:
         </motion.h2>
@@ -192,31 +220,34 @@ function BarbifyRequirements({ titles }: any) {
                     animate={
                       isChecked
                         ? {
-                            backgroundColor: "#e2e8f0",
-                            borderColor: "#e2e8f0",
+                            backgroundColor: theme.accentBg,
+                            borderColor: theme.border,
                             scale: 1.02,
                           }
                         : {
-                            backgroundColor: "#ffffff",
-                            borderColor: "#e5e7eb",
+                            backgroundColor: theme.bgCard,
+                            borderColor: theme.border,
                             scale: 1,
                           }
                     }
                     transition={{ duration: 0.25 }}
-                    className="flex items-center gap-4 px-5 py-4 cursor-pointer select-none"
-                    style={{ willChange: "transform" }}
+                    className="flex items-center gap-4 px-5 py-4 cursor-pointer select-none rounded-3xl"
+                    style={{
+                      willChange: "transform",
+                      color: theme.appName,
+                    }}
                   >
                     {/* Checkbox circle */}
                     <motion.div
                       animate={
                         isChecked
                           ? {
-                              backgroundColor: "#0f172a",
-                              borderColor: "#e2e8f0",
+                              backgroundColor: theme.primary,
+                              borderColor: theme.border,
                             }
                           : {
-                              backgroundColor: "#f9fafb",
-                              borderColor: "#d1d5db",
+                              backgroundColor: theme.bgCard,
+                              borderColor: theme.border,
                             }
                       }
                       transition={{ duration: 0.2 }}
@@ -252,18 +283,24 @@ function BarbifyRequirements({ titles }: any) {
                     </motion.span>
 
                     {/* Text */}
-                    <div className="flex flex-col text-slate-900">
+                    <div
+                      className="flex flex-col"
+                      style={{ color: theme.appName }}
+                    >
                       <motion.span
                         animate={
                           isChecked
-                            ? { color: "#0f172a" }
-                            : { color: "#0f172a" }
+                            ? { color: theme.appName }
+                            : { color: theme.appName }
                         }
                         className="font-semibold text-base leading-tight"
                       >
                         {req.label}
                       </motion.span>
-                      <span className="text-sm text-slate-500">
+                      <span
+                        className="text-sm"
+                        style={{ color: theme.textSecondary }}
+                      >
                         {req.sublabel}
                       </span>
                     </div>
@@ -277,7 +314,11 @@ function BarbifyRequirements({ titles }: any) {
                             initial={{ opacity: 0, x: 8 }}
                             animate={{ opacity: 1, x: 0 }}
                             exit={{ opacity: 0, x: 8 }}
-                            className="text-xs font-semibold text-pink-500 bg-pink-50 px-2 py-1 rounded-full whitespace-nowrap"
+                            className="text-xs font-semibold px-2 py-1 rounded-full whitespace-nowrap"
+                            style={{
+                              backgroundColor: theme.primary,
+                              color: theme.accentText,
+                            }}
                           >
                             ¡Lo tengo! ✓
                           </motion.span>
@@ -306,21 +347,28 @@ function BarbifyRequirements({ titles }: any) {
               <div
                 className="px-6 py-5 text-center"
                 style={{
-                  background:
-                    "linear-gradient(120deg, #f8fafc 0%, #e2e8f0 50%, #f8fafc 100%)",
+                  backgroundColor: theme.accentBg,
+                  color: theme.appName,
                 }}
               >
                 <motion.div
                   animate={{ scale: [1, 1.1, 1], rotate: [0, 10, -10, 0] }}
                   transition={{ duration: 0.6, delay: 0.1 }}
                   className="text-4xl mb-2"
+                  style={{ color: theme.appName }}
                 >
                   ¡Genial!
                 </motion.div>
-                <p className="font-bold text-slate-900 text-xl leading-snug">
+                <p
+                  className="font-bold text-xl leading-snug"
+                  style={{ color: theme.appName }}
+                >
                   Podés usar Barbify
                 </p>
-                <p className="text-slate-600 text-sm mt-1">
+                <p
+                  className="text-sm mt-1"
+                  style={{ color: theme.textSecondary }}
+                >
                   Tenés todo lo que necesitás para empezar 🚀
                 </p>
               </div>
@@ -335,6 +383,7 @@ function BarbifyRequirements({ titles }: any) {
 export default function BarbifyLanding() {
   const { data: session, status } = useSession();
   const router = useRouter();
+  const { theme } = useTheme();
 
   useEffect(() => {
     if (status === "authenticated" && session?.user) {
@@ -342,36 +391,51 @@ export default function BarbifyLanding() {
     }
   }, [status, session, router]);
 
-  /*  if (status === "loading") {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-[ #F5FFFF ]">
-        <div className="text-center">
-<div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#2f3e2f] mx-auto mb-4"></div>
-          <p className="text-slate-900">Cargando...</p>
-        //</div>
-     // </div>
-    //);
-  //} */
-
   return (
     <div
-      className={`${montserrat.className} bg-[ #F5FFFF ] text-slate-900 overflow-hidden`}
+      className={`${montserrat.className} overflow-hidden`}
+      style={{
+        backgroundColor: theme.bg,
+        color: theme.appName,
+      }}
     >
       {/* NAVBAR */}
-      <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur bg-[ #F5FFFF ]/80 border-b border-slate-200">
+      <header
+        className="fixed top-0 left-0 right-0 z-50 backdrop-blur border-b"
+        style={{
+          backgroundColor: `${theme.bg}cc`,
+          borderColor: theme.border,
+          color: theme.appName,
+        }}
+      >
         <div className="max-w-7xl mx-auto px-6 md:px-6 h-16 flex items-center justify-between">
-          <span className={`${titles.className} text-3xl select-none`}>
+          <span
+            className={`${titles.className} text-3xl select-none`}
+            style={{ color: theme.appName }}
+          >
             Barbify
           </span>
           <nav className="hidden md:flex gap-8 text-sm font-medium">
-            <Link href="#features">Funciones</Link>
-            <Link href="#why">Por qué Barbify</Link>
-            <Link href="#pricing">Planes</Link>
-            <Link href="/help">Ayuda</Link>
+            <Link href="#features" style={{ color: theme.appName }}>
+              Funciones
+            </Link>
+            <Link href="#why" style={{ color: theme.appName }}>
+              Por qué Barbify
+            </Link>
+            <Link href="#pricing" style={{ color: theme.appName }}>
+              Planes
+            </Link>
+            <Link href="/help" style={{ color: theme.appName }}>
+              Ayuda
+            </Link>
           </nav>
           <Link
             href="/login"
-            className="px-5 py-2 rounded-full bg-slate-900 text-white text-sm font-semibold hover:scale-105 transition"
+            className="px-5 py-2 rounded-full text-sm font-semibold hover:scale-105 transition"
+            style={{
+              backgroundColor: theme.primary,
+              color: theme.accentText,
+            }}
           >
             Ingresar
           </Link>
@@ -379,21 +443,47 @@ export default function BarbifyLanding() {
       </header>
 
       {/* HERO */}
-      <section className="pt-32 pb-28 px-6">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-1 gap-16 items-center">
+      <section className="relative pt-32 pb-28 px-6 overflow-hidden max-w-screen">
+        <div className="absolute bg-cover w-full h-full top-0 left-0">
+          {/* Imagen de fondo */}
+          <Image
+            src="/seamless-tileable-pattern-in-doodle-d.jpg"
+            alt="Doodle peluquería"
+            fill
+            style={{ objectFit: "cover", objectPosition: "top center" }}
+          />
+
+          {/* Overlay con gradiente */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background: `linear-gradient(to left, ${theme.bg} 30%, rgba(255,255,255,0) 100%)`,
+            }}
+          />
+        </div>
+
+        {/* Contenido */}
+        <div className="max-w-7xl mx-auto flex justify-end z-10 relative">
           <motion.div
             variants={fadeUp}
             initial="hidden"
             animate="visible"
             transition={{ duration: 0.6 }}
+            className="max-w-2xl text-right"
           >
             <h1
-              className={`${titles.className} text-5xl md:text-6xl leading-tight mb-6`}
+              className={`${titles.className} text-5xl md:text-6xl leading-tight mb-6 text-left`}
+              style={{ color: theme.appName }}
             >
               La forma moderna de <br /> gestionar tu{" "}
-              <span className="font-semibold">peluquería</span>
+              <span className="font-semibold" style={{ color: theme.appName }}>
+                peluquería
+              </span>
             </h1>
-            <p className="text-lg text-black/70 mb-10 max-w-xl">
+            <p
+              className="text-lg mb-10 max-w-xl text-left"
+              style={{ color: theme.textSecondary }}
+            >
               Barbify reemplaza libretas, desorden y cálculos mentales por una
               plataforma clara, visual y pensada para peluqueros y barberos
               reales.
@@ -401,13 +491,21 @@ export default function BarbifyLanding() {
             <div className="flex gap-4">
               <Link
                 href="/register"
-                className="px-6 py-3 rounded-full bg-slate-900 text-white font-semibold hover:scale-105 transition"
+                className="px-6 py-3 rounded-full font-semibold hover:scale-105 transition"
+                style={{
+                  backgroundColor: theme.primary,
+                  color: theme.accentText,
+                }}
               >
                 Probar Barbify
               </Link>
               <Link
                 href="#why"
-                className="px-6 py-3 rounded-full border border-slate-200 font-medium hover:bg-[#E1F7F7] transition"
+                className="px-6 py-3 rounded-full border font-medium transition"
+                style={{
+                  borderColor: theme.border,
+                  color: theme.appName,
+                }}
               >
                 Ver más
               </Link>
@@ -417,7 +515,11 @@ export default function BarbifyLanding() {
       </section>
 
       {/* FEATURES */}
-      <section id="features" className="py-28 bg-[#E1F7F7]">
+      <section
+        id="features"
+        className="py-28"
+        style={{ backgroundColor: theme.accentBg }}
+      >
         <div className="max-w-7xl mx-auto px-6">
           <motion.h2
             variants={fadeUp}
@@ -425,6 +527,7 @@ export default function BarbifyLanding() {
             whileInView="visible"
             viewport={{ once: true }}
             className={`${titles.className} text-4xl mb-16 text-center`}
+            style={{ color: theme.appName }}
           >
             Todo lo que tu negocio necesita
           </motion.h2>
@@ -434,31 +537,37 @@ export default function BarbifyLanding() {
               icon={<Users />}
               title="Clientes"
               desc="Historial, servicios y seguimiento en un solo lugar."
+              theme={theme}
             />
             <Feature
               icon={<Calendar />}
               title="Agenda"
               desc="Turnos claros, orden diario y visión semanal."
+              theme={theme}
             />
             <Feature
               icon={<BarChart3 />}
               title="Estadísticas"
               desc="Decisiones basadas en datos reales, no intuición."
+              theme={theme}
             />
             <Feature
               icon={<Scissors />}
               title="Servicios"
               desc="Precios, registros y control por cliente."
+              theme={theme}
             />
             <Feature
               icon={<ShieldCheck />}
               title="Seguridad"
               desc="Tus datos protegidos y siempre disponibles."
+              theme={theme}
             />
             <Feature
               icon={<Sparkles />}
               title="Simplicidad"
               desc="Diseñada para usarse sin experiencia técnica."
+              theme={theme}
             />
           </div>
         </div>
@@ -476,7 +585,10 @@ export default function BarbifyLanding() {
           >
             Pensada por peluqueros, para peluqueros.
           </motion.h2>
-          <p className="text-lg text-black/70 leading-relaxed max-w-xl mx-auto text-justify [text-align-last:center]">
+          <p
+            className="text-lg leading-relaxed max-w-xl mx-auto text-justify [text-align-last:center]"
+            style={{ color: theme.textSecondary }}
+          >
             Barbify nace del día a día real de una peluquería: clientes que
             vuelven, servicios que se repiten, turnos que se mezclan y números
             que hay que entender. Todo fue diseñado para ayudarte a crecer con
@@ -486,13 +598,20 @@ export default function BarbifyLanding() {
       </section>
 
       {/* break */}
-      <section className="py-4 bg-[#E1F7F7]"></section>
+      <section
+        className="py-12"
+        style={{ backgroundColor: theme.accentBg }}
+      ></section>
 
       {/* REQUIREMENTS */}
-      <BarbifyRequirements titles={titles} />
+      <BarbifyRequirements titles={titles} theme={theme} />
 
       {/* PRICING */}
-      <section id="pricing" className="py-28 bg-[#E1F7F7]">
+      <section
+        id="pricing"
+        className="py-28"
+        style={{ backgroundColor: theme.accentBg }}
+      >
         <div className="max-w-6xl mx-auto px-6 text-center">
           <h2 className={`${titles.className} text-4xl mb-14`}>
             Un solo plan, acceso total
@@ -509,6 +628,7 @@ export default function BarbifyLanding() {
                 "Control de empleados",
                 "Reportes completos",
               ]}
+              theme={theme}
             />
           </div>
         </div>
@@ -517,22 +637,32 @@ export default function BarbifyLanding() {
       {/* CTA */}
       <section className="py-28">
         <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className={`${titles.className} text-4xl mb-6`}>
+          <h2
+            className={`${titles.className} text-4xl mb-6`}
+            style={{ color: theme.appName }}
+          >
             Dejá atrás la libreta
           </h2>
-          <p className="text-lg text-black/70 mb-10">
+          <p className="text-lg mb-10" style={{ color: theme.textSecondary }}>
             Empezá hoy a gestionar tu peluquería con Barbify.
           </p>
           <Link
             href="/register"
-            className="px-8 py-4 rounded-full bg-[#2f3e2f] text-[#fff7ec] font-semibold hover:scale-105 transition"
+            className="px-8 py-4 rounded-full font-semibold hover:scale-105 transition"
+            style={{
+              backgroundColor: theme.appName,
+              color: theme.dangerText,
+            }}
           >
             Crear mi cuenta
           </Link>
         </div>
       </section>
 
-      <footer className="py-10 text-center text-sm text-black/50">
+      <footer
+        className="py-10 text-center text-sm"
+        style={{ color: theme.textSecondary }}
+      >
         © {new Date().getFullYear()} Barbify · GlowNest
       </footer>
     </div>
