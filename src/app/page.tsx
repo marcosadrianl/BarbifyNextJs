@@ -141,16 +141,18 @@ function Plan({ title, price, features, highlight = false, theme }: any) {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true }}
-      className="rounded-3xl p-10 shadow-lg w-1/2 mx-auto"
+      className="rounded-3xl py-10 shadow-lg w-1/2 mx-auto"
       style={{
         backgroundColor: cardBg,
         color: textColor,
         border: `1px solid ${theme.border}`,
       }}
     >
-      <h3 className="text-2xl font-semibold mb-2">{title}</h3>
-      <p className="mb-6 opacity-80">{price}</p>
-      <ul className="space-y-3 mb-8 text-sm">
+      <h3 className="text-2xl font-semibold mb-2 px-24">{title}</h3>
+      <p className="mb-6 opacity-80 q1" style={{ color: theme.textPrimary }}>
+        {price}
+      </p>
+      <ul className="space-y-3 mb-8 text-sm text-left px-10">
         {features.map((f: string) => (
           <li key={f} style={{ color: theme.textSecondary }}>
             • {f}
@@ -482,7 +484,7 @@ export default function BarbifyLanding() {
             </h1>
             <p
               className="text-lg mb-10 max-w-xl text-left"
-              style={{ color: theme.textSecondary }}
+              style={{ color: theme.textPrimary }}
             >
               Barbify reemplaza libretas, desorden y cálculos mentales por una
               plataforma clara, visual y pensada para peluqueros y barberos

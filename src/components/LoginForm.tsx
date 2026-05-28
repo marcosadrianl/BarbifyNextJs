@@ -6,6 +6,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { Scissors } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
+import useTheme from "@/hooks/useTheme";
 
 export default function LoginFormPremium() {
   const [email, setEmail] = useState("");
@@ -84,77 +86,81 @@ export default function LoginFormPremium() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center text-slate-900 bg-linear-to-br from-slate-50 to-slate-100 px-4 w-full">
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="w-full max-w-md"
-      >
-        <div className="bg-white rounded-4xl shadow-2xl p-10 relative overflow-hidden">
-          {/* Decorative accent */}
-          <div className="absolute -top-20 -right-20 w-40 h-40 bg-slate-900/10 rounded-full" />
+    <div className="min-h-screen  flex items-center justify-end text-slate-900 bg-linear-to-br from-slate-50 to-slate-100 px-4 w-full">
+      <div className="absolute bg-cover w-full h-full top-0 left-0">
+        {/* Imagen de fondo */}
+        <Image
+          src="/seamless-tileable-pattern-in-doodle-d.jpg"
+          alt="Doodle peluquería"
+          fill
+          style={{ objectFit: "cover", objectPosition: "top center" }}
+          loading="eager"
+        />
 
-          <div className="flex flex-col items-center mb-8">
-            <div className="w-14 h-14 rounded-2xl bg-slate-900 flex items-center justify-center text-white mb-4">
-              <Scissors size={28} />
-            </div>
-            <h1 className="text-2xl font-semibold">Bienvenido a Barbify</h1>
-            <SelectedWordComponent />
+        {/* Overlay con gradiente */}
+        <div className="absolute inset-0" />
+      </div>
+      <div className="bg-white w-full max-w-md rounded-4xl shadow-2xl p-10 relative overflow-hidden">
+        {/* Decorative accent */}
+        <div className="absolute -top-20 -right-20 w-40 h-40 bg-slate-900/10 rounded-full" />
+
+        <div className="flex flex-col items-center mb-8">
+          <div className="w-14 h-14 rounded-2xl bg-slate-900 flex items-center justify-center text-white mb-4">
+            <Scissors size={28} />
           </div>
-
-          <form onSubmit={handleSubmit} className="space-y-5">
-            <div>
-              <label className="block text-sm font-medium mb-1">Email</label>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                autoComplete="email"
-                placeholder="tu@email.com"
-                className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-900/30"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium mb-1">
-                Contraseña
-              </label>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                autoComplete="current-password"
-                placeholder="••••••••"
-                className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-900/30"
-              />
-            </div>
-
-            {error && (
-              <div className="rounded-xl bg-red-50 text-red-700 text-sm px-4 py-3">
-                {error}
-              </div>
-            )}
-
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full py-3 rounded-xl bg-slate-900 text-white font-semibold hover:scale-[1.02] transition disabled:opacity-60"
-            >
-              {loading ? "Ingresando…" : "Ingresar"}
-            </button>
-          </form>
-
-          <div className="text-center text-sm text-black/60 mt-6">
-            ¿No tenés cuenta?{" "}
-            <Link href="/register" className="font-medium underline">
-              Crear cuenta
-            </Link>
-          </div>
+          <h1 className="text-2xl font-semibold">Bienvenido a Barbify</h1>
+          <SelectedWordComponent />
         </div>
-      </motion.div>
+
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <div>
+            <label className="block text-sm font-medium mb-1">Email</label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              autoComplete="email"
+              placeholder="tu@email.com"
+              className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-900/30"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium mb-1">Contraseña</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              autoComplete="current-password"
+              placeholder="••••••••"
+              className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-900/30"
+            />
+          </div>
+
+          {error && (
+            <div className="rounded-xl bg-red-50 text-red-700 text-sm px-4 py-3">
+              {error}
+            </div>
+          )}
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full py-3 rounded-xl bg-slate-900 text-white font-semibold hover:scale-[1.02] transition disabled:opacity-60"
+          >
+            {loading ? "Ingresando…" : "Ingresar"}
+          </button>
+        </form>
+
+        <div className="text-center text-sm text-black/60 mt-6">
+          ¿No tenés cuenta?{" "}
+          <Link href="/register" className="font-medium underline">
+            Crear cuenta
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }
