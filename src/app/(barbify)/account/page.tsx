@@ -15,7 +15,6 @@ export default async function Page() {
     redirect("/login");
   }
 
-  // Cargar usuario con datos de suscripción
   await connectDB();
   const user = await (User as mongoose.Model<IUser>)
     .findOne({ userEmail: session.user.userEmail })
@@ -25,15 +24,16 @@ export default async function Page() {
     redirect("/login");
   }
 
-  // Validar acceso a la aplicación (activo + suscripción válida)
   if (!hasAppAccess(user)) {
     redirect("/subscription");
   }
 
   return (
-    <div className="">
-      <h1 className="text-xl font-bold mb-4 p-4">Tu Cuenta</h1>
-      <p className="text-gray-400 mb-6 px-4">
+    <div className="min-h-full">
+      <h1 className="mb-4 p-4 text-xl font-bold text-[var(--theme-text-primary)]">
+        Tu Cuenta
+      </h1>
+      <p className="mb-6 px-4 text-[var(--theme-text-secondary)]">
         Ve la información de la cuenta asociada a tu usuario.
       </p>
       <AccountSettings />

@@ -1,6 +1,6 @@
 "use client";
 
-import { use, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import {
   Table,
   TableBody,
@@ -21,6 +21,7 @@ import { ArrowUpDown } from "lucide-react";
 import { useServicesStore } from "@/lib/store/services.store";
 import Link from "next/link";
 import { useEffect } from "react";
+import useTheme from "@/hooks/useTheme";
 
 const PERIODS = {
   day: "Día",
@@ -45,7 +46,8 @@ function TableSkeleton() {
 }
 
 export default function ServicesDashboard() {
-  const { services, refreshFromAPI, loading } = useServicesStore();
+  const { services, refreshFromAPI } = useServicesStore();
+  const { theme } = useTheme();
 
   useEffect(() => {
     refreshFromAPI(); // al montar
@@ -111,18 +113,40 @@ export default function ServicesDashboard() {
     }
   };
 
+  const themeStyles = {
+    "--theme-bg": theme.bg,
+    "--theme-bgCard": theme.bgCard,
+    "--theme-text-primary": theme.textPrimary,
+    "--theme-text-secondary": theme.textSecondary,
+    "--theme-border": theme.border,
+    "--theme-primary": theme.primary,
+    "--theme-accent-bg": theme.accentBg,
+  } as React.CSSProperties;
+
   return (
-    <div className="space-y-6 w-full text-black/70 p-4 bg-white rounded-2xl">
+    <div
+      className="space-y-6 w-full p-4 rounded-2xl border border-[var(--theme-border)] bg-[var(--theme-bgCard)] text-[var(--theme-text-primary)]"
+      style={themeStyles}
+    >
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-semibold">Servicios realizados</h2>
+        <h2 className="text-xl font-semibold text-[var(--theme-text-primary)]">
+          Servicios realizados
+        </h2>
 
         <Select value={period} onValueChange={(v) => setPeriod(v as any)}>
-          <SelectTrigger className="w-40">
+          <SelectTrigger className="w-40 cursor-pointer border-[var(--theme-border)] bg-[var(--theme-bgCard)] text-[var(--theme-text-primary)]">
             <SelectValue placeholder="Periodo" />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent
+            className="border-[var(--theme-border)] bg-[var(--theme-bgCard)] text-[var(--theme-text-primary)]"
+            style={{ backgroundColor: theme.bgCard, color: theme.textPrimary }}
+          >
             {Object.entries(PERIODS).map(([key, label]) => (
-              <SelectItem key={key} value={key}>
+              <SelectItem
+                key={key}
+                value={key}
+                className="cursor-pointer "
+              >
                 {label}
               </SelectItem>
             ))}
@@ -130,66 +154,59 @@ export default function ServicesDashboard() {
         </Select>
       </div>
 
-      <div className="rounded-2xl border bg-background shadow-sm">
+      <div className="rounded-2xl border border-[var(--theme-border)] shadow-sm overflow-hidden bg-[var(--theme-bgCard)]">
         <Table>
           <TableHeader>
-            <TableRow>
+            <TableRow className="bg-[var(--theme-accent-bg)]/60">
               <TableHead
                 onClick={() => toggleSort("date")}
-                className="cursor-pointer rounded-tl-2xl"
+                className=" text-[var(--theme-text-primary)]"
               >
-                Fecha <ArrowUpDown className="inline h-3 w-3 ml-1" />
+                Fecha <ArrowUpDown className="hover:cursor-pointer inline h-3 w-3 ml-1" />
               </TableHead>
               <TableHead
                 onClick={() => toggleSort("client")}
-                className="cursor-pointer"
+                className="text-[var(--theme-text-primary)]"
               >
-                Cliente <ArrowUpDown className="inline h-3 w-3 ml-1" />
+                Cliente <ArrowUpDown className="hover:cursor-pointer inline h-3 w-3 ml-1" />
               </TableHead>
               <TableHead
                 onClick={() => toggleSort("service")}
-                className="cursor-pointer"
+                className="text-[var(--theme-text-primary)]"
               >
-                Servicio <ArrowUpDown className="inline h-3 w-3 ml-1" />
+                Servicio <ArrowUpDown className="hover:cursor-pointer inline h-3 w-3 ml-1" />
               </TableHead>
               <TableHead
                 onClick={() => toggleSort("price")}
-                className="cursor-pointer text-right rounded-tr-2xl"
+                className="text-right rounded-tr-2xl text-[var(--theme-text-primary)]"
               >
-                Precio <ArrowUpDown className="inline h-3 w-3 ml-1" />
+                Precio <ArrowUpDown className="hover:cursor-pointer inline h-3 w-3 ml-1" />
               </TableHead>
-              {/* <TableHead
-                onClick={() => toggleSort("barber")}
-                className="cursor-pointer"
-              >
-                Atendido por <ArrowUpDown className="inline h-3 w-3 ml-1" />
-              </TableHead> */}
             </TableRow>
           </TableHeader>
 
           <TableBody>
             {filteredAndSorted.length > 0 ? (
               filteredAndSorted.map((s) => (
-                <TableRow key={s._id.toString() + s.serviceDate.toString()}>
-                  <TableCell>
+                <TableRow key={s._id.toString() + s.serviceDate.toString()} className="hover:bg-[var(--theme-accent-bg)]/70">
+                  <TableCell className="text-[var(--theme-text-prymary)] rounded-none">
                     {new Date(s.serviceDate).toLocaleDateString()}
                   </TableCell>
-                  <TableCell>
+                  <TableCell className="text-[var(--theme-text-prymary)] rounded-none">
                     <Link
                       href={`/clients/${s._id.toString()}`}
-                      className="hover:underline"
+                      className="hover:underline text-[var(--theme-text-primary)] hover:text-[var(--theme-primary)]"
                     >
-                      {s.clientName.toLocaleUpperCase().toWellFormed()}{" "}
+                      {s.clientName.toLocaleUpperCase().toWellFormed()} {" "}
                       {s.clientLastName.toLocaleUpperCase().toWellFormed()}
                     </Link>
                   </TableCell>
-                  <TableCell>
+                  <TableCell className="text-[var(--theme-text-prymary)] rounded-none">
                     {s.serviceName.toLocaleUpperCase().toWellFormed()}
                   </TableCell>
-                  <TableCell className="text-right font-medium px-4">
+                  <TableCell className="text-right font-medium px-4 text-[var(--theme-text-primary)] rounded-none">
                     ${(s.servicePrice / 100).toLocaleString("es-AR")}
                   </TableCell>
-                  {/* <TableCell>{s.fromBarberId}</TableCell> */}
                 </TableRow>
               ))
             ) : (

@@ -1,37 +1,19 @@
 "use client";
 
 import React, { useEffect, useState, useCallback } from "react";
-import Calendar, { CalendarEvent } from "@/components/calendar"; // Quitamos ServiceEvent de aquí si choca, o lo reemplazamos
+import Calendar, { CalendarEvent } from "@/components/calendar";
 import EventDetails from "@/components/EventDetails";
 import {
   useServicesStore,
   useAllServicesStore,
-} from "@/lib/store/services.store"; // 👈 Ajusta la ruta según tu estructura
-import FullCalendar from "@fullcalendar/react";
+} from "@/lib/store/services.store";
 import { IServiceCombined } from "@/models/models";
+import useTheme from "@/hooks/useTheme";
 
-type ClientService = {
-  clientId: string;
-  clientServices: {
-    serviceDate: string;
-    serviceName: string;
-    servicePrice: number;
-    serviceDuration: number;
-    serviceNotes: string;
-    _id: string;
-  };
-  clientName: string;
-  clientLastName: string;
-  clientPhone?: string;
-  clientImage?: string;
-};
-
-// 1. Actualizamos el parser para usar el tipo del Store (ClientService)
 const parseEventsData = (events: IServiceCombined[]): CalendarEvent[] => {
   const eventsByDate: Record<string, IServiceCombined[]> = {};
 
   events.forEach((event: IServiceCombined) => {
-    // Validación de seguridad
     if (!event?.serviceDate) {
       return;
     }
@@ -68,50 +50,47 @@ const parseEventsData = (events: IServiceCombined[]): CalendarEvent[] => {
 };
 
 export default function DiaryClient() {
-  // 2. Usamos el Store
   const { services, refreshFromAPI, loadFromCache } = useAllServicesStore();
+  const { theme } = useTheme();
 
-  // Mantenemos el estado de selección local, ya que es UI efímera
   const [selectedEvents, setSelectedEvents] = useState<
     IServiceCombined[] | null
   >(null);
 
-  // 3. Efecto de Carga Inteligente
   useEffect(() => {
-    // Primero intentamos cargar del cache local (síncrono)
     loadFromCache();
 
-    // Verificamos el estado actual después de intentar cargar el cache
     const currentState = useServicesStore.getState();
 
-    // Si no hay 'lastUpdated', significa que no había cache o estaba expirado.
-    // Entonces forzamos la carga desde la API.
     if (!currentState.lastUpdated) {
       refreshFromAPI();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // 4. Transformamos los datos del store para el calendario
   const eventsData = parseEventsData(services);
 
-  // Callback ajustado al nuevo tipo
   const handleCalendarEventClick = useCallback((events: any[]) => {
-    // Casteamos a ClientService[] para mantener tipado estricto si es necesario
     setSelectedEvents(events as IServiceCombined[]);
   }, []);
 
-  return (
-    <div className="flex flex-row bg-[ #F5FFFF ] w-full h-full overflow-hidden p-0">
-      {/* El contenedor padre debe tener overflow-hidden para evitar el scroll general de la página */}
+  const themeStyles = {
+    "--theme-bg": theme.bg,
+    "--theme-bgCard": theme.bgCard,
+    "--theme-text-primary": theme.textPrimary,
+    "--theme-border": theme.border,
+  } as React.CSSProperties;
 
-      {/* Detalles del Evento: scroll independiente */}
-      <div className="w-1/3 h-full overflow-y-auto">
+  return (
+    <div
+      className="flex flex-row w-full h-full overflow-hidden p-0 bg-[var(--theme-bg)] text-[var(--theme-text-primary)]"
+      style={themeStyles}
+    >
+      <div className="w-1/3 h-full overflow-y-auto border-r border-[var(--theme-border)]">
         <EventDetails selectedEvents={selectedEvents} />
       </div>
 
-      {/* Calendario: scroll independiente */}
-      <div className="w-2/3 bg-white p-4 h-full relative overflow-y-auto">
+      <div className="w-2/3 bg-[var(--theme-bgCard)] p-4 h-full relative overflow-y-auto">
         <Calendar
           eventsData={eventsData}
           onEventClick={handleCalendarEventClick}

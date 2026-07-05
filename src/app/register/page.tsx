@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-import { motion } from "framer-motion";
 import { UserPlus } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";

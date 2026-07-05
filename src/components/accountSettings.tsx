@@ -8,10 +8,9 @@ import {
   ChevronLeft,
   SquareArrowUpRight,
   Info,
-  ArrowUpRight,
 } from "lucide-react";
 import EditUserCard from "@/components/EditUserCard";
-import { Separator } from "@radix-ui/react-separator";
+import useTheme from "@/hooks/useTheme";
 
 /**
  * UsersList - componente cliente que consume un endpoint GET y muestra campos dinámicamente.
@@ -30,6 +29,15 @@ export default function AccountSettings({
   const [openSection, setOpenSection] = useState<
     "account" | "subscription" | "user" | "edit" | null
   >(null);
+  const { theme } = useTheme();
+
+  const themeStyles = {
+    "--theme-bgCard": theme.bgCard,
+    "--theme-text-primary": theme.textPrimary,
+    "--theme-text-secondary": theme.textSecondary,
+    "--theme-border": theme.border,
+    "--theme-accent-bg": theme.accentBg,
+  } as React.CSSProperties;
 
   const normalizeData = (resData: any): any[] => {
     // Si ya es array, devuelvo tal cual
@@ -130,20 +138,22 @@ export default function AccountSettings({
   }
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col" style={themeStyles}>
       {/* SECCIÓN: Información de la cuenta */}
       {openSection !== "subscription" &&
         openSection !== "user" &&
         openSection !== "edit" &&
         (openSection !== "account" ? (
           <div
-            className="cursor-pointer hover:bg-gray-100 p-4"
+            className="cursor-pointer p-4 transition-colors hover:bg-[var(--theme-accent-bg)]"
             onClick={() => setOpenSection("account")}
           >
-            <span className="flex flex-row w-full justify-between items-center">
+            <span className="flex flex-row align-items w-full justify-between items-center">
               <span>
-                <h2>Información de la cuenta</h2>
-                <p className="text-xs foreground">
+                <h2 className="text-[var(--theme-text-primary)]">
+                  Información de la cuenta
+                </h2>
+                <p className="text-xs text-[var(--theme-text-secondary)]">
                   Ve información de la cuenta como email, teléfono, estado y
                   fecha de creación.
                 </p>
@@ -154,23 +164,29 @@ export default function AccountSettings({
         ) : (
           <div className="">
             <div
-              className="flex flex-row gap-4 mb-4 cursor-pointer hover:bg-gray-100 py-4"
+              className="flex flex-row align-items gap-4 mb-4 cursor-pointer py-4 cursor-pointer p-4 transition-colors hover:bg-[var(--theme-accent-bg)]"
               onClick={() => setOpenSection(null)}
             >
               <ChevronLeft />
-              <h2 className="font-semibold text-xl">
+              <h2 className="text-xl font-semibold text-[var(--theme-text-primary)]">
                 Información de la cuenta
               </h2>
             </div>
 
             <div className="mb-2 px-4">
-              <h2 className="font-semibold text-xl">Email de la cuenta</h2>
-              <p className="foreground text-sm">{users[0].userEmail ?? "-"}</p>
+              <h2 className="text-xl font-semibold text-[var(--theme-text-primary)]">
+                Email de la cuenta
+              </h2>
+              <p className="text-sm text-[var(--theme-text-secondary)]">
+                {users[0].userEmail ?? "-"}
+              </p>
             </div>
 
             <div className="mb-2 px-4">
-              <h2 className="font-semibold text-xl">Teléfono</h2>
-              <p className="foreground text-sm">
+              <h2 className="text-xl font-semibold text-[var(--theme-text-primary)]">
+                Teléfono
+              </h2>
+              <p className="text-sm text-[var(--theme-text-secondary)]">
                 {users[0].userPhone ?? "Sin teléfono registrado"}
               </p>
             </div>
@@ -179,7 +195,7 @@ export default function AccountSettings({
               <h2 className="font-semibold text-xl">Cuenta Activa</h2>
               <span className="flex flex-col">
                 <p
-                  className="foreground text-sm flex items-center w-fit"
+                  className="flex w-fit items-center text-sm text-[var(--theme-text-secondary)]"
                   title={`${
                     users[0].userActive
                       ? "Estas al dia con tu suscripción"
@@ -193,8 +209,10 @@ export default function AccountSettings({
             </div>
 
             <div className="mb-2 px-4">
-              <h2 className="font-semibold text-xl">Creación de la cuenta</h2>
-              <p className="foreground text-sm">
+              <h2 className="text-xl font-semibold text-[var(--theme-text-primary)]">
+                Creación de la cuenta
+              </h2>
+              <p className="text-sm text-[var(--theme-text-secondary)]">
                 {formatValue(users[0].createdAt) ?? "Error al mostrar fecha"}
               </p>
             </div>
@@ -207,13 +225,15 @@ export default function AccountSettings({
         openSection !== "edit" &&
         (openSection !== "subscription" ? (
           <div
-            className="cursor-pointer hover:bg-gray-100 p-4"
+            className="cursor-pointer p-4 transition-colors hover:bg-[var(--theme-accent-bg)]"
             onClick={() => setOpenSection("subscription")}
           >
-            <span className="flex flex-row w-full justify-between items-center">
+            <span className="flex flex-row align-items w-full justify-between items-center">
               <span>
-                <h2>Información de Suscripción</h2>
-                <p className="text-xs foreground">
+                <h2 className="text-[var(--theme-text-primary)]">
+                  Información de Suscripción
+                </h2>
+                <p className="text-xs text-[var(--theme-text-secondary)]">
                   Ve detalles de tu plan, estado y fechas importantes.
                 </p>
               </span>
@@ -223,18 +243,20 @@ export default function AccountSettings({
         ) : (
           <div className="">
             <div
-              className="flex flex-row gap-4 mb-4 cursor-pointer hover:bg-gray-100 py-4"
+              className="mb-4 flex flex-row align-items gap-4 cursor-pointer py-4 transition-colors hover:bg-[var(--theme-accent-bg)]"
               onClick={() => setOpenSection(null)}
             >
               <ChevronLeft />
-              <h2 className="font-semibold text-xl">
+              <h2 className="text-xl font-semibold text-[var(--theme-text-primary)]">
                 Información de Suscripción
               </h2>
             </div>
 
             <div className="mb-2 px-4">
-              <h2 className="font-semibold text-xl">Plan</h2>
-              <p className="foreground text-sm capitalize">
+              <h2 className="text-xl font-semibold text-[var(--theme-text-primary)]">
+                Plan
+              </h2>
+              <p className="text-sm capitalize text-[var(--theme-text-secondary)]">
                 {users[0].subscription?.plan
                   ? getPlanLabel(users[0].subscription.plan)
                   : "Sin plan"}
@@ -242,11 +264,11 @@ export default function AccountSettings({
             </div>
 
             <div className="mb-2 px-4">
-              <h2 className="font-semibold text-xl">
+              <h2 className="text-xl font-semibold text-[var(--theme-text-primary)]">
                 Estado de la suscripción
               </h2>
               <span className="flex flex-col">
-                <p className="foreground text-sm">
+                <p className="text-sm text-[var(--theme-text-secondary)]">
                   {users[0].subscription?.status
                     ? getStatusLabel(users[0].subscription.status)
                     : "Sin información"}
@@ -255,8 +277,10 @@ export default function AccountSettings({
             </div>
 
             <div className="mb-2 px-4">
-              <h2 className="font-semibold text-xl">Fecha de inicio</h2>
-              <p className="foreground text-sm">
+              <h2 className="text-xl font-semibold text-[var(--theme-text-primary)]">
+                Fecha de inicio
+              </h2>
+              <p className="text-sm text-[var(--theme-text-secondary)]">
                 {users[0].subscription?.startDate
                   ? formatValue(users[0].subscription.startDate)
                   : "Sin fecha"}
@@ -264,10 +288,10 @@ export default function AccountSettings({
             </div>
 
             <div className="mb-2 px-4">
-              <h2 className="font-semibold text-xl">
+              <h2 className="text-xl font-semibold text-[var(--theme-text-primary)]">
                 Fin del período de prueba
               </h2>
-              <p className="foreground text-sm">
+              <p className="text-sm text-[var(--theme-text-secondary)]">
                 {users[0].subscription?.trialEndDate
                   ? formatValue(users[0].subscription.trialEndDate)
                   : "Sin período de prueba"}
@@ -275,9 +299,11 @@ export default function AccountSettings({
             </div>
 
             <div className="mb-2 px-4">
-              <h2 className="font-semibold text-xl">Estado de pago</h2>
+              <h2 className="text-xl font-semibold text-[var(--theme-text-primary)]">
+                Estado de pago
+              </h2>
               <p
-                className="foreground text-sm flex items-center w-fit"
+                className="flex w-fit items-center text-sm text-[var(--theme-text-secondary)]"
                 title={`${
                   users[0].paymentStatus
                     ? "estás al día con tu suscripción, ¡muy bien!"
@@ -297,13 +323,15 @@ export default function AccountSettings({
         openSection !== "edit" &&
         (openSection !== "user" ? (
           <div
-            className="cursor-pointer hover:bg-gray-100 p-4"
+            className="cursor-pointer p-4 transition-colors hover:bg-[var(--theme-accent-bg)]"
             onClick={() => setOpenSection("user")}
           >
-            <span className="flex flex-row w-full justify-between items-center">
+            <span className="flex flex-row align-items w-full justify-between items-center">
               <span>
-                <h2>Información de Usuario</h2>
-                <p className="text-xs foreground">
+                <h2 className="text-[var(--theme-text-primary)]">
+                  Información de Usuario
+                </h2>
+                <p className="text-xs text-[var(--theme-text-secondary)]">
                   Ve información personal asociada a tu usuario.
                 </p>
               </span>
@@ -313,32 +341,40 @@ export default function AccountSettings({
         ) : (
           <div className="">
             <div
-              className="flex flex-row gap-4 mb-4 py-4 cursor-pointer hover:bg-gray-100"
+              className="mb-4 flex flex-row align-items gap-4 cursor-pointer py-4 transition-colors hover:bg-[var(--theme-accent-bg)]"
               onClick={() => setOpenSection(null)}
             >
               <ChevronLeft className="" onClick={() => setOpenSection(null)} />
-              <h2 className="font-semibold text-xl">Información de Usuario</h2>
+              <h2 className="text-xl font-semibold text-[var(--theme-text-primary)]">
+                Información de Usuario
+              </h2>
             </div>
 
             <div className="mb-2 px-4">
-              <h2 className="font-semibold text-xl">Nombre de usuario</h2>
-              <p className="foreground text-sm capitalize">
+              <h2 className="text-xl font-semibold text-[var(--theme-text-primary)]">
+                Nombre de usuario
+              </h2>
+              <p className="text-sm capitalize text-[var(--theme-text-secondary)]">
                 {users[0].userName ?? "Sin nombre"}{" "}
                 {users[0].userLastName ?? "Sin apellido"}
               </p>
             </div>
 
             <div className="mb-2 px-4">
-              <h2 className="font-semibold text-xl">Ubicación</h2>
-              <p className="foreground text-sm capitalize">
+              <h2 className="text-xl font-semibold text-[var(--theme-text-primary)]">
+                Ubicación
+              </h2>
+              <p className="text-sm capitalize text-[var(--theme-text-secondary)]">
                 {users[0].userState ?? "-"}, {users[0].userCity},{" "}
                 {users[0].userAddress}, {users[0].userPostalCode}
               </p>
             </div>
 
             <div className="mb-2 px-4">
-              <h2 className="font-semibold text-xl">Género</h2>
-              <p className="foreground text-sm">
+              <h2 className="text-xl font-semibold text-[var(--theme-text-primary)]">
+                Género
+              </h2>
+              <p className="text-sm text-[var(--theme-text-secondary)]">
                 {users[0].userSex === "M"
                   ? "Hombre"
                   : users[0].userSex === "F"
@@ -348,8 +384,10 @@ export default function AccountSettings({
             </div>
 
             <div className="mb-2 px-4">
-              <h2 className="font-semibold text-xl">Nacimiento</h2>
-              <p className="foreground text-sm">
+              <h2 className="text-xl font-semibold text-[var(--theme-text-primary)]">
+                Nacimiento
+              </h2>
+              <p className="text-sm text-[var(--theme-text-secondary)]">
                 {users[0].userBirthDate
                   ? (users[0].userBirthDate
                       .toString()
@@ -370,13 +408,15 @@ export default function AccountSettings({
         openSection !== "user" &&
         (openSection !== "edit" ? (
           <div
-            className="cursor-pointer hover:bg-gray-100 p-4"
+            className="cursor-pointer p-4 transition-colors hover:bg-[var(--theme-accent-bg)]"
             onClick={() => setOpenSection("edit")}
           >
-            <span className="flex flex-row w-full justify-between items-center">
+            <span className="flex flex-row align-items w-full justify-between items-center">
               <span>
-                <h2>Editar Información de la Cuenta</h2>
-                <p className="text-xs foreground">
+                <h2 className="text-[var(--theme-text-primary)]">
+                  Editar Información de la Cuenta
+                </h2>
+                <p className="text-xs text-[var(--theme-text-secondary)]">
                   Edita la información general de tu cuenta.
                 </p>
               </span>
@@ -395,13 +435,13 @@ export default function AccountSettings({
 
       {/* Footer de privacidad */}
       {openSection === null && (
-        <div className="p-4 border-t border-[#cebaa1] mt-4">
-          <p className="text-xs">
+        <div className="mt-4 border-t border-[var(--theme-border)] p-4">
+          <p className="text-xs text-[var(--theme-text-secondary)]">
             Barbify protege tu información personal y no la comparte con nadie.
             Puedes conocer más sobre nuestra{" "}
             <Link
               href="#"
-              className="hover:underline text-blue-500 transition-all delay-200"
+              className="text-blue-500 transition-all delay-200 hover:underline"
             >
               Política de Privacidad
             </Link>{" "}

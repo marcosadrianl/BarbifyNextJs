@@ -1,10 +1,10 @@
-// components/EventDetails.tsx
-import { ServiceEvent } from "@/components/calendar";
+"use client";
+
+import React from "react";
 import Link from "next/link";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 
-// Shadcn UI Components
 import {
   Card,
   CardContent,
@@ -26,23 +26,36 @@ import {
   StickyNote,
 } from "lucide-react";
 import { IServiceCombined } from "@/models/models";
+import useTheme from "@/hooks/useTheme";
 
 export default function EventDetails({
   selectedEvents,
 }: {
   selectedEvents: IServiceCombined[] | null;
 }) {
-  console.log("selectedEvents en EventDetails:", selectedEvents);
-  // Estado vacío
+  const { theme } = useTheme();
+
+  const themeStyles = {
+    "--theme-bgCard": theme.bgCard,
+    "--theme-accent-bg": theme.accentBg,
+    "--theme-text-primary": theme.textPrimary,
+    "--theme-text-secondary": theme.textSecondary,
+    "--theme-text-muted": theme.textMuted,
+    "--theme-border": theme.border,
+  } as React.CSSProperties;
+
   if (!selectedEvents || selectedEvents.length === 0) {
     return (
-      <Card className="h-full rounded-none border-r-accent border-t-0 border-b-0 border-l-0">
+      <Card
+        className="h-full rounded-none border-r-accent border-t-0 border-b-0 border-l-0 bg-[var(--theme-bgCard)] text-[var(--theme-text-primary)]"
+        style={themeStyles}
+      >
         <CardContent className="flex flex-col items-center justify-center h-full min-h-100">
-          <Calendar className="h-16 w-16 text-gray-400 mb-4" />
-          <CardTitle className="text-center text-gray-400">
+          <Calendar className="h-16 w-16 mb-4 text-[var(--theme-text-muted)]" />
+          <CardTitle className="text-center text-[var(--theme-text-secondary)]">
             Selecciona una fecha
           </CardTitle>
-          <CardDescription className="text-center mt-2">
+          <CardDescription className="text-center mt-2 text-[var(--theme-text-secondary)]">
             Haz clic en una fecha del calendario para ver los detalles
           </CardDescription>
         </CardContent>
@@ -50,7 +63,6 @@ export default function EventDetails({
     );
   }
 
-  // Procesar fecha
   const serviceDate = new Date(selectedEvents[0].serviceDate);
   const formattedDate = format(serviceDate, "EEEE, dd 'de' MMMM 'de' yyyy", {
     locale: es,
@@ -58,7 +70,6 @@ export default function EventDetails({
   const formattedDateCapitalized =
     formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
 
-  // Comparación de fechas
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const normalizedServiceDate = new Date(serviceDate);
@@ -68,18 +79,21 @@ export default function EventDetails({
   const isToday = normalizedServiceDate.getTime() === today.getTime();
 
   return (
-    <Card className="h-full flex flex-col rounded-none border-r-accent border-t-0 border-b-0 border-l-0">
+    <Card
+      className="h-full flex flex-col rounded-none border-r-accent border-t-0 border-b-0 border-l-0 bg-[var(--theme-bgCard)] text-[var(--theme-text-primary)]"
+      style={themeStyles}
+    >
       <CardHeader>
         <div className="flex items-center justify-between">
           <div className="flex-1">
-            <CardTitle className="text-2xl">
+            <CardTitle className="text-2xl text-[var(--theme-text-primary)]">
               {isToday
                 ? "Hoy"
                 : isPast
                   ? "Servicios Pasados"
                   : "Próximos Servicios"}
             </CardTitle>
-            <CardDescription className="text-base mt-1">
+            <CardDescription className="text-base mt-1 text-[var(--theme-text-secondary)]">
               {formattedDateCapitalized}
             </CardDescription>
           </div>
@@ -93,53 +107,55 @@ export default function EventDetails({
         </div>
       </CardHeader>
 
-      <Separator />
+      <Separator className="bg-[var(--theme-border)]" />
 
-      <CardContent className="flex-1 pt-0 ">
+      <CardContent className="flex-1 pt-0">
         <ScrollArea className="h-[calc(100vh-13rem)] pr-4">
           <div className="space-y-4 mb-8">
             {selectedEvents.map((event, index) => (
               <Card
                 key={event._id.toString() + index}
-                className="overflow-hidden "
+                className="overflow-hidden border-[var(--theme-border)] bg-[var(--theme-bgCard)]"
               >
-                <CardHeader className="bg-[#E1F7F7] p-4">
+                <CardHeader className="p-4 bg-[var(--theme-accent-bg)]">
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
                       <Link
                         href={`/clients/${event._id}`}
                         className="hover:underline"
                       >
-                        <CardTitle className="text-lg flex items-center gap-2">
+                        <CardTitle className="text-lg flex items-center gap-2 text-[var(--theme-text-primary)]">
                           <User className="h-4 w-4" />
                           {event.clientName} {event.clientLastName}
                         </CardTitle>
                       </Link>
                     </div>
-                    <Badge variant="outline" className="ml-2">
+                    <Badge variant="outline" className="ml-2 text-sm px-3 py-1 text-[var(--theme-text-primary)]">
                       #{index + 1}
                     </Badge>
                   </div>
                 </CardHeader>
 
-                <CardContent className="pt-4 space-y-3 ">
-                  {/* Servicio */}
+                <CardContent className="pt-4 space-y-3">
                   <div className="flex items-start gap-2">
-                    <StickyNote className="h-4 w-4 mt-0.5 text-gray-400" />
+                    <StickyNote className="h-4 w-4 mt-0.5 text-[var(--theme-text-muted)]" />
                     <div className="flex-1">
-                      <p className="text-sm font-medium">Servicio</p>
-                      <p className="text-sm text-gray-400">
+                      <p className="text-sm font-medium text-[var(--theme-text-primary)]">
+                        Servicio
+                      </p>
+                      <p className="text-sm text-[var(--theme-text-secondary)]">
                         {event.serviceName}
                       </p>
                     </div>
                   </div>
 
-                  {/* Hora */}
                   <div className="flex items-start gap-2">
-                    <Clock className="h-4 w-4 mt-0.5 text-gray-400" />
+                    <Clock className="h-4 w-4 mt-0.5 text-[var(--theme-text-muted)]" />
                     <div className="flex-1">
-                      <p className="text-sm font-medium">Hora</p>
-                      <p className="text-sm text-gray-400">
+                      <p className="text-sm font-medium text-[var(--theme-text-primary)]">
+                        Hora
+                      </p>
+                      <p className="text-sm text-[var(--theme-text-secondary)]">
                         {new Date(event.serviceDate).toLocaleTimeString(
                           "es-AR",
                           {
@@ -153,24 +169,26 @@ export default function EventDetails({
                     </div>
                   </div>
 
-                  {/* Duración */}
                   <div className="flex items-start gap-2">
-                    <Timer className="h-4 w-4 mt-0.5 text-gray-400" />
+                    <Timer className="h-4 w-4 mt-0.5 text-[var(--theme-text-muted)]" />
                     <div className="flex-1">
-                      <p className="text-sm font-medium">Duración</p>
-                      <p className="text-sm text-gray-400">
+                      <p className="text-sm font-medium text-[var(--theme-text-primary)]">
+                        Duración
+                      </p>
+                      <p className="text-sm text-[var(--theme-text-secondary)]">
                         {event.serviceDuration} minutos
                       </p>
                     </div>
                   </div>
 
-                  {/* Precio */}
                   <div className="flex items-start gap-2">
-                    <DollarSign className="h-4 w-4 mt-0.5 text-gray-400" />
+                    <DollarSign className="h-4 w-4 mt-0.5 text-[var(--theme-text-muted)]" />
                     <div className="flex-1">
-                      <p className="text-sm font-medium">Precio</p>
-                      <p className="text-sm text-gray-400">
-                        $
+                      <p className="text-sm font-medium text-[var(--theme-text-primary)]">
+                        Precio
+                      </p>
+                      <p className="text-sm text-[var(--theme-text-secondary)]">
+                        ${" "}
                         {(event.servicePrice / 100).toLocaleString("es-AR", {
                           minimumFractionDigits: 2,
                         })}
@@ -178,26 +196,26 @@ export default function EventDetails({
                     </div>
                   </div>
 
-                  {/* Notas */}
                   {event.serviceNotes && (
                     <div className="flex items-start gap-2">
-                      <StickyNote className="h-4 w-4 mt-0.5 text-gray-400" />
+                      <StickyNote className="h-4 w-4 mt-0.5 text-[var(--theme-text-muted)]" />
                       <div className="flex-1">
-                        <p className="text-sm font-medium">Notas</p>
-                        <p className="text-sm text-gray-400 italic">
+                        <p className="text-sm font-medium text-[var(--theme-text-primary)]">
+                          Notas
+                        </p>
+                        <p className="text-sm text-[var(--theme-text-secondary)] italic">
                           {event.serviceNotes}
                         </p>
                       </div>
                     </div>
                   )}
 
-                  <Separator className="my-3" />
+                  <Separator className="my-3 bg-[var(--theme-border)]" />
 
-                  {/* Botón de WhatsApp */}
                   <Button
                     asChild
                     variant="outline"
-                    className="w-full"
+                    className="w-full border-[var(--theme-border)] text-[var(--theme-text-accentText)] hover:bg-[var(--theme-accent-bg)]"
                     size="sm"
                   >
                     <Link
@@ -205,7 +223,7 @@ export default function EventDetails({
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <Phone className="h-4 w-4 mr-2" />
+                      <Phone className="h-4 w-4 mr-2 " />
                       Contactar: {event.clientPhone}
                     </Link>
                   </Button>

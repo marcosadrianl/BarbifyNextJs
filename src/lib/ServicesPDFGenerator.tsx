@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { FileDown, Calendar, Loader2 } from "lucide-react";
 import { parseISO, isWithinInterval, startOfDay, endOfDay } from "date-fns";
 import { useServicesStore } from "@/lib/store/services.store";
+import useTheme from "@/hooks/useTheme";
 
 // Tipos copiados de tu store
 import { IServiceCombined } from "@/models/models";
@@ -15,6 +16,7 @@ const ServicesPDFGenerator = ({
 }) => {
   const [loading, setLoading] = useState(false);
   const [dateRange, setDateRange] = useState({ from: "", to: "" });
+  const { theme } = useTheme();
   let services = useServicesStore((s) => s.services);
 
   // Fecha en formato yyyy-mm-dd respetando la zona horaria local
@@ -282,40 +284,53 @@ const ServicesPDFGenerator = ({
     });
   };
 
+  const themeStyles = {
+    "--theme-bgCard": theme.bgCard,
+    "--theme-bg": theme.bg,
+    "--theme-text-primary": theme.textPrimary,
+    "--theme-text-secondary": theme.textSecondary,
+    "--theme-border": theme.border,
+    "--theme-primary": theme.primary,
+    "--theme-primary-hover": theme.primaryHover,
+    "--theme-accent-bg": theme.accentBg,
+  } as React.CSSProperties;
+
   return (
-    <div className="w-1/2">
-      <div className="bg-white rounded-2xl p-4">
-        <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
+    <div className="w-full md:w-1/2">
+      <div
+        className="rounded-2xl border border-[var(--theme-border)] bg-[var(--theme-bgCard)] p-4 shadow-sm"
+        style={themeStyles}
+      >
+        <h2 className="mb-6 flex items-center gap-2 text-2xl font-bold text-[var(--theme-text-primary)]">
           <FileDown className="w-6 h-6" />
           Exportar Servicios
         </h2>
 
-        <div className="space-y-4 mb-6">
+        <div className="mb-6 space-y-4">
           <div>
-            <label className="flex flex-row items-center text-sm font-medium text-gray-700 mb-2">
-              <Calendar className="w-4 h-4 inline mr-1" />
+            <label className="mb-2 flex flex-row items-center text-sm font-medium text-[var(--theme-text-secondary)]">
+              <Calendar className="mr-1 inline h-4 w-4" />
               Filtrar por fecha {limitToToday ? "(solo hoy)" : "(opcional)"}
             </label>
 
-            {/* Botones rápidos */}
-            <div className="flex gap-2 mb-3">
+            <div className="mb-3 flex gap-2">
               <button
                 onClick={setToday}
-                className="px-3 py-1 text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-md transition-colors"
+                className="rounded-md bg-[var(--theme-accent-bg)] px-3 py-1 text-sm text-[var(--theme-text-primary)] transition-colors hover:opacity-90 cursor-pointer"
               >
                 Hoy
               </button>
               <button
                 onClick={setThisWeek}
                 disabled={limitToToday}
-                className="px-3 py-1 text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="rounded-md bg-[var(--theme-accent-bg)] px-3 py-1 text-sm text-[var(--theme-text-primary)] transition-colors hover:opacity-90 cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
               >
                 Esta semana
               </button>
               <button
                 onClick={setThisMonth}
                 disabled={limitToToday}
-                className="px-3 py-1 text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="rounded-md bg-[var(--theme-accent-bg)] px-3 py-1 text-sm text-[var(--theme-text-primary)] transition-colors hover:opacity-90 cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
               >
                 Este mes
               </button>
@@ -323,7 +338,7 @@ const ServicesPDFGenerator = ({
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs text-gray-500 mb-1">
+                <label className="mb-1 block text-xs text-[var(--theme-text-secondary)]">
                   Desde
                 </label>
                 <input
@@ -333,11 +348,11 @@ const ServicesPDFGenerator = ({
                     setDateRange((prev) => ({ ...prev, from: e.target.value }))
                   }
                   disabled={limitToToday}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full rounded-md border border-[var(--theme-border)] bg-[var(--theme-bg)] px-3 py-2 text-[var(--theme-text-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--theme-primary)] disabled:cursor-not-allowed disabled:opacity-50"
                 />
               </div>
               <div>
-                <label className="block text-xs text-gray-500 mb-1">
+                <label className="mb-1 block text-xs text-[var(--theme-text-secondary)]">
                   Hasta
                 </label>
                 <input
@@ -347,14 +362,14 @@ const ServicesPDFGenerator = ({
                     setDateRange((prev) => ({ ...prev, to: e.target.value }))
                   }
                   disabled={limitToToday}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full rounded-md border border-[var(--theme-border)] bg-[var(--theme-bg)] px-3 py-2 text-[var(--theme-text-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--theme-primary)] disabled:cursor-not-allowed disabled:opacity-50"
                 />
               </div>
             </div>
             {(dateRange.from || dateRange.to) && !limitToToday && (
               <button
                 onClick={handleClearDates}
-                className="mt-2 text-sm text-[#43553b] hover:text-[#273023]"
+                className="mt-2 text-sm text-[var(--theme-text-secondary)] hover:text-[var(--theme-text-primary)]"
               >
                 Limpiar fechas
               </button>
@@ -366,16 +381,16 @@ const ServicesPDFGenerator = ({
           <button
             onClick={generatePDF}
             disabled={loading}
-            className="flex-1 bg-slate-200 hover:bg-slate-300 disabled:bg-gray-400 text-slate-900 hover:text-slate-900 font-semibold py-3 px-6 rounded-lg flex items-center justify-center gap-2 transition-colors"
+            className="flex-1 rounded-lg bg-[var(--theme-primary)] px-6 py-3 font-semibold text-white transition-colors hover:bg-[var(--theme-primary-hover)] cursor-pointer disabled:cursor-not-allowed disabled:bg-gray-400"
           >
             {loading ? (
               <>
-                <Loader2 className="w-5 h-5 animate-spin" />
+                <Loader2 className="mr-2 inline h-5 w-5 animate-spin" />
                 Generando...
               </>
             ) : (
               <>
-                <FileDown className="w-5 h-5" />
+                <FileDown className="mr-2 inline h-5 w-5" />
                 Generar Documento
               </>
             )}

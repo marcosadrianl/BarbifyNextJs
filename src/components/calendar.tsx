@@ -1,10 +1,12 @@
-// components/Calendar.tsx (Modificado)
+"use client";
+
+import React from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import esLocale from "@fullcalendar/core/locales/es";
 import { EventClickArg } from "@fullcalendar/core";
+import useTheme from "@/hooks/useTheme";
 
-// 🔧 CORRECCIÓN: Tipo que refleja la estructura real de la API
 export type ServiceEvent = {
   clientServices: {
     serviceName: string;
@@ -23,7 +25,6 @@ export type ServiceEvent = {
   className?: string;
 };
 
-// Define el tipo de eventos que pasaremos a FullCalendar
 export type CalendarEvent = {
   title: string;
   start: string;
@@ -34,13 +35,14 @@ export type CalendarEvent = {
   };
 };
 
-// Definición de Props para el componente Calendar
 interface CalendarProps {
   eventsData: CalendarEvent[];
   onEventClick: (events: ServiceEvent[]) => void;
 }
 
 export default function Calendar({ eventsData, onEventClick }: CalendarProps) {
+  const { theme } = useTheme();
+
   const handleEventClick = (info: EventClickArg) => {
     const { events } = info.event.extendedProps;
     onEventClick(events as ServiceEvent[]);
@@ -56,8 +58,8 @@ export default function Calendar({ eventsData, onEventClick }: CalendarProps) {
       firstDay={0}
       height="650px"
       aspectRatio={1.4}
-      eventColor="#ffd49d"
-      eventTextColor="#43553b"
+      eventColor={theme.primary}
+      eventTextColor={theme.textPrimary}
       eventClassNames={["hover:font-semibold", "cursor-pointer"]}
     />
   );
