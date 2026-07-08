@@ -23,6 +23,7 @@ import { UserUpdateZod } from "@/models/userUpdate.schema";
 import { z } from "zod";
 import { useState } from "react";
 import { UserPen } from "lucide-react";
+import useTheme from "@/hooks/useTheme";
 
 type FormData = z.infer<typeof UserUpdateZod>;
 
@@ -45,6 +46,24 @@ type Props = {
 
 export default function EditUserCard({ open, onClose, user }: Props) {
   const [loading, setLoading] = useState(false);
+  const { theme, themeMode } = useTheme();
+
+  const inputStyle = {
+    backgroundColor: theme.bgCard,
+    color: theme.textPrimary,
+    borderColor: theme.border,
+  };
+
+  const dateInputStyle = {
+    ...inputStyle,
+    colorScheme: themeMode === "dark" ? "dark" : "light",
+    WebkitTextFillColor: theme.textPrimary,
+    caretColor: theme.textPrimary,
+  } as React.CSSProperties;
+
+  const labelStyle = {
+    color: theme.textSecondary,
+  };
 
   const cleanObject = (obj: any): any => {
     if (typeof obj !== "object" || obj === null) return obj;
@@ -120,9 +139,19 @@ export default function EditUserCard({ open, onClose, user }: Props) {
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="max-w-xl">
+      <DialogContent
+        className="max-w-xl"
+        style={{
+          backgroundColor: theme.bgCard,
+          color: theme.textPrimary,
+          borderColor: theme.border,
+        }}
+      >
         <DialogHeader>
-          <DialogTitle className="text-[#43553b] flex flex-row gap-4 items-center">
+          <DialogTitle
+            className="flex flex-row gap-4 items-center"
+            style={{ color: theme.appName }}
+          >
             <UserPen />
             Editar información personal
           </DialogTitle>
@@ -130,76 +159,122 @@ export default function EditUserCard({ open, onClose, user }: Props) {
 
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="flex flex-col gap-4 text-[#43553b]"
+          className="flex flex-col gap-4"
+          style={{ color: theme.textPrimary }}
         >
           <div className="flex flex-row gap-4">
-            <Input placeholder="Nombre" {...form.register("userName")} />
-            <Input placeholder="Apellido" {...form.register("userLastName")} />
+            <Input
+              placeholder="Nombre"
+              {...form.register("userName")}
+              style={inputStyle}
+            />
+            <Input
+              placeholder="Apellido"
+              {...form.register("userLastName")}
+              style={inputStyle}
+            />
           </div>
 
           <div className="flex flex-row gap-4">
             <div className="w-1/2">
-              <p>Teléfono</p>
-              <Input placeholder="Teléfono" {...form.register("userPhone")} />
+              <p style={labelStyle}>Teléfono</p>
+              <Input
+                placeholder="Teléfono"
+                {...form.register("userPhone")}
+                style={inputStyle}
+              />
             </div>
             <div className="w-1/2">
-              <p>Email</p>
-              <Input placeholder="Email" {...form.register("userEmail")} />
+              <p style={labelStyle}>Email</p>
+              <Input
+                placeholder="Email"
+                {...form.register("userEmail")}
+                style={inputStyle}
+              />
             </div>
           </div>
 
           <div className="flex flex-row gap-4">
             <div className="w-1/2">
-              <p>Género</p>
+              <p style={labelStyle}>Género</p>
               <Select
                 defaultValue={user.userSex}
                 onValueChange={(value) =>
                   form.setValue("userSex", value as "M" | "F" | "O")
                 }
               >
-                <SelectTrigger>
+                <SelectTrigger style={inputStyle}>
                   <SelectValue placeholder="Género" />
                 </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="M">Hombre</SelectItem>
-                  <SelectItem value="F">Mujer</SelectItem>
-                  <SelectItem value="O">Otro</SelectItem>
+                <SelectContent style={{ backgroundColor: theme.bgCard, borderColor: theme.border }}>
+                  <SelectItem value="M" style={{ color: theme.textPrimary }}>
+                    Hombre
+                  </SelectItem>
+                  <SelectItem value="F" style={{ color: theme.textPrimary }}>
+                    Mujer
+                  </SelectItem>
+                  <SelectItem value="O" style={{ color: theme.textPrimary }}>
+                    Otro
+                  </SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
             <div className="w-1/2">
-              <p>Fecha de Nacimiento</p>
-              <Input type="date" {...form.register("userBirthDate")} />
+              <p style={labelStyle}>Fecha de Nacimiento</p>
+              <Input
+                type="date"
+                {...form.register("userBirthDate")}
+                style={dateInputStyle}
+              />
             </div>
           </div>
 
           <div className="flex flex-col">
-            <p>Ubicación</p>
+            <p style={labelStyle}>Ubicación</p>
             <div className="flex flex-col gap-4">
               <div className="flex gap-1">
-                <Input placeholder="Estado" {...form.register("userState")} />
-                <Input placeholder="Ciudad" {...form.register("userCity")} />
+                <Input
+                  placeholder="Estado"
+                  {...form.register("userState")}
+                  style={inputStyle}
+                />
+                <Input
+                  placeholder="Ciudad"
+                  {...form.register("userCity")}
+                  style={inputStyle}
+                />
               </div>
               <div className="flex gap-1">
                 <Input
                   placeholder="Dirección"
                   {...form.register("userAddress")}
+                  style={inputStyle}
                 />
                 <Input
                   placeholder="Código Postal"
                   {...form.register("userPostalCode")}
+                  style={inputStyle}
                 />
               </div>
             </div>
           </div>
 
           <DialogFooter className="mt-4">
-            <Button type="button" variant="ghost" onClick={onClose}>
+            <Button
+              type="button"
+              variant="ghost"
+              onClick={onClose}
+              style={{ color: theme.textSecondary }}
+            >
               Cancelar
             </Button>
 
-            <Button type="submit" disabled={loading}>
+            <Button
+              type="submit"
+              disabled={loading}
+              style={{ backgroundColor: theme.primary, color: theme.dangerText }}
+            >
               {loading ? "Guardando..." : "Guardar"}
             </Button>
           </DialogFooter>

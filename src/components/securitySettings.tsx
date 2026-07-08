@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { signOut } from "next-auth/react";
+import useTheme from "@/hooks/useTheme";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -10,7 +11,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { SquareArrowUpRight } from "lucide-react";
+
 
 export default function EditPasswordCard({ onClose }: { onClose: () => void }) {
   const [currentPassword, setCurrentPassword] = useState("");
@@ -19,7 +20,17 @@ export default function EditPasswordCard({ onClose }: { onClose: () => void }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
-  const [togglePassword, setTogglePassword] = useState(false);
+  const { theme } = useTheme();
+
+  const inputStyle = {
+    backgroundColor: theme.bgCard,
+    color: theme.textPrimary,
+    borderColor: theme.border,
+  };
+
+  const labelStyle = {
+    color: theme.textSecondary,
+  };
 
   const handleSubmit = async () => {
     setError(null);
@@ -82,14 +93,25 @@ export default function EditPasswordCard({ onClose }: { onClose: () => void }) {
 
   return (
     <Dialog open onOpenChange={onClose}>
-      <DialogContent className="max-w-md text-black">
+      <DialogContent
+        className="max-w-md"
+        style={{
+          backgroundColor: theme.bgCard,
+          color: theme.textPrimary,
+          borderColor: theme.border,
+        }}
+      >
         <DialogHeader>
-          <DialogTitle>Cambiar Contraseña</DialogTitle>
+          <DialogTitle style={{ color: theme.appName }}>
+            Cambiar Contraseña
+          </DialogTitle>
         </DialogHeader>
 
         <div className="flex flex-col gap-4 mt-2">
           <div>
-            <Label className="mb-2">Contraseña Actual</Label>
+            <Label className="mb-2" style={labelStyle}>
+              Contraseña Actual
+            </Label>
             <Input
               type="text"
               name="fake-username"
@@ -101,26 +123,33 @@ export default function EditPasswordCard({ onClose }: { onClose: () => void }) {
               autoComplete="current-password"
               value={currentPassword}
               onChange={(e) => setCurrentPassword(e.target.value)}
+              style={inputStyle}
             />
           </div>
 
           <div>
-            <Label className="mb-2">Nueva Contraseña</Label>
+            <Label className="mb-2" style={labelStyle}>
+              Nueva Contraseña
+            </Label>
             <Input
               type="password"
               autoComplete="new-password"
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
+              style={inputStyle}
             />
           </div>
 
           <div>
-            <Label className="mb-2">Confirmar Nueva Contraseña</Label>
+            <Label className="mb-2" style={labelStyle}>
+              Confirmar Nueva Contraseña
+            </Label>
             <Input
               type="password"
               autoComplete="new-password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
+              style={inputStyle}
             />
           </div>
 
@@ -132,10 +161,18 @@ export default function EditPasswordCard({ onClose }: { onClose: () => void }) {
           )}
 
           <div className="flex justify-end gap-2">
-            <Button variant="ghost" onClick={onClose}>
+            <Button
+              variant="ghost"
+              onClick={onClose}
+              style={{ color: theme.textSecondary }}
+            >
               Cancelar
             </Button>
-            <Button onClick={handleSubmit} disabled={loading}>
+            <Button
+              onClick={handleSubmit}
+              disabled={loading}
+              style={{ backgroundColor: theme.primary, color: theme.dangerText }}
+            >
               {loading ? "Guardando..." : "Guardar"}
             </Button>
           </div>

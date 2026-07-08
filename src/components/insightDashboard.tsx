@@ -37,10 +37,10 @@ type SortOrder = "asc" | "desc";
 function TableSkeleton() {
   return (
     <TableRow>
-      <TableCell>No hay servicios realizados</TableCell>
-      <TableCell> </TableCell>
-      <TableCell> </TableCell>
-      <TableCell> </TableCell>
+      <TableCell className="rounded-none">No hay servicios realizados</TableCell>
+      <TableCell className="rounded-none"> </TableCell>
+      <TableCell className="rounded-none"> </TableCell>
+      <TableCell className="rounded-none"> </TableCell>
     </TableRow>
   );
 }
