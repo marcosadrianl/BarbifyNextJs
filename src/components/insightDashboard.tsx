@@ -37,7 +37,9 @@ type SortOrder = "asc" | "desc";
 function TableSkeleton() {
   return (
     <TableRow>
-      <TableCell className="rounded-none">No hay servicios realizados</TableCell>
+      <TableCell className="rounded-none">
+        No hay servicios realizados
+      </TableCell>
       <TableCell className="rounded-none"> </TableCell>
       <TableCell className="rounded-none"> </TableCell>
       <TableCell className="rounded-none"> </TableCell>
@@ -125,28 +127,24 @@ export default function ServicesDashboard() {
 
   return (
     <div
-      className="space-y-6 w-full p-4 rounded-2xl border border-[var(--theme-border)] bg-[var(--theme-bgCard)] text-[var(--theme-text-primary)]"
+      className="space-y-6 w-full p-4 rounded-2xl border border-(--theme-border) bg-(--theme-bgCard) text-(--theme-text-primary)"
       style={themeStyles}
     >
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-semibold text-[var(--theme-text-primary)]">
+        <h2 className="text-xl font-semibold text-(--theme-text-primary)">
           Servicios realizados
         </h2>
 
         <Select value={period} onValueChange={(v) => setPeriod(v as any)}>
-          <SelectTrigger className="w-40 cursor-pointer border-[var(--theme-border)] bg-[var(--theme-bgCard)] text-[var(--theme-text-primary)]">
+          <SelectTrigger className="w-40 cursor-pointer border-(--theme-border) bg-(--theme-bgCard) text-(--theme-text-primary)">
             <SelectValue placeholder="Periodo" />
           </SelectTrigger>
           <SelectContent
-            className="border-[var(--theme-border)] bg-[var(--theme-bgCard)] text-[var(--theme-text-primary)]"
+            className="border-(--theme-border) bg-(--theme-bgCard) text-(--theme-text-primary)"
             style={{ backgroundColor: theme.bgCard, color: theme.textPrimary }}
           >
             {Object.entries(PERIODS).map(([key, label]) => (
-              <SelectItem
-                key={key}
-                value={key}
-                className="cursor-pointer "
-              >
+              <SelectItem key={key} value={key} className="cursor-pointer ">
                 {label}
               </SelectItem>
             ))}
@@ -154,33 +152,37 @@ export default function ServicesDashboard() {
         </Select>
       </div>
 
-      <div className="rounded-2xl border border-[var(--theme-border)] shadow-sm overflow-hidden bg-[var(--theme-bgCard)]">
+      <div className="rounded-2xl border border-(--theme-border) shadow-sm overflow-hidden bg-(--theme-bgCard)">
         <Table>
           <TableHeader>
-            <TableRow className="bg-[var(--theme-accent-bg)]/60">
+            <TableRow className="bg-(--theme-accent-bg)/60">
               <TableHead
                 onClick={() => toggleSort("date")}
-                className=" text-[var(--theme-text-primary)]"
+                className=" text-(--theme-text-primary)"
               >
-                Fecha <ArrowUpDown className="hover:cursor-pointer inline h-3 w-3 ml-1" />
+                Fecha{" "}
+                <ArrowUpDown className="hover:cursor-pointer inline h-3 w-3 ml-1" />
               </TableHead>
               <TableHead
                 onClick={() => toggleSort("client")}
-                className="text-[var(--theme-text-primary)]"
+                className="text-(--theme-text-primary)"
               >
-                Cliente <ArrowUpDown className="hover:cursor-pointer inline h-3 w-3 ml-1" />
+                Cliente{" "}
+                <ArrowUpDown className="hover:cursor-pointer inline h-3 w-3 ml-1" />
               </TableHead>
               <TableHead
                 onClick={() => toggleSort("service")}
-                className="text-[var(--theme-text-primary)]"
+                className="text-(--theme-text-primary)"
               >
-                Servicio <ArrowUpDown className="hover:cursor-pointer inline h-3 w-3 ml-1" />
+                Servicio{" "}
+                <ArrowUpDown className="hover:cursor-pointer inline h-3 w-3 ml-1" />
               </TableHead>
               <TableHead
                 onClick={() => toggleSort("price")}
-                className="text-right rounded-tr-2xl text-[var(--theme-text-primary)]"
+                className="text-right rounded-tr-2xl text-(--theme-text-primary)"
               >
-                Precio <ArrowUpDown className="hover:cursor-pointer inline h-3 w-3 ml-1" />
+                Precio{" "}
+                <ArrowUpDown className="hover:cursor-pointer inline h-3 w-3 ml-1" />
               </TableHead>
             </TableRow>
           </TableHeader>
@@ -188,23 +190,26 @@ export default function ServicesDashboard() {
           <TableBody>
             {filteredAndSorted.length > 0 ? (
               filteredAndSorted.map((s) => (
-                <TableRow key={s._id.toString() + s.serviceDate.toString()} className="hover:bg-[var(--theme-accent-bg)]/70">
-                  <TableCell className="text-[var(--theme-text-prymary)] rounded-none">
+                <TableRow
+                  key={s._id.toString() + s.serviceDate.toString()}
+                  className="hover:bg-(--theme-accent-bg)/70"
+                >
+                  <TableCell className="text-(--theme-text-prymary) rounded-none">
                     {new Date(s.serviceDate).toLocaleDateString()}
                   </TableCell>
-                  <TableCell className="text-[var(--theme-text-prymary)] rounded-none">
+                  <TableCell className="text-(--theme-text-prymary) rounded-none">
                     <Link
                       href={`/clients/${s._id.toString()}`}
-                      className="hover:underline text-[var(--theme-text-primary)] hover:text-[var(--theme-primary)]"
+                      className="hover:underline text-(--theme-text-primary) hover:text-(--theme-primary)"
                     >
-                      {s.clientName.toLocaleUpperCase().toWellFormed()} {" "}
+                      {s.clientName.toLocaleUpperCase().toWellFormed()}{" "}
                       {s.clientLastName.toLocaleUpperCase().toWellFormed()}
                     </Link>
                   </TableCell>
-                  <TableCell className="text-[var(--theme-text-prymary)] rounded-none">
+                  <TableCell className="text-(--theme-text-prymary) rounded-none">
                     {s.serviceName.toLocaleUpperCase().toWellFormed()}
                   </TableCell>
-                  <TableCell className="text-right font-medium px-4 text-[var(--theme-text-primary)] rounded-none">
+                  <TableCell className="text-right font-medium px-4 text-(--theme-text-primary) rounded-none">
                     ${(s.servicePrice / 100).toLocaleString("es-AR")}
                   </TableCell>
                 </TableRow>

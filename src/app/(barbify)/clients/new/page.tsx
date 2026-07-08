@@ -43,6 +43,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { ClientSchemaZod } from "@/models/Clients.schema";
+import useTheme from "@/hooks/useTheme";
 
 type ClientFormData = z.infer<typeof ClientSchemaZod>;
 
@@ -71,7 +72,7 @@ function ImageSelector({
           key={img.src}
           className={`relative aspect-square rounded-lg border-2 transition-all hover:scale-105 ${
             value === img.src
-              ? "border-[#ffd49d] ring-2 ring-[#ffd49d] ring-offset-2"
+              ? "border-[#ffd49d] "
               : "border-gray-200 hover:border-gray-300"
           }`}
           onClick={() => onChange(img.src)}
@@ -95,6 +96,7 @@ function ImageSelector({
 
 export default function CreateClientForm() {
   const { data: session } = useSession();
+  const { theme } = useTheme();
   const [serverError, setServerError] = React.useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const router = useRouter();
@@ -164,11 +166,24 @@ export default function CreateClientForm() {
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <Card>
+    <div
+      className="mx-auto p-4"
+      style={{ backgroundColor: theme.bg, color: theme.textPrimary }}
+    >
+      <Card
+        style={{
+          backgroundColor: theme.bgCard,
+          color: theme.textPrimary,
+          borderColor: theme.border,
+        }}
+      >
         <CardHeader>
-          <CardTitle className="text-3xl">Nuevo Cliente</CardTitle>
-          <CardDescription>Completa la información del cliente</CardDescription>
+          <CardTitle className="text-3xl" style={{ color: theme.textPrimary }}>
+            Nuevo Cliente
+          </CardTitle>
+          <CardDescription style={{ color: theme.textSecondary }}>
+            Completa la información del cliente
+          </CardDescription>
         </CardHeader>
 
         <CardContent>
@@ -176,7 +191,12 @@ export default function CreateClientForm() {
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
               {/* Información Básica */}
               <div className="space-y-4">
-                <h3 className="text-lg font-semibold">Información Básica</h3>
+                <h3
+                  className="text-lg font-semibold"
+                  style={{ color: theme.textPrimary }}
+                >
+                  Información Básica
+                </h3>
                 <Separator />
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -185,7 +205,9 @@ export default function CreateClientForm() {
                     name="clientName"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Nombre *</FormLabel>
+                        <FormLabel style={{ color: theme.textSecondary }}>
+                          Nombre *
+                        </FormLabel>
                         <FormControl>
                           <Input placeholder="Juan" {...field} />
                         </FormControl>
@@ -199,7 +221,9 @@ export default function CreateClientForm() {
                     name="clientLastName"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Apellido *</FormLabel>
+                        <FormLabel style={{ color: theme.textSecondary }}>
+                          Apellido *
+                        </FormLabel>
                         <FormControl>
                           <Input placeholder="Pérez" {...field} />
                         </FormControl>
@@ -224,7 +248,7 @@ export default function CreateClientForm() {
                           onChange={field.onChange}
                         />
                       </FormControl>
-                      <FormDescription>
+                      <FormDescription style={{ color: theme.textSecondary }}>
                         Selecciona una imagen para el cliente
                       </FormDescription>
                       <FormMessage />
@@ -235,7 +259,12 @@ export default function CreateClientForm() {
 
               {/* Información Personal */}
               <div className="space-y-4">
-                <h3 className="text-lg font-semibold">Información Personal</h3>
+                <h3
+                  className="text-lg font-semibold"
+                  style={{ color: theme.textPrimary }}
+                >
+                  Información Personal
+                </h3>
                 <Separator />
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -244,20 +273,49 @@ export default function CreateClientForm() {
                     name="clientSex"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Género *</FormLabel>
+                        <FormLabel style={{ color: theme.textSecondary }}>
+                          Género *
+                        </FormLabel>
                         <Select
                           onValueChange={field.onChange}
                           defaultValue={field.value}
                         >
                           <FormControl>
-                            <SelectTrigger>
+                            <SelectTrigger
+                              style={{
+                                backgroundColor: theme.bgCard,
+                                color: theme.textPrimary,
+                                borderColor: theme.border,
+                              }}
+                            >
                               <SelectValue placeholder="Selecciona género" />
                             </SelectTrigger>
                           </FormControl>
-                          <SelectContent>
-                            <SelectItem value="M">Masculino</SelectItem>
-                            <SelectItem value="F">Femenino</SelectItem>
-                            <SelectItem value="O">Otro</SelectItem>
+                          <SelectContent
+                            style={{
+                              backgroundColor: theme.bgCard,
+                              color: theme.textPrimary,
+                              borderColor: theme.border,
+                            }}
+                          >
+                            <SelectItem
+                              value="M"
+                              style={{ color: theme.textPrimary }}
+                            >
+                              Masculino
+                            </SelectItem>
+                            <SelectItem
+                              value="F"
+                              style={{ color: theme.textPrimary }}
+                            >
+                              Femenino
+                            </SelectItem>
+                            <SelectItem
+                              value="O"
+                              style={{ color: theme.textPrimary }}
+                            >
+                              Otro
+                            </SelectItem>
                           </SelectContent>
                         </Select>
                         <FormMessage />
@@ -270,9 +328,24 @@ export default function CreateClientForm() {
                     name="clientBirthdate"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Fecha de Nacimiento</FormLabel>
+                        <FormLabel style={{ color: theme.textSecondary }}>
+                          Fecha de Nacimiento
+                        </FormLabel>
                         <FormControl>
-                          <Input type="date" {...field} />
+                          <Input
+                            type="date"
+                            {...field}
+                            style={{
+                              backgroundColor: theme.bgCard,
+                              color: theme.textPrimary,
+                              borderColor: theme.border,
+                              colorScheme:
+                                theme.textPrimary === "#f8fafc"
+                                  ? "dark"
+                                  : "light",
+                              WebkitTextFillColor: theme.textPrimary,
+                            }}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -283,7 +356,12 @@ export default function CreateClientForm() {
 
               {/* Datos de Contacto */}
               <div className="space-y-4">
-                <h3 className="text-lg font-semibold">Datos de Contacto</h3>
+                <h3
+                  className="text-lg font-semibold"
+                  style={{ color: theme.textPrimary }}
+                >
+                  Datos de Contacto
+                </h3>
                 <Separator />
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -292,7 +370,9 @@ export default function CreateClientForm() {
                     name="clientPhone"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Teléfono *</FormLabel>
+                        <FormLabel style={{ color: theme.textSecondary }}>
+                          Teléfono *
+                        </FormLabel>
                         <FormControl>
                           <Input placeholder="221 456 7890" {...field} />
                         </FormControl>
@@ -306,7 +386,9 @@ export default function CreateClientForm() {
                     name="clientAddress"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Dirección</FormLabel>
+                        <FormLabel style={{ color: theme.textSecondary }}>
+                          Dirección
+                        </FormLabel>
                         <FormControl>
                           <Input placeholder="Calle 123, Ciudad" {...field} />
                         </FormControl>
@@ -319,7 +401,12 @@ export default function CreateClientForm() {
 
               {/* Datos de Cabello */}
               <div className="space-y-4">
-                <h3 className="text-lg font-semibold">Datos de Cabello</h3>
+                <h3
+                  className="text-lg font-semibold"
+                  style={{ color: theme.textPrimary }}
+                >
+                  Datos de Cabello
+                </h3>
                 <Separator />
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -328,7 +415,9 @@ export default function CreateClientForm() {
                     name="clientBaseColor"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Color Base</FormLabel>
+                        <FormLabel style={{ color: theme.textSecondary }}>
+                          Color Base
+                        </FormLabel>
                         <FormControl>
                           <Input
                             placeholder="Castaño oscuro, rubio, 01, etc"
@@ -345,7 +434,9 @@ export default function CreateClientForm() {
                     name="clientHairType"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Tipo de Cabello</FormLabel>
+                        <FormLabel style={{ color: theme.textSecondary }}>
+                          Tipo de Cabello
+                        </FormLabel>
                         <FormControl>
                           <Input
                             placeholder="Liso, ondulado, rizado, etc"
@@ -363,7 +454,9 @@ export default function CreateClientForm() {
                   name="clientWhiteHairs"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Porcentaje de Cabello Blanco (%)</FormLabel>
+                      <FormLabel style={{ color: theme.textSecondary }}>
+                        Porcentaje de Cabello Blanco (%)
+                      </FormLabel>
                       <FormControl>
                         <div className="flex items-center gap-2 w-1/2">
                           <Input
@@ -375,7 +468,12 @@ export default function CreateClientForm() {
                               field.onChange(parseInt(e.target.value) || 0)
                             }
                           />
-                          <span className="text-gray-400">%</span>
+                          <span
+                            className="text-gray-400"
+                            style={{ color: theme.textMuted }}
+                          >
+                            %
+                          </span>
                         </div>
                       </FormControl>
                       <FormMessage />
@@ -386,7 +484,12 @@ export default function CreateClientForm() {
 
               {/* Datos de Salud */}
               <div className="space-y-4">
-                <h3 className="text-lg font-semibold">Datos de Salud</h3>
+                <h3
+                  className="text-lg font-semibold"
+                  style={{ color: theme.textPrimary }}
+                >
+                  Datos de Salud
+                </h3>
                 <Separator />
 
                 <FormField
@@ -394,7 +497,9 @@ export default function CreateClientForm() {
                   name="clientAllergies"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Alergias</FormLabel>
+                      <FormLabel style={{ color: theme.textSecondary }}>
+                        Alergias
+                      </FormLabel>
                       <FormControl>
                         <Input
                           placeholder="Ej: Polen, medicamentos..."
@@ -411,7 +516,9 @@ export default function CreateClientForm() {
                   name="clientDiseases"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Enfermedades</FormLabel>
+                      <FormLabel style={{ color: theme.textSecondary }}>
+                        Enfermedades
+                      </FormLabel>
                       <FormControl>
                         <Input
                           placeholder="Ej: Diabetes, hipertensión..."
@@ -428,7 +535,9 @@ export default function CreateClientForm() {
                   name="clientMedications"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Medicamentos</FormLabel>
+                      <FormLabel style={{ color: theme.textSecondary }}>
+                        Medicamentos
+                      </FormLabel>
                       <FormControl>
                         <Input
                           placeholder="Medicamentos actuales..."
@@ -445,7 +554,9 @@ export default function CreateClientForm() {
                   name="clientNotes"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Notas Adicionales</FormLabel>
+                      <FormLabel style={{ color: theme.textSecondary }}>
+                        Notas Adicionales
+                      </FormLabel>
                       <FormControl>
                         <Textarea
                           placeholder="Información adicional del cliente..."
@@ -474,13 +585,23 @@ export default function CreateClientForm() {
                   variant="outline"
                   onClick={() => router.back()}
                   disabled={isSubmitting}
+                  style={{
+                    color: theme.textSecondary,
+                    backgroundColor: theme.bgCard,
+                    borderColor: theme.border,
+                    cursor: "pointer",
+                  }}
                 >
                   Cancelar
                 </Button>
                 <Button
                   type="submit"
                   disabled={isSubmitting}
-                  className="bg-slate-900 text-white hover:bg-slate-700"
+                  style={{
+                    backgroundColor: theme.primary,
+                    color: theme.dangerText,
+                    cursor: "pointer",
+                  }}
                 >
                   {isSubmitting ? "Creando..." : "Crear Cliente"}
                 </Button>

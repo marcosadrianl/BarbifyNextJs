@@ -237,7 +237,7 @@ export default function EditClientFormPage() {
       <CardHeader style={{ color: theme.textPrimary }}>
         <CardTitle className="text-3xl ">Editar Cliente</CardTitle>
         <CardDescription>
-          Actualiza la información del perfil del cliente
+          Actualiza la información del perfil de cliente
         </CardDescription>
       </CardHeader>
 
@@ -253,7 +253,7 @@ export default function EditClientFormPage() {
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             {/* Información Básica */}
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold" style={headingStyle}>
+              <h3 className="text-lg font-semibold py-4" style={headingStyle}>
                 Información Básica
               </h3>
               <Separator style={separatorStyle} />
