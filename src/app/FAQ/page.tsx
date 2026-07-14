@@ -1,3 +1,7 @@
+"use client";
+
+import useTheme from "@/hooks/useTheme";
+
 type FaqPart = {
   text: string;
   href?: string;
@@ -31,7 +35,7 @@ const FAQ_SECTIONS: FaqSection[] = [
           {
             parts: [
               {
-                text: 'Puedes agregar clientes haciendo clic en el botón "Agregar Cliente".',
+                text: 'Puedes agregar clientes haciendo clic en el botón "Nuevo Cliente".',
               },
             ],
           },
@@ -40,7 +44,7 @@ const FAQ_SECTIONS: FaqSection[] = [
               { text: "- Completa el formulario con los datos del cliente." },
             ],
           },
-          { parts: [{ text: '- Haz clic en el botón "Cargar".' }] },
+          { parts: [{ text: '- Haz clic en el botón "Crear Cliente".' }] },
         ],
       },
       {
@@ -49,7 +53,26 @@ const FAQ_SECTIONS: FaqSection[] = [
           {
             parts: [
               {
-                text: "La lista de clientes puede demorar en actualizarse; sin embargo, en caso de producirse un error, se mostrará un mensaje: \"Error al actualizar la lista de clientes: 'detalles del error' \"",
+                text: 'La lista de clientes puede demorar en actualizarse; sin embargo, en caso de producirse un error, se mostrará un mensaje: "No hay clientes registrados"',
+              },
+            ],
+          },
+          {
+            parts: [
+              { text: "- Revisa que la conexión a internet sea estable." },
+            ],
+          },
+          {
+            parts: [
+              {
+                text: "- Revisa que el nombre del cliente ingresado sea correcto.",
+              },
+            ],
+          },
+          {
+            parts: [
+              {
+                text: '- Puedes volver a la pagina inicial haciendo clic en "Clientes"',
               },
             ],
           },
@@ -57,13 +80,13 @@ const FAQ_SECTIONS: FaqSection[] = [
           {
             parts: [
               {
-                text: "- Si el problema persiste, contáctanos indicando los detalles del error.",
+                text: "Si el problema persiste, contáctanos indicando los detalles del error.",
               },
             ],
           },
         ],
       },
-      {
+      /* {
         question: "¿Puedo recuperar un cliente que oculte?",
         answers: [
           {
@@ -93,8 +116,8 @@ const FAQ_SECTIONS: FaqSection[] = [
             ],
           },
         ],
-      },
-      {
+      }, */
+      /*  {
         question: "¿Qué es ese id en la sección de Liquidaciones?",
         answers: [
           {
@@ -105,20 +128,27 @@ const FAQ_SECTIONS: FaqSection[] = [
             ],
           },
         ],
-      },
+      }, */
       {
-        question: "¿Cómo puedo asignar diferentes empleados a un servicio?",
+        question:
+          "¿Cómo puedo asignar diferentes empleados (Barbers) a un servicio?",
         answers: [
           {
             parts: [
               { text: "Para asignar diferentes empleados a un servicio:" },
             ],
           },
-          { parts: [{ text: '- Haz clic en el botón de "Nuevo Servicio".' }] },
           {
             parts: [
               {
-                text: "- Haz clic en el botón de empleados y elige al empleado que deseas asignar.",
+                text: '- Haz clic en el botón de "+ Nuevo Servicio" en la pagina personal del cliente.',
+              },
+            ],
+          },
+          {
+            parts: [
+              {
+                text: "- Elige de la lista desplegable 'Atendido por'.",
               },
             ],
           },
@@ -126,19 +156,28 @@ const FAQ_SECTIONS: FaqSection[] = [
             className: "mt-4",
             parts: [
               {
-                text: 'Puedes agregar más empleados llenando el formulario de "Agregar empleados" en la vista de "Admin":',
+                text: 'Puedes agregar más colaboradores (a.k.a "Barbers") llenando el formulario de "Crear Nuevo Barber" en la vista de "Cuenta > Barbers > Crear Nuevo Barber":',
               },
             ],
           },
-          { parts: [{ text: '- Haz clic en la vista de "Admin".' }] },
+          {
+            parts: [
+              { text: '- Haz clic en la vista de "' },
+              {
+                text: 'Cuenta"',
+                href: "https://barbify.glownest.app/account/barbers",
+              },
+            ],
+          },
+
           {
             parts: [
               {
-                text: '- Completa el formulario "Agregar empleados" con los datos requeridos.',
+                text: '- Completa el formulario "Crear Nuevo Barber" con los datos requeridos.',
               },
             ],
           },
-          { parts: [{ text: '- Haz clic en "Agregar".' }] },
+          { parts: [{ text: '- Haz clic en "Crear Barber".' }] },
           {
             parts: [
               {
@@ -157,56 +196,46 @@ const FAQ_SECTIONS: FaqSection[] = [
         ],
       },
       {
-        question: "¿Cómo puedo hacer cierres de caja?",
+        question: "¿Cómo puedo imprimir resumenes de los servicios realizados?",
         answers: [
           {
             parts: [
               {
-                text: 'Puedes hacer cierres de caja en la sección "Settlements" ("Liquidaciones").',
+                text: 'Puedes hacer resumenes de los servicios en la sección "',
+              },
+              {
+                text: 'insights"',
+                href: "https://barbify.glownest.app/insights",
               },
             ],
           },
-          {
-            parts: [
-              { text: "Según tu tipo de suscripción, sigue estos pasos:" },
-            ],
-          },
-          { className: "mt-2", parts: [{ text: "En Bronze:" }] },
           {
             parts: [
               {
-                text: "- Elige el día que quieres calcular (por defecto se muestra la fecha presente).",
+                text: "En la tarjeta 'Exportar Servicios' puedes elegir el periodo a resumir.",
+              },
+              {
+                text: " Si dejas el periodo sin marcar, obtendras todo el historial de servicios.",
               },
             ],
           },
-          { parts: [{ text: "- Haz clic en imprimir." }] },
-          { className: "mt-2", parts: [{ text: "En Silver:" }] },
+          {
+            className: "mt-2",
+            parts: [{ text: "Haz clic en Generar Documento" }],
+          },
           {
             parts: [
               {
-                text: "- Elige el día que quieres calcular (por defecto se muestra la fecha presente); puedes elegir por día o por mes.",
+                text: "- Una vez generado el documento, se abrira una nueva pestana.",
               },
             ],
           },
-          { parts: [{ text: "- Haz clic en imprimir." }] },
-          { className: "mt-2", parts: [{ text: "En Gold:" }] },
           {
             parts: [
-              {
-                text: "- Elige el día que quieres calcular (por defecto se muestra la fecha presente); puedes elegir por día, mes o año.",
-              },
+              { text: "- En el menu de impresión, haz clic en imprimir" },
             ],
           },
-          { parts: [{ text: "- Haz clic en imprimir." }] },
-          {
-            className: "mt-4",
-            parts: [
-              {
-                text: "Serás dirigido a una pestaña con tu resumen; si el panel de impresión no aparece automáticamente, intenta lo siguiente:",
-              },
-            ],
-          },
-          { parts: [{ text: '- Presiona "Ctrl + P".' }] },
+
           {
             className: "mt-4",
             parts: [
@@ -220,13 +249,6 @@ const FAQ_SECTIONS: FaqSection[] = [
       {
         question: "¿Cómo puedo registrar turnos a futuro?",
         answers: [
-          {
-            parts: [
-              {
-                text: 'Los turnos a futuro solo se pueden visualizar en el nivel "Gold".',
-              },
-            ],
-          },
           {
             className: "mt-2",
             parts: [
@@ -456,65 +478,61 @@ const FAQ_SECTIONS: FaqSection[] = [
 
 export default function FAQ() {
   return (
-    <>
-      <section className="flex flex-col bg-[#F5FFFF] text-[#43553b]">
-        <div className="w-full flex flex-col md:flex-row p-4 border-b border-amber-950">
-          <p className="mx-auto text-3xl md:text-4xl lg:text-5xl">
-            Centro de ayuda y preguntas frecuentes
-          </p>
-        </div>
-        {FAQ_SECTIONS.map((section) => (
-          <div key={section.title} className="block px-4">
-            <p className={section.titleClassName}>{section.title}</p>
-            {section.items.map((item) => (
-              <details key={item.question} className="faq-item">
-                <summary className="faq-question">{item.question}</summary>
-                <div className="faq-answer">
-                  {item.answers.map((line, lineIndex) => (
-                    <p
-                      key={`${item.question}-${lineIndex}`}
-                      className={line.className}
-                    >
-                      {line.parts.map((part, partIndex) => {
-                        if (part.href) {
-                          return (
-                            <a
-                              key={`${item.question}-${lineIndex}-${partIndex}`}
-                              href={part.href}
-                              className="hover:underline text-blue-500"
-                              target="_blank"
-                            >
-                              {part.text}
-                            </a>
-                          );
-                        }
-
-                        if (part.bold) {
-                          return (
-                            <b
-                              key={`${item.question}-${lineIndex}-${partIndex}`}
-                            >
-                              {part.text}
-                            </b>
-                          );
-                        }
-
+    <section className="flex flex-col bg-[#F5FFFF] text-[#43553b]">
+      <div className="w-full flex flex-col md:flex-row p-4 border-b border-amber-950">
+        <p className="mx-auto text-3xl md:text-4xl lg:text-5xl">
+          Centro de ayuda y preguntas frecuentes
+        </p>
+      </div>
+      {FAQ_SECTIONS.map((section) => (
+        <div key={section.title} className="block px-4">
+          <p className={section.titleClassName}>{section.title}</p>
+          {section.items.map((item) => (
+            <details key={item.question} className="faq-item">
+              <summary className="faq-question">{item.question}</summary>
+              <div className="faq-answer">
+                {item.answers.map((line, lineIndex) => (
+                  <p
+                    key={`${item.question}-${lineIndex}`}
+                    className={line.className}
+                  >
+                    {line.parts.map((part, partIndex) => {
+                      if (part.href) {
                         return (
-                          <span
+                          <a
                             key={`${item.question}-${lineIndex}-${partIndex}`}
+                            href={part.href}
+                            className="hover:underline text-blue-500"
+                            target="_blank"
                           >
                             {part.text}
-                          </span>
+                          </a>
                         );
-                      })}
-                    </p>
-                  ))}
-                </div>
-              </details>
-            ))}
-          </div>
-        ))}
-      </section>
-    </>
+                      }
+
+                      if (part.bold) {
+                        return (
+                          <b key={`${item.question}-${lineIndex}-${partIndex}`}>
+                            {part.text}
+                          </b>
+                        );
+                      }
+
+                      return (
+                        <span
+                          key={`${item.question}-${lineIndex}-${partIndex}`}
+                        >
+                          {part.text}
+                        </span>
+                      );
+                    })}
+                  </p>
+                ))}
+              </div>
+            </details>
+          ))}
+        </div>
+      ))}
+    </section>
   );
 }

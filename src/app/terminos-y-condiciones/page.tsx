@@ -17,7 +17,7 @@ export default function Page() {
             TÉRMINOS Y CONDICIONES DE USO
           </h1>
           <p className="text-sm mb-6" style={{ color: theme.textSecondary }}>
-            Última actualización: 4 de Marzo de 2026
+            Última actualización: martes, 14 de julio de 2026
           </p>
 
           <p className="mb-4" style={{ color: theme.textPrimary }}>
@@ -318,10 +318,10 @@ export default function Page() {
             <li>
               📧
               <a
-                href="mailto:barbify@glownest.app"
+                href="mailto:lucas.adrmarcos@gmail.com"
                 className="text-blue-600 hover:underline"
               >
-                barbify@glownest.app
+                lucas.adrmarcos@gmail.com
               </a>
             </li>
           </ul>
