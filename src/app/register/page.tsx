@@ -16,11 +16,18 @@ export default function RegisterPagePremium() {
   const [name, setName] = useState("");
   const [lastname, setLastname] = useState("");
   const [password, setPassword] = useState("");
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   const signUpSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!acceptedTerms) {
+      setError("Tenés que aceptar los términos y condiciones para continuar.");
+      return;
+    }
+
     setLoading(true);
     setError("");
 
@@ -155,6 +162,31 @@ export default function RegisterPagePremium() {
             className="w-full px-4 py-3 rounded-xl border border-black/10 focus:outline-none focus:ring-2 focus:ring-[#2f3e2f]/30 placeholder-gray-400 dark:placeholder-gray-300"
           />
 
+          <label
+            className="flex items-start gap-2 text-sm cursor-pointer select-none"
+            style={{ color: theme.theme.textSecondary }}
+          >
+            <input
+              type="checkbox"
+              checked={acceptedTerms}
+              onChange={(e) => setAcceptedTerms(e.target.checked)}
+              className="mt-0.5 h-4 w-4 shrink-0 cursor-pointer rounded border-black/20"
+              style={{ accentColor: theme.theme.primary }}
+            />
+            <span>
+              He leído y acepto los{" "}
+              <a
+                href="https://barbify.glownest.app/terminos-y-condiciones"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium underline cursor-pointer"
+                style={{ color: theme.theme.primary }}
+              >
+                términos y condiciones
+              </a>
+            </span>
+          </label>
+
           {error && (
             <div
               className="rounded-xl text-sm px-4 py-3"
@@ -169,8 +201,8 @@ export default function RegisterPagePremium() {
 
           <button
             type="submit"
-            disabled={loading}
-            className="w-full py-3 mt-2 rounded-xl font-semibold hover:scale-[1.02] transition disabled:opacity-60"
+            disabled={loading || !acceptedTerms}
+            className="w-full py-3 mt-2 rounded-xl font-semibold hover:scale-[1.02] transition disabled:opacity-60 disabled:hover:scale-100 cursor-pointer disabled:cursor-not-allowed"
             style={{
               backgroundColor: theme.theme.primary,
               color: theme.theme.bgCard,

@@ -6,10 +6,12 @@ import DeleteBarber from "@/components/deleteBarber";
 import { useBarbers } from "@/lib/store/services.store";
 import { IBarbers } from "@/models/Barbers";
 import NewBarber from "@/components/newBarber";
+import useTheme from "@/hooks/useTheme";
 
 export default function BarbersInfo() {
   const [isOpen, setIsOpen] = useState(false); // Controla si la sección de barbers está abierta
   const [selectedBarber, setSelectedBarber] = useState<IBarbers | null>(null);
+  const { theme } = useTheme();
 
   const { barbers, loading, refreshFromAPI } = useBarbers();
 
@@ -29,51 +31,92 @@ export default function BarbersInfo() {
       {/* 1. CABECERA PRINCIPAL / BOTÓN DE APERTURA */}
       {!isOpen ? (
         <div
-          className="cursor-pointer hover:bg-gray-100 p-4"
+          className="cursor-pointer p-4 transition-colors"
           onClick={() => setIsOpen(true)}
+          onMouseEnter={(e) =>
+            (e.currentTarget.style.backgroundColor = theme.accentBg)
+          }
+          onMouseLeave={(e) =>
+            (e.currentTarget.style.backgroundColor = theme.bg)
+          }
         >
           <span className="flex flex-row w-full justify-between items-center">
             <span>
-              <h2 className="">Información de los Barbers</h2>
-              <p className="text-xs text-gray-600">
+              <h2 className="" style={{ color: theme.textPrimary }}>
+                Información de los Barbers
+              </h2>
+              <p className="text-xs" style={{ color: theme.textSecondary }}>
                 Ve la información de los barbers registrados.
               </p>
             </span>
-            <ChevronRight className="w-6 h-6" />
+            <ChevronRight
+              className="w-6 h-6"
+              style={{ color: theme.textPrimary }}
+            />
           </span>
         </div>
       ) : (
         <div className="flex flex-col">
           {/* TÍTULO CON BOTÓN VOLVER */}
           <div
-            className="flex flex-row gap-4 cursor-pointer hover:bg-gray-100 py-4 px-2"
+            className="flex flex-row gap-4 cursor-pointer py-4 px-2 transition-colors"
             onClick={() => {
               setIsOpen(false);
               setSelectedBarber(null);
             }}
+            onMouseEnter={(e) =>
+              (e.currentTarget.style.backgroundColor = theme.accentBg)
+            }
+            onMouseLeave={(e) =>
+              (e.currentTarget.style.backgroundColor = theme.bg)
+            }
           >
-            <ChevronLeft />
-            <h2 className="">Información de los Barbers</h2>
+            <ChevronLeft style={{ color: theme.textPrimary }} />
+            <h2 className="" style={{ color: theme.textPrimary }}>
+              Información de los Barbers
+            </h2>
           </div>
 
           {/* LISTA DE BARBERS */}
           {!selectedBarber && (
-            <div className="flex flex-col p-2">
+            <div
+              className="flex flex-col p-2"
+              style={{ backgroundColor: theme.bg }}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.backgroundColor = theme.accentBg)
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.backgroundColor = theme.bg)
+              }
+            >
               {loading ? (
-                <p className="p-4 text-center">Cargando...</p>
+                <p
+                  className="p-4 text-center"
+                  style={{ color: theme.textPrimary }}
+                >
+                  Cargando...
+                </p>
               ) : barbers.length === 0 ? (
-                <p className="p-4 text-left">No hay Barbers registrados.</p>
+                <p
+                  className="p-4 text-left"
+                  style={{ color: theme.textPrimary }}
+                >
+                  No hay Barbers registrados.
+                </p>
               ) : (
                 barbers.map((barber) => (
                   <div
                     key={barber._id.toString()}
-                    className="p-4 flex justify-between items-center cursor-pointer hover:bg-gray-100"
+                    className="p-4 flex justify-between items-center cursor-pointer transition-colors"
                     onClick={() => setSelectedBarber(barber)}
                   >
-                    <h3 className="">
+                    <h3 className="" style={{ color: theme.textPrimary }}>
                       {barber.barberName} {barber.barberLastName}
                     </h3>
-                    <ChevronRight className="w-4 h-4" />
+                    <ChevronRight
+                      className="w-4 h-4"
+                      style={{ color: theme.textSecondary }}
+                    />
                   </div>
                 ))
               )}
@@ -82,14 +125,24 @@ export default function BarbersInfo() {
 
           {/* DETALLE DEL BARBER */}
           {selectedBarber && (
-            <div className="">
+            <div style={{ borderTop: `1px solid ${theme.border}` }}>
               <div
-                className="flex items-center gap-2 p-4 cursor-pointer hover:bg-gray-100 w-full"
+                className="flex items-center gap-2 p-4  w-full transition-colors"
                 onClick={() => setSelectedBarber(null)}
+                style={{
+                  borderBottom: `1px solid ${theme.border}`,
+                  backgroundColor: theme.bg,
+                }}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.backgroundColor = theme.accentBg)
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.backgroundColor = theme.bg)
+                }
               >
                 <div className="flex items-center justify-center gap-2">
-                  <X className="w-4 h-4" />
-                  <h3>
+                  <X className="w-4 h-4" style={{ color: theme.textPrimary }} />
+                  <h3 style={{ color: theme.textPrimary }}>
                     {selectedBarber.barberName} {selectedBarber.barberLastName}
                   </h3>
                 </div>
@@ -98,25 +151,56 @@ export default function BarbersInfo() {
                 </div>
               </div>
 
-              <div className="flex flex-col gap-4 p-4">
+              <div
+                className="flex flex-col gap-4 p-4"
+                style={{ backgroundColor: theme.bg }}
+              >
                 <div>
-                  <p className="text-gray-500 text-xs mb-1">EMAIL</p>
-                  <p className="">{selectedBarber.barberEmail}</p>
+                  <p
+                    className="text-xs mb-1"
+                    style={{ color: theme.textMuted }}
+                  >
+                    EMAIL
+                  </p>
+                  <p style={{ color: theme.textPrimary }}>
+                    {selectedBarber.barberEmail}
+                  </p>
                 </div>
 
                 <div>
-                  <p className="text-gray-500 text-xs mb-1">TELÉFONO</p>
-                  <p className="">{selectedBarber.barberPhone}</p>
+                  <p
+                    className="text-xs mb-1"
+                    style={{ color: theme.textMuted }}
+                  >
+                    TELÉFONO
+                  </p>
+                  <p style={{ color: theme.textPrimary }}>
+                    {selectedBarber.barberPhone}
+                  </p>
                 </div>
 
                 <div>
-                  <p className="text-gray-500 text-xs mb-1">ROL</p>
-                  <p className="">{selectedBarber.barberRole}</p>
+                  <p
+                    className="text-xs mb-1"
+                    style={{ color: theme.textMuted }}
+                  >
+                    ROL
+                  </p>
+                  <p style={{ color: theme.textPrimary }}>
+                    {selectedBarber.barberRole}
+                  </p>
                 </div>
 
                 <div>
-                  <p className="text-gray-500 text-xs mb-1">UBICACION</p>
-                  <p className="">{formatLocation(selectedBarber)}</p>
+                  <p
+                    className="text-xs mb-1"
+                    style={{ color: theme.textMuted }}
+                  >
+                    UBICACION
+                  </p>
+                  <p style={{ color: theme.textPrimary }}>
+                    {formatLocation(selectedBarber)}
+                  </p>
                 </div>
               </div>
             </div>

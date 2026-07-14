@@ -15,6 +15,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
 import axios from "axios";
+import useTheme from "@/hooks/useTheme";
 
 export default function DeleteBarber({
   id,
@@ -45,37 +46,87 @@ export default function DeleteBarber({
     }
   }
 
+  const { theme } = useTheme();
+
   return (
     <AlertDialog>
-      <AlertDialogTrigger asChild>
+      <AlertDialogTrigger asChild className="cursor-pointer">
         {trigger ?? (
-          <Button variant="destructive" className="flex items-center gap-2">
+          <Button
+            className="flex items-center gap-2 cursor-pointer"
+            style={{
+              backgroundColor: theme.danger,
+              color: theme.dangerText,
+            }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLButtonElement).style.backgroundColor =
+                theme.dangerHover;
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLButtonElement).style.backgroundColor =
+                theme.danger;
+            }}
+          >
             <Trash2 className="h-4 w-4" />
             {title}
           </Button>
         )}
       </AlertDialogTrigger>
 
-      <AlertDialogContent>
+      <AlertDialogContent
+        style={{
+          backgroundColor: theme.bgCard,
+          color: theme.textPrimary,
+          borderColor: theme.border,
+        }}
+      >
         <AlertDialogHeader>
-          <AlertDialogTitle className="text-black">
+          <AlertDialogTitle style={{ color: theme.textPrimary }}>
             ¿Seguro que querés eliminar este barber?
           </AlertDialogTitle>
-          <AlertDialogDescription>
+          <AlertDialogDescription style={{ color: theme.textSecondary }}>
             Esta acción no se puede deshacer. Tu barber y toda su información
             serán eliminados permanentemente.
           </AlertDialogDescription>
         </AlertDialogHeader>
 
         <AlertDialogFooter>
-          <AlertDialogCancel disabled={isDeleting} className="text-black">
+          <AlertDialogCancel
+            disabled={isDeleting}
+            className="cursor-pointer"
+            style={{
+              backgroundColor: theme.bgCard,
+              color: theme.textMuted,
+              borderColor: theme.border,
+            }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLButtonElement).style.backgroundColor =
+                theme.accentBg;
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLButtonElement).style.backgroundColor =
+                theme.bgCard;
+            }}
+          >
             Cancelar
           </AlertDialogCancel>
 
           <AlertDialogAction
             onClick={handleDelete}
             disabled={isDeleting}
-            className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            className="cursor-pointer"
+            style={{
+              backgroundColor: theme.danger,
+              color: theme.dangerText,
+            }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLButtonElement).style.backgroundColor =
+                theme.dangerHover;
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLButtonElement).style.backgroundColor =
+                theme.danger;
+            }}
           >
             {isDeleting ? "Eliminando..." : "Sí, eliminar"}
           </AlertDialogAction>
