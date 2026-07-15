@@ -34,7 +34,7 @@ export default function ClientsPageContent() {
 
   return (
     <div
-      className="relative flex flex-col w-full p-4"
+      className="relative flex flex-col p-4"
       style={{ backgroundColor: theme.bg }}
     >
       {loading ? (
@@ -43,7 +43,10 @@ export default function ClientsPageContent() {
         <ClientListView clients={clients} />
       )}
 
-      <div className="mx-auto mt-auto flex gap-2 justify-center">
+      {/* padding-bottom para que el contenido no quede tapado por el navegador fijo */}
+      <div className="pb-20" />
+
+      <div className="fixed bottom-8 left-0 right-0 mx-auto flex gap-2 justify-center items-center px-4 py-2">
         <button
           disabled={page === 1}
           onClick={() => goToPage(page - 1)}

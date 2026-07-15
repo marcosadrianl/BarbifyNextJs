@@ -2,10 +2,11 @@
 //@ts-ignore
 import "../globals.css";
 import React from "react";
-
+import { ServicesBootstrap } from "@/components/ServicesBootstrap";
 import NavBar from "@/components/navBar";
 import SearchBar from "@/components/searchBar";
 import useTheme from "@/hooks/useTheme";
+import { useState, useEffect } from "react";
 
 export default function AccountLayout({
   children,
@@ -13,28 +14,33 @@ export default function AccountLayout({
   children: React.ReactNode;
 }>) {
   const { theme } = useTheme();
+  const [renderKey, setRenderKey] = useState(0);
+  ServicesBootstrap();
 
-  const themeStyles = {
-    "--theme-bg": theme.bg,
-    "--theme-bgCard": theme.bgCard,
-    "--theme-text-primary": theme.textPrimary,
-    "--theme-text-secondary": theme.textSecondary,
-    "--theme-border": theme.border,
-  } as React.CSSProperties;
+  useEffect(() => {
+    setRenderKey((prev) => prev + 1);
+  }, [theme]);
 
   return (
     <div
-      className="flex flex-row h-screen bg-(--theme-bg) text-(--theme-text-primary)"
-      style={themeStyles}
+      className="flex flex-row h-screen w-screen overflow-hidden"
+      style={{
+        background: theme.bg,
+      }}
     >
       <NavBar />
       <div className="flex flex-col w-full h-full">
-        <div className="flex flex-row justify-end items-center p-4 border-b border-(--theme-border)">
+        <div
+          className="flex flex-row justify-end items-center p-4"
+          style={{
+            border: "1px solid " + theme.border,
+          }}
+        >
           <SearchBar />
         </div>
 
         <div className="flex flex-row h-full overflow-auto">
-          <div className="flex flex-col h-full w-full bg-(--theme-bg)">
+          <div className="flex flex-col h-full w-full" key={renderKey}>
             {children}
           </div>
         </div>

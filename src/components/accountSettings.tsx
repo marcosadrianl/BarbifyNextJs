@@ -139,50 +139,7 @@ export default function AccountSettings({
 
   const helpers: SectionHelpers = { formatValue, getStatusLabel, getPlanLabel };
 
-  function ThemeSelector() {
-    const { mode, setMode, manualChoice, setManualChoice } = useTheme();
-
-    const options: { key: "system" | "light" | "dark"; label: string }[] = [
-      { key: "system", label: "Usar sistema" },
-      { key: "light", label: "Claro" },
-      { key: "dark", label: "Oscuro" },
-    ];
-
-    const isActive = (key: "system" | "light" | "dark") =>
-      key === "system"
-        ? mode === "system"
-        : mode === "manual" && manualChoice === key;
-
-    const handleClick = (key: "system" | "light" | "dark") => {
-      if (key === "system") {
-        setMode("system");
-      } else {
-        setMode("manual");
-        setManualChoice(key);
-      }
-    };
-
-    return (
-      <div className="flex gap-2">
-        {options.map((opt) => (
-          <button
-            key={opt.key}
-            onClick={() => handleClick(opt.key)}
-            className="rounded-md border px-3 py-1 text-xs transition-colors"
-            style={{
-              borderColor: "var(--theme-border)",
-              backgroundColor: isActive(opt.key)
-                ? "var(--theme-accent-bg)"
-                : "transparent",
-              color: "var(--theme-text-primary)",
-            }}
-          >
-            {opt.label}
-          </button>
-        ))}
-      </div>
-    );
-  }
+  /*   function ThemeSelector() {} */
 
   // ---------------------------------------------------------------------
   // Acá está TODA la config de secciones. Para agregar una nueva:
@@ -370,7 +327,7 @@ export default function AccountSettings({
         </>
       ),
     },
-    {
+    /*     {
       id: "theme",
       title: "Cambiar Tema",
       description: "Cambia el tema de la aplicación entre claro y oscuro.",
@@ -379,7 +336,7 @@ export default function AccountSettings({
           <h2 className="font-semibold text-(--theme-text-primary)">
             Tema actual
           </h2>
-          <p className="text-sm text-(--theme-text-secondary)">
+          <p className="text-sm" style={{ color: theme.textSecondary }}>
             {themeMode === "dark" ? "Oscuro" : "Claro"}
           </p>
 
@@ -388,7 +345,7 @@ export default function AccountSettings({
           </div>
         </div>
       ),
-    },
+    }, */
     {
       id: "edit",
       title: "Editar Información de la Cuenta",

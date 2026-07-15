@@ -4,8 +4,7 @@ import Link, { useLinkStatus } from "next/link";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
-import { darkTheme, lightTheme } from "@/UI/theme";
-
+import useTheme from "@/hooks/useTheme";
 type Phase = "idle" | "loading" | "complete" | "fading";
 
 function ProgressOverlay() {
@@ -60,37 +59,8 @@ function ProgressOverlay() {
 export function NavLink({ href, icon: Icon, children }) {
   const pathname = usePathname();
   const [hovered, setHovered] = useState(false);
-  const [themeMode, setThemeMode] = useState<"light" | "dark">("light");
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-    const updateTheme = (event: MediaQueryListEvent | MediaQueryList) => {
-      setThemeMode(event.matches ? "dark" : "light");
-    };
-
-    updateTheme(mediaQuery);
-    if (typeof mediaQuery.addEventListener === "function") {
-      mediaQuery.addEventListener("change", updateTheme);
-    } else {
-      mediaQuery.addListener(updateTheme);
-    }
-
-    return () => {
-      if (typeof mediaQuery.removeEventListener === "function") {
-        mediaQuery.removeEventListener("change", updateTheme);
-      } else {
-        mediaQuery.removeListener(updateTheme);
-      }
-    };
-  }, []);
-
-  const theme = themeMode === "dark" ? darkTheme : lightTheme;
+  const { theme } = useTheme();
   const isActive = pathname?.startsWith?.(href);
-  const bg = isActive
-    ? theme.accentBg
-    : hovered
-      ? theme.accentBg
-      : theme.bgSidebar;
 
   return (
     <Link
@@ -98,7 +68,7 @@ export function NavLink({ href, icon: Icon, children }) {
       className={clsx(
         "relative overflow-hidden flex flex-row items-center rounded-r-2xl px-3 py-1 w-full gap-2",
       )}
-      style={{ backgroundColor: bg, color: theme.textPrimary }}
+      style={{ backgroundColor: theme.bg, color: theme.textPrimary }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >

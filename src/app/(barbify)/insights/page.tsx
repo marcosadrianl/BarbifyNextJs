@@ -42,7 +42,7 @@ export default async function Insights() {
   const canSeeServicesDashboard = hasFeature(user, "insightsDashboard");
 
   return (
-    <div className="flex flex-col p-4 w-full h-fit gap-4 ">
+    <div className="flex flex-col p-4 w-full min-w-2xl h-fit gap-4 ">
       {canExportPDF && <ServicesPDFGenerator limitToToday={limitToToday} />}
       {canSeeServicesDashboard && <ServicesDashboard />}
     </div>

@@ -55,6 +55,14 @@ export default function MoreInfoModal({ client }: { client: IClient }) {
     return `${day}/${month}/${year}`;
   }
 
+  function formatHexId(hexId: string) {
+    // Divide en bloques de 4 caracteres
+    return hexId
+      .match(/.{1,4}/g)
+      .join("-")
+      .toLocaleUpperCase();
+  }
+
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
@@ -83,13 +91,20 @@ export default function MoreInfoModal({ client }: { client: IClient }) {
       >
         <DialogHeader>
           <div className="flex items-center justify-between ">
-            <DialogTitle
-              className="text-2xl flex items-center gap-2"
-              style={{ color: theme.textPrimary }}
-            >
-              <User className="w-6 h-6" style={{ color: theme.primary }} />
-              {client.clientName} {client.clientLastName}
-            </DialogTitle>
+            <div>
+              <DialogTitle
+                className="text-2xl flex items-center gap-2"
+                style={{ color: theme.textPrimary }}
+              >
+                <User className="w-6 h-6" style={{ color: theme.primary }} />
+                {client.clientName} {client.clientLastName}
+              </DialogTitle>
+              <span title="ID del cliente" className="flex items-center gap-2">
+                <p className="text-sm" style={{ color: theme.textSecondary }}>
+                  {formatHexId(client._id)}
+                </p>
+              </span>
+            </div>
             <div
               className="flex items-center gap-2"
               title={

@@ -12,7 +12,6 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 
-
 export default function EditPasswordCard({ onClose }: { onClose: () => void }) {
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -22,13 +21,13 @@ export default function EditPasswordCard({ onClose }: { onClose: () => void }) {
   const [success, setSuccess] = useState(false);
   const { theme } = useTheme();
 
-  const inputStyle = {
+  var inputStyle = {
     backgroundColor: theme.bgCard,
     color: theme.textPrimary,
     borderColor: theme.border,
   };
 
-  const labelStyle = {
+  var labelStyle = {
     color: theme.textSecondary,
   };
 
@@ -50,7 +49,7 @@ export default function EditPasswordCard({ onClose }: { onClose: () => void }) {
 
     if (!PASSWORD_REGEX.test(newPassword)) {
       setError(
-        "Debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número"
+        "Debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número",
       );
       return;
     }
@@ -72,7 +71,7 @@ export default function EditPasswordCard({ onClose }: { onClose: () => void }) {
       }
     } catch (err: any) {
       setError(
-        err?.response?.data?.error || "Error al actualizar la contraseña"
+        err?.response?.data?.error || "Error al actualizar la contraseña",
       );
     } finally {
       setLoading(false);
@@ -171,7 +170,10 @@ export default function EditPasswordCard({ onClose }: { onClose: () => void }) {
             <Button
               onClick={handleSubmit}
               disabled={loading}
-              style={{ backgroundColor: theme.primary, color: theme.dangerText }}
+              style={{
+                backgroundColor: theme.primary,
+                color: theme.dangerText,
+              }}
             >
               {loading ? "Guardando..." : "Guardar"}
             </Button>

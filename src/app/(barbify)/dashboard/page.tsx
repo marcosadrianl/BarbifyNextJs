@@ -47,10 +47,10 @@ export default async function Page() {
   }
 
   return (
-    <div className="flex flex-col gap-4 p-4">
+    <div className="flex flex-col gap-4 p-4 min-w-4xl">
       <TimeCheckDashboard />
 
-      <div className="">
+      <div>
         <ChartAreaInteractive />
       </div>
 

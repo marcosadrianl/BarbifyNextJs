@@ -83,7 +83,7 @@ export default function DiaryClient() {
 
   return (
     <div
-      className="flex flex-row w-full h-full overflow-hidden p-0 bg-(--theme-bg) text-(--theme-text-primary)"
+      className="flex flex-row w-full min-w-2xl h-full overflow-hidden p-0 bg-(--theme-bg) text-(--theme-text-primary)"
       style={themeStyles}
     >
       <div className="w-1/3 h-full overflow-y-auto border-r border-(--theme-border)">

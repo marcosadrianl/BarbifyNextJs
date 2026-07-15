@@ -296,19 +296,19 @@ const ServicesPDFGenerator = ({
   } as React.CSSProperties;
 
   return (
-    <div className="w-full md:w-1/2">
+    <div className="w-full max-w-3xl">
       <div
-        className="rounded-2xl border border-[var(--theme-border)] bg-[var(--theme-bgCard)] p-4 shadow-sm"
+        className="rounded-2xl border border-(--theme-border) bg-(--theme-bgCard) p-4 shadow-sm"
         style={themeStyles}
       >
-        <h2 className="mb-6 flex items-center gap-2 text-2xl font-bold text-[var(--theme-text-primary)]">
+        <h2 className="mb-6 flex items-center gap-2 text-2xl font-bold text-(--theme-text-primary)">
           <FileDown className="w-6 h-6" />
           Exportar Servicios
         </h2>
 
         <div className="mb-6 space-y-4">
           <div>
-            <label className="mb-2 flex flex-row items-center text-sm font-medium text-[var(--theme-text-secondary)]">
+            <label className="mb-2 flex flex-row items-center text-sm font-medium text-(--theme-text-secondary)">
               <Calendar className="mr-1 inline h-4 w-4" />
               Filtrar por fecha {limitToToday ? "(solo hoy)" : "(opcional)"}
             </label>
@@ -316,21 +316,21 @@ const ServicesPDFGenerator = ({
             <div className="mb-3 flex gap-2">
               <button
                 onClick={setToday}
-                className="rounded-md bg-[var(--theme-accent-bg)] px-3 py-1 text-sm text-[var(--theme-text-primary)] transition-colors hover:opacity-90 cursor-pointer"
+                className="rounded-md bg-(--theme-accent-bg) px-3 py-1 text-sm text-(--theme-text-primary) transition-colors hover:opacity-90 cursor-pointer"
               >
                 Hoy
               </button>
               <button
                 onClick={setThisWeek}
                 disabled={limitToToday}
-                className="rounded-md bg-[var(--theme-accent-bg)] px-3 py-1 text-sm text-[var(--theme-text-primary)] transition-colors hover:opacity-90 cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
+                className="rounded-md bg-(--theme-accent-bg) px-3 py-1 text-sm text-(--theme-text-primary) transition-colors hover:opacity-90 cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
               >
                 Esta semana
               </button>
               <button
                 onClick={setThisMonth}
                 disabled={limitToToday}
-                className="rounded-md bg-[var(--theme-accent-bg)] px-3 py-1 text-sm text-[var(--theme-text-primary)] transition-colors hover:opacity-90 cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
+                className="rounded-md bg-(--theme-accent-bg) px-3 py-1 text-sm text-(--theme-text-primary) transition-colors hover:opacity-90 cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
               >
                 Este mes
               </button>
@@ -338,7 +338,7 @@ const ServicesPDFGenerator = ({
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="mb-1 block text-xs text-[var(--theme-text-secondary)]">
+                <label className="mb-1 block text-xs text-(--theme-text-secondary)">
                   Desde
                 </label>
                 <input
@@ -348,11 +348,11 @@ const ServicesPDFGenerator = ({
                     setDateRange((prev) => ({ ...prev, from: e.target.value }))
                   }
                   disabled={limitToToday}
-                  className="w-full rounded-md border border-[var(--theme-border)] bg-[var(--theme-bg)] px-3 py-2 text-[var(--theme-text-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--theme-primary)] disabled:cursor-not-allowed disabled:opacity-50"
+                  className="w-full rounded-md border border-(--theme-border) bg-(--theme-bg) px-3 py-2 text-(--theme-text-primary) focus:outline-none focus:ring-2 focus:ring-(--theme-primary) disabled:cursor-not-allowed disabled:opacity-50"
                 />
               </div>
               <div>
-                <label className="mb-1 block text-xs text-[var(--theme-text-secondary)]">
+                <label className="mb-1 block text-xs text-(--theme-text-secondary)">
                   Hasta
                 </label>
                 <input
@@ -362,14 +362,14 @@ const ServicesPDFGenerator = ({
                     setDateRange((prev) => ({ ...prev, to: e.target.value }))
                   }
                   disabled={limitToToday}
-                  className="w-full rounded-md border border-[var(--theme-border)] bg-[var(--theme-bg)] px-3 py-2 text-[var(--theme-text-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--theme-primary)] disabled:cursor-not-allowed disabled:opacity-50"
+                  className="w-full rounded-md border border-(--theme-border) bg-(--theme-bg) px-3 py-2 text-(--theme-text-primary) focus:outline-none focus:ring-2 focus:ring-(--theme-primary) disabled:cursor-not-allowed disabled:opacity-50"
                 />
               </div>
             </div>
             {(dateRange.from || dateRange.to) && !limitToToday && (
               <button
                 onClick={handleClearDates}
-                className="mt-2 text-sm text-[var(--theme-text-secondary)] hover:text-[var(--theme-text-primary)]"
+                className="mt-2 text-sm text-(--theme-text-secondary) hover:text-(--theme-text-primary)"
               >
                 Limpiar fechas
               </button>
@@ -381,7 +381,7 @@ const ServicesPDFGenerator = ({
           <button
             onClick={generatePDF}
             disabled={loading}
-            className="flex-1 rounded-lg bg-[var(--theme-primary)] px-6 py-3 font-semibold text-white transition-colors hover:bg-[var(--theme-primary-hover)] cursor-pointer disabled:cursor-not-allowed disabled:bg-gray-400"
+            className="flex-1 rounded-lg bg-(--theme-primary) px-6 py-3 font-semibold text-white transition-colors hover:bg-(--theme-primary-hover) cursor-pointer disabled:cursor-not-allowed disabled:bg-gray-400"
           >
             {loading ? (
               <>

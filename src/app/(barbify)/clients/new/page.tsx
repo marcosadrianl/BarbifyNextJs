@@ -165,28 +165,68 @@ export default function CreateClientForm() {
     }
   };
 
+  function submit() {
+    onSubmit(form.getValues());
+  }
+
   return (
-    <div
-      className="mx-auto p-4"
-      style={{ backgroundColor: theme.bg, color: theme.textPrimary }}
-    >
+    <div className=" px-4 pt-4">
       <Card
+        className="flex flex-col max-h-[90vh]" // acá: altura acotada + flex column
         style={{
           backgroundColor: theme.bgCard,
           color: theme.textPrimary,
           borderColor: theme.border,
         }}
       >
-        <CardHeader>
-          <CardTitle className="text-3xl" style={{ color: theme.textPrimary }}>
-            Nuevo Cliente
-          </CardTitle>
+        <CardHeader
+          className="border-b sticky top-0 z-10" // sticky en vez de overflow-y-clip
+          style={{ backgroundColor: theme.bgCard }} // importante: fondo opaco
+        >
+          <span className="flex flex-row justify-between">
+            <CardTitle
+              className="text-3xl"
+              style={{ color: theme.textPrimary }}
+            >
+              Nuevo Cliente
+            </CardTitle>
+
+            {/* Botones de acción */}
+            <div className="flex gap-4 justify-end">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => router.back()}
+                disabled={isSubmitting}
+                style={{
+                  color: theme.textSecondary,
+                  backgroundColor: theme.bgCard,
+                  borderColor: theme.border,
+                  cursor: "pointer",
+                }}
+              >
+                Cancelar
+              </Button>
+              <Button
+                type="button"
+                onClick={submit}
+                disabled={isSubmitting}
+                style={{
+                  backgroundColor: theme.primary,
+                  color: theme.dangerText,
+                  cursor: "pointer",
+                }}
+              >
+                {isSubmitting ? "Creando..." : "Crear Cliente"}
+              </Button>
+            </div>
+          </span>
           <CardDescription style={{ color: theme.textSecondary }}>
             Completa la información del cliente
           </CardDescription>
         </CardHeader>
 
-        <CardContent>
+        <CardContent className="overflow-y-auto">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
               {/* Información Básica */}
@@ -577,35 +617,6 @@ export default function CreateClientForm() {
                   <AlertDescription>{serverError}</AlertDescription>
                 </Alert>
               )}
-
-              {/* Botones de acción */}
-              <div className="flex gap-4 justify-end">
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={() => router.back()}
-                  disabled={isSubmitting}
-                  style={{
-                    color: theme.textSecondary,
-                    backgroundColor: theme.bgCard,
-                    borderColor: theme.border,
-                    cursor: "pointer",
-                  }}
-                >
-                  Cancelar
-                </Button>
-                <Button
-                  type="submit"
-                  disabled={isSubmitting}
-                  style={{
-                    backgroundColor: theme.primary,
-                    color: theme.dangerText,
-                    cursor: "pointer",
-                  }}
-                >
-                  {isSubmitting ? "Creando..." : "Crear Cliente"}
-                </Button>
-              </div>
             </form>
           </Form>
         </CardContent>

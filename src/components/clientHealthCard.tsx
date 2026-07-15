@@ -7,6 +7,28 @@ import { IClient } from "@/models/Clients.schema";
 
 export default function ClientHealthCard({ client }: { client: IClient }) {
   const { theme } = useTheme();
+  function HealthItem({
+    value,
+    description,
+  }: {
+    value?: string;
+    description?: string;
+  }) {
+    return (
+      <div
+        className="rounded-lg p-4 text-sm leading-relaxed"
+        style={{
+          backgroundColor: theme.accentBg,
+          borderColor: theme.border,
+          color: theme.textSecondary,
+        }}
+      >
+        {value?.trim()
+          ? value
+          : `Sin información de ${description} registrada.`}
+      </div>
+    );
+  }
 
   return (
     <Card
@@ -24,42 +46,36 @@ export default function ClientHealthCard({ client }: { client: IClient }) {
 
       <CardContent>
         <Tabs defaultValue="alergias" className="w-full">
-          <TabsList className="grid grid-cols-3 w-full">
+          <TabsList
+            className="grid grid-cols-3 w-full"
+            style={{
+              background: theme.bg,
+            }}
+          >
             <TabsTrigger value="alergias">Alergias</TabsTrigger>
             <TabsTrigger value="enfermedades">Enfermedades</TabsTrigger>
             <TabsTrigger value="medicamentos">Medicamentos</TabsTrigger>
           </TabsList>
 
           <TabsContent value="alergias" className="mt-4">
-            <HealthItem value={client.clientAllergies} />
+            <HealthItem value={client.clientAllergies} description="alergias" />
           </TabsContent>
 
           <TabsContent value="enfermedades" className="mt-4">
-            <HealthItem value={client.clientDiseases} />
+            <HealthItem
+              value={client.clientDiseases}
+              description="enfermedades"
+            />
           </TabsContent>
 
           <TabsContent value="medicamentos" className="mt-4">
-            <HealthItem value={client.clientMedications} />
+            <HealthItem
+              value={client.clientMedications}
+              description="medicamentos"
+            />
           </TabsContent>
         </Tabs>
       </CardContent>
     </Card>
-  );
-}
-
-function HealthItem({ value }: { value?: string }) {
-  const { theme } = useTheme();
-
-  return (
-    <div
-      className="rounded-lg border p-4 text-sm leading-relaxed"
-      style={{
-        backgroundColor: theme.accentBg,
-        borderColor: theme.border,
-        color: theme.textSecondary,
-      }}
-    >
-      {value?.trim() ? value : "Sin información registrada"}
-    </div>
   );
 }

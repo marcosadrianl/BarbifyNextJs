@@ -25,7 +25,7 @@ export default function AccountLayout({
 
   return (
     <div
-      className="flex flex-row h-screen bg-(--theme-bg) text-(--theme-text-primary)"
+      className="flex flex-row h-screen min-w-2xl bg-(--theme-bg) text-(--theme-text-primary)"
       style={themeStyles}
     >
       <div className="flex flex-row h-full w-full overflow-auto">

@@ -3,39 +3,14 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Search } from "lucide-react";
-import { darkTheme, lightTheme } from "@/UI/theme";
+import useTheme from "@/hooks/useTheme";
 
 export default function SearchBar() {
   const router = useRouter();
   const [query, setQuery] = useState("");
   const [focused, setFocused] = useState(false);
   const [btnHover, setBtnHover] = useState(false);
-  const [themeMode, setThemeMode] = useState<"light" | "dark">("light");
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-    const updateTheme = (event: MediaQueryListEvent | MediaQueryList) => {
-      setThemeMode(event.matches ? "dark" : "light");
-    };
-
-    updateTheme(mediaQuery);
-
-    if (typeof mediaQuery.addEventListener === "function") {
-      mediaQuery.addEventListener("change", updateTheme);
-    } else {
-      mediaQuery.addListener(updateTheme);
-    }
-
-    return () => {
-      if (typeof mediaQuery.removeEventListener === "function") {
-        mediaQuery.removeEventListener("change", updateTheme);
-      } else {
-        mediaQuery.removeListener(updateTheme);
-      }
-    };
-  }, []);
-
-  const theme = themeMode === "dark" ? darkTheme : lightTheme;
+  const { theme } = useTheme();
 
   const handleSearch = () => {
     if (query.trim()) {

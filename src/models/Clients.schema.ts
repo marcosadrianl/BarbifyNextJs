@@ -66,3 +66,5 @@ export const ClientZod = ClientSchemaZod.extend({
   createdAt: z.string(),
   updatedAt: z.string(),
 });
+
+export type { IClient };
