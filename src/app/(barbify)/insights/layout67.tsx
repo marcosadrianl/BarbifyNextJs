@@ -1,5 +1,5 @@
 "use client";
-
+//@ts-ignore
 import "../../globals.css";
 import React from "react";
 
@@ -22,7 +22,7 @@ export default function RootLayout({
 
   return (
     <div
-      className="flex flex-row h-screen bg-[var(--theme-bg)] text-[var(--theme-text-primary)]"
+      className="flex flex-row h-screen bg-(--theme-bg) text-(--theme-text-primary)"
       style={themeStyles}
     >
       <NavBar />

@@ -1,9 +1,8 @@
 "use client";
 //@ts-ignore
-import "../../globals.css";
+import "../globals.css";
 import React from "react";
 
-import { AccountSidebar } from "@/components/AccountSidebar";
 import NavBar from "@/components/navBar";
 import SearchBar from "@/components/searchBar";
 import useTheme from "@/hooks/useTheme";
@@ -28,12 +27,16 @@ export default function AccountLayout({
       className="flex flex-row h-screen bg-(--theme-bg) text-(--theme-text-primary)"
       style={themeStyles}
     >
-      <div className="flex flex-row h-full w-full overflow-auto">
-        <aside className="w-1/3 overflow-auto no-scrollbar border-r border-(--theme-border)">
-          <AccountSidebar />
-        </aside>
-        <div className="flex flex-col h-full w-2/3 bg-(--theme-bg)">
-          {children}
+      <NavBar />
+      <div className="flex flex-col w-full h-full">
+        <div className="flex flex-row justify-end items-center p-4 border-b border-(--theme-border)">
+          <SearchBar />
+        </div>
+
+        <div className="flex flex-row h-full overflow-auto">
+          <div className="flex flex-col h-full w-full bg-(--theme-bg)">
+            {children}
+          </div>
         </div>
       </div>
     </div>

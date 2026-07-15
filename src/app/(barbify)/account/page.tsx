@@ -30,10 +30,10 @@ export default async function Page() {
 
   return (
     <div className="min-h-full">
-      <h1 className="mb-4 p-4 text-xl font-bold text-[var(--theme-text-primary)]">
+      <h1 className="mb-4 p-4 text-xl font-bold text-(--theme-text-primary)">
         Tu Cuenta
       </h1>
-      <p className="mb-6 px-4 text-[var(--theme-text-secondary)]">
+      <p className="mb-6 px-4 text-(--theme-text-secondary)">
         Ve la información de la cuenta asociada a tu usuario.
       </p>
       <AccountSettings />

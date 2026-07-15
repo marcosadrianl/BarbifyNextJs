@@ -1,0 +1,27 @@
+Lo que queda para esta semana es  cunificar la forma de cambiar el tema a claro / oscuro de ttoda la app. la que funciona es importando
+
+import useTheme from "@/hooks/useTheme";
+
+
+Luego en la export function:
+
+import useTheme from "@/hooks/useTheme";
+
+Y se aplica mediante style:
+
+<div
+      className={`${montserrat.className} overflow-hidden`}
+      style={{
+        backgroundColor: theme.bg,
+        color: theme.appName,
+      }}
+    >
+
+
+
+Este admite elegir manualmente el modo o dejar que el sistema decida. 
+
+
+Por ultimo, mejorar la ui de esta funcion en configuracion de cuenta:
+
+Cuenta > Tu cuenta > Cambiar Tema

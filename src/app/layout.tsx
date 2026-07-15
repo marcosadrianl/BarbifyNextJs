@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+//@ts-ignore
 import "./globals.css";
 import Providers from "@/components/providers";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -18,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es">
-      <body className="antialiased max-w-[100vw">
+      <body className="antialiased max-w-[100vw]">
         <Providers>{children}</Providers>
         <SpeedInsights />
       </body>

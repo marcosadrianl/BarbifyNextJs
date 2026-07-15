@@ -83,14 +83,14 @@ export default function DiaryClient() {
 
   return (
     <div
-      className="flex flex-row w-full h-full overflow-hidden p-0 bg-[var(--theme-bg)] text-[var(--theme-text-primary)]"
+      className="flex flex-row w-full h-full overflow-hidden p-0 bg-(--theme-bg) text-(--theme-text-primary)"
       style={themeStyles}
     >
-      <div className="w-1/3 h-full overflow-y-auto border-r border-[var(--theme-border)]">
+      <div className="w-1/3 h-full overflow-y-auto border-r border-(--theme-border)">
         <EventDetails selectedEvents={selectedEvents} />
       </div>
 
-      <div className="w-2/3 bg-[var(--theme-bgCard)] p-4 h-full relative overflow-y-auto">
+      <div className="w-2/3 bg-(--theme-bgCard) p-4 h-full relative overflow-y-auto">
         <Calendar
           eventsData={eventsData}
           onEventClick={handleCalendarEventClick}
