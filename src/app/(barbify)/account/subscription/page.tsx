@@ -26,9 +26,10 @@ export default async function Page() {
   const planDetails =
     SUBSCRIPTION_PLANS[plan as keyof typeof SUBSCRIPTION_PLANS];
 
-  const nextPaymentDate = subscription.nextPaymentDate
-    ? new Date(subscription.nextPaymentDate).toLocaleDateString("es-AR")
+  const nextPaymentDate = subscription.trialEndDate
+    ? new Date(subscription.trialEndDate).toLocaleDateString("es-AR")
     : "-";
+
   const lastPaymentDate = subscription.lastPaymentDate
     ? new Date(subscription.lastPaymentDate).toLocaleDateString("es-AR")
     : "-";

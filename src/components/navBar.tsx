@@ -9,7 +9,6 @@ import {
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import Link from "next/link";
-import { usePermissions } from "@/hooks/usePermissions";
 import useTheme from "@/hooks/useTheme";
 
 const Titles = Alice({
@@ -19,7 +18,6 @@ const Titles = Alice({
 });
 
 export default function NavBar() {
-  const {} = usePermissions();
   const { theme } = useTheme();
 
   return (

@@ -38,7 +38,7 @@ export default function SubscriptionPageClient({
       icon: AlertCircle,
     },
     expired: {
-      label: "Expirada",
+      label: "Expirada,",
       color: theme.textMuted,
       icon: AlertCircle,
     },
